@@ -2,7 +2,7 @@ import axios from 'axios'
 import { userLogout, getAccessToken, getRefreshToken, saveAccessToken, saveRefreshToken } from '@/helpers/utils/common'
 
 const Api = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_URL,
+  baseURL:  'http://34.150.59.30:8082',
   responseType: 'json',
 })
 

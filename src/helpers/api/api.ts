@@ -4,7 +4,7 @@ import { v4 as uuidv4 } from 'uuid'
 import { getCookie } from 'cookies-next'
 
 const Api = axios.create({
-  baseURL:  'http://34.150.59.30:8082',
+  baseURL: 'http://34.150.59.30:8082',
   responseType: 'json',
 })
 
@@ -35,7 +35,7 @@ Api.interceptors.request.use(
     if (token) {
       config.headers.Authorization = 'Bearer ' + token
     }
-    if (config.url.indexOf('googleapis') !== -1) {
+    if (config.url.indexOf('/login') !== -1) {
       delete config.headers.Authorization
     }
     let headers = {
@@ -45,7 +45,6 @@ Api.interceptors.request.use(
       'm-platform': 'WEB',
     }
     const uuid = getCookie('uuid')
-    if (token) headers = { Authorization: `Bearer ${token}`, ...headers }
     if (uuid) {
       headers = { ...headers, 'm-device-id': uuid }
     } else {

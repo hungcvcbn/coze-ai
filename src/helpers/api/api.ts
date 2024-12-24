@@ -1,5 +1,7 @@
 import axios from 'axios'
-import { userLogout, getAccessToken, getRefreshToken, saveAccessToken, saveRefreshToken } from '@/helpers/utils/common'
+import { userLogout, getAccessToken, getRefreshToken, saveAccessToken, saveRefreshToken, saveCookie } from '@/helpers/utils/common'
+import { v4 as uuidv4 } from 'uuid'
+import { getCookie } from 'cookies-next'
 
 const Api = axios.create({
   baseURL:  'http://34.150.59.30:8082',
@@ -39,8 +41,18 @@ Api.interceptors.request.use(
     let headers = {
       ...config.headers,
       'Accept-Language': 'vi',
+      tcode: "hag",
+      'm-platform': 'WEB',
     }
-
+    const uuid = getCookie('uuid')
+    if (token) headers = { Authorization: `Bearer ${token}`, ...headers }
+    if (uuid) {
+      headers = { ...headers, 'm-device-id': uuid }
+    } else {
+      const newUuid = uuidv4()
+      saveCookie('uuid', newUuid)
+      headers = { ...headers, 'm-device-id': newUuid }
+    }
     config.headers = headers
     return config
   },

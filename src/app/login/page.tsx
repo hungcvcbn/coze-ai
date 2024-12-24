@@ -1,5 +1,6 @@
 "use client";
 import { login } from "@/helpers/api/login";
+import React from 'react';
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import {
@@ -19,7 +20,7 @@ const FormLoginBasic = () => {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const handleSubmit = async (data: any) => {
+  const handleSubmit = async () => {
     try {
       setLoading(true);
       await login({
@@ -55,7 +56,7 @@ const FormLoginBasic = () => {
                 type='text'
                 fullWidth
                 value={userName}
-                onChange={(e: any) => setUserName(e.target.value)}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setUserName(e.target.value)}
                 InputProps={{
                   style: {
                     fontSize: "14px",
@@ -80,7 +81,7 @@ const FormLoginBasic = () => {
                 type={showPassword ? "text" : "password"}
                 fullWidth
                 value={password}
-                onChange={(e: any) => setPassword(e.target.value)}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
                 InputProps={{
                   style: {
                     fontSize: "14px",
@@ -136,9 +137,8 @@ const FormLoginBasic = () => {
           <div className='mt-5'>
             <button
               onClick={handleSubmit}
-              className={`py-2 px-4 ${
-                loading ? "bg-gray-400 cursor-not-allowed" : "bg-blue-600 hover:bg-blue-700"
-              } focus:ring-blue-500 focus:ring-offset-blue-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg`}
+              className={`py-2 px-4 ${loading ? "bg-gray-400 cursor-not-allowed" : "bg-blue-600 hover:bg-blue-700"
+                } focus:ring-blue-500 focus:ring-offset-blue-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg`}
               disabled={loading}
             >
               {loading ? "Đang xử lý..." : "Đăng nhập"}

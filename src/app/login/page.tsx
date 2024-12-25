@@ -1,6 +1,6 @@
 "use client";
 import { login } from "@/helpers/api/login";
-import React, { useEffect } from "react";
+import React from "react";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import {
@@ -15,7 +15,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { useAppDispatch } from "@/redux/hooks";
 import { setToast } from "@/redux/slices/common";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { setCookie } from "cookies-next";
 
 const FormLoginBasic = () => {
@@ -24,6 +24,7 @@ const FormLoginBasic = () => {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const dispatch = useAppDispatch();
+  const router = useRouter();
 
   const handleSubmit = async () => {
     try {
@@ -38,12 +39,18 @@ const FormLoginBasic = () => {
       if (res?.data) {
         setCookie("token", res.data.accessToken);
         setCookie("refresh-token", res.data.refreshToken);
-
         dispatch(setToast({ type: "success", message: "Đăng nhập thành công", show: true }));
-        // useRouter().push("/");
-      } else {
-        dispatch(setToast({ type: "error", message: "Đăng nhập thất bại", show: true }));
+        router.push("/");
+        router.refresh();
       }
+    } catch (error: any) {
+      dispatch(
+        setToast({
+          type: "error",
+          message: error.response?.data?.message || "Đăng nhập thất bại",
+          show: true,
+        })
+      );
     } finally {
       setLoading(false);
     }
@@ -162,12 +169,9 @@ const FormLoginBasic = () => {
           </div>
 
           <div className='flex items-center justify-center mt-4'>
-            <a
-              className='text-xs text-gray-600 uppercase hover:text-opacity-80 hover:underline'
-              href='/sign-up'
-            >
+            <Link href={`/sign-up`}>
               hoặc <span className='font-semibold'>đăng ký</span>
-            </a>
+            </Link>
           </div>
         </div>
       </div>

@@ -1,16 +1,11 @@
 "use client";
 import { TextField, Avatar, Popover } from "@mui/material";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Link from "next/link";
-import { getCookie, deleteCookie } from "cookies-next";
+import { deleteCookie, getCookie } from "cookies-next";
 
 const LayoutHeader = () => {
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
-  const [isClient, setIsClient] = useState(false);
-
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
 
   const handleAvatarClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -22,8 +17,6 @@ const LayoutHeader = () => {
 
   const open = Boolean(anchorEl);
   const id = open ? "avatar-popover" : undefined;
-
-  const token = isClient ? getCookie("token") : null;
 
   return (
     <header className='bg-gradient-to-r from-blue-500 to-blue-400 text-white shadow-lg'>
@@ -53,9 +46,8 @@ const LayoutHeader = () => {
           />
         </div>
 
-        {/* Actions */}
         <div className='col-span-1 flex justify-end items-center'>
-          {token ? (
+          {getCookie("token") ? (
             <>
               <Avatar
                 alt={""}
@@ -91,9 +83,11 @@ const LayoutHeader = () => {
               </Popover>
             </>
           ) : (
-            <button className='px-4 py-2 bg-gray-100 text-blue-600 rounded-lg hover:bg-gray-200 transition duration-200'>
-              Get Started
-            </button>
+            <Link href={"/login"}>
+              <button className='px-4 py-2 bg-gray-100 text-blue-600 rounded-lg hover:bg-gray-200 transition duration-200'>
+                Get Started
+              </button>
+            </Link>
           )}
         </div>
       </div>

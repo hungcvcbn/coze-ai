@@ -1,6 +1,6 @@
 "use client";
 import { login } from "@/helpers/api/login";
-import React from 'react';
+import React, { useEffect } from "react";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import {
@@ -13,22 +13,37 @@ import {
 } from "@mui/material";
 import Link from "next/link";
 import { useState } from "react";
+import { useAppDispatch } from "@/redux/hooks";
+import { setToast } from "@/redux/slices/common";
+import { useRouter } from "next/router";
+import { setCookie } from "cookies-next";
 
 const FormLoginBasic = () => {
-  const [showPassword, setShowPassword] = useState<boolean>(false);
+  const [showPassword, setShowPassword] = useState(false);
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+  const dispatch = useAppDispatch();
 
   const handleSubmit = async () => {
     try {
       setLoading(true);
-      await login({
+      const res = await login({
         clientId: "ecb8bbf1",
         grantType: "password",
         username: userName,
-        password: password,
+        password,
       });
+
+      if (res?.data) {
+        setCookie("token", res.data.accessToken);
+        setCookie("refresh-token", res.data.refreshToken);
+
+        dispatch(setToast({ type: "success", message: "Đăng nhập thành công", show: true }));
+        // useRouter().push("/");
+      } else {
+        dispatch(setToast({ type: "error", message: "Đăng nhập thất bại", show: true }));
+      }
     } finally {
       setLoading(false);
     }
@@ -137,8 +152,9 @@ const FormLoginBasic = () => {
           <div className='mt-5'>
             <button
               onClick={handleSubmit}
-              className={`py-2 px-4 ${loading ? "bg-gray-400 cursor-not-allowed" : "bg-blue-600 hover:bg-blue-700"
-                } focus:ring-blue-500 focus:ring-offset-blue-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg`}
+              className={`py-2 px-4 ${
+                loading ? "bg-gray-400 cursor-not-allowed" : "bg-blue-600 hover:bg-blue-700"
+              } focus:ring-blue-500 focus:ring-offset-blue-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg`}
               disabled={loading}
             >
               {loading ? "Đang xử lý..." : "Đăng nhập"}

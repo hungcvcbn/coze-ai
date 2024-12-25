@@ -28,7 +28,7 @@ export const saveCookie = (key: string, value: any, hasDomain?: boolean) => {
 }
 
 export function getAccessToken() {
-  return getCookie(TOKEN,)
+  return getCookie(TOKEN)
 }
 export function saveAccessToken(value: string) {
   setCookie(TOKEN, value, {

@@ -10,7 +10,8 @@ export interface CommonState {
     show: boolean
     title?: string
     message: string
-  }
+  },
+  profile: any
 }
 const initialState: CommonState = {
   locale: 'en-US',
@@ -22,6 +23,7 @@ const initialState: CommonState = {
     title: 'Title',
     message: '',
   },
+  profile: {}
 }
 
 export const commonSlices = createSlice({
@@ -43,6 +45,9 @@ export const commonSlices = createSlice({
     ) => {
       state.toast = action.payload
     },
+    setProfile: (state: RootState, action: PayloadAction<any>) => {
+      state.profile = action.payload
+    },
   },
 })
 
@@ -50,6 +55,7 @@ export const commonSlices = createSlice({
 export const {
   setLoading,
   setToast,
+  setProfile
 } = commonSlices.actions
 
 export default commonSlices.reducer

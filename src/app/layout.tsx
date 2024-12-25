@@ -2,9 +2,9 @@ import React from "react";
 import type { Metadata } from "next";
 import { ReduxProvider } from "@/redux/redux-provider";
 import "./globals.scss";
-import LayoutFooter from "@/components/layout/LayoutFooter";
-import LayoutHeader from "../components/layout/LayoutHeader";
 import BasicToast from "@/components/common/BasicToast";
+import Layout from "@/components/layout/Layout";
+
 export const metadata: Metadata = {
   title: "AI Agent",
   description: "AI Agent",
@@ -24,9 +24,9 @@ export default async function RootLayout({
       </head>
       <body className='bg-neutral-100'>
         <ReduxProvider>
-          <LayoutHeader />
-          {children}
-          <LayoutFooter />
+          <Layout>
+            {children}
+          </Layout>
           <BasicToast />
         </ReduxProvider>
       </body>

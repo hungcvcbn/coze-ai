@@ -7,3 +7,10 @@ export const login = async (data: any) => {
     data,
   })
 }
+
+export const getProfile = async () => {
+  return await Api({
+    url: `/accounts/v1/profile`,
+    method: 'get',
+  })
+}

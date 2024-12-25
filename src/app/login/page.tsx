@@ -1,5 +1,5 @@
 "use client";
-import { login } from "@/helpers/api/login";
+import { getProfile, login } from "@/helpers/api/system";
 import React from "react";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
@@ -15,7 +15,7 @@ import {
 import Link from "next/link";
 import { useState } from "react";
 import { useAppDispatch } from "@/redux/hooks";
-import { setToast } from "@/redux/slices/common";
+import { setProfile, setToast } from "@/redux/slices/common";
 import { useRouter } from "next/navigation";
 import { setCookie } from "cookies-next";
 import Image from "next/image";
@@ -30,6 +30,17 @@ const FormLoginBasic = () => {
   const dispatch = useAppDispatch();
   const router = useRouter();
 
+  const fetchProfile = async () => {
+    try {
+      const res = await getProfile();
+      if (res?.data) {
+        dispatch(setProfile(res.data));
+        router.push("/");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
   const handleSubmit = async () => {
     try {
       setLoading(true);
@@ -43,9 +54,8 @@ const FormLoginBasic = () => {
       if (res?.data) {
         setCookie("token", res.data.accessToken);
         setCookie("refresh-token", res.data.refreshToken);
+        fetchProfile();
         dispatch(setToast({ type: "success", message: "Đăng nhập thành công", show: true }));
-        router.push("/");
-        router.refresh();
       }
     } catch (error: any) {
       dispatch(
@@ -197,9 +207,8 @@ const FormLoginBasic = () => {
 
           <button
             onClick={handleSubmit}
-            className={`w-full py-2.5 px-4 ${
-              loading ? "bg-gray-400 cursor-not-allowed" : "bg-blue-600 hover:bg-blue-700"
-            } text-white rounded-lg font-medium transition-colors`}
+            className={`w-full py-2.5 px-4 ${loading ? "bg-gray-400 cursor-not-allowed" : "bg-blue-600 hover:bg-blue-700"
+              } text-white rounded-lg font-medium transition-colors`}
             disabled={loading}
           >
             {loading ? "Đang xử lý..." : "Đăng nhập"}

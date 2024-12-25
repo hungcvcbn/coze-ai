@@ -3,10 +3,13 @@ import { TextField, Avatar, Popover } from "@mui/material";
 import React, { useState } from "react";
 import Link from "next/link";
 import { deleteCookie, getCookie } from "cookies-next";
+import { useAppSelector } from "@/redux/hooks";
+import { isEmpty } from "@/helpers/utils/common";
 
 const LayoutHeader = () => {
+  const { profile } = useAppSelector((state) => state.common);
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
-
+  console.log("profile", profile);
   const handleAvatarClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
@@ -47,7 +50,7 @@ const LayoutHeader = () => {
         </div>
 
         <div className='col-span-1 flex justify-end items-center'>
-          {getCookie("token") ? (
+          {!isEmpty(profile) ? (
             <>
               <Avatar
                 alt={""}

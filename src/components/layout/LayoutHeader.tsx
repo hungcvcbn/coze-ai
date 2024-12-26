@@ -7,7 +7,7 @@ import { useAppSelector } from "@/redux/hooks";
 import { isEmpty } from "@/helpers/utils/common";
 
 const LayoutHeader = () => {
-  const { profile } = useAppSelector((state) => state.common);
+  const { profile } = useAppSelector(state => state.common);
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
   console.log("profile", profile);
   const handleAvatarClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -23,33 +23,15 @@ const LayoutHeader = () => {
 
   return (
     <header className='bg-gradient-to-r from-blue-500 to-blue-400 text-white shadow-lg'>
-      <div className='grid grid-cols-3 px-4 py-3'>
-        <Link href='/'>
+      <div className='px-4 py-3'>
+        {/* <Link href='/'>
           <div className='flex justify-start space-x-3 col-span-1'>
             <img src='/logo.png' alt='Logo' className='h-10 w-10 rounded-full object-cover' />
             <span className='text-2xl font-bold pt-1'>Training AI</span>
           </div>
-        </Link>
+        </Link> */}
 
-        <div className='col-span-1 flex justify-center items-center'>
-          <TextField
-            size='small'
-            placeholder='Tìm kiếm'
-            sx={{
-              "& .MuiOutlinedInput-root": {
-                backgroundColor: "#FFFFFF",
-                borderRadius: "8px",
-                width: "400px",
-                color: "#000",
-                "& fieldset": {
-                  borderColor: "#d1d1d1",
-                },
-              },
-            }}
-          />
-        </div>
-
-        <div className='col-span-1 flex justify-end items-center'>
+        <div className=' flex justify-end items-center'>
           {!isEmpty(profile) ? (
             <>
               <Avatar

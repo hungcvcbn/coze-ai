@@ -34,7 +34,7 @@ const BasicToast = () => {
         severity={type}
         sx={{ width: "100%" }}
       >
-        <p className='text-16-24 font-inter-700'>{message}</p>
+        <p className='text-[16px] font-bold'>{message}</p>
       </Alert>
     </Snackbar>
   );

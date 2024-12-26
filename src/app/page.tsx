@@ -79,28 +79,6 @@ const HomePage = () => {
           Get Started
         </button>
       </div>
-
-      <style>
-        {`
-          @keyframes fadeInEase {
-            0% { opacity: 0; }
-            100% { opacity: 1; }
-          }
-          @keyframes slideDownEase {
-            0% { transform: translateY(-50px); }
-            100% { transform: translateY(0); }
-          }
-          @keyframes slideUpEase {
-            0% { transform: translateY(50px); }
-            100% { transform: translateY(0); }
-          }
-          @keyframes scaleUpEase {
-            0% { transform: scale(0.9); }
-            50% { transform: scale(1.02); }
-            100% { transform: scale(1); }
-          }
-        `}
-      </style>
     </div>
   );
 };

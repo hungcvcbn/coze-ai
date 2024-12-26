@@ -2,7 +2,7 @@
 
 const HomePage = () => {
   return (
-    <div className='min-h-screen bg-gradient-to-br from-gray-900 via-blue-900 to-black text-white flex flex-col items-center justify-center'>
+    <div className='min-h-[calc(100svh_-_64px)] bg-gradient-to-br from-gray-900 via-blue-900 to-black text-white flex flex-col items-center justify-center'>
       {/* Header Section */}
       <h1
         className='text-5xl md:text-7xl font-bold text-center mb-6'
@@ -34,9 +34,8 @@ const HomePage = () => {
             className='bg-white text-black rounded-xl p-6 shadow-lg hover:scale-105 transform transition-transform'
             style={{
               opacity: 0,
-              animation: `fadeInEase 1s forwards ${index * 0.3}s, scaleUpEase 1s forwards ${
-                index * 0.3
-              }s`,
+              animation: `fadeInEase 1s forwards ${index * 0.3}s, scaleUpEase 1s forwards ${index * 0.3
+                }s`,
             }}
           >
             <h3 className='text-xl font-semibold mb-3'>{feature.title}</h3>

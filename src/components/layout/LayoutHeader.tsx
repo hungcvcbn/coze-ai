@@ -22,7 +22,7 @@ const LayoutHeader = () => {
   const id = open ? "avatar-popover" : undefined;
 
   return (
-    <header className='bg-gradient-to-r from-blue-500 to-blue-400 text-white shadow-lg'>
+    <header className='bg-gradient-to-r from-blue-500 to-blue-400 text-white shadow-lg sticky top-0 z-50'>
       <div className='px-4 py-3'>
         {/* <Link href='/'>
           <div className='flex justify-start space-x-3 col-span-1'>

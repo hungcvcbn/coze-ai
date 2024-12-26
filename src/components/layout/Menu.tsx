@@ -17,7 +17,7 @@ const Menu = () => {
   const menuItems = [
     {
       title: "Bảng điều khiển",
-      path: "/dashboard",
+      path: "/control-panel",
       icon: <DashboardIcon />,
     },
     {

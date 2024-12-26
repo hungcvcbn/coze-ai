@@ -21,7 +21,7 @@ const Layout = ({ children }: LayoutProps) => {
       <Menu />
       <div className='pl-64'>
         <LayoutHeader />
-        <main className='p-6'>{children}</main>
+        <main>{children}</main>
       </div>
     </div>
   );

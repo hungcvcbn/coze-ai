@@ -4,7 +4,7 @@ import { v4 as uuidv4 } from 'uuid'
 import { getCookie } from 'cookies-next'
 
 const Api = axios.create({
-  baseURL: 'http://34.150.59.30:8082',
+  baseURL: 'http://dev-gwapi.gtech.biz.vn',
   responseType: 'json',
 })
 

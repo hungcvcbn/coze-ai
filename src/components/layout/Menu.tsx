@@ -34,7 +34,7 @@ const Menu = () => {
         <span className='text-xl font-semibold'>Coze AI</span>
       </div>
       <div className='flex justify-center pb-3'>
-        <Button variant='contained' color='primary' onClick={() => setOpen(true)}>
+        <Button variant='contained' color='primary' onClick={() => setOpen(true)} className="w-full" size="large">
           Tạo Bot
         </Button>
       </div>
@@ -45,9 +45,8 @@ const Menu = () => {
             <Link
               key={item.path}
               href={item.path}
-              className={`flex items-center gap-3 px-4 py-2 rounded-lg transition-colors ${
-                isActive ? "bg-blue-50 text-blue-600" : "text-gray-700 hover:bg-gray-100"
-              }`}
+              className={`flex items-center gap-3 px-4 py-2 rounded-lg transition-colors ${isActive ? "bg-blue-50 text-blue-600" : "text-gray-700 hover:bg-gray-100"
+                }`}
             >
               {item.icon}
               <span className='font-semibold text-[16px]'>{item.title}</span>

@@ -4,6 +4,15 @@ import { ReduxProvider } from "@/redux/redux-provider";
 import "./globals.scss";
 import BasicToast from "@/components/common/BasicToast";
 import Layout from "@/components/layout/Layout";
+import { Inter } from "next/font/google";
+import { ThemeProvider } from "@mui/material/styles";
+import { theme } from "@/helpers/config/theme";
+
+const inter = Inter({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-inter",
+});
 
 export const metadata: Metadata = {
   title: "AI Agent",
@@ -17,17 +26,19 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang='en'>
+    <html lang="en" className={inter.className}>
       <head>
         <title>AI Agent</title>
         <link rel='icon' href={`/logo.png?v=${+new Date()}`} sizes='any' />
       </head>
       <body className='bg-neutral-100'>
         <ReduxProvider>
-          <Layout>
-            {children}
-          </Layout>
-          <BasicToast />
+          <ThemeProvider theme={theme}>
+            <Layout>
+              {children}
+            </Layout>
+            <BasicToast />
+          </ThemeProvider>
         </ReduxProvider>
       </body>
     </html>

@@ -21,8 +21,8 @@ import { setCookie } from "cookies-next";
 import Image from "next/image";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import GoogleIconImage from "@/assets/icons/google.png";
-import FacebookIconImage from "@/assets/icons/facebook.png";
-const FormLoginBasic = () => {
+
+const SignUpPage = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
@@ -229,4 +229,4 @@ const FormLoginBasic = () => {
     </div>
   );
 };
-export default FormLoginBasic;
+export default SignUpPage;

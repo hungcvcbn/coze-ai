@@ -76,7 +76,13 @@ const FormLoginBasic = () => {
       <div className='relative row-span-7 px-4 py-10 bg-white mx-8 md:mx-0 shadow rounded-3xl sm:p-10'>
         <div className='max-w-md mx-auto'>
           <div className='flex flex-col items-center mb-8'>
-            <Image src='/logo.png' alt='Mindmaid.ai' width={80} height={80} />
+            <Image
+              src='/logo.png'
+              alt='Mindmaid.ai'
+              width={80}
+              height={80}
+              className='rounded-[8px]'
+            />
             <div className='text-[36px] font-semibold mt-2'>Coze AI</div>
           </div>
 

@@ -3,9 +3,8 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import StorefrontIcon from "@mui/icons-material/Storefront";
-
 import CreateBotModal from "../create-bot/CreateBotModal";
-import BasicButton from "../common/BasicButton";
+import Image from "next/image";
 
 const Menu = () => {
   const [open, setOpen] = useState(false);
@@ -28,7 +27,7 @@ const Menu = () => {
   return (
     <div className='fixed left-0 top-0 h-full w-64 bg-white border-r border-gray-200'>
       <div className='flex items-center gap-2 mb-8 px-4 border-b border-gray-200 w-full p-4 h-[64px]'>
-        <img src='/logo.png' alt='Logo' className='w-10 h-10 rounded-full' />
+        <Image src='/logo.png' alt='Logo' width={50} height={50} className='rounded-[8px]' />
         <span className='text-xl text-black font-semibold'>Coze AI</span>
       </div>
       <div className='flex justify-center pb-3 px-4'>

@@ -8,7 +8,6 @@ import CustomTextField from "../hook-form/CustomTextField";
 import Grid from "@mui/material/Grid2";
 import BasicTab from "../common/BasicTabs";
 import BasicControlList from "./BasicControlList";
-import CommingSoon from "../common/CommingSoon";
 import AdvancedGPT from "./AdvancedGPT";
 
 const ControlPanel = () => {
@@ -36,6 +35,7 @@ const ControlPanel = () => {
   useEffect(() => {
     if (tab) {
       fetchData();
+      setTerm("");
     }
   }, [tab]);
 

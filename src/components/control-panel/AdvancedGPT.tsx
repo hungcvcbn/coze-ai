@@ -28,11 +28,11 @@ const AdvancedGPT = ({ data }: Props) => {
       {!isEmpty(data?.items) ? (
         <TableEmpty />
       ) : (
-        <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2 '>
+        <div className='grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 '>
           {data?.map((bot: any, index: any) => (
             <div
               key={index}
-              className='border rounded-lg relative h-[180px] min-w-[300px] cursor-pointer p-2 bg-[#FFFFFF] border-gray-300 hover:transform hover:translate-x-[-2px] hover:shadow-[0_10px_10px_gray] duration-300'
+              className='border rounded-lg relative h-[180px] w-auto cursor-pointer p-2 bg-[#FFFFFF] border-gray-300 hover:transform hover:translate-x-[-2px] hover:shadow-[0_10px_10px_gray] duration-300'
             >
               <div className='flex items-center gap-2 mb-2'>
                 <span className='text-2xl'>{bot?.avatar}</span>

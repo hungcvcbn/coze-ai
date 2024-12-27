@@ -10,10 +10,14 @@ interface LayoutProps {
 
 const Layout = ({ children }: LayoutProps) => {
   const pathname = usePathname();
-  const isLoginPage = pathname === "/login" || pathname === "/sign-up";
+  const isLoginPage = pathname === "/login" || pathname === "/sign-in" || pathname === "/sign-up";
 
   if (isLoginPage) {
-    return <>{children}</>;
+    return (
+      <div className='min-h-[calc(100vh-64px)] bg-gradient-to-r from-gray-900 via-blue-900 to-black text-white'>
+        {children}
+      </div>
+    );
   }
 
   return (

@@ -1,16 +1,15 @@
 "use client";
-import { TextField, Avatar, Popover } from "@mui/material";
+import { Avatar, Popover } from "@mui/material";
 import React, { useState } from "react";
 import Link from "next/link";
-import { deleteCookie, getCookie } from "cookies-next";
+import { deleteCookie } from "cookies-next";
 import { useAppSelector } from "@/redux/hooks";
 import { isEmpty } from "@/helpers/utils/common";
 import BasicButton from "../common/BasicButton";
-
+import AdminAvatar from "@/assets/icons/avatar_admin.png";
 const LayoutHeader = () => {
   const { profile } = useAppSelector(state => state.common);
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
-  console.log("profile", profile);
   const handleAvatarClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
@@ -31,7 +30,7 @@ const LayoutHeader = () => {
               <div className='text-14-20 font-semibold pr-2'>{profile?.username}</div>
               <Avatar
                 alt={""}
-                src={"/default-avatar.png"}
+                src={AdminAvatar.src}
                 onClick={handleAvatarClick}
                 className='cursor-pointer'
               />

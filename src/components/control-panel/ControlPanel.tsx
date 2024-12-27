@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { searchControlPanels } from "@/helpers/api/control";
+import { getAgent, searchControlPanels } from "@/helpers/api/control";
 import { setToast } from "@/redux/slices/common";
 import { useAppDispatch } from "@/redux/hooks";
 import CustomTextField from "../hook-form/CustomTextField";
@@ -9,9 +9,11 @@ import Grid from "@mui/material/Grid2";
 import BasicTab from "../common/BasicTabs";
 import BasicControlList from "./BasicControlList";
 import CommingSoon from "../common/CommingSoon";
+import AdvancedGPT from "./AdvancedGPT";
 
 const ControlPanel = () => {
   const [data, setData] = useState<any>();
+
   const dispatch = useAppDispatch();
   const [tab, setTab] = useState<number>(1);
   const [term, setTerm] = useState<string>("");
@@ -24,7 +26,7 @@ const ControlPanel = () => {
 
   const fetchData = async () => {
     try {
-      const response = await searchControlPanels();
+      const response = tab === 1 ? await getAgent() : await searchControlPanels();
       setData(response.data.items);
     } catch (error: any) {
       dispatch(setToast({ type: "error", message: error.message, show: true }));
@@ -32,10 +34,13 @@ const ControlPanel = () => {
   };
 
   useEffect(() => {
-    fetchData();
-  }, []);
+    if (tab) {
+      fetchData();
+    }
+  }, [tab]);
+
   const tabOptions = [
-    { label: "Mindmaid", value: 1 },
+    { label: "Coze AI", value: 1 },
     { label: "GPTs (Nâng cao)", value: 2 },
   ];
   const renderTabContent = () => {
@@ -43,7 +48,7 @@ const ControlPanel = () => {
       case 1:
         return <BasicControlList data={data} />;
       case 2:
-        return <CommingSoon />;
+        return <AdvancedGPT data={data} />;
       default:
         return <BasicControlList data={data} />;
     }

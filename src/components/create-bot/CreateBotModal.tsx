@@ -12,6 +12,7 @@ import { useAppDispatch } from "@/redux/hooks";
 import FormProvider from "../hook-form/FormProvider";
 import { useEffect } from "react";
 import BasicButton from "../common/BasicButton";
+import { addAgent } from "@/helpers/api/control";
 
 interface CreateBotModalProps {
   open: boolean;
@@ -21,7 +22,6 @@ interface CreateBotModalProps {
 type BotType = {
   botType: string;
   botName: string;
-  apiKey: string;
   command: string;
   description: string;
 };
@@ -29,9 +29,8 @@ type BotType = {
 const CreateBotModal = ({ open, setOpen }: CreateBotModalProps) => {
   const dispatch = useAppDispatch();
   const defaultValues: BotType = {
-    botType: "Mindmaid",
+    botType: "Coze-AI",
     botName: "",
-    apiKey: "",
     command: "",
     description: "",
   };
@@ -45,8 +44,13 @@ const CreateBotModal = ({ open, setOpen }: CreateBotModalProps) => {
   const botType = watch("botType");
 
   const onSubmit = async (data: BotType) => {
-    dispatch(setToast({ message: "Thành công", type: "success", show: true }));
-    setOpen(false);
+    try {
+      await addAgent(data);
+      dispatch(setToast({ message: "Thành công", type: "success", show: true }));
+      setOpen(false);
+    } catch (error: any) {
+      dispatch(setToast({ message: error.message, type: "error", show: true }));
+    }
   };
   useEffect(() => {
     if (open) {
@@ -67,18 +71,13 @@ const CreateBotModal = ({ open, setOpen }: CreateBotModalProps) => {
             <RHFSelect
               name='botType'
               options={[
-                { value: "Coze AI", label: "Bot Coze AI" },
+                { value: "Coze-AI", label: "Bot Coze AI" },
                 { value: "GPTs", label: "Bot GPTs (Nâng cao)" },
               ]}
               label='Chọn loại bot'
             />
             <RHFTextField name='botName' label='Tên bot' placeholder='Nhập tên bot' />
-            <RHFTextField
-              name='apiKey'
-              label='API Key OpenAI'
-              placeholder='Nhập API Key OpenAI'
-              type='password'
-            />
+
             {botType === "Mindmaid" ? (
               <RHFTextField
                 name='command'

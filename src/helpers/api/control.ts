@@ -1,3 +1,5 @@
+import Api from "./api";
+
 export const searchControlPanels = async () => {
   const items = Array(50)
     .fill(null)
@@ -24,3 +26,19 @@ export const searchControlPanels = async () => {
     message: "Thanh cong",
   };
 };
+
+
+export const addAgent = async (data: any) => {
+  return await Api({
+    url: `/cbot/v1/agents`,
+    method: 'post',
+    data,
+  })
+}
+export const getAgent = async () => {
+  return await Api({
+    url: `/cbot/v1/agents`,
+    method: 'get',
+  })
+}
+

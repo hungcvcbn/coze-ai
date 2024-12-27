@@ -18,6 +18,7 @@ import Image from "next/image";
 // import FacebookIcon from "@mui/icons-material/Facebook";
 import GoogleIconImage from "@/assets/icons/google.png";
 import clsx from "clsx";
+import BasicButton from "../common/BasicButton";
 const FormSignUp = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [userName, setUserName] = useState("");
@@ -32,7 +33,7 @@ const FormSignUp = () => {
   };
 
   return (
-    <div className="h-screen w-full flex items-center justify-center">
+    <div className='h-screen w-full flex items-center justify-center'>
       <div className='relative grid grid-rows-7 sm:max-w-xl sm:mx-auto text-gray-700 w-full'>
         <div className='relative row-span-7 px-4 py-10 bg-white mx-8 md:mx-0 shadow rounded-3xl sm:p-10'>
           <div className='max-w-md mx-auto'>
@@ -54,7 +55,7 @@ const FormSignUp = () => {
               </button>
             </div>
 
-            <div className='flex items-center justify-center my-2'>
+            <div className='flex items-center justify-center my-2 mx-5'>
               <div className='border-t flex-grow'></div>
               <span className='px-4 text-[16px] font-medium text-gray-500'>Hoặc</span>
               <div className='border-t flex-grow'></div>
@@ -162,9 +163,9 @@ const FormSignUp = () => {
                     },
                   }}
                 />
-                <div className='text-[14px] px-1 text-gray-600'>
+                <div className='text-14-20 px-1 pt-[2px] text-neutral'>
                   Tôi đồng ý với{" "}
-                  <Link href='/terms' className='text-blue-600'>
+                  <Link href='/terms' className='text-blue-700'>
                     điều khoản sử dụng
                   </Link>
                 </div>
@@ -174,19 +175,22 @@ const FormSignUp = () => {
             <button
               className={clsx(
                 `w-full py-2.5 px-4`,
-                loading ? "bg-gray-400 cursor-not-allowed" : "bg-blue-600 hover:bg-blue-700",
-                `text-white rounded-lg font-medium transition-colors`
+                loading || !acceptTerms
+                  ? "bg-gray-400 cursor-not-allowed"
+                  : "bg-blue-800 hover:bg-blue-900",
+                `text-white cursor-pointer rounded-lg font-medium transition-colors`
               )}
               onClick={handleSubmit}
-              disabled={loading || !acceptTerms}
+              disabled={!acceptTerms}
             >
               {loading ? "Đang xử lý..." : "Đăng ký"}
             </button>
+
             <div className='text-center mt-6'>
               <span className='text-[16px] font-medium text-gray-600'>Đã có tài khoản? </span>
               <Link
                 href={`/login`}
-                className='text-blue-600 hover:text-blue-800 font-medium hover:font-bold'
+                className='text-neutral-700 hover:text-neutral-800 font-medium hover:font-bold'
               >
                 Đăng nhập ngay!
               </Link>

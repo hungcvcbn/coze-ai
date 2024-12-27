@@ -1,11 +1,11 @@
 "use client";
 
-import CommingSoon from "@/components/common/CommingSoon";
+import BotStore from "@/components/bot-store/BotStore";
 
 const BotStorePage = () => {
   return (
-    <div className='p-4 bg-white'>
-      <CommingSoon />
+    <div className='min-h-screen bg-gray-50'>
+      <BotStore />
     </div>
   );
 };

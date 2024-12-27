@@ -14,7 +14,7 @@ const Layout = ({ children }: LayoutProps) => {
 
   if (isLoginPage) {
     return (
-      <div className='min-h-[calc(100vh-64px)] bg-gradient-to-r from-gray-900 via-blue-900 to-black text-white'>
+      <div className='min-h-screen bg-gradient-to-r from-gray-900 via-blue-900 to-black text-white'>
         {children}
       </div>
     );

@@ -5,6 +5,7 @@ import Link from "next/link";
 import { deleteCookie, getCookie } from "cookies-next";
 import { useAppSelector } from "@/redux/hooks";
 import { isEmpty } from "@/helpers/utils/common";
+import BasicButton from "../common/BasicButton";
 
 const LayoutHeader = () => {
   const { profile } = useAppSelector(state => state.common);
@@ -22,18 +23,12 @@ const LayoutHeader = () => {
   const id = open ? "avatar-popover" : undefined;
 
   return (
-    <header className='bg-gradient-to-r from-blue-500 to-blue-400 text-white shadow-lg sticky top-0 z-50'>
+    <header className='bg-gradient-to-r from-gray-400 to-gray-300 text-white shadow-lg sticky top-0 z-50'>
       <div className='px-4 py-3'>
-        {/* <Link href='/'>
-          <div className='flex justify-start space-x-3 col-span-1'>
-            <img src='/logo.png' alt='Logo' className='h-10 w-10 rounded-full object-cover' />
-            <span className='text-2xl font-bold pt-1'>Training AI</span>
-          </div>
-        </Link> */}
-
         <div className=' flex justify-end items-center'>
           {!isEmpty(profile) ? (
             <>
+              <div className='text-14-20 font-semibold pr-2'>{profile?.username}</div>
               <Avatar
                 alt={""}
                 src={"/default-avatar.png"}
@@ -54,9 +49,9 @@ const LayoutHeader = () => {
                   horizontal: "right",
                 }}
               >
-                <div className='p-4'>
+                <div className='p-2'>
                   <button
-                    className='text-red-600 hover:underline'
+                    className='text-neutral hover:underline w-[100px]'
                     onClick={() => {
                       deleteCookie("token");
                       handlePopoverClose();
@@ -69,9 +64,9 @@ const LayoutHeader = () => {
             </>
           ) : (
             <Link href={"/login"}>
-              <button className='px-4 py-2 bg-gray-100 text-blue-600 rounded-lg hover:bg-gray-200 transition duration-200'>
-                Get Started
-              </button>
+              <BasicButton size='md' variant='contained' color='primary'>
+                <div className='flex items-center gap-2 font-semibold'>Đăng nhập</div>
+              </BasicButton>
             </Link>
           )}
         </div>

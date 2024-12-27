@@ -35,12 +35,12 @@ const FormLoginBasic = () => {
       const res = await getProfile();
       if (res?.data) {
         dispatch(setProfile(res.data));
-        router.push("/");
+        router.push("/control-panel");
       }
     } catch (error) {
       console.log(error);
     }
-  }
+  };
   const handleSubmit = async () => {
     try {
       setLoading(true);
@@ -207,8 +207,9 @@ const FormLoginBasic = () => {
 
           <button
             onClick={handleSubmit}
-            className={`w-full py-2.5 px-4 ${loading ? "bg-gray-400 cursor-not-allowed" : "bg-blue-600 hover:bg-blue-700"
-              } text-white rounded-lg font-medium transition-colors`}
+            className={`w-full py-2.5 px-4 ${
+              loading ? "bg-gray-400 cursor-not-allowed" : "bg-blue-600 hover:bg-blue-700"
+            } text-white rounded-lg font-medium transition-colors`}
             disabled={loading}
           >
             {loading ? "Đang xử lý..." : "Đăng nhập"}

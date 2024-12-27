@@ -26,7 +26,7 @@ const BasicButton = forwardRef<HTMLButtonElement, ButtonProps>(
       loading,
       size = "md",
       variant = "contained",
-      color = "#315BF1",
+      color = "primary",
       startIcon,
       endIcon,
       clases,

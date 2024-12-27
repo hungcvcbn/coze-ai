@@ -17,11 +17,13 @@ const Layout = ({ children }: LayoutProps) => {
   }
 
   return (
-    <div className='min-h-screen bg-gray-50'>
+    <div className='bg-gray-50 flex flex-col'>
       <Menu />
-      <div className='pl-64'>
-        <LayoutHeader />
-        <main>{children}</main>
+      <div className='pl-64 flex-1 flex flex-col'>
+        <div className='sticky top-0 z-10 bg-white'>
+          <LayoutHeader />
+        </div>
+        <main className='flex-1'>{children}</main>
       </div>
     </div>
   );

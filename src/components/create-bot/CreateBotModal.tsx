@@ -11,6 +11,7 @@ import { setToast } from "@/redux/slices/common";
 import { useAppDispatch } from "@/redux/hooks";
 import FormProvider from "../hook-form/FormProvider";
 import { useEffect } from "react";
+import BasicButton from "../common/BasicButton";
 
 interface CreateBotModalProps {
   open: boolean;
@@ -60,14 +61,13 @@ const CreateBotModal = ({ open, setOpen }: CreateBotModalProps) => {
       title='Bắt đầu tạo Bot của bạn'
       showCloseIcon
     >
-      {" "}
       <FormProvider methods={form} onSubmit={handleSubmit(onSubmit)}>
         <BasicDialogContent>
           <div className='flex flex-col gap-2'>
             <RHFSelect
               name='botType'
               options={[
-                { value: "Mindmaid", label: "Bot Mindmaid" },
+                { value: "Coze AI", label: "Bot Coze AI" },
                 { value: "GPTs", label: "Bot GPTs (Nâng cao)" },
               ]}
               label='Chọn loại bot'
@@ -99,12 +99,17 @@ const CreateBotModal = ({ open, setOpen }: CreateBotModalProps) => {
           </div>
         </BasicDialogContent>
         <BasicDialogActions>
-          <Button variant='outlined' type='button' color='primary' onClick={() => setOpen(false)}>
+          <BasicButton
+            variant='outlined'
+            type='button'
+            color='primary'
+            onClick={() => setOpen(false)}
+          >
             Đóng
-          </Button>
-          <Button type='submit' variant='contained' color='primary'>
+          </BasicButton>
+          <BasicButton type='submit' variant='contained' color='primary'>
             Tạo bot
-          </Button>
+          </BasicButton>
         </BasicDialogActions>
       </FormProvider>
     </BasicDialog>

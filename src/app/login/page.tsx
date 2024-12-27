@@ -3,7 +3,7 @@
 import BasicLoginForm from "@/components/login/BasicLoginForm";
 import React from "react";
 
-const FormLoginBasic = () => {
+const LoginPage = () => {
   return <BasicLoginForm />;
 };
-export default FormLoginBasic;
+export default LoginPage;

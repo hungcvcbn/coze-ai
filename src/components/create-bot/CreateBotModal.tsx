@@ -3,7 +3,6 @@
 import BasicDialog from "../common/BasicDialog";
 import BasicDialogContent from "../common/BasicDialogContent";
 import BasicDialogActions from "../common/BasicDialogActions";
-import { Button } from "@mui/material";
 import RHFTextField from "../hook-form/RHFTextField";
 import { useForm } from "react-hook-form";
 import RHFSelect from "../hook-form/RHFSelect";
@@ -13,14 +12,15 @@ import FormProvider from "../hook-form/FormProvider";
 import { useEffect } from "react";
 import BasicButton from "../common/BasicButton";
 import { addAgent } from "@/helpers/api/control";
-
+import { yupResolver } from "@hookform/resolvers/yup";
+import yup from "@/helpers/utils/yupConfig";
 interface CreateBotModalProps {
   open: boolean;
   setOpen: (open: boolean) => void;
 }
 
 type BotType = {
-  botType: string;
+  botType?: string;
   botName: string;
   command: string;
   description: string;
@@ -34,9 +34,14 @@ const CreateBotModal = ({ open, setOpen }: CreateBotModalProps) => {
     command: "",
     description: "",
   };
-
+  const schema = yup.object().shape({
+    botName: yup.string().required(),
+    command: yup.string().required(),
+    description: yup.string().required(),
+  });
   const form = useForm<BotType>({
     mode: "all",
+    resolver: yupResolver(schema),
     defaultValues,
   });
 
@@ -76,7 +81,7 @@ const CreateBotModal = ({ open, setOpen }: CreateBotModalProps) => {
               ]}
               label='Chọn loại bot'
             />
-            <RHFTextField name='botName' label='Tên bot' placeholder='Nhập tên bot' />
+            <RHFTextField name='botName' label='Tên bot' placeholder='Nhập tên bot' isRequired />
 
             {botType === "Mindmaid" ? (
               <RHFTextField
@@ -85,6 +90,7 @@ const CreateBotModal = ({ open, setOpen }: CreateBotModalProps) => {
                 placeholder='Nhập lệnh điều khiển'
                 multiline
                 rows={4}
+                isRequired
               />
             ) : (
               <RHFTextField
@@ -93,6 +99,7 @@ const CreateBotModal = ({ open, setOpen }: CreateBotModalProps) => {
                 placeholder='Nhập mô tả'
                 multiline
                 rows={4}
+                isRequired
               />
             )}
           </div>

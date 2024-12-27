@@ -71,8 +71,7 @@ Api.interceptors.response.use(
       // network error
       return Promise.reject({
         status: 429,
-        message:
-          'Suspicious activity detected. Your account has been temporarily locked. Please contact support@dtravel.com for support.',
+        message: 'Suspicious activity detected. Your account has been temporarily locked.',
       })
     }
     const originalRequest = error.config

@@ -38,7 +38,7 @@ const BasicControlList = ({ data, loading }: Props) => {
               <div className='flex items-center gap-2 mb-2'>
                 <span className='text-2xl'>{bot?.avatar}</span>
                 <Tooltip title={bot?.name}>
-                  <h3 className='font-semibold text-16-24 line-clamp-1'>{bot?.name}</h3>
+                  <h3 className='font-semibold text-16-24 line-clamp-1 text-primary'>{bot?.name}</h3>
                 </Tooltip>
                 <button
                   aria-describedby={id}

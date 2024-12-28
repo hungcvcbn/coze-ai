@@ -8,8 +8,9 @@ import TableEmpty from "../common/TableEmpty";
 
 interface Props {
   data: any;
+  loading: boolean;
 }
-const BasicControlList = ({ data }: Props) => {
+const BasicControlList = ({ data, loading }: Props) => {
   const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -19,14 +20,13 @@ const BasicControlList = ({ data }: Props) => {
   const handleClose = () => {
     setAnchorEl(null);
   };
-  console.log("data", data);
 
   const open = Boolean(anchorEl);
   const id = open ? "simple-popover" : undefined;
 
   return (
     <div>
-      {isEmpty(data) ? (
+      {!loading && isEmpty(data) ? (
         <TableEmpty />
       ) : (
         <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2 '>

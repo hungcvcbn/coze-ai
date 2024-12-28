@@ -15,6 +15,7 @@ const ControlPanel = () => {
   const [data, setData] = useState<any>();
   const [tab, setTab] = useState<number>(1);
   const [term, setTerm] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(true);
 
   const dispatch = useAppDispatch();
 
@@ -27,10 +28,13 @@ const ControlPanel = () => {
 
   const fetchData = async () => {
     try {
+      setLoading(true);
       const response = tab === 1 ? await getAgent() : await searchControlPanels();
       setData(response.data.items);
     } catch (error: any) {
       dispatch(setToast({ type: "error", message: error.message, show: true }));
+    } finally {
+      setLoading(false);
     }
   };
   useEffect(() => {
@@ -52,11 +56,11 @@ const ControlPanel = () => {
   const renderTabContent = () => {
     switch (tab) {
       case 1:
-        return <BasicControlList data={data} />;
+        return <BasicControlList data={data} loading={loading} />;
       case 2:
         return <AdvancedGPT data={data} />;
       default:
-        return <BasicControlList data={data} />;
+        return <BasicControlList data={data} loading={loading} />;
     }
   };
   return (

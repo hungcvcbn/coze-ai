@@ -3,7 +3,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 export interface CommonState {
   locale: string
-  loading: boolean
+  firstLoading: boolean
   toast: {
     duration?: number
     type?: string
@@ -15,7 +15,7 @@ export interface CommonState {
 }
 const initialState: CommonState = {
   locale: 'en-US',
-  loading: false,
+  firstLoading: true,
   toast: {
     duration: 6000,
     type: 'error',
@@ -30,8 +30,8 @@ export const commonSlices = createSlice({
   name: 'common',
   initialState,
   reducers: {
-    setLoading: (state: RootState, action: PayloadAction<any>) => {
-      state.loading = action.payload
+    setFirstLoading: (state: RootState, action: PayloadAction<any>) => {
+      state.firstLoading = action.payload
     },
     setToast: (
       state,
@@ -53,7 +53,7 @@ export const commonSlices = createSlice({
 
 // Action creators are generated for each case reducer function
 export const {
-  setLoading,
+  setFirstLoading,
   setToast,
   setProfile
 } = commonSlices.actions

@@ -22,6 +22,7 @@ import Image from "next/image";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import GoogleIconImage from "@/assets/icons/google.png";
 import clsx from "clsx";
+import { REFRESH_TOKEN, TOKEN } from "@/helpers/constants";
 // import FacebookIconImage from "@/assets/icons/facebook.png";
 const FormLoginBasic = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -53,8 +54,8 @@ const FormLoginBasic = () => {
       });
 
       if (res?.data) {
-        setCookie("token", res.data.accessToken);
-        setCookie("refresh-token", res.data.refreshToken);
+        setCookie(TOKEN, res.data.accessToken);
+        setCookie(REFRESH_TOKEN, res.data.refreshToken);
         fetchProfile();
         dispatch(setToast({ type: "success", message: "Đăng nhập thành công", show: true }));
       }

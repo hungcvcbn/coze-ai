@@ -9,13 +9,14 @@ import Grid from "@mui/material/Grid2";
 import BasicTab from "../common/BasicTabs";
 import BasicControlList from "./BasicControlList";
 import AdvancedGPT from "./AdvancedGPT";
-
+import { setFetchData } from "@/redux/slices/common";
 const ControlPanel = () => {
   const [data, setData] = useState<any>();
-
-  const dispatch = useAppDispatch();
   const [tab, setTab] = useState<number>(1);
   const [term, setTerm] = useState<string>("");
+
+  const dispatch = useAppDispatch();
+
   const handleChangeTerm = (event: React.ChangeEvent<HTMLInputElement>) => {
     setTerm(event.target.value);
   };
@@ -31,7 +32,7 @@ const ControlPanel = () => {
       dispatch(setToast({ type: "error", message: error.message, show: true }));
     }
   };
-
+  setFetchData(() => fetchData());
   useEffect(() => {
     if (tab) {
       fetchData();

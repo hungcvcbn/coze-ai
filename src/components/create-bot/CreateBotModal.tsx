@@ -14,6 +14,7 @@ import BasicButton from "../common/BasicButton";
 import { addAgent } from "@/helpers/api/control";
 import { yupResolver } from "@hookform/resolvers/yup";
 import yup from "@/helpers/utils/yupConfig";
+import { useSelector } from "react-redux";
 interface CreateBotModalProps {
   open: boolean;
   setOpen: (open: boolean) => void;
@@ -32,6 +33,7 @@ const CreateBotModal = ({ open, setOpen }: CreateBotModalProps) => {
     name: "",
     description: "",
   };
+  const fetchData = useSelector((state: any) => state.common.fetchData);
   const schema = yup.object().shape({
     name: yup.string().required(),
     description: yup.string(),
@@ -53,6 +55,7 @@ const CreateBotModal = ({ open, setOpen }: CreateBotModalProps) => {
       await addAgent(params);
       dispatch(setToast({ message: "Thành công", type: "success", show: true }));
       setOpen(false);
+      fetchData();
     } catch (error: any) {
       dispatch(setToast({ message: error.message, type: "error", show: true }));
     }

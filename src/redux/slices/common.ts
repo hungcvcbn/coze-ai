@@ -11,7 +11,8 @@ export interface CommonState {
     title?: string
     message: string
   },
-  profile: any
+  profile: any,
+  fetchData: Function
 }
 const initialState: CommonState = {
   locale: 'en-US',
@@ -23,7 +24,8 @@ const initialState: CommonState = {
     title: 'Title',
     message: '',
   },
-  profile: {}
+  profile: {},
+  fetchData: () => {}
 }
 
 export const commonSlices = createSlice({
@@ -48,6 +50,9 @@ export const commonSlices = createSlice({
     setProfile: (state: RootState, action: PayloadAction<any>) => {
       state.profile = action.payload
     },
+    setFetchData: (state: RootState, action: PayloadAction<Function>) => {
+      state.fetchData = action.payload
+    },
   },
 })
 
@@ -55,7 +60,8 @@ export const commonSlices = createSlice({
 export const {
   setFirstLoading,
   setToast,
-  setProfile
+  setProfile,
+  setFetchData
 } = commonSlices.actions
 
 export default commonSlices.reducer

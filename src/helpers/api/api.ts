@@ -3,9 +3,12 @@ import { userLogout, getAccessToken, getRefreshToken, saveAccessToken, saveRefre
 import { v4 as uuidv4 } from 'uuid'
 import { getCookie } from 'cookies-next'
 
+const API_URL = 'http://35.220.234.2:8082/'
+const CBOT_API_URL = 'http://34.150.59.30:8081/'
+
 const Api = axios.create({
   // baseURL: 'http://dev-gwapi.gtech.biz.vn',
-  baseURL: 'http://34.150.59.30:8082/',
+  baseURL: API_URL,
   responseType: 'json',
 })
 
@@ -32,6 +35,7 @@ Api.defaults.headers.post['Content-Type'] = 'application/json'
 // request api
 Api.interceptors.request.use(
   async function (config: any) {
+    console.log('config', config)
     const token = getAccessToken()
     if (token) {
       config.headers.Authorization = 'Bearer ' + token
@@ -54,6 +58,7 @@ Api.interceptors.request.use(
       headers = { ...headers, 'm-device-id': newUuid }
     }
     config.headers = headers
+    config.baseURL = config?.url?.includes('/cbot') ? CBOT_API_URL : API_URL
     return config
   },
   function (error) {

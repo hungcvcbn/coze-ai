@@ -35,7 +35,7 @@ Api.defaults.headers.post['Content-Type'] = 'application/json'
 // request api
 Api.interceptors.request.use(
   async function (config: any) {
-    console.log('config', config)
+ 
     const token = getAccessToken()
     if (token) {
       config.headers.Authorization = 'Bearer ' + token

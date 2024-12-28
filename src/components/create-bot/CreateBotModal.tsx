@@ -6,7 +6,7 @@ import BasicDialogActions from "../common/BasicDialogActions";
 import RHFTextField from "../hook-form/RHFTextField";
 import { useForm } from "react-hook-form";
 import RHFSelect from "../hook-form/RHFSelect";
-import { setToast } from "@/redux/slices/common";
+import { setToast, setTriggerTime } from "@/redux/slices/common";
 import { useAppDispatch } from "@/redux/hooks";
 import FormProvider from "../hook-form/FormProvider";
 import { useEffect } from "react";
@@ -33,7 +33,6 @@ const CreateBotModal = ({ open, setOpen }: CreateBotModalProps) => {
     name: "",
     description: "",
   };
-  const fetchData = useSelector((state: any) => state.common.fetchData);
   const schema = yup.object().shape({
     name: yup.string().required(),
     description: yup.string(),
@@ -55,7 +54,7 @@ const CreateBotModal = ({ open, setOpen }: CreateBotModalProps) => {
       await addAgent(params);
       dispatch(setToast({ message: "Thành công", type: "success", show: true }));
       setOpen(false);
-      fetchData();
+      dispatch(setTriggerTime(new Date().getTime()))
     } catch (error: any) {
       dispatch(setToast({ message: error.message, type: "error", show: true }));
     }

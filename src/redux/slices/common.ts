@@ -12,7 +12,7 @@ export interface CommonState {
     message: string
   },
   profile: any,
-  fetchData: Function
+  triggerTime: number
 }
 const initialState: CommonState = {
   locale: 'en-US',
@@ -25,7 +25,7 @@ const initialState: CommonState = {
     message: '',
   },
   profile: {},
-  fetchData: () => {}
+  triggerTime: new Date().getTime()
 }
 
 export const commonSlices = createSlice({
@@ -50,8 +50,8 @@ export const commonSlices = createSlice({
     setProfile: (state: RootState, action: PayloadAction<any>) => {
       state.profile = action.payload
     },
-    setFetchData: (state: RootState, action: PayloadAction<Function>) => {
-      state.fetchData = action.payload
+    setTriggerTime: (state: RootState, action: PayloadAction<number>) => {
+      state.triggerTime = action.payload
     },
   },
 })
@@ -61,7 +61,7 @@ export const {
   setFirstLoading,
   setToast,
   setProfile,
-  setFetchData
+  setTriggerTime
 } = commonSlices.actions
 
 export default commonSlices.reducer

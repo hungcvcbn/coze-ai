@@ -3,14 +3,15 @@
 import { useEffect, useState } from "react";
 import { getAgent, searchControlPanels } from "@/helpers/api/control";
 import { setToast } from "@/redux/slices/common";
-import { useAppDispatch } from "@/redux/hooks";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import CustomTextField from "../hook-form/CustomTextField";
 import Grid from "@mui/material/Grid2";
 import BasicTab from "../common/BasicTabs";
 import BasicControlList from "./BasicControlList";
 import AdvancedGPT from "./AdvancedGPT";
-import { setFetchData } from "@/redux/slices/common";
+
 const ControlPanel = () => {
+  const { triggerTime } = useAppSelector(state => state.common);
   const [data, setData] = useState<any>();
   const [tab, setTab] = useState<number>(1);
   const [term, setTerm] = useState<string>("");
@@ -32,13 +33,17 @@ const ControlPanel = () => {
       dispatch(setToast({ type: "error", message: error.message, show: true }));
     }
   };
-  setFetchData(() => fetchData());
   useEffect(() => {
     if (tab) {
       fetchData();
       setTerm("");
     }
   }, [tab]);
+  useEffect(() => {
+    if (triggerTime) {
+      fetchData();
+    }
+  }, [triggerTime]);
 
   const tabOptions = [
     { label: "Coze AI", value: 1 },

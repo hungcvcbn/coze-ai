@@ -21,23 +21,20 @@ interface CreateBotModalProps {
 
 type BotType = {
   botType?: string;
-  botName: string;
-  command: string;
-  description: string;
+  name: string;
+  description?: string;
 };
 
 const CreateBotModal = ({ open, setOpen }: CreateBotModalProps) => {
   const dispatch = useAppDispatch();
   const defaultValues: BotType = {
     botType: "Coze-AI",
-    botName: "",
-    command: "",
+    name: "",
     description: "",
   };
   const schema = yup.object().shape({
-    botName: yup.string().required(),
-    command: yup.string().required(),
-    description: yup.string().required(),
+    name: yup.string().required(),
+    description: yup.string(),
   });
   const form = useForm<BotType>({
     mode: "all",
@@ -45,13 +42,15 @@ const CreateBotModal = ({ open, setOpen }: CreateBotModalProps) => {
     defaultValues,
   });
 
-  const { watch, handleSubmit } = form;
-  const botType = watch("botType");
+  const botType = form.watch("botType");
 
   const onSubmit = async (data: BotType) => {
+    let params = {
+      ...data,
+    };
+    delete params.botType;
     try {
-      console.log('data', data)
-      await addAgent({ name: data.botName, description: data.description });
+      await addAgent(params);
       dispatch(setToast({ message: "Thành công", type: "success", show: true }));
       setOpen(false);
     } catch (error: any) {
@@ -71,7 +70,7 @@ const CreateBotModal = ({ open, setOpen }: CreateBotModalProps) => {
       title='Bắt đầu tạo Bot của bạn'
       showCloseIcon
     >
-      <FormProvider methods={form} onSubmit={handleSubmit(onSubmit)}>
+      <FormProvider methods={form} onSubmit={form.handleSubmit(onSubmit)}>
         <BasicDialogContent>
           <div className='flex flex-col gap-2'>
             <RHFSelect
@@ -82,11 +81,11 @@ const CreateBotModal = ({ open, setOpen }: CreateBotModalProps) => {
               ]}
               label='Chọn loại bot'
             />
-            <RHFTextField name='botName' label='Tên bot' placeholder='Nhập tên bot' isRequired />
+            <RHFTextField name='name' label='Tên bot' placeholder='Nhập tên bot' isRequired />
 
             {botType === "Mindmaid" ? (
               <RHFTextField
-                name='command'
+                name='description'
                 label='Lệnh điều khiển'
                 placeholder='Nhập lệnh điều khiển'
                 multiline

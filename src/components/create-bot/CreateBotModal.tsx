@@ -50,7 +50,8 @@ const CreateBotModal = ({ open, setOpen }: CreateBotModalProps) => {
 
   const onSubmit = async (data: BotType) => {
     try {
-      await addAgent(data);
+      console.log('data', data)
+      await addAgent({ name: data.botName, description: data.description });
       dispatch(setToast({ message: "Thành công", type: "success", show: true }));
       setOpen(false);
     } catch (error: any) {

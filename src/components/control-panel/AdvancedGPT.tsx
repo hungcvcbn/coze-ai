@@ -1,16 +1,18 @@
 "use client";
 import React from "react";
 import BasicButton from "../common/BasicButton";
-import { Popover, Tooltip } from "@mui/material";
+import { Icon, IconButton, Popover, Tooltip } from "@mui/material";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import { isEmpty } from "@/helpers/utils/common";
 import TableEmpty from "../common/TableEmpty";
+import { useRouter } from "next/navigation";
 
 interface Props {
   data: any;
 }
 const AdvancedGPT = ({ data }: Props) => {
   const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
+  const router = useRouter();
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
@@ -22,28 +24,31 @@ const AdvancedGPT = ({ data }: Props) => {
 
   const open = Boolean(anchorEl);
   const id = open ? "simple-popover" : undefined;
-
+  const handleOpenDetail = (id: number) => {
+    router.push(`/control-panel/${id}`);
+  };
   return (
     <div>
       {!isEmpty(data?.items) ? (
         <TableEmpty />
       ) : (
-        <div className='grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 '>
+        <div className='grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4'>
           {data?.map((bot: any, index: any) => (
             <div
               key={index}
               className='border rounded-lg relative h-[180px] w-auto cursor-pointer p-2 bg-[#FFFFFF] border-gray-300 hover:transform hover:translate-x-[-2px] hover:shadow-[0_10px_10px_gray] duration-300'
+              onClick={() => handleOpenDetail(bot.id)}
             >
               <div className='flex items-center gap-2 mb-2'>
                 <span className='text-2xl'>{bot?.avatar}</span>
                 <h3 className='font-semibold text-16-24 '>{bot?.name}</h3>
-                <button
+                <IconButton
                   aria-describedby={id}
                   className='absolute top-1 right-1'
                   onClick={handleClick}
                 >
                   <MoreHorizIcon sx={{ fontSize: "20px" }} />
-                </button>
+                </IconButton>
               </div>
               <div className='h-[100px]'>
                 <p className='text-14-20 text-gray-600 mb-4 line-clamp-4'>{bot.description}</p>

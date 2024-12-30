@@ -5,6 +5,7 @@ export const searchControlPanels = async () => {
     .fill(null)
     .map(() => {
       return {
+        id: Math.floor(Math.random() * 1000),
         name: "Test " + Math.floor(Math.random() * 1000),
         avatar: ["🤖", "👩‍💻", "🧑‍🔧", "🎨", "🚀"][Math.floor(Math.random() * 5)],
         description: [

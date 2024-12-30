@@ -1,16 +1,24 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import StorefrontIcon from "@mui/icons-material/Storefront";
 import CreateBotModal from "../create-bot/CreateBotModal";
 import Image from "next/image";
 import LogoImage from "@/assets/icons/logo.png";
+import { getCookie } from "cookies-next";
+import { TOKEN } from "@/helpers/constants";
+
 const Menu = () => {
   const [open, setOpen] = useState(false);
-
+  const token = getCookie(TOKEN);
   const pathname = usePathname();
-
+  const router = useRouter();
+  // useEffect(() => {
+  //   if (!token) {
+  //     router.push("/login");
+  //   }
+  // }, [token]);
   const menuItems = [
     {
       title: "Bảng điều khiển",

@@ -16,8 +16,8 @@ import Link from "next/link";
 import { useState } from "react";
 import { useAppDispatch } from "@/redux/hooks";
 import { setProfile, setToast } from "@/redux/slices/common";
-import { useRouter } from "next/navigation";
-import { setCookie } from "cookies-next";
+import { redirect, useRouter } from "next/navigation";
+import { getCookie, setCookie } from "cookies-next";
 import Image from "next/image";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import GoogleIconImage from "@/assets/icons/google.png";
@@ -73,7 +73,7 @@ const FormLoginBasic = () => {
   };
 
   return (
-    <div className="h-screen w-full flex items-center justify-center">
+    <div className='h-screen w-full flex items-center justify-center'>
       <div className='relative grid grid-rows-7 py-3 sm:max-w-xl sm:mx-auto text-gray-700 w-full'>
         <div className='relative row-span-7 px-4 py-10 bg-white mx-8 md:mx-0 shadow rounded-3xl sm:p-10'>
           <div className='max-w-md mx-auto'>

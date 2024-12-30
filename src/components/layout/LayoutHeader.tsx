@@ -22,7 +22,7 @@ const LayoutHeader = () => {
   const id = open ? "avatar-popover" : undefined;
 
   return (
-    <header className='bg-gradient-to-r from-blue-600 to-blue-900 text-white shadow-lg sticky top-0 z-50 h-[64px]'>
+    <header className='bg-gray-200 text-white sticky top-0 z-50 h-[64px]'>
       <div className='px-4 py-3'>
         <div className=' flex justify-end items-center'>
           {!isEmpty(profile) ? (
@@ -63,13 +63,13 @@ const LayoutHeader = () => {
             </>
           ) : (
             <>
-              {!firstLoading &&
+              {!firstLoading && (
                 <Link href={"/login"}>
                   <BasicButton size='md' variant='contained' color='primary'>
                     <div className='flex items-center gap-2 font-semibold'>Đăng nhập</div>
                   </BasicButton>
                 </Link>
-              }
+              )}
             </>
           )}
         </div>

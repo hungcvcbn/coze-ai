@@ -3,7 +3,7 @@ import { userLogout, getAccessToken, getRefreshToken, saveAccessToken, saveRefre
 import { v4 as uuidv4 } from 'uuid'
 import { getCookie } from 'cookies-next'
 
-const API_URL = 'http://35.220.234.2:8082/'
+const API_URL = 'http://35.220.234.2/'
 const CBOT_API_URL = 'http://34.150.59.30:8081/'
 
 const Api = axios.create({

@@ -16,6 +16,8 @@ interface LayoutProps {
 const Layout = ({ children }: LayoutProps) => {
   const pathname = usePathname();
   const isLoginPage = pathname === "/login" || pathname === "/sign-in" || pathname === "/sign-up";
+
+  const isPageDetail = /\/[^/]+\/[^/]+(?:\/[^/]+)*/.test(pathname || "");
   const dispatch = useAppDispatch();
   const fetchProfile = async () => {
     try {
@@ -45,7 +47,18 @@ const Layout = ({ children }: LayoutProps) => {
       </div>
     );
   }
-
+  if (isPageDetail) {
+    return (
+      <div className='flex flex-col'>
+        <div className='pl-[70px] flex-1 flex flex-col'>
+          <div className='sticky top-0 z-10 bg-gray-200'>
+            <LayoutHeader />
+          </div>
+          <main className='flex-1'>{children}</main>
+        </div>
+      </div>
+    );
+  }
   return (
     <div className='bg-gray-50 flex flex-col'>
       <Menu />

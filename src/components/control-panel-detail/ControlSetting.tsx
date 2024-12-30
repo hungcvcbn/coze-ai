@@ -10,42 +10,6 @@ import IconButton from "@mui/material/IconButton";
 import ControlCommand from "./ControlCommand";
 import SettingOptions from "./SettingOptions";
 const ControlSetting = () => {
-  const items = [
-    {
-      title: "Cài đặt cơ bản",
-      content: (
-        <div>
-          # Nhân vật Bạn đang đảm nhận vai trò của một nhân viên chăm sóc khách hàng của Metfone.
-          Nhiệm vụ của bạn là trả lời câu hỏi của khách hàng về sản phẩm, dịch vụ của công ty bằng
-          ngôn ngữ của họ. # Nhân vật Bạn đang đảm nhận vai trò của một nhân viên chăm sóc khách
-          hàng của Metfone. Nhiệm vụ của bạn là trả lời câu hỏi của khách hàng về sản phẩm, dịch vụ
-          của công ty bằng ngôn ngữ của họ. # Nhân vật Bạn đang đảm nhận vai trò của một nhân viên
-          chăm sóc khách hàng của Metfone. Nhiệm vụ của bạn là trả lời câu hỏi của khách hàng về sản
-          phẩm, dịch vụ của công ty bằng ngôn ngữ của họ.
-        </div>
-      ),
-    },
-    {
-      title: "Cài đặt nâng cao",
-      content: (
-        <div>
-          # Nhân vật Bạn đang đảm nhận vai trò của một nhân viên chăm sóc khách hàng của Metfone.
-          Nhiệm vụ của bạn là trả lời câu hỏi của khách hàng về sản phẩm, dịch vụ của công ty bằng
-          ngôn ngữ của họ.
-        </div>
-      ),
-    },
-    { title: "Điều hướng Bot trả lời", content: <div>Nội dung chi tiết.</div> },
-    { title: "Cài đặt cơ bản", content: <div>Nội dung chi tiết.</div> },
-    { title: "Cài đặt nâng cao", content: <div>Nội dung chi tiết .</div> },
-    { title: "Điều hướng Bot trả lời", content: <div>Nội dung chi tiết.</div> },
-    { title: "Cài đặt cơ bản", content: <div>Nội dung chi tiết.</div> },
-    { title: "Cài đặt nâng cao", content: <div>Nội dung chi tiết .</div> },
-    { title: "Điều hướng Bot trả lời", content: <div>Nội dung chi tiết.</div> },
-    { title: "Cài đặt cơ bản", content: <div>Nội dung chi tiết.</div> },
-    { title: "Cài đặt nâng cao", content: <div>Nội dung chi tiết .</div> },
-    { title: "Điều hướng Bot trả lời", content: <div>Nội dung chi tiết.</div> },
-  ];
   return (
     <div className='flex p-4 gap-2'>
       <div className='w-[70%]'>
@@ -78,7 +42,7 @@ const ControlSetting = () => {
             <ControlCommand />
           </div>
           <div>
-            <SettingOptions items={items} />
+            <SettingOptions />
           </div>
         </div>
       </div>

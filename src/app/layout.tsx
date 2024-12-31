@@ -3,7 +3,6 @@ import type { Metadata } from "next";
 import { ReduxProvider } from "@/redux/redux-provider";
 import "./globals.scss";
 import BasicToast from "@/components/common/BasicToast";
-import Layout from "@/components/layout/Layout";
 import { Inter } from "next/font/google";
 import { ThemeProvider } from "@mui/material/styles";
 import { theme } from "@/helpers/config/theme";
@@ -34,9 +33,7 @@ export default async function RootLayout({
       <body className='bg-neutral-100'>
         <ReduxProvider>
           <ThemeProvider theme={theme}>
-            <Layout>
-              {children}
-            </Layout>
+            {children}
             <BasicToast />
           </ThemeProvider>
         </ReduxProvider>

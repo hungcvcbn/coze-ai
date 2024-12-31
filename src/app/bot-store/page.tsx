@@ -1,12 +1,13 @@
 "use client";
 
 import BotStore from "@/components/bot-store/BotStore";
+import Layout from "@/components/layout/Layout";
 
 const BotStorePage = () => {
   return (
-    <div className='min-h-screen bg-gray-50'>
+    <Layout>
       <BotStore />
-    </div>
+    </Layout>
   );
 };
 

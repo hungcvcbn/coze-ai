@@ -1,12 +1,11 @@
-"use client";
-
 import ControlPanel from "@/components/control-panel/ControlPanel";
+import Layout from "@/components/layout/Layout";
 
 const DashboardPage = () => {
   return (
-    <div className='min-h-screen bg-gray-50'>
+    <Layout>
       <ControlPanel />
-    </div>
+    </Layout>
   );
 };
 

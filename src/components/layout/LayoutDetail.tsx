@@ -1,13 +1,13 @@
 "use client";
 import React, { useEffect } from "react";
 import LayoutHeader from "./LayoutHeader";
-import Menu from "./Menu";
 import { usePathname } from "next/navigation";
 import { useAppDispatch } from "@/redux/hooks";
 import { setFirstLoading, setProfile } from "@/redux/slices/common";
 import { getProfile } from "@/helpers/api/system";
 import { TOKEN } from "@/helpers/constants";
 import { getCookie } from "cookies-next";
+import MenuControlPanelDetail from "../control-panel-detail/ControlPanelDetail";
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -49,11 +49,11 @@ const Layout = ({ children }: LayoutProps) => {
 
   return (
     <div className='bg-gray-50 flex flex-col'>
-      <Menu />
-      <div className='pl-64 flex-1 flex flex-col'>
-        <div className='sticky top-0 z-10 bg-white'>
+      <MenuControlPanelDetail />
+      <div className='pl-[70px] flex-1 flex flex-col'>
+        {/* <div className='sticky top-0 z-10 bg-white'>
           <LayoutHeader />
-        </div>
+        </div> */}
         <main className='flex-1'>{children}</main>
       </div>
     </div>

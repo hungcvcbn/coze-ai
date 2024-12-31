@@ -5,7 +5,7 @@ import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 
 const ControlCommand = () => {
   return (
-    <div className='flex flex-col gap-2 pt-4'>
+    <div className='flex flex-col gap-2 pt-4 bg-white'>
       <div className='flex gap-2 justify-between'>
         <div className='flex gap-2'>
           <div className='text-16-24 pt-3 font-semibold text-neutral'>Lệnh điều khiển:</div>

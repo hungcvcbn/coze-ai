@@ -11,8 +11,8 @@ import ControlCommand from "./ControlCommand";
 import SettingOptions from "./SettingOptions";
 const ControlSetting = () => {
   return (
-    <div className='flex p-4 gap-2'>
-      <div className='w-[70%]'>
+    <div className='flex p-4 gap-2 bg-white'>
+      <div className='w-[70%] bg-white'>
         <div className='flex justify-between border-b border-gray-200 pb-2'>
           <div className='flex'>
             <div className='flex justify-start gap-2'>

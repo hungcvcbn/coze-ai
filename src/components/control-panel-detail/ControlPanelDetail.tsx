@@ -8,7 +8,7 @@ import Image from "next/image";
 import LogoImage from "@/assets/icons/logo.png";
 import SmartToyIcon from "@mui/icons-material/SmartToy";
 
-const Menu = () => {
+const MenuControlPanelDetail = () => {
   const params = useParams();
 
   const pathname = usePathname();
@@ -25,9 +25,9 @@ const Menu = () => {
 
   return (
     <div className='fixed left-0 top-0 w-[70px] h-full bg-gray-200 border-r border-gray-200'>
-      <div className='flex justify-center items-center gap-2 border-b border-gray-200 w-full p-4 h-[64px]'>
+      <button className='flex justify-center items-center gap-2 border-b border-gray-200 w-full p-4 h-[64px]'>
         <Image src={LogoImage} alt='Logo' width={50} height={50} className='rounded-[8px]' />
-      </div>
+      </button>
       <div className='space-y-2'>
         {menuItems.map(item => {
           const isActive = pathname === item.path;
@@ -48,4 +48,4 @@ const Menu = () => {
   );
 };
 
-export default Menu;
+export default MenuControlPanelDetail;

@@ -56,11 +56,11 @@ const ControlPanel = () => {
   const renderTabContent = () => {
     switch (tab) {
       case 1:
-        return <BasicControlList data={data} loading={loading} />;
+        return <BasicControlList data={data} loading={loading} fetchData={fetchData} />;
       case 2:
         return <AdvancedGPT data={data} />;
       default:
-        return <BasicControlList data={data} loading={loading} />;
+        return <BasicControlList data={data} loading={loading} fetchData={fetchData} />;
     }
   };
   return (

@@ -43,3 +43,10 @@ export const getAgent = async () => {
   })
 }
 
+export const updateAgentStatus = async (id: string, data: any) => {
+  return await Api({
+    url: `/cbot/v1/agents/${id}/status`,
+    method: 'patch',
+    data,
+  })
+}

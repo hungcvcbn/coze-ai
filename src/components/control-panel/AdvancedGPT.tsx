@@ -1,19 +1,25 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import BasicButton from "../common/BasicButton";
 import { Icon, IconButton, Popover, Tooltip } from "@mui/material";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import { isEmpty } from "@/helpers/utils/common";
 import TableEmpty from "../common/TableEmpty";
 import { useRouter } from "next/navigation";
+import { updateAgentStatus } from "@/helpers/api/control";
+import { setToast } from "@/redux/slices/common";
+import { useAppDispatch } from "@/redux/hooks";
+import ConfirmDialog from "../hook-form/ConfirmDialog";
 
 interface Props {
   data: any;
 }
 const AdvancedGPT = ({ data }: Props) => {
   const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(null);
+  const [openConfirm, setOpenConfirm] = useState(false);
+  const [selectedBot, setSelectedBot] = useState<any>(null);
   const router = useRouter();
-
+  const dispatch = useAppDispatch();
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
   };
@@ -21,7 +27,27 @@ const AdvancedGPT = ({ data }: Props) => {
   const handleClose = () => {
     setAnchorEl(null);
   };
-
+  const handleUpdateStatus = async (isSaved?: boolean, id?: any) => {
+    let params = {
+      status: selectedBot?.status === "ACTIVE" ? "INACTIVE" : "ACTIVE",
+    };
+    if (isSaved) {
+      try {
+        await updateAgentStatus(selectedBot?.id, params);
+        dispatch(
+          setToast({
+            message: "Cập nhật trạng thái thành công",
+            type: "success",
+            show: true,
+          })
+        );
+      } catch (error) {
+        console.log(error);
+      }
+    } else {
+      setOpenConfirm(false);
+    }
+  };
   const open = Boolean(anchorEl);
   const id = open ? "simple-popover" : undefined;
   const handleOpenDetail = (id: number) => {
@@ -37,21 +63,22 @@ const AdvancedGPT = ({ data }: Props) => {
             <div
               key={index}
               className='border rounded-lg relative h-[180px] w-auto cursor-pointer p-2 bg-[#FFFFFF] border-gray-300 hover:transform hover:translate-x-[-2px] hover:shadow-[0_10px_10px_gray] duration-300'
-              onClick={() => handleOpenDetail(bot.id)}
             >
-              <div className='flex items-center gap-2 mb-2'>
-                <span className='text-2xl'>{bot?.avatar}</span>
-                <h3 className='font-semibold text-16-24 '>{bot?.name}</h3>
-                <IconButton
-                  aria-describedby={id}
-                  className='absolute top-1 right-1'
-                  onClick={handleClick}
-                >
-                  <MoreHorizIcon sx={{ fontSize: "20px" }} />
-                </IconButton>
-              </div>
-              <div className='h-[90px]'>
-                <p className='text-14-20 text-gray-600 mb-4 line-clamp-4'>{bot.description}</p>
+              <div onClick={() => handleOpenDetail(bot.id)}>
+                <div className='flex items-center gap-2 mb-2'>
+                  <span className='text-2xl'>{bot?.avatar}</span>
+                  <h3 className='font-semibold text-16-24 '>{bot?.name}</h3>
+                  <IconButton
+                    aria-describedby={id}
+                    className='absolute top-1 right-1'
+                    onClick={handleClick}
+                  >
+                    <MoreHorizIcon sx={{ fontSize: "20px" }} />
+                  </IconButton>
+                </div>
+                <div className='h-[90px]'>
+                  <p className='text-14-20 text-gray-600 mb-4 line-clamp-4'>{bot.description}</p>
+                </div>
               </div>
               <div className='flex items-center justify-between'>
                 <div className='flex items-center gap-1'>
@@ -59,7 +86,13 @@ const AdvancedGPT = ({ data }: Props) => {
                   <span className='text-14-20 text-primary font-semibold'>Coze AI</span>
                 </div>
                 <Tooltip title='Trạng thái công khai/ Không công khai'>
-                  <BasicButton className='px-3 py-1 text-14-20 bg-green-50 text-green-600 rounded hover:bg-green-100 hover:border-green-600 hover:rounded-lg hover:border-[1px]'>
+                  <BasicButton
+                    className='px-3 py-1 text-14-20 bg-green-50 text-green-600 rounded hover:bg-green-100 hover:border-green-600 hover:rounded-lg hover:border-[1px]'
+                    onClick={() => {
+                      setSelectedBot(bot);
+                      setOpenConfirm(true);
+                    }}
+                  >
                     Bật
                   </BasicButton>
                 </Tooltip>
@@ -68,6 +101,13 @@ const AdvancedGPT = ({ data }: Props) => {
           ))}
         </div>
       )}
+      <ConfirmDialog
+        open={openConfirm}
+        // setOpen={setOpenConfirm}
+        onClose={handleUpdateStatus}
+        title='Xác nhận'
+        subTitle='Bạn có chắc chắn muốn cập nhật trạng thái của bot không?'
+      />
       <div>
         <Popover
           id={id}

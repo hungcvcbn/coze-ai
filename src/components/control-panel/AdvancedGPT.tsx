@@ -50,7 +50,7 @@ const AdvancedGPT = ({ data }: Props) => {
                   <MoreHorizIcon sx={{ fontSize: "20px" }} />
                 </IconButton>
               </div>
-              <div className='h-[100px]'>
+              <div className='h-[90px]'>
                 <p className='text-14-20 text-gray-600 mb-4 line-clamp-4'>{bot.description}</p>
               </div>
               <div className='flex items-center justify-between'>

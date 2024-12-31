@@ -1,16 +1,14 @@
 "use client";
-import React, { useState } from "react";
+import React from "react";
 import Link from "next/link";
 import { useParams, usePathname } from "next/navigation";
 import StorefrontIcon from "@mui/icons-material/Storefront";
-
 import Image from "next/image";
 import LogoImage from "@/assets/icons/logo.png";
 import SmartToyIcon from "@mui/icons-material/SmartToy";
 
 const MenuControlPanelDetail = () => {
   const params = useParams();
-
   const pathname = usePathname();
   const menuItems = [
     {
@@ -35,7 +33,7 @@ const MenuControlPanelDetail = () => {
             <Link
               key={item.path}
               href={item.path}
-              className={`flex justify-center items-center gap-3 px-4 py-2 rounded-lg transition-colors ${
+              className={`flex justify-center items-center px-4 py-2 transition-colors ${
                 isActive ? "bg-blue-50 text-blue-600" : "text-gray-700 hover:bg-gray-100"
               }`}
             >

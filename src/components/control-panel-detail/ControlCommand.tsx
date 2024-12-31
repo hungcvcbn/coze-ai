@@ -2,8 +2,14 @@
 import React, { useState } from "react";
 import SelectField from "../hook-form/SelectField";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
-
+import { TYPE_COMMAND } from "@/helpers/constants/common";
+import SampleCommand from "./SampleCommand";
 const ControlCommand = () => {
+  const [value, setValue] = useState<string | number>(-1);
+  const [open, setOpen] = useState(false);
+  const handleChange = (value: string | number) => {
+    setValue(value);
+  };
   return (
     <div className='flex flex-col gap-2 pt-4 bg-white'>
       <div className='flex gap-2 justify-between'>
@@ -12,30 +18,32 @@ const ControlCommand = () => {
           <div className='w-[120px]'>
             <SelectField
               size='small'
-              options={[
-                { value: "basic", label: "Cơ bản" },
-                { value: "custom", label: "Tuỳ chỉnh" },
-              ]}
-              onChange={() => {}}
+              options={TYPE_COMMAND}
+              value={value}
+              onChange={handleChange}
             />
           </div>
         </div>
         <div className='flex gap-4 justify-end pt-1'>
-          <div className='text-14-20 flex justify-center items-center font-semibold text-primary border border-primary rounded-[4px] px-2 py-1 cursor-pointer'>
+          <div className='text-14-20 flex justify-center items-center font-semibold text-primary border border-primary rounded-[10px] px-2 py-1 cursor-pointer'>
             Tối ưu
           </div>
-          <div className='text-14-20 flex justify-center items-center font-semibold text-primary gap-1 px-2 py-1 cursor-pointer'>
+          <button
+            className='text-14-20 flex justify-center items-center font-semibold text-primary gap-1 px-2 py-1 cursor-pointer'
+            onClick={() => setOpen(true)}
+          >
             <AddCircleOutlineIcon />
             Lệnh mẫu
-          </div>
+          </button>
         </div>
       </div>
 
       <div className='text-14-20 text-gray-500'>
         # Nhân vật Bạn đang đảm nhận vai trò của một nhân viên chăm sóc khách hàng của Metfone.
         Nhiệm vụ của bạn là trả lời câu hỏi của khách hàng về sản phẩm, dịch vụ của công ty bằng
-        ngôn ngữ của họ.
+        AddCircleOutlineIcon class="circle ngôn ngữ của họ.
       </div>
+      <SampleCommand open={open} setOpen={setOpen} />
     </div>
   );
 };

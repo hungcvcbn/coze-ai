@@ -1,9 +1,11 @@
 import React from "react";
 import LayoutDetail from "@/components/layout/LayoutDetail";
+// import Logo from "@/assets/images/logo.png";
+
 const KnowledgePage = () => {
   return (
     <LayoutDetail>
-      <div>KnowledgePage</div>
+      <div className='flex flex-col p-6'> </div>
     </LayoutDetail>
   );
 };

@@ -26,8 +26,6 @@ const LayoutHeader = () => {
 
   const handlePopoverClose = () => {
     setAnchorEl(null);
-    deleteCookie("token");
-    router.push("/login");
   };
   const handleLogout = async () => {
     try {
@@ -89,8 +87,10 @@ const LayoutHeader = () => {
               >
                 <div className='p-2'>
                   <button
-                    className='text-neutral hover:underline w-[100px]'
-                    onClick={() => {
+                    className='text-neutral hover:underline w-[100px] h-[30px]'
+                    onClick={e => {
+                      e.preventDefault();
+                      e.stopPropagation();
                       handleLogout();
                     }}
                   >

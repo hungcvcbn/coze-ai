@@ -5,7 +5,7 @@ import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import { TYPE_COMMAND } from "@/helpers/constants/common";
 import SampleCommand from "./SampleCommand";
 const ControlCommand = () => {
-  const [value, setValue] = useState<string | number>(-1);
+  const [value, setValue] = useState<string | number>("basic");
   const [open, setOpen] = useState(false);
   const handleChange = (value: string | number) => {
     setValue(value);
@@ -16,12 +16,7 @@ const ControlCommand = () => {
         <div className='flex gap-2'>
           <div className='text-16-24 pt-3 font-semibold text-neutral'>Lệnh điều khiển:</div>
           <div className='w-[120px]'>
-            <SelectField
-              size='small'
-              options={TYPE_COMMAND}
-              value={value}
-              onChange={handleChange}
-            />
+            <SelectField options={TYPE_COMMAND} value={value} onChange={handleChange} />
           </div>
         </div>
         <div className='flex gap-4 justify-end pt-1'>

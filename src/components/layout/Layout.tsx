@@ -2,7 +2,7 @@
 import React, { useEffect } from "react";
 import LayoutHeader from "./LayoutHeader";
 import Menu from "./Menu";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useAppDispatch } from "@/redux/hooks";
 import { setFirstLoading, setProfile } from "@/redux/slices/common";
 import { getProfile } from "@/helpers/api/system";
@@ -15,6 +15,7 @@ interface LayoutProps {
 
 const Layout = ({ children }: LayoutProps) => {
   const pathname = usePathname();
+  const router = useRouter();
   const isLoginPage = pathname === "/login" || pathname === "/sign-in" || pathname === "/sign-up";
 
   const dispatch = useAppDispatch();
@@ -36,6 +37,7 @@ const Layout = ({ children }: LayoutProps) => {
       fetchProfile();
     } else {
       dispatch(setFirstLoading(false));
+      router.push("/login");
     }
   }, []);
 
@@ -54,7 +56,7 @@ const Layout = ({ children }: LayoutProps) => {
         <div className='sticky top-0 z-10 bg-white'>
           <LayoutHeader />
         </div>
-        <main className='flex-1'>{children}</main>
+        <main className='flex-1 rounded-lg'>{children}</main>
       </div>
     </div>
   );

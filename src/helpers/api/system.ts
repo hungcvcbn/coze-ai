@@ -14,3 +14,10 @@ export const getProfile = async () => {
     method: 'get',
   })
 }
+
+export const logout = async () => {
+  return await Api({
+    url: `/iam/v1/auth/logout`,
+    method: 'post',
+  })
+}

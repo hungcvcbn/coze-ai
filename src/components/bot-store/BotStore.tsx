@@ -8,11 +8,12 @@ import { useAppDispatch } from "@/redux/hooks";
 import { searchBotStore } from "@/helpers/api/botStore";
 import CustomTextField from "../hook-form/CustomTextField";
 import PaidIcon from "@mui/icons-material/Paid";
+import CommonSkeleton from "../common/Skeleton";
 
 const BotStore = () => {
   const [data, setData] = useState<any>();
   const [term, setTerm] = useState<string>("");
-
+  const [loading, setLoading] = useState<boolean>(false);
   const dispatch = useAppDispatch();
 
   const handleChangeTerm = (e: any) => {
@@ -21,10 +22,13 @@ const BotStore = () => {
 
   const fetchData = async () => {
     try {
+      setLoading(true);
       const response = await searchBotStore();
       setData(response.data.items);
     } catch (error: any) {
       dispatch(setToast({ type: "error", message: error.message, show: true }));
+    } finally {
+      setLoading(false);
     }
   };
   console.log("data", data);
@@ -51,10 +55,10 @@ const BotStore = () => {
         </div>
       </div>
       <div className='p-4'>
-        {isEmpty(data) ? (
-          <TableEmpty />
+        {loading ? (
+          <CommonSkeleton itemCount={16} />
         ) : (
-          <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6'>
+          <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2'>
             {data?.map((bot: any, index: any) => (
               <div
                 key={index}

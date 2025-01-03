@@ -21,30 +21,36 @@ const BotCard: React.FC<BotCardProps> = ({
 }) => {
   return (
     <div
-      className='border rounded-lg relative h-[180px] w-auto cursor-pointer p-2 bg-[#FFFFFF] border-gray-300 hover:transform hover:translate-x-[-2px] hover:shadow-[0_4px_4px_gray] duration-300'
+      className='border rounded-lg relative h-[186px] w-auto cursor-pointer p-2 bg-[#FFFFFF] border-gray-300 hover:transform hover:translate-x-[-2px] hover:shadow-[0_4px_4px_gray] duration-300'
       onClick={() => onOpenDetail(bot.id)}
     >
-      <div className='flex items-center gap-2 mb-2 h-[40px]' onClick={() => onOpenDetail(bot.id)}>
-        <span className='text-2xl'>{bot?.avatar}</span>
-        <Tooltip title={bot?.name}>
-          <div className='font-semibold text-16-24 line-clamp-2 w-[350px] text-primary'>
-            {bot?.name}
-          </div>
-        </Tooltip>
+      <div className='flex justify-between items-center gap-2 mb-2 h-[40px] relative'>
+        <div
+          className='flex items-center w-full gap-2 flex-grow overflow-hidden'
+          onClick={() => onOpenDetail(bot.id)}
+        >
+          <span className='text-2xl'>{bot?.avatar}</span>
+          <Tooltip title={bot?.name}>
+            <div className='font-semibold text-16-24 line-clamp-2 w-[calc(100%-40px)] text-primary'>
+              {bot?.name}
+            </div>
+          </Tooltip>
+        </div>
         <button
-          className='absolute top-3 right-2'
+          className='absolute top-1/2 right-0 transform -translate-y-1/2 w-[40px]'
           onClick={event => {
             event.stopPropagation();
             onClickMenu(event, bot);
           }}
         >
-          <MoreHorizIcon sx={{ fontSize: "20px" }} />
+          <MoreHorizIcon sx={{ fontSize: "20px", color: "#000" }} />
         </button>
       </div>
+
       <div className='h-[80px]'>
         <p className='text-14-20 text-gray-600 mb-4 line-clamp-4'>{bot.description}</p>
       </div>
-      <div className='flex items-center justify-between'>
+      <div className='flex items-center justify-between py-2'>
         <div className='flex items-center gap-1'>
           <img src='/logo.png' className='w-6 h-6 rounded-full' />
           <span className='text-14-20 text-primary font-semibold'>Coze AI</span>

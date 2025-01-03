@@ -19,6 +19,11 @@ import Image from "next/image";
 import GoogleIconImage from "@/assets/icons/google.png";
 import clsx from "clsx";
 import BasicButton from "../common/BasicButton";
+type SignUpForm = {
+  username: string;
+  email: string;
+  password: string;
+};
 const FormSignUp = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [userName, setUserName] = useState("");
@@ -26,6 +31,8 @@ const FormSignUp = () => {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [acceptTerms, setAcceptTerms] = useState(false);
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const dispatch = useAppDispatch();
 
   const handleSubmit = async () => {
@@ -33,7 +40,7 @@ const FormSignUp = () => {
   };
 
   return (
-    <div className='h-screen w-full flex items-center justify-center'>
+    <div className='h-screen w-full flex items-center justify-center bg-gradient-to-r from-gray-900 via-blue-900 to-black'>
       <div className='relative grid grid-rows-7 sm:max-w-xl sm:mx-auto text-gray-700 w-full'>
         <div className='relative row-span-7 px-4 py-10 bg-white mx-8 md:mx-0 shadow rounded-3xl sm:p-10'>
           <div className='max-w-md mx-auto'>
@@ -61,6 +68,52 @@ const FormSignUp = () => {
               <div className='border-t flex-grow'></div>
             </div>
             <div className='flex flex-col gap-4'>
+              <FormControl component='fieldset' fullWidth>
+                <Typography variant='body2' color='initial' fontWeight={600}>
+                  Tên
+                </Typography>
+                <TextField
+                  size='small'
+                  placeholder='Tên của bạn'
+                  variant='outlined'
+                  type='text'
+                  fullWidth
+                  value={firstName}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                    setFirstName(e.target.value)
+                  }
+                  sx={{
+                    backgroundColor: "#FFFFFF",
+                    marginTop: "4px",
+                    "& .MuiOutlinedInput-root": {
+                      borderRadius: "8px",
+                    },
+                  }}
+                />
+              </FormControl>
+
+              <FormControl component='fieldset' fullWidth>
+                <Typography variant='body2' color='initial' fontWeight={600}>
+                  Họ
+                </Typography>
+                <TextField
+                  size='small'
+                  placeholder='Họ của bạn'
+                  variant='outlined'
+                  type='text'
+                  fullWidth
+                  value={lastName}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => setLastName(e.target.value)}
+                  sx={{
+                    backgroundColor: "#FFFFFF",
+                    marginTop: "4px",
+                    "& .MuiOutlinedInput-root": {
+                      borderRadius: "8px",
+                    },
+                  }}
+                />
+              </FormControl>
+
               <FormControl component='fieldset' fullWidth>
                 <Typography variant='body2' color='initial' fontWeight={600}>
                   Tên đăng nhập

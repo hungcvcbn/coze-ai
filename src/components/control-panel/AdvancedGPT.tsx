@@ -1,8 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import BasicButton from "../common/BasicButton";
-import { Icon, IconButton, Popover, Tooltip } from "@mui/material";
-import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
+import { Popover } from "@mui/material";
 import { isEmpty } from "@/helpers/utils/common";
 import TableEmpty from "../common/TableEmpty";
 import { useRouter } from "next/navigation";
@@ -10,6 +8,7 @@ import { updateAgentStatus } from "@/helpers/api/control";
 import { setToast } from "@/redux/slices/common";
 import { useAppDispatch } from "@/redux/hooks";
 import ConfirmDialog from "../hook-form/ConfirmDialog";
+import BotCard from "./BotCard";
 
 interface Props {
   data: any;
@@ -60,44 +59,14 @@ const AdvancedGPT = ({ data }: Props) => {
       ) : (
         <div className='grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4'>
           {data?.map((bot: any, index: any) => (
-            <div
+            <BotCard
               key={index}
-              className='border rounded-lg relative h-[180px] w-auto cursor-pointer p-2 bg-[#FFFFFF] border-gray-300 hover:transform hover:translate-x-[-2px] hover:shadow-[0_10px_10px_gray] duration-300'
-            >
-              <div onClick={() => handleOpenDetail(bot.id)}>
-                <div className='flex items-center gap-2 mb-2'>
-                  <span className='text-2xl'>{bot?.avatar}</span>
-                  <h3 className='font-semibold text-16-24 '>{bot?.name}</h3>
-                  <IconButton
-                    aria-describedby={id}
-                    className='absolute top-1 right-1'
-                    onClick={handleClick}
-                  >
-                    <MoreHorizIcon sx={{ fontSize: "20px" }} />
-                  </IconButton>
-                </div>
-                <div className='h-[90px]'>
-                  <p className='text-14-20 text-gray-600 mb-4 line-clamp-4'>{bot.description}</p>
-                </div>
-              </div>
-              <div className='flex items-center justify-between'>
-                <div className='flex items-center gap-1'>
-                  <img src='/logo.png' className='w-6 h-6 rounded-full' />
-                  <span className='text-14-20 text-primary font-semibold'>Coze AI</span>
-                </div>
-                <Tooltip title='Trạng thái công khai/ Không công khai'>
-                  <BasicButton
-                    className='px-3 py-1 text-14-20 bg-green-50 text-green-600 rounded hover:bg-green-100 hover:border-green-600 hover:rounded-lg hover:border-[1px]'
-                    onClick={() => {
-                      setSelectedBot(bot);
-                      setOpenConfirm(true);
-                    }}
-                  >
-                    Bật
-                  </BasicButton>
-                </Tooltip>
-              </div>
-            </div>
+              bot={bot}
+              onOpenDetail={handleOpenDetail}
+              onClickMenu={handleClick}
+              setSelectedBot={setSelectedBot}
+              setOpenConfirm={setOpenConfirm}
+            />
           ))}
         </div>
       )}

@@ -10,6 +10,7 @@ import ControlCommand from "./ControlCommand";
 import SettingOptions from "./SettingOptions";
 import { useRouter } from "next/navigation";
 import EditCommandModal from "./EditCommandModal";
+import { IcCheckCircle } from "../common/IconCommon";
 const ControlSetting = () => {
   const router = useRouter();
   const [open, setOpen] = useState(false);
@@ -19,8 +20,8 @@ const ControlSetting = () => {
         <div className='flex justify-between border-b border-gray-200 pb-2'>
           <div className='flex'>
             <div className='flex justify-start gap-2'>
-              <button className='cursor-pointer pt-3' onClick={() => router.back()}>
-                <ArrowBackIosIcon />
+              <button className='cursor-pointer' onClick={() => router.back()}>
+                <ArrowBackIosIcon sx={{ color: "#000000" }} />
               </button>
               <Image src={LogoImage} alt='Logo' width={50} height={50} className='rounded-[8px]' />
             </div>
@@ -34,7 +35,7 @@ const ControlSetting = () => {
               </div>
               <div className='flex justify-center items-center border border-[#007bff] rounded-[10px] w-[80px] gap-1'>
                 <div>
-                  <VerifiedIcon sx={{ fontSize: "16px", color: "#007bff" }} />
+                  <IcCheckCircle color='#007bff' />
                 </div>
                 <div className='text-12-18 pt-[2px] font-semibold text-[#007bff]'>Đã lưu</div>
               </div>

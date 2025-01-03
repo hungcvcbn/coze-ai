@@ -64,10 +64,10 @@ const ControlPanel = () => {
     }
   };
   return (
-    <div>
-      <div className='flex items-center justify-between sticky z-10 p-0' style={{ top: "64px" }}>
-        <div className='flex justify-between gap-2 px-4 py-2 w-full bg-gray-50'>
-          <Grid container spacing={2}>
+    <div className='flex flex-col'>
+      <div className='sticky z-10 p-0' style={{ top: "64px" }}>
+        <div className='flex justify-between gap-2 px-4 pt-2 bg-gray-50'>
+          <Grid className='flex gap-2'>
             <Grid size={12}>
               <CustomTextField
                 label='Tìm kiếm'
@@ -78,12 +78,12 @@ const ControlPanel = () => {
               />
             </Grid>
           </Grid>
-          <div className='flex items-center pt-4'>
+          <div className='pt-4 mt-3'>
             <BasicTab tabOptions={tabOptions} value={tab} onChange={handleChange} />
           </div>
         </div>
       </div>
-      <div className='flex flex-col p-4 gap-3 '>{renderTabContent()}</div>
+      <div className='flex flex-col px-4 py-2 gap-3'>{renderTabContent()}</div>
     </div>
   );
 };

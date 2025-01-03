@@ -11,6 +11,7 @@ import SettingOptions from "./SettingOptions";
 import { useRouter } from "next/navigation";
 import EditCommandModal from "./EditCommandModal";
 import { IcCheckCircle } from "../common/IconCommon";
+import ChatBox from "./ChatBox";
 const ControlSetting = () => {
   const router = useRouter();
   const [open, setOpen] = useState(false);
@@ -52,7 +53,9 @@ const ControlSetting = () => {
           </div>
         </div>
       </div>
-      <div className='w-[30%] bg-gray-200 rounded-[8px]'></div>
+      <div className='w-[30%]'>
+        <ChatBox />
+      </div>
       <EditCommandModal open={open} setOpen={setOpen} />
     </div>
   );

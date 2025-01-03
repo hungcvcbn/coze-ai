@@ -11,6 +11,8 @@ import { useAppDispatch } from "@/redux/hooks";
 import ConfirmDialog from "../hook-form/ConfirmDialog";
 import { STATUS_BOT } from "@/helpers/constants/common";
 import CommonSkeleton from "../common/Skeleton";
+import { useRouter } from "next/navigation";
+import BotCard from "./BotCard";
 
 interface Props {
   data: any;
@@ -22,6 +24,7 @@ const BasicControlList = ({ data, loading, fetchData }: Props) => {
   const [openConfirm, setOpenConfirm] = React.useState(false);
   const [selectedBot, setSelectedBot] = React.useState<any>(null);
   const dispatch = useAppDispatch();
+  const router = useRouter();
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>, bot: any) => {
     setAnchorEl(event.currentTarget);
@@ -30,6 +33,9 @@ const BasicControlList = ({ data, loading, fetchData }: Props) => {
 
   const handleClose = () => {
     setAnchorEl(null);
+  };
+  const handleOpenDetail = (id: any) => {
+    router.push(`/control-panel/${id}/settings`);
   };
   const handleUpdateStatus = async (isSaved?: boolean) => {
     let params = {
@@ -60,65 +66,29 @@ const BasicControlList = ({ data, loading, fetchData }: Props) => {
       setOpenConfirm(false);
     }
   };
+
   const open = Boolean(anchorEl);
   const id = open ? "simple-popover" : undefined;
 
   return (
     <div>
       {loading ? (
-        <CommonSkeleton itemCount={data?.length} />
-      ) : isEmpty(data) ? (
-        <TableEmpty />
+        <CommonSkeleton itemCount={16} />
       ) : (
         <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2 '>
           {data?.map((bot: any, index: any) => (
-            <div
+            <BotCard
               key={index}
-              className='border rounded-lg relative h-[180px] w-auto cursor-pointer p-2 bg-white border-gray-300 hover:transform hover:translate-x-[-2px] hover:shadow-[0_10px_10px_gray] duration-300'
-            >
-              <div className='flex items-center gap-2 mb-2'>
-                <span className='text-2xl'>{bot?.avatar}</span>
-                <Tooltip title={bot?.name}>
-                  <h3 className='font-semibold text-16-24 line-clamp-1 text-primary'>
-                    {bot?.name}
-                  </h3>
-                </Tooltip>
-                <button
-                  aria-describedby={id}
-                  className='absolute top-1 right-1'
-                  onClick={event => handleClick(event, bot)}
-                >
-                  <MoreHorizIcon sx={{ fontSize: "20px" }} />
-                </button>
-              </div>
-              <div className='h-[100px]'>
-                <p className='text-14-20 text-gray-600 mb-4 line-clamp-4'>{bot.description}</p>
-              </div>
-              <div className='flex items-center justify-between'>
-                <div className='flex items-center gap-1'>
-                  <img src='/logo.png' className='w-6 h-6 rounded-full' />
-                  <span className='text-14-20 text-primary font-semibold'>Coze AI</span>
-                </div>
-                <Tooltip title='Trạng thái công khai/ Không công khai'>
-                  <BasicButton
-                    className={`px-3 py-1 text-14-20 ${
-                      bot?.status === STATUS_BOT.ACTIVE
-                        ? "bg-green-50 text-green-600"
-                        : "bg-red-50 text-red-600"
-                    } rounded hover:bg-green-100 hover:border-green-600 hover:rounded-lg hover:border-[1px]`}
-                    onClick={() => {
-                      setSelectedBot(bot);
-                      setOpenConfirm(true);
-                    }}
-                  >
-                    {bot?.status === STATUS_BOT.ACTIVE ? "Bật" : "Tắt"}
-                  </BasicButton>
-                </Tooltip>
-              </div>
-            </div>
+              bot={bot}
+              onOpenDetail={handleOpenDetail}
+              onClickMenu={handleClick}
+              setSelectedBot={setSelectedBot}
+              setOpenConfirm={setOpenConfirm}
+            />
           ))}
         </div>
       )}
+
       <div>
         <Popover
           id={id}

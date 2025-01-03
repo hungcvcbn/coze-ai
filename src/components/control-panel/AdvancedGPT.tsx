@@ -50,7 +50,7 @@ const AdvancedGPT = ({ data }: Props) => {
   };
   const open = Boolean(anchorEl);
   const id = open ? "simple-popover" : undefined;
-  const handleOpenDetail = (id: number) => {
+  const handleOpenDetail = (id: any) => {
     router.push(`/control-panel/${id}/settings`);
   };
   return (

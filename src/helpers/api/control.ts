@@ -50,3 +50,11 @@ export const updateAgentStatus = async (id: string, data: any) => {
     data,
   })
 }
+
+export const deleteKnowledge = async (id: string) => {
+  return await Api({
+    url: `/cbot/v1/agents/${id}/knowledge`,
+    method: 'delete',
+
+  })
+}

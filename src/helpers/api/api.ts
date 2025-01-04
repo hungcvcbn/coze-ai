@@ -4,7 +4,7 @@ import { v4 as uuidv4 } from 'uuid'
 import { getCookie } from 'cookies-next'
 
 const API_URL = 'http://35.220.234.2:8082/'
-const CBOT_API_URL = 'http://34.150.59.30:8081/'
+const CBOT_API_URL = 'http://34.143.154.119:8081/'
 
 const Api = axios.create({
   // baseURL: 'http://dev-gwapi.gtech.biz.vn',
@@ -35,7 +35,7 @@ Api.defaults.headers.post['Content-Type'] = 'application/json'
 // request api
 Api.interceptors.request.use(
   async function (config: any) {
- 
+
     const token = getAccessToken()
     if (token) {
       config.headers.Authorization = 'Bearer ' + token

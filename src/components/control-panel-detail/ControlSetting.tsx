@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import LogoImage from "@/assets/icons/logo.png";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
@@ -7,13 +7,32 @@ import BorderColorIcon from "@mui/icons-material/BorderColor";
 import IconButton from "@mui/material/IconButton";
 import ControlCommand from "./ControlCommand";
 import SettingOptions from "./SettingOptions";
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import EditCommandModal from "./EditCommandModal";
 import { IcCheckCircle } from "../common/IconCommon";
 import ChatBox from "./ChatBox";
+import { getAgentDetail } from "@/helpers/api/agent";
+import { setToast } from "@/redux/slices/common";
+import { useAppDispatch } from "@/redux/hooks";
 const ControlSetting = () => {
   const router = useRouter();
   const [open, setOpen] = useState(false);
+  const [data, setData] = useState<any>({});
+  const dispatch = useAppDispatch();
+  console.log("data", data);
+
+  const id = useParams();
+  const fetchAgentDetail = async () => {
+    try {
+      const response = await getAgentDetail(id?.id as string);
+      setData(response?.data);
+    } catch (error: any) {
+      dispatch(setToast({ type: "error", message: error?.message, show: true }));
+    }
+  };
+  useEffect(() => {
+    fetchAgentDetail();
+  }, []);
   return (
     <div className='flex p-4 gap-2 bg-white'>
       <div className='w-[70%] bg-white border border-gray-200 rounded-lg p-4'>
@@ -34,7 +53,7 @@ const ControlSetting = () => {
 
             <div className='flex flex-col justify-start items-start px-2 pt-[2px]'>
               <div className='text-14-20 flex gap-2 font-semibold text-primary'>
-                Demo CSKH Metfone
+                {data?.name}
                 <IconButton sx={{ padding: 0, marginBottom: "4px" }} onClick={() => setOpen(true)}>
                   <BorderColorIcon sx={{ fontSize: "16px", color: "#007bff" }} />
                 </IconButton>
@@ -53,17 +72,17 @@ const ControlSetting = () => {
         </div>
         <div className='grid grid-cols-2 gap-4'>
           <div>
-            <ControlCommand />
+            <ControlCommand data={data} />
           </div>
           <div>
-            <SettingOptions />
+            <SettingOptions data={data} />
           </div>
         </div>
       </div>
       <div className='w-[30%] border border-gray-300 rounded-lg'>
         <ChatBox />
       </div>
-      <EditCommandModal open={open} setOpen={setOpen} />
+      <EditCommandModal open={open} setOpen={setOpen} data={data} />
     </div>
   );
 };

@@ -20,8 +20,10 @@ type ListItem = {
   featureName: string;
   options: ParentOption[];
 };
-
-const SettingOptions = () => {
+interface ISettingOptions {
+  data: any;
+}
+const SettingOptions = ({ data }: ISettingOptions) => {
   const [collapseStates, setCollapseStates] = useState<Record<string, boolean>>({});
   const [checkedStates, setCheckedStates] = useState<Record<string, boolean>>({});
   const handleChange = (index: string) => {

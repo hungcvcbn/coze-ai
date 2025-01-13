@@ -58,3 +58,10 @@ export const deleteKnowledge = async (id: string) => {
 
   })
 }
+
+export const getAgentDetail = async (id: string) => {
+  return await Api({
+    url: `/cbot/v1/agents/${id}/detail`,
+    method: 'get',
+  })
+}

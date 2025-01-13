@@ -5,7 +5,6 @@ import BasicDialogContent from "../common/BasicDialogContent";
 import BasicDialogActions from "../common/BasicDialogActions";
 import RHFTextField from "../hook-form/RHFTextField";
 import { useForm } from "react-hook-form";
-import RHFSelect from "../hook-form/RHFSelect";
 import { setToast, setTriggerTime } from "@/redux/slices/common";
 import { useAppDispatch } from "@/redux/hooks";
 import FormProvider from "../hook-form/FormProvider";
@@ -13,22 +12,23 @@ import { useEffect } from "react";
 import BasicButton from "../common/BasicButton";
 import { yupResolver } from "@hookform/resolvers/yup";
 import yup from "@/helpers/utils/yupConfig";
-import RHFUploadImage from "../hook-form/RHFUploadImage";
+// import RHFUploadImage from "../hook-form/RHFUploadImage";
 interface CreateBotModalProps {
   open: boolean;
   setOpen: (open: boolean) => void;
+  data: any;
 }
 
 type BotType = {
   name: string;
-  imageUrl?: string;
+  // imageUrl?: string;
 };
 
-const CreateBotModal = ({ open, setOpen }: CreateBotModalProps) => {
+const EditCommandModal = ({ open, setOpen, data }: CreateBotModalProps) => {
   const dispatch = useAppDispatch();
   const defaultValues: BotType = {
     name: "",
-    imageUrl: "",
+    // imageUrl: "",
   };
   const schema = yup.object().shape({
     name: yup.string().required(),
@@ -45,8 +45,11 @@ const CreateBotModal = ({ open, setOpen }: CreateBotModalProps) => {
     setOpen(false);
   };
   useEffect(() => {
-    if (open) {
-      form.reset();
+    if (open && data) {
+      form.reset({
+        name: data?.name,
+        // imageUrl: data?.imageUrl,
+      });
     }
   }, [open]);
 
@@ -55,12 +58,14 @@ const CreateBotModal = ({ open, setOpen }: CreateBotModalProps) => {
       <FormProvider methods={form} onSubmit={form.handleSubmit(onSubmit)}>
         <BasicDialogContent>
           <div className='flex flex-col gap-2'>
-            <div className='text-14-20 font-semibold text-neutral'>Bot ID: abc</div>
+            <div className='text-14-20 font-medium text-neutral'>
+              <span className='font-semibold'>Bot ID:</span> {data?.id}
+            </div>
             <RHFTextField name='name' label='Tên bot' placeholder='Nhập tên bot' isRequired />
-            <div className='flex flex-col gap-2'>
+            {/* <div className='flex flex-col gap-2'>
               <div className='text-14-20 font-semibold text-neutral'>Ảnh đại diện:</div>
               <RHFUploadImage name='imageUrl' uploadFolder='avatar' />
-            </div>
+            </div> */}
           </div>
         </BasicDialogContent>
 
@@ -82,4 +87,4 @@ const CreateBotModal = ({ open, setOpen }: CreateBotModalProps) => {
   );
 };
 
-export default CreateBotModal;
+export default EditCommandModal;

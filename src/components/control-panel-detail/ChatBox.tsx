@@ -6,8 +6,8 @@ import LogoImage from "@/assets/icons/logo.png";
 import Image from "next/image";
 import AdminAvatar from "@/assets/icons/avatar_admin.png";
 import { Send } from "@mui/icons-material";
-import { chat } from "@/helpers/api/chatbot";
-import { useParams } from "next/navigation";
+// import { chat } from "@/helpers/api/chatbot";
+// import { useParams } from "next/navigation";
 const ChatBox = () => {
   const [messages, setMessages] = useState([
     { sender: "bot", text: "Xin chào! Tôi có thể giúp gì cho bạn?" },
@@ -16,7 +16,7 @@ const ChatBox = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [isTyping, setIsTyping] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
-  const { id } = useParams();
+  // const { id } = useParams();
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });

@@ -12,11 +12,14 @@ import { useEffect } from "react";
 import BasicButton from "../common/BasicButton";
 import { yupResolver } from "@hookform/resolvers/yup";
 import yup from "@/helpers/utils/yupConfig";
+import { updateAgent } from "@/helpers/api/agent";
+import { useParams } from "next/navigation";
 // import RHFUploadImage from "../hook-form/RHFUploadImage";
 interface CreateBotModalProps {
   open: boolean;
   setOpen: (open: boolean) => void;
   data: any;
+  fetchData: Function;
 }
 
 type BotType = {
@@ -24,8 +27,9 @@ type BotType = {
   // imageUrl?: string;
 };
 
-const EditCommandModal = ({ open, setOpen, data }: CreateBotModalProps) => {
+const EditCommandModal = ({ open, setOpen, data, fetchData }: CreateBotModalProps) => {
   const dispatch = useAppDispatch();
+  const botId = useParams();
   const defaultValues: BotType = {
     name: "",
     // imageUrl: "",
@@ -41,8 +45,14 @@ const EditCommandModal = ({ open, setOpen, data }: CreateBotModalProps) => {
   });
 
   const onSubmit = async (data: BotType) => {
-    dispatch(setToast({ message: "Thành công", type: "success", show: true }));
-    setOpen(false);
+    try {
+      await updateAgent(botId?.id as string, data);
+      dispatch(setToast({ message: "Thành công", type: "success", show: true }));
+      setOpen(false);
+      fetchData();
+    } catch (error) {
+      console.log(error);
+    }
   };
   useEffect(() => {
     if (open && data) {

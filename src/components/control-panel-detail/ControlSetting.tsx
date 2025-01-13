@@ -98,7 +98,7 @@ const ControlSetting = () => {
           <ChatBox />
         </div>
       )}
-      <EditCommandModal open={open} setOpen={setOpen} data={data} />
+      <EditCommandModal open={open} setOpen={setOpen} data={data} fetchData={fetchAgentDetail} />
     </div>
   );
 };

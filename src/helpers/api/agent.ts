@@ -65,3 +65,10 @@ export const getAgentDetail = async (id: string) => {
     method: 'get',
   })
 }
+export const updateAgent = async (id: string, data: any) => {
+  return await Api({
+    url: `/cbot/v1/agents/${id}`,
+    method: 'put',
+    data,
+  })
+}

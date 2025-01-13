@@ -1,15 +1,13 @@
 "use client";
 import React, { useState, useEffect, useRef } from "react";
 import CustomTextField from "../hook-form/CustomTextField";
-import BasicButton from "../common/BasicButton";
 import LogoImage from "@/assets/icons/logo.png";
 import Image from "next/image";
 import AdminAvatar from "@/assets/icons/avatar_admin.png";
 import { Send } from "@mui/icons-material";
 import AttachFileIcon from "@mui/icons-material/AttachFile";
 import ImageIcon from "@mui/icons-material/Image";
-import { getConversationId } from "@/helpers/api/chatbot";
-import { useParams } from "next/navigation";
+
 // import { chat } from "@/helpers/api/chatbot";
 // import { useParams } from "next/navigation";
 
@@ -32,8 +30,6 @@ const ChatBox = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [isTyping, setIsTyping] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
-  const botId = useParams();
-  console.log(botId);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -153,13 +149,7 @@ const ChatBox = () => {
       setIsTyping(false);
     }
   };
-  const getConversation = async () => {
-    const response = await getConversationId({ botId: botId?.id, tcode: "hag" });
-    console.log(response);
-  };
-  useEffect(() => {
-    getConversation();
-  }, []);
+
   return (
     <div className='flex flex-col h-[calc(100vh-98px)]'>
       <div className='text-14-20 bg-green-50 rounded-t-lg font-semibold text-primary h-[40px] p-3 flex items-center border-b border-gray-200'>

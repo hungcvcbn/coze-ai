@@ -14,28 +14,42 @@ import ChatBox from "./ChatBox";
 import { getAgentDetail } from "@/helpers/api/agent";
 import { setToast } from "@/redux/slices/common";
 import { useAppDispatch } from "@/redux/hooks";
+import { getConversationId } from "@/helpers/api/chatbot";
+import { isEmpty } from "@/helpers/utils/common";
+
 const ControlSetting = () => {
   const router = useRouter();
   const [open, setOpen] = useState(false);
   const [data, setData] = useState<any>({});
+  const [conversation, setConversation] = useState<any>({});
   const dispatch = useAppDispatch();
-  console.log("data", data);
+  const botId = useParams();
 
-  const id = useParams();
   const fetchAgentDetail = async () => {
     try {
-      const response = await getAgentDetail(id?.id as string);
+      const response = await getAgentDetail(botId?.id as string);
       setData(response?.data);
     } catch (error: any) {
       dispatch(setToast({ type: "error", message: error?.message, show: true }));
     }
   };
+  const getConversation = async () => {
+    const response = await getConversationId({ botId: botId?.id, tcode: "hag" });
+    setConversation(response?.data);
+  };
+  useEffect(() => {
+    getConversation();
+  }, []);
   useEffect(() => {
     fetchAgentDetail();
   }, []);
   return (
     <div className='flex p-4 gap-2 bg-white'>
-      <div className='w-[70%] bg-white border border-gray-200 rounded-lg p-4'>
+      <div
+        className={`w-[70%] bg-white border border-gray-200 rounded-lg p-4 ${
+          !isEmpty(conversation?.conversations) ? "w-[70%]" : "w-[100%]"
+        }`}
+      >
         <div className='flex justify-between h-[50px] border-b border-gray-200'>
           <div className='flex'>
             <div className='flex justify-center items-center gap-2'>
@@ -79,9 +93,11 @@ const ControlSetting = () => {
           </div>
         </div>
       </div>
-      <div className='w-[30%] border border-gray-300 rounded-lg'>
-        <ChatBox />
-      </div>
+      {!isEmpty(conversation?.conversations) && (
+        <div className='w-[30%] border border-gray-300 rounded-lg'>
+          <ChatBox />
+        </div>
+      )}
       <EditCommandModal open={open} setOpen={setOpen} data={data} />
     </div>
   );

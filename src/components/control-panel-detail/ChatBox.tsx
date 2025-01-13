@@ -52,7 +52,6 @@ const ChatBox = () => {
         "Bạn có thể liên hệ với chúng tôi qua email: coze.ai@gmail.com hoặc hotline: 0123456789",
       "tính năng":
         "Sản phẩm của chúng tôi có các tính năng chính như: chatbot tự động, xử lý ngôn ngữ tự nhiên, tích hợp API, phân tích dữ liệu, và nhiều tính năng khác.",
-      demo: "Bạn có thể đăng ký dùng thử miễn phí trong 14 ngày để trải nghiệm đầy đủ tính năng của sản phẩm.",
       "hỗ trợ":
         "Chúng tôi cung cấp hỗ trợ kỹ thuật 24/7 và có đội ngũ chuyên gia sẵn sàng giải đáp mọi thắc mắc của bạn.",
       "ai là gì?":
@@ -154,7 +153,7 @@ const ChatBox = () => {
 
   return (
     <div className='flex flex-col h-[calc(100vh-98px)]'>
-      <div className='text-16-24 font-semibold text-primary h-[40px] p-3 flex items-center border-b border-gray-200'>
+      <div className='text-14-20 bg-green-50 rounded-t-lg font-semibold text-primary h-[40px] p-3 flex items-center border-b border-gray-200'>
         Dùng thử
       </div>
       <div className='flex-1 overflow-y-auto p-4 bg-white'>

@@ -4,7 +4,7 @@ import { Popover } from "@mui/material";
 import { isEmpty } from "@/helpers/utils/common";
 import TableEmpty from "../common/TableEmpty";
 import { useRouter } from "next/navigation";
-import { updateAgentStatus } from "@/helpers/api/control";
+import { updateAgentStatus } from "@/helpers/api/agent";
 import { setToast } from "@/redux/slices/common";
 import { useAppDispatch } from "@/redux/hooks";
 import ConfirmDialog from "../hook-form/ConfirmDialog";

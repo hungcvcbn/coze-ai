@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { getAgent, searchControlPanels } from "@/helpers/api/control";
+import { getAgent, searchControlPanels } from "@/helpers/api/agent";
 import { setToast } from "@/redux/slices/common";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import CustomTextField from "../hook-form/CustomTextField";

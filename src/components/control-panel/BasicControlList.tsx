@@ -1,11 +1,7 @@
 "use client";
 import React from "react";
-import BasicButton from "../common/BasicButton";
-import { Popover, Tooltip } from "@mui/material";
-import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
-import { isEmpty } from "@/helpers/utils/common";
-import TableEmpty from "../common/TableEmpty";
-import { updateAgentStatus } from "@/helpers/api/control";
+import { Popover } from "@mui/material";
+import { updateAgentStatus } from "@/helpers/api/agent";
 import { setToast } from "@/redux/slices/common";
 import { useAppDispatch } from "@/redux/hooks";
 import ConfirmDialog from "../hook-form/ConfirmDialog";

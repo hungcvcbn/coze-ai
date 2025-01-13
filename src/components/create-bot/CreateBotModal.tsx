@@ -11,7 +11,7 @@ import { useAppDispatch } from "@/redux/hooks";
 import FormProvider from "../hook-form/FormProvider";
 import { useEffect } from "react";
 import BasicButton from "../common/BasicButton";
-import { addAgent } from "@/helpers/api/control";
+import { addAgent } from "@/helpers/api/agent";
 import { yupResolver } from "@hookform/resolvers/yup";
 import yup from "@/helpers/utils/yupConfig";
 import { useSelector } from "react-redux";
@@ -54,7 +54,7 @@ const CreateBotModal = ({ open, setOpen }: CreateBotModalProps) => {
       await addAgent(params);
       dispatch(setToast({ message: "Thành công", type: "success", show: true }));
       setOpen(false);
-      dispatch(setTriggerTime(new Date().getTime()))
+      dispatch(setTriggerTime(new Date().getTime()));
     } catch (error: any) {
       dispatch(setToast({ message: error.message, type: "error", show: true }));
     }

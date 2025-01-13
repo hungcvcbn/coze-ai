@@ -73,17 +73,6 @@ module.exports = {
         'danger-50': '#FEE9ED',
       },
     },
-    fontFamily: {
-      'inter-900': ['Inter Black'],
-      'inter-800': ['Inter ExtraBold'],
-      'inter-700': ['Inter Bold'],
-      'inter-600': ['Inter SemiBold'],
-      'inter-500': ['Inter Medium'],
-      'inter-400': ['Inter Regular'],
-      'inter-300': ['Inter Light'],
-      'inter-200': ['Inter ExtraLight'],
-      'inter-100': ['Inter Thin'],
-    },
     screens: {
       sm: '640px',
       // => @media (min-width: 640px) { ... }

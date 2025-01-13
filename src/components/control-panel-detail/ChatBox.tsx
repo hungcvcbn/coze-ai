@@ -6,10 +6,24 @@ import LogoImage from "@/assets/icons/logo.png";
 import Image from "next/image";
 import AdminAvatar from "@/assets/icons/avatar_admin.png";
 import { Send } from "@mui/icons-material";
+import AttachFileIcon from "@mui/icons-material/AttachFile";
+import ImageIcon from "@mui/icons-material/Image";
 // import { chat } from "@/helpers/api/chatbot";
 // import { useParams } from "next/navigation";
+
+// Add new message type
+type Message = {
+  sender: "user" | "bot";
+  text: string;
+  attachment?: {
+    type: "file" | "image";
+    url: string;
+    name: string;
+  };
+};
+
 const ChatBox = () => {
-  const [messages, setMessages] = useState([
+  const [messages, setMessages] = useState<Message[]>([
     { sender: "bot", text: "Xin chào! Tôi có thể giúp gì cho bạn?" },
   ]);
   const [input, setInput] = useState("");
@@ -76,14 +90,14 @@ const ChatBox = () => {
 
     setIsLoading(true);
     const userMessage = { sender: "user", text: input.trim() };
-    setMessages(prev => [...prev, userMessage]);
+    setMessages(prev => [...prev, userMessage as Message]);
     setInput("");
 
     setIsTyping(true);
     try {
       await new Promise(resolve => setTimeout(resolve, 1500));
       const botReply = fakeBotReply(input);
-      const botMessage = { sender: "bot", text: botReply };
+      const botMessage = { sender: "bot", text: botReply } as Message;
       setMessages(prev => [...prev, botMessage]);
     } catch (error) {
       console.error("Error sending message:", error);
@@ -104,9 +118,43 @@ const ChatBox = () => {
   //   console.log(response);
   // };
 
+  // Update handleFileUpload function
+  const handleFileUpload = async (
+    event: React.ChangeEvent<HTMLInputElement>,
+    type: "file" | "image"
+  ) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+    const url = URL.createObjectURL(file);
+
+    const newMessage: Message = {
+      sender: "user",
+      text: "",
+      attachment: {
+        type,
+        url,
+        name: file.name,
+      },
+    };
+
+    setMessages(prev => [...prev, newMessage]);
+
+    setIsTyping(true);
+    try {
+      await new Promise(resolve => setTimeout(resolve, 1500));
+      const botMessage = {
+        sender: "bot",
+        text: "Xin lỗi, hiện tại chúng tôi chưa hỗ trợ xử lý tệp tin và hình ảnh. Vui lòng gửi câu hỏi bằng văn bản.",
+      } as Message;
+      setMessages(prev => [...prev, botMessage]);
+    } finally {
+      setIsTyping(false);
+    }
+  };
+
   return (
-    <div className='flex flex-col h-[calc(100vh-98px)] border border-gray-200'>
-      <div className='text-16-24 font-semibold text-neutral h-[60px] flex items-center px-2 border-b border-gray-200'>
+    <div className='flex flex-col h-[calc(100vh-98px)]'>
+      <div className='text-16-24 font-semibold text-primary h-[40px] p-3 flex items-center border-b border-gray-200'>
         Dùng thử
       </div>
       <div className='flex-1 overflow-y-auto p-4 bg-white'>
@@ -124,15 +172,35 @@ const ChatBox = () => {
                   height={40}
                   className='rounded-full mr-2'
                 />
-                <div className='px-4 py-2 bg-blue-100 text-14-20 text-neutral rounded-lg shadow-md'>
+                <div className='px-4 py-2 bg-info-50 text-14-20 text-neutral rounded-lg shadow-md'>
                   {msg.text}
                 </div>
               </div>
             )}
             {msg.sender === "user" && (
               <div className='flex items-start'>
-                <div className='px-4 py-2 bg-green-100 text-14-20 text-neutral rounded-lg shadow-md'>
+                <div className='px-4 py-2 bg-gray-50 text-14-20 text-neutral rounded-lg shadow-md'>
                   {msg.text}
+                  {msg.attachment && (
+                    <div className='mt-2'>
+                      {msg.attachment.type === "image" ? (
+                        <img
+                          src={msg.attachment.url}
+                          alt={msg.attachment.name}
+                          className='max-w-[200px] rounded-lg'
+                        />
+                      ) : (
+                        <a
+                          href={msg.attachment.url}
+                          download={msg.attachment.name}
+                          className='flex items-center gap-2 text-blue-500 hover:underline'
+                        >
+                          <AttachFileIcon fontSize='small' />
+                          {msg.attachment.name}
+                        </a>
+                      )}
+                    </div>
+                  )}
                 </div>
                 <Image
                   src={AdminAvatar}
@@ -163,13 +231,14 @@ const ChatBox = () => {
         )}
         <div ref={messagesEndRef} />
       </div>
-      <div className='flex items-center gap-2 p-4 border-t border-gray-200'>
+      <div className='flex items-center gap-2 pt-2 border-t border-gray-200 p-2'>
         <div className='flex-1'>
           <CustomTextField
             fullWidth
+            size='small'
             value={input}
             onChange={e => setInput(e.target.value)}
-            placeholder='Mời bạn nhập câu hỏi...'
+            placeholder='Vui lòng nhập câu hỏi...'
             onKeyPress={e => {
               if (e.key === "Enter" && !e.shiftKey && !isLoading) {
                 e.preventDefault();
@@ -180,14 +249,53 @@ const ChatBox = () => {
             disabled={isLoading}
           />
         </div>
+        <input
+          type='file'
+          id='file-upload'
+          className='hidden'
+          onChange={e => handleFileUpload(e, "file")}
+          accept='.pdf,.doc,.docx,.txt'
+        />
+        <input
+          type='file'
+          id='image-upload'
+          className='hidden'
+          onChange={e => handleFileUpload(e, "image")}
+          accept='image/*'
+        />
+        <label htmlFor='file-upload' className='cursor-pointer'>
+          <AttachFileIcon
+            fontSize='small'
+            sx={{
+              color: "#6A5ACD",
+              transition: "color 0.1s ease-in-out",
+              "&:hover": {
+                color: "#3E2A91",
+              },
+            }}
+          />
+        </label>
+        <label htmlFor='image-upload' className='cursor-pointer'>
+          <ImageIcon
+            fontSize='small'
+            sx={{
+              color: "#6A5ACD",
+              transition: "color 0.1s ease-in-out",
+              "&:hover": {
+                color: "#3E2A91",
+              },
+            }}
+          />
+        </label>
+
         <button
           onClick={handleSendMessage}
           disabled={isLoading}
-          className={`p-2 text-white rounded-full transition-colors ${
-            isLoading ? "bg-gray-400 cursor-not-allowed" : "bg-blue-500 hover:bg-blue-600"
-          }`}
+          // className={`p-2 text-white  transition-colors ${
+          //   isLoading ? "bg-gray-400 cursor-not-allowed" : "bg-primary hover:bg-primary-700"
+          // }`}
         >
-          <Send fontSize='small' />
+          <Send fontSize='small' sx={{ color: "#6A5ACD", "&:hover": { color: "#3E2A91" } }} />
         </button>
       </div>
     </div>

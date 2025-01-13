@@ -80,7 +80,10 @@ const BasicControlList = ({ data, loading, fetchData }: Props) => {
             <BotCard
               key={index}
               bot={bot}
-              onOpenDetail={handleOpenDetail}
+              onOpenDetail={() => {
+                setSelectedBot(bot);
+                handleOpenDetail(bot.id);
+              }}
               onClickMenu={handleClick}
               setSelectedBot={setSelectedBot}
               setOpenConfirm={setOpenConfirm}

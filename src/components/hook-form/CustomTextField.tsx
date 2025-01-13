@@ -10,10 +10,11 @@ export type CustomTextFieldProps = Omit<TextFieldProps, "error"> & {
   isRequired?: boolean;
   readOnly?: boolean;
   dashedBorder?: boolean;
+  placeholder?: string;
 };
 
 const CustomTextField = forwardRef<HTMLDivElement, CustomTextFieldProps>(
-  ({ isRequired, readOnly, label, error, dashedBorder, ...other }, ref) => {
+  ({ isRequired, readOnly, label, error, dashedBorder, placeholder, ...other }, ref) => {
     return (
       <Box display='flex' flexDirection='column' gap={0.5}>
         <RequiredLabel isRequired={isRequired}>{label}</RequiredLabel>
@@ -22,6 +23,7 @@ const CustomTextField = forwardRef<HTMLDivElement, CustomTextFieldProps>(
           fullWidth
           size='small'
           label=''
+          placeholder={placeholder}
           inputProps={{
             readOnly: readOnly,
             sx: dashedBorder
@@ -41,6 +43,9 @@ const CustomTextField = forwardRef<HTMLDivElement, CustomTextFieldProps>(
                   whiteSpace: "nowrap",
                 }
               : {},
+            "& .MuiInputBase-input::placeholder": {
+              fontSize: "14px",
+            },
             "& .Mui-disabled": {
               backgroundColor: "#F9FAFB",
             },

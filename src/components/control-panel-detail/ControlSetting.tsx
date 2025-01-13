@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import Image from "next/image";
 import LogoImage from "@/assets/icons/logo.png";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
-import VerifiedIcon from "@mui/icons-material/Verified";
 import BorderColorIcon from "@mui/icons-material/BorderColor";
 import IconButton from "@mui/material/IconButton";
 import ControlCommand from "./ControlCommand";

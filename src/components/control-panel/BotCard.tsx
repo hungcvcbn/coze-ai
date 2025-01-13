@@ -29,9 +29,9 @@ const BotCard: React.FC<BotCardProps> = ({
           className='flex items-center w-full gap-2 flex-grow overflow-hidden'
           onClick={() => onOpenDetail(bot.id)}
         >
-          <span className='text-2xl'>{bot?.avatar}</span>
+          <span className='text-16-24'>{bot?.avatar}</span>
           <Tooltip title={bot?.name}>
-            <div className='font-semibold text-16-24 line-clamp-2 w-[calc(100%-40px)] text-primary'>
+            <div className='font-semibold text-16-24 line-clamp-2 w-[calc(100%-40px)] text-neutral'>
               {bot?.name}
             </div>
           </Tooltip>
@@ -59,9 +59,9 @@ const BotCard: React.FC<BotCardProps> = ({
           <BasicButton
             className={`px-3 py-1 text-14-20 ${
               bot?.status === STATUS_BOT.ACTIVE
-                ? "bg-green-50 text-green-600"
-                : "bg-red-50 text-red-600"
-            } rounded hover:bg-green-100 hover:border-green-600 hover:rounded-lg hover:border-[1px]`}
+                ? "bg-green-50 text-success"
+                : "bg-danger-50 hover:bg-danger-50 hover:border-danger hover:border-[1px] text-danger"
+            } rounded hover:bg-green-100 hover:border-success hover:rounded-lg hover:border-[1px]`}
             onClick={event => {
               event.stopPropagation();
               setSelectedBot(bot);

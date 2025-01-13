@@ -24,17 +24,36 @@ const BasicToast = () => {
       open={show}
       autoHideDuration={duration}
       onClose={handleClose}
-      message={message}
-      // action={action}
       anchorOrigin={{ vertical: "top", horizontal: "right" }}
+      sx={{
+        maxWidth: "400px",
+        minWidth: "300px",
+      }}
     >
       <Alert
-        icon={<CheckCircleOutlineIcon />}
+        icon={type === "success" ? <CheckCircleOutlineIcon /> : undefined}
         onClose={handleClose}
         severity={type}
-        sx={{ width: "100%" }}
+        sx={{
+          width: "100%",
+          "& .MuiAlert-message": {
+            width: "100%",
+          },
+          boxShadow: "0px 4px 15px rgba(0, 0, 0, 0.08)",
+          borderRadius: "8px",
+          backgroundColor: type === "success" ? "#E7F7ED" : "#FFF3F3",
+          border: `1px solid ${type === "success" ? "#A6E4B8" : "#FFCDD2"}`,
+        }}
       >
-        <p className='text-[16px] font-bold'>{message}</p>
+        <p
+          className='text-14-20 font-bold'
+          style={{
+            color: type === "success" ? "#2E7D32" : "#D32F2F",
+            margin: 0,
+          }}
+        >
+          {message}
+        </p>
       </Alert>
     </Snackbar>
   );

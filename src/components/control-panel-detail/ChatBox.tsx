@@ -90,9 +90,9 @@ const ChatBox = ({ conversation }: ChatBoxProps) => {
         fileSize: file.size,
         fileType: file.type,
       };
-      const response = await requestUpload(5, "hag", params);
+      const response = await requestUpload(5, params);
 
-      await uploadFile(formData, "hag", response.data.uploadToken);
+      await uploadFile(formData, response.data.uploadToken);
       setMessages(prev => [...prev, { sender: "user", text: file.name }]);
     } catch (error: any) {
       //  to do
@@ -212,7 +212,7 @@ const ChatBox = ({ conversation }: ChatBoxProps) => {
         <BasicButton
           variant='outlined'
           onClick={() => fileInputRef.current?.click()}
-          // onClick={handleUploadProduct}
+        // onClick={handleUploadProduct}
         >
           <AttachFileIcon
             fontSize='small'
@@ -253,9 +253,9 @@ const ChatBox = ({ conversation }: ChatBoxProps) => {
         <button
           onClick={handleChat}
           disabled={isLoading}
-          // className={`p-2 text-white  transition-colors ${
-          //   isLoading ? "bg-gray-400 cursor-not-allowed" : "bg-primary hover:bg-primary-700"
-          // }`}
+        // className={`p-2 text-white  transition-colors ${
+        //   isLoading ? "bg-gray-400 cursor-not-allowed" : "bg-primary hover:bg-primary-700"
+        // }`}
         >
           <Send fontSize='small' sx={{ color: "#6A5ACD", "&:hover": { color: "#3E2A91" } }} />
         </button>

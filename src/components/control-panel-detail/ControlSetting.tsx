@@ -34,7 +34,7 @@ const ControlSetting = () => {
     }
   };
   const getConversation = async () => {
-    const response = await getConversationId({ botId: botId?.id, tcode: "hag" });
+    const response = await getConversationId({ botId: botId?.id });
     setConversation(response?.data);
   };
   useEffect(() => {
@@ -46,9 +46,8 @@ const ControlSetting = () => {
   return (
     <div className='flex p-4 gap-2 bg-white'>
       <div
-        className={`w-[70%] bg-white border border-gray-200 rounded-lg p-4 ${
-          !isEmpty(conversation?.conversations) ? "w-[70%]" : "w-[100%]"
-        }`}
+        className={`w-[70%] bg-white border border-gray-200 rounded-lg p-4 ${!isEmpty(conversation?.conversations) ? "w-[70%]" : "w-[100%]"
+          }`}
       >
         <div className='flex justify-between h-[50px] border-b border-gray-200'>
           <div className='flex'>

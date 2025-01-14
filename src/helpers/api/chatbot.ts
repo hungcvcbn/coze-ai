@@ -13,7 +13,7 @@ export const getConversationId = async (params: any) => {
     params,
   })
 }
-export const uploadFile = async (data: any, tcode?: any, uploadToken?: any) => {
+export const uploadFile = async (data: any, uploadToken?: any) => {
   return await Api({
     url: `/assets/v1/files/upload?uploadToken=${encodeURIComponent(uploadToken)}`,
     method: 'post',
@@ -23,9 +23,9 @@ export const uploadFile = async (data: any, tcode?: any, uploadToken?: any) => {
     },
   })
 }
-export const requestUpload = async (id: any, tcode: any, data: any) => {
+export const requestUpload = async (id: any, data: any) => {
   return await Api({
-    url: `/cbot/v1/resources/knowledge/${id}/upload-file-request?tcode=${tcode}`,
+    url: `/cbot/v1/resources/knowledge/${id}/upload-file-request`,
     method: 'post',
     data,
   })

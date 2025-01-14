@@ -15,7 +15,7 @@ export const getConversationId = async (params: any) => {
 }
 export const uploadFile = async (data: any, tcode?: any, uploadToken?: any) => {
   return await Api({
-    url: `/assets/v1/files/upload?uploadToken=${uploadToken}`,
+    url: `/assets/v1/files/upload?uploadToken=${encodeURIComponent(uploadToken)}`,
     method: 'post',
     data,
     headers: {

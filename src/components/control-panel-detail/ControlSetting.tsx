@@ -95,7 +95,7 @@ const ControlSetting = () => {
       </div>
       {!isEmpty(conversation?.conversations) && (
         <div className='w-[30%] border border-gray-300 rounded-lg'>
-          <ChatBox />
+          <ChatBox conversation={conversation} />
         </div>
       )}
       <EditCommandModal open={open} setOpen={setOpen} data={data} fetchData={fetchAgentDetail} />

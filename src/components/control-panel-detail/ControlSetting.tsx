@@ -80,7 +80,7 @@ const ControlSetting = () => {
               </div>
             </div>
           </div>
-          <div className='text-16-24 font-semibold text-primary flex justify-center items-center px-2 '>
+          <div className='text-14-20 font-semibold text-primary flex justify-center items-center px-2 '>
             Open AI
           </div>
         </div>

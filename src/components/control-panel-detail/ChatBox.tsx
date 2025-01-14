@@ -7,8 +7,11 @@ import AdminAvatar from "@/assets/icons/avatar_admin.png";
 import { Send } from "@mui/icons-material";
 import AttachFileIcon from "@mui/icons-material/AttachFile";
 import ImageIcon from "@mui/icons-material/Image";
-import { chat } from "@/helpers/api/chatbot";
+import { chat, requestUpload, uploadFile } from "@/helpers/api/chatbot";
 import { useParams } from "next/navigation";
+import { setToast } from "@/redux/slices/common";
+import { useAppDispatch } from "@/redux/hooks";
+import BasicButton from "../common/BasicButton";
 
 type Message = {
   sender: "user" | "bot";
@@ -32,7 +35,8 @@ const ChatBox = ({ conversation }: ChatBoxProps) => {
   const [isLoading, setIsLoading] = useState(false);
   const [isTyping, setIsTyping] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
-
+  const dispatch = useAppDispatch();
+  const fileInputRef = useRef<HTMLInputElement>(null);
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
@@ -73,42 +77,36 @@ const ChatBox = ({ conversation }: ChatBoxProps) => {
     }
   };
 
-  const handleFileUpload = async (
-    event: React.ChangeEvent<HTMLInputElement>,
-    type: "file" | "image"
-  ) => {
-    const file = event.target.files?.[0];
-    if (!file) return;
-    const url = URL.createObjectURL(file);
-
-    const newMessage: Message = {
-      sender: "user",
-      text: "",
-      attachment: {
-        type,
-        url,
-        name: file.name,
-      },
-    };
-
-    setMessages(prev => [...prev, newMessage]);
-
+  const handleFileUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
     setIsTyping(true);
     try {
-      await new Promise(resolve => setTimeout(resolve, 1500));
-      const botMessage = {
-        sender: "bot",
-        text: "Xin lỗi, hiện tại chúng tôi chưa hỗ trợ xử lý tệp tin và hình ảnh. Vui lòng gửi câu hỏi bằng văn bản.",
-      } as Message;
-      setMessages(prev => [...prev, botMessage]);
+      const file = event.target.files?.[0];
+      if (!file) return;
+
+      const formData = new FormData();
+      formData.append("file", file);
+      const params = {
+        fileName: file.name,
+        fileSize: file.size,
+        fileType: file.type,
+      };
+      const response = await requestUpload(5, "hag", params);
+
+      await uploadFile(formData, "hag", response.data.uploadToken);
+      setMessages(prev => [...prev, { sender: "user", text: file.name }]);
+    } catch (error: any) {
+      //  to do
     } finally {
+      if (event.target) {
+        event.target.value = "";
+      }
       setIsTyping(false);
     }
   };
 
   return (
     <div className='flex flex-col h-[calc(100vh-98px)]'>
-      <div className='text-14-20 bg-green-50 rounded-t-lg font-semibold text-primary h-[40px] p-3 flex items-center border-b border-gray-200'>
+      <div className='text-14-20  rounded-t-lg font-semibold text-primary h-[40px] p-3 flex items-center border-b border-gray-200'>
         Dùng thử
       </div>
       <div className='flex-1 overflow-y-auto p-4 bg-white'>
@@ -204,20 +202,30 @@ const ChatBox = ({ conversation }: ChatBoxProps) => {
           />
         </div>
         <input
+          ref={fileInputRef}
           type='file'
-          id='file-upload'
+          accept='.pdf,.doc,.docx'
           className='hidden'
-          onChange={e => handleFileUpload(e, "file")}
-          accept='.pdf,.doc,.docx,.txt'
+          onChange={handleFileUpload}
         />
-        <input
-          type='file'
-          id='image-upload'
-          className='hidden'
-          onChange={e => handleFileUpload(e, "image")}
-          accept='image/*'
-        />
-        <label htmlFor='file-upload' className='cursor-pointer'>
+
+        <BasicButton
+          variant='outlined'
+          onClick={() => fileInputRef.current?.click()}
+          // onClick={handleUploadProduct}
+        >
+          <AttachFileIcon
+            fontSize='small'
+            sx={{
+              color: "#6A5ACD",
+              transition: "color 0.1s ease-in-out",
+              "&:hover": {
+                color: "#3E2A91",
+              },
+            }}
+          />
+        </BasicButton>
+        {/* <label htmlFor='file-upload' className='cursor-pointer'>
           <AttachFileIcon
             fontSize='small'
             sx={{
@@ -240,7 +248,7 @@ const ChatBox = ({ conversation }: ChatBoxProps) => {
               },
             }}
           />
-        </label>
+        </label> */}
 
         <button
           onClick={handleChat}

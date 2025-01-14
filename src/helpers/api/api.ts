@@ -58,7 +58,7 @@ Api.interceptors.request.use(
       headers = { ...headers, 'm-device-id': newUuid }
     }
     config.headers = headers
-    config.baseURL = config?.url?.includes('/cbot') ? CBOT_API_URL : API_URL
+    config.baseURL = config?.url?.includes('/cbot') || config?.url?.includes('/assets') ? CBOT_API_URL : API_URL
     return config
   },
   function (error) {

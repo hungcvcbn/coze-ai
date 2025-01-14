@@ -15,8 +15,8 @@ export const getConversationId = async (params: any) => {
 }
 export const uploadFile = async (data: any, tcode?: any, uploadToken?: any) => {
   return await Api({
-    url: `/assets/v1/files/upload?tcode=${tcode}&uploadToken=${uploadToken}`,
-    method: 'post', 
+    url: `/assets/v1/files/upload?uploadToken=${uploadToken}`,
+    method: 'post',
     data,
     headers: {
       'Content-Type': 'multipart/form-data',

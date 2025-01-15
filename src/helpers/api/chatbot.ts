@@ -30,3 +30,10 @@ export const requestUpload = async (id: any, data: any) => {
     data,
   })
 }
+export const resetConversation = async (data: any) => {
+  return await Api({
+    url: `/cbot/v1/chatbots/training-center/reset-conversation`,
+    method: 'post',
+    data,
+  })
+}

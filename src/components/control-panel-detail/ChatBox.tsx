@@ -6,13 +6,11 @@ import Image from "next/image";
 import AdminAvatar from "@/assets/icons/avatar_admin.png";
 import { Send } from "@mui/icons-material";
 import AttachFileIcon from "@mui/icons-material/AttachFile";
-import ImageIcon from "@mui/icons-material/Image";
-import { chat, requestUpload, uploadFile } from "@/helpers/api/chatbot";
+import { chat, requestUpload, resetConversation, uploadFile } from "@/helpers/api/chatbot";
 import { useParams } from "next/navigation";
-import { setToast } from "@/redux/slices/common";
 import { useAppDispatch } from "@/redux/hooks";
 import BasicButton from "../common/BasicButton";
-
+import CleaningServicesIcon from "@mui/icons-material/CleaningServices";
 type Message = {
   sender: "user" | "bot";
   text: string;
@@ -101,7 +99,18 @@ const ChatBox = ({ conversation }: ChatBoxProps) => {
       }
     }
   };
-
+  const handleResetConversation = async () => {
+    try {
+      let params = {
+        botId: botId?.id as string,
+        conversationId: conversation?.conversations[0],
+      };
+      await resetConversation(params);
+      setMessages([{ sender: "bot", text: "Xin chào! Tôi có thể giúp gì cho bạn?" }]);
+    } catch (error) {
+      console.error("Error resetting conversation:", error);
+    }
+  };
   return (
     <div className='flex flex-col h-[calc(100vh-98px)]'>
       <div className='text-14-20  rounded-t-lg font-semibold text-primary h-[40px] p-3 flex items-center border-b border-gray-200'>
@@ -182,6 +191,9 @@ const ChatBox = ({ conversation }: ChatBoxProps) => {
         <div ref={messagesEndRef} />
       </div>
       <div className='flex items-center gap-2 pt-2 border-t border-gray-200 p-2'>
+        <div className='cursor-pointer' onClick={handleResetConversation}>
+          <CleaningServicesIcon sx={{ color: "#6A5ACD", "&:hover": { color: "#3E2A91" } }} />
+        </div>
         <div className='flex-1'>
           <CustomTextField
             fullWidth
@@ -207,11 +219,7 @@ const ChatBox = ({ conversation }: ChatBoxProps) => {
           onChange={handleFileUpload}
         />
 
-        <BasicButton
-          variant='outlined'
-          onClick={() => fileInputRef.current?.click()}
-        // onClick={handleUploadProduct}
-        >
+        <div className='cursor-pointer' onClick={() => fileInputRef.current?.click()}>
           <AttachFileIcon
             fontSize='small'
             sx={{
@@ -222,7 +230,7 @@ const ChatBox = ({ conversation }: ChatBoxProps) => {
               },
             }}
           />
-        </BasicButton>
+        </div>
         {/* <label htmlFor='file-upload' className='cursor-pointer'>
           <AttachFileIcon
             fontSize='small'
@@ -251,9 +259,9 @@ const ChatBox = ({ conversation }: ChatBoxProps) => {
         <button
           onClick={handleChat}
           disabled={isLoading}
-        // className={`p-2 text-white  transition-colors ${
-        //   isLoading ? "bg-gray-400 cursor-not-allowed" : "bg-primary hover:bg-primary-700"
-        // }`}
+          // className={`p-2 text-white  transition-colors ${
+          //   isLoading ? "bg-gray-400 cursor-not-allowed" : "bg-primary hover:bg-primary-700"
+          // }`}
         >
           <Send fontSize='small' sx={{ color: "#6A5ACD", "&:hover": { color: "#3E2A91" } }} />
         </button>

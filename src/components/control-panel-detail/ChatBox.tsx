@@ -78,7 +78,6 @@ const ChatBox = ({ conversation }: ChatBoxProps) => {
   };
 
   const handleFileUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
-    setIsTyping(true);
     try {
       const file = event.target.files?.[0];
       if (!file) return;
@@ -100,7 +99,6 @@ const ChatBox = ({ conversation }: ChatBoxProps) => {
       if (event.target) {
         event.target.value = "";
       }
-      setIsTyping(false);
     }
   };
 

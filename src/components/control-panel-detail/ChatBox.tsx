@@ -12,6 +12,7 @@ import CleaningServicesIcon from "@mui/icons-material/CleaningServices";
 type Message = {
   sender: "user" | "bot";
   text: string;
+  suggestions?: string[];
   attachment?: {
     type: "file" | "image";
     url: string;
@@ -57,7 +58,15 @@ const ChatBox = ({ conversation }: ChatBoxProps) => {
         stream: true,
       };
       const response = await chat(params);
-      const botMessage = { sender: "bot", text: response.data.content } as Message;
+      const botMessage = {
+        sender: "bot",
+        text: response.data.content,
+        suggestions: [
+          "Bạn hãy nói rõ hơn về vấn đề này",
+          "Bạn có thể cho tôi biết thêm về vấn đề này không?",
+          "Bạn có thể cho tôi biết thêm về vấn đề này không?",
+        ],
+      } as Message;
       setMessages(prev => [...prev, botMessage]);
     } catch (error) {
       console.error("Error sending message:", error);
@@ -108,29 +117,108 @@ const ChatBox = ({ conversation }: ChatBoxProps) => {
       console.error("Error resetting conversation:", error);
     }
   };
+
+  const handleSuggestionClick = async (suggestion: string) => {
+    if (isLoading) return;
+
+    setIsLoading(true);
+    const userMessage = { sender: "user", text: suggestion };
+    setMessages(prev => [...prev, userMessage as Message]);
+
+    setIsTyping(true);
+    try {
+      let params = {
+        botId: botId?.id as string,
+        question: suggestion,
+        conversationId: conversation?.conversations[0] || conversation?.conversationId,
+        stream: true,
+      };
+      const response = await chat(params);
+      const botMessage = {
+        sender: "bot",
+        text: response.data.content,
+        suggestions: [
+          "Bạn hãy nói rõ hơn về vấn đề này",
+          "Bạn có thể cho tôi biết thêm về vấn đề này không?",
+          "Tính năng chính của bot",
+        ],
+      } as Message;
+      setMessages(prev => [...prev, botMessage]);
+    } catch (error) {
+      console.error("Error sending message:", error);
+      const errorMessage = {
+        sender: "bot",
+        text: "Xin lỗi, đã có lỗi xảy ra. Vui lòng thử lại sau.",
+      } as Message;
+      setMessages(prev => [...prev, errorMessage]);
+    } finally {
+      setIsTyping(false);
+      setIsLoading(false);
+    }
+  };
+
+  const suggestions = [
+    "Bạn có thể làm gì?",
+    "Giới thiệu về bản thân",
+    "Hướng dẫn sử dụng chatbot",
+    "Các tính năng chính",
+  ];
+
   return (
     <div className='flex flex-col h-[calc(100vh-98px)]'>
       <div className='text-14-20  rounded-t-lg font-semibold text-primary h-[40px] p-3 flex items-center border-b border-gray-200'>
         Dùng thử
       </div>
       <div className='flex-1 overflow-y-auto p-4 bg-white'>
+        {messages.length === 1 && (
+          <div className='flex flex-col items-center justify-center mt-2 mb-4'>
+            <h2 className='text-2xl font-bold mb-2 text-gray-800'>Bạn có thể hỏi tôi</h2>
+            <div className='grid grid-cols-2 gap-2 w-full max-w-2xl'>
+              {suggestions.map((suggestion, idx) => (
+                <button
+                  key={idx}
+                  className='p-2 text-left border rounded-lg hover:bg-gray-50 text-neutral transition-colors text-14-20'
+                  onClick={() => handleSuggestionClick(suggestion)}
+                >
+                  {suggestion}
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
+
         {messages.map((msg, index) => (
           <div
             key={index}
             className={`mb-4 flex ${msg.sender === "user" ? "justify-end" : "justify-start"}`}
           >
             {msg.sender === "bot" && (
-              <div className='flex items-start'>
-                <Image
-                  src={LogoImage}
-                  alt='Bot Avatar'
-                  width={40}
-                  height={40}
-                  className='rounded-full mr-2'
-                />
-                <div className='px-4 py-2 bg-info-50 text-14-20 text-neutral rounded-lg shadow-md'>
-                  {msg.text}
+              <div className='flex items-start flex-col'>
+                <div className='flex items-start'>
+                  <Image
+                    src={LogoImage}
+                    alt='Bot Avatar'
+                    width={40}
+                    height={40}
+                    className='rounded-full mr-2'
+                  />
+                  <div className='px-4 py-2 bg-info-50 text-14-20 text-neutral rounded-lg shadow-md'>
+                    {msg.text}
+                  </div>
                 </div>
+                {msg.suggestions && (
+                  <div className='ml-12 mt-2 flex gap-2 flex-wrap'>
+                    {msg.suggestions.map((suggestion, idx) => (
+                      <button
+                        key={idx}
+                        className='px-3 py-1 bg-gray-100 hover:bg-gray-200 rounded-full text-12-18 text-neutral'
+                        onClick={() => handleSuggestionClick(suggestion)}
+                      >
+                        {suggestion}
+                      </button>
+                    ))}
+                  </div>
+                )}
               </div>
             )}
             {msg.sender === "user" && (
@@ -228,38 +316,8 @@ const ChatBox = ({ conversation }: ChatBoxProps) => {
             }}
           />
         </div>
-        {/* <label htmlFor='file-upload' className='cursor-pointer'>
-          <AttachFileIcon
-            fontSize='small'
-            sx={{
-              color: "#6A5ACD",
-              transition: "color 0.1s ease-in-out",
-              "&:hover": {
-                color: "#3E2A91",
-              },
-            }}
-          />
-        </label>
-        <label htmlFor='image-upload' className='cursor-pointer'>
-          <ImageIcon
-            fontSize='small'
-            sx={{
-              color: "#6A5ACD",
-              transition: "color 0.1s ease-in-out",
-              "&:hover": {
-                color: "#3E2A91",
-              },
-            }}
-          />
-        </label> */}
 
-        <button
-          onClick={handleChat}
-          disabled={isLoading}
-          // className={`p-2 text-white  transition-colors ${
-          //   isLoading ? "bg-gray-400 cursor-not-allowed" : "bg-primary hover:bg-primary-700"
-          // }`}
-        >
+        <button onClick={handleChat} disabled={isLoading}>
           <Send fontSize='small' sx={{ color: "#6A5ACD", "&:hover": { color: "#3E2A91" } }} />
         </button>
       </div>

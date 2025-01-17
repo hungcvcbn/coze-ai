@@ -37,13 +37,7 @@ const ControlSetting = () => {
     const response = await getConversationId({ botId: botId?.id });
     setConversation(response?.data);
   };
-  const getRetrieveTranningCenter = async () => {
-    try {
-      await getRetrieveTranning({ botId: botId?.id });
-    } catch (error: any) {
-      dispatch(setToast({ type: "error", message: error?.message, show: true }));
-    }
-  };
+
   const resetConversationAgent = async () => {
     try {
       await resetConversation({ botId: botId?.id });

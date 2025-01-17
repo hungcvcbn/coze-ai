@@ -4,12 +4,15 @@ import React, { useState } from "react";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import Switch from "@mui/material/Switch";
+import OpeningQuestion from "./feature/OpeningQuestion";
 
-type ChildOption = {
-  label: string;
-  help?: string;
-  value?: boolean;
-};
+type ChildOption =
+  | {
+      label: string;
+      help?: string;
+      value?: boolean;
+    }
+  | React.ReactNode;
 
 type ParentOption = {
   title: string;
@@ -46,10 +49,7 @@ const SettingOptions = ({ data }: ISettingOptions) => {
       options: [
         {
           title: "Text",
-          children: [
-            { label: "Phân tích hình ảnh", help: "⭕" },
-            { label: "Chọn dữ liệu huấn luyện khi hỏi đáp", help: "⭕" },
-          ],
+          children: [{ label: "Chọn dữ liệu huấn luyện khi hỏi đáp", help: "⭕" }],
         },
         {
           title: "Table",
@@ -67,7 +67,7 @@ const SettingOptions = ({ data }: ISettingOptions) => {
         {
           title: "Opening questions",
           children: [
-            { label: "Auto-suggestion", help: "⭕" },
+            <OpeningQuestion key='opening-question' />,
             { label: "Background image", help: "⭕" },
             { label: "Shortcuts", help: "⭕" },
             { label: "Opening questions", help: "⭕" },
@@ -98,20 +98,27 @@ const SettingOptions = ({ data }: ISettingOptions) => {
   const renderSettingOptions = (children: ChildOption[], parentIndex: number) => {
     return (
       <div className='flex flex-col gap-4'>
-        {children.map((option, childIndex) => (
-          <div key={childIndex} className='flex justify-between items-center'>
-            <div className='flex items-center gap-2'>
-              {option.label}
-              {option.help && <span className='cursor-help'>{option.help}</span>}
+        {children.map((option, childIndex) => {
+          if (React.isValidElement(option)) {
+            return option;
+          }
+
+          const childOption = option as { label: string; help?: string };
+          return (
+            <div key={childIndex} className='flex justify-between items-center'>
+              <div className='flex items-center gap-2'>
+                {childOption.label}
+                {childOption.help && <span className='cursor-help'>{childOption.help}</span>}
+              </div>
+              <div>
+                <Switch
+                  checked={checkedStates[`${parentIndex}-${childIndex}`] || false}
+                  onChange={() => handleChange(`${parentIndex}-${childIndex}`)}
+                />
+              </div>
             </div>
-            <div>
-              <Switch
-                checked={checkedStates[`${parentIndex}-${childIndex}`] || false}
-                onChange={() => handleChange(`${parentIndex}-${childIndex}`)}
-              />
-            </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
     );
   };

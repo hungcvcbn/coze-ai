@@ -6,10 +6,12 @@ import StorefrontIcon from "@mui/icons-material/Storefront";
 import Image from "next/image";
 import LogoImage from "@/assets/icons/logo.png";
 import SmartToyIcon from "@mui/icons-material/SmartToy";
+import { useRouter } from "next/navigation";
 
 const MenuControlPanelDetail = () => {
   const params = useParams();
   const pathname = usePathname();
+  const router = useRouter();
   const menuItems = [
     {
       path: `/control-panel/${Number(params?.id)}/settings`,
@@ -23,7 +25,10 @@ const MenuControlPanelDetail = () => {
 
   return (
     <div className='fixed left-0 top-0 w-[70px] h-full bg-gray-200 border-r border-gray-200'>
-      <button className='flex justify-center items-center gap-2 border-b border-gray-200 w-full p-4 h-[64px]'>
+      <button
+        className='flex justify-center items-center gap-2 border-b border-gray-200 w-full p-4 h-[64px]'
+        onClick={() => router.push("/control-panel")}
+      >
         <Image src={LogoImage} alt='Logo' width={50} height={50} className='rounded-[8px]' />
       </button>
       <div className='space-y-2'>

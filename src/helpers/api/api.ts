@@ -44,6 +44,7 @@ Api.interceptors.request.use(
       ...config.headers,
       'Accept-Language': 'vi',
       tcode: "hag",
+      'm-platform': 'WEB',
     }
     config.headers = headers
     config.baseURL = API_URL

@@ -4,7 +4,6 @@ import { userLogout, getAccessToken, getRefreshToken, saveAccessToken, saveRefre
 const API_URL = 'http://dev-gwapi.gtech.biz.vn'
 
 const Api = axios.create({
-  // baseURL: 'http://dev-gwapi.gtech.biz.vn',
   baseURL: API_URL,
   responseType: 'json',
 })

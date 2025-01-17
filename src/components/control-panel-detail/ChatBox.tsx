@@ -26,7 +26,16 @@ const ChatBox = ({ conversation }: ChatBoxProps) => {
   console.log(conversation);
   const botId = useParams();
   const [messages, setMessages] = useState<Message[]>([
-    { sender: "bot", text: "Xin chào! Tôi có thể giúp gì cho bạn?" },
+    {
+      sender: "bot",
+      text: "Chào mừng bạn! Tôi là trợ lý AI chuyên về hỗ trợ học và ứng dụng công nghệ trí tuệ nhân tạo. Tôi có thể giúp bạn:\na. Hiểu cơ bản về cách AI hoạt động\nb. Thực hành xây dựng các mô hình học máy (Machine Learning)\nc. Ứng dụng AI trong phân tích dữ liệu và tự động hóa\nd. Khám phá những xu hướng AI mới nhất\nBạn quan tâm đến chủ đề nào trước?",
+      suggestions: [
+        "Làm thế nào để bắt đầu học AI?",
+        "Cách xử lý dữ liệu trước khi huấn luyện mô hình",
+        "Giải thích đơn giản về mạng nơ-ron nhân tạo",
+        "Tìm hiểu về AI trong nhận diện hình ảnh",
+      ],
+    },
   ]);
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -123,6 +132,11 @@ const ChatBox = ({ conversation }: ChatBoxProps) => {
 
     setIsLoading(true);
     const userMessage = { sender: "user", text: suggestion };
+    setMessages(prev =>
+      prev.map((msg, index) =>
+        index === prev.length - 1 ? { ...msg, suggestions: undefined } : msg
+      )
+    );
     setMessages(prev => [...prev, userMessage as Message]);
 
     setIsTyping(true);
@@ -157,36 +171,12 @@ const ChatBox = ({ conversation }: ChatBoxProps) => {
     }
   };
 
-  const suggestions = [
-    "Bạn có thể làm gì?",
-    "Giới thiệu về bản thân",
-    "Hướng dẫn sử dụng chatbot",
-    "Các tính năng chính",
-  ];
-
   return (
     <div className='flex flex-col h-[calc(100vh-98px)]'>
       <div className='text-14-20  rounded-t-lg font-semibold text-primary h-[40px] p-3 flex items-center border-b border-gray-200'>
         Dùng thử
       </div>
       <div className='flex-1 overflow-y-auto p-4 bg-white'>
-        {messages.length === 1 && (
-          <div className='flex flex-col items-center justify-center mt-2 mb-4'>
-            <h2 className='text-2xl font-bold mb-2 text-gray-800'>Bạn có thể hỏi tôi</h2>
-            <div className='grid grid-cols-2 gap-2 w-full max-w-2xl'>
-              {suggestions.map((suggestion, idx) => (
-                <button
-                  key={idx}
-                  className='p-2 text-left border rounded-lg hover:bg-gray-50 text-neutral transition-colors text-14-20'
-                  onClick={() => handleSuggestionClick(suggestion)}
-                >
-                  {suggestion}
-                </button>
-              ))}
-            </div>
-          </div>
-        )}
-
         {messages.map((msg, index) => (
           <div
             key={index}
@@ -203,7 +193,7 @@ const ChatBox = ({ conversation }: ChatBoxProps) => {
                     className='rounded-full mr-2'
                   />
                   <div className='px-4 py-2 bg-info-50 text-14-20 text-neutral rounded-lg shadow-md'>
-                    {msg.text}
+                    <pre className='whitespace-pre-wrap font-sans'>{msg.text}</pre>
                   </div>
                 </div>
                 {msg.suggestions && (
@@ -211,7 +201,7 @@ const ChatBox = ({ conversation }: ChatBoxProps) => {
                     {msg.suggestions.map((suggestion, idx) => (
                       <button
                         key={idx}
-                        className='px-3 py-1 bg-gray-100 hover:bg-gray-200 rounded-full text-12-18 text-neutral'
+                        className='px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg text-14-20 text-neutral'
                         onClick={() => handleSuggestionClick(suggestion)}
                       >
                         {suggestion}
@@ -290,7 +280,6 @@ const ChatBox = ({ conversation }: ChatBoxProps) => {
               if (e.key === "Enter" && !e.shiftKey) {
                 e.preventDefault();
                 handleChat();
-                // handleSendMessage();
               }
             }}
             disabled={isLoading}

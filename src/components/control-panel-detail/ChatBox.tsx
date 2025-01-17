@@ -8,8 +8,6 @@ import { Send } from "@mui/icons-material";
 import AttachFileIcon from "@mui/icons-material/AttachFile";
 import { chat, requestUpload, resetConversation, uploadFile } from "@/helpers/api/chatbot";
 import { useParams } from "next/navigation";
-import { useAppDispatch } from "@/redux/hooks";
-import BasicButton from "../common/BasicButton";
 import CleaningServicesIcon from "@mui/icons-material/CleaningServices";
 type Message = {
   sender: "user" | "bot";
@@ -33,7 +31,6 @@ const ChatBox = ({ conversation }: ChatBoxProps) => {
   const [isLoading, setIsLoading] = useState(false);
   const [isTyping, setIsTyping] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
-  const dispatch = useAppDispatch();
   const fileInputRef = useRef<HTMLInputElement>(null);
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -56,7 +53,7 @@ const ChatBox = ({ conversation }: ChatBoxProps) => {
       let params = {
         botId: botId?.id as string,
         question: input,
-        conversationId: conversation?.conversations[0],
+        conversationId: conversation?.conversations[0] || conversation?.conversationId,
         stream: true,
       };
       const response = await chat(params);
@@ -99,7 +96,7 @@ const ChatBox = ({ conversation }: ChatBoxProps) => {
       }
     }
   };
-  const handleResetConversation = async () => {
+  const handleLoadConversation = async () => {
     try {
       let params = {
         botId: botId?.id as string,
@@ -191,7 +188,7 @@ const ChatBox = ({ conversation }: ChatBoxProps) => {
         <div ref={messagesEndRef} />
       </div>
       <div className='flex items-center gap-2 pt-2 border-t border-gray-200 p-2'>
-        <div className='cursor-pointer' onClick={handleResetConversation}>
+        <div className='cursor-pointer' onClick={handleLoadConversation}>
           <CleaningServicesIcon sx={{ color: "#6A5ACD", "&:hover": { color: "#3E2A91" } }} />
         </div>
         <div className='flex-1'>

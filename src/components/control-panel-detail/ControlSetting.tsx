@@ -11,7 +11,7 @@ import { useParams, useRouter } from "next/navigation";
 import EditCommandModal from "./EditCommandModal";
 import { IcCheckCircle } from "../common/IconCommon";
 import ChatBox from "./ChatBox";
-import { getAgentDetail } from "@/helpers/api/agent";
+import { getAgentDetail, getRetrieveTranning, resetConversation } from "@/helpers/api/agent";
 import { setToast } from "@/redux/slices/common";
 import { useAppDispatch } from "@/redux/hooks";
 import { getConversationId } from "@/helpers/api/chatbot";
@@ -37,7 +37,24 @@ const ControlSetting = () => {
     const response = await getConversationId({ botId: botId?.id });
     setConversation(response?.data);
   };
+  const getRetrieveTranningCenter = async () => {
+    try {
+      await getRetrieveTranning({ botId: botId?.id });
+    } catch (error: any) {
+      dispatch(setToast({ type: "error", message: error?.message, show: true }));
+    }
+  };
+  const resetConversationAgent = async () => {
+    try {
+      await resetConversation({ botId: botId?.id });
+    } catch (error: any) {
+      dispatch(setToast({ type: "error", message: error?.message, show: true }));
+    }
+  };
   useEffect(() => {
+    if (isEmpty(conversation?.conversations)) {
+      resetConversationAgent();
+    }
     getConversation();
   }, []);
   useEffect(() => {
@@ -46,8 +63,9 @@ const ControlSetting = () => {
   return (
     <div className='flex p-4 gap-2 bg-white'>
       <div
-        className={`w-[70%] bg-white border border-gray-200 rounded-lg p-4 ${!isEmpty(conversation?.conversations) ? "w-[70%]" : "w-[100%]"
-          }`}
+        className={`w-[70%] bg-white border border-gray-200 rounded-lg p-4 ${
+          !isEmpty(conversation?.conversations) ? "w-[70%]" : "w-[100%]"
+        }`}
       >
         <div className='flex justify-between h-[50px] border-b border-gray-200'>
           <div className='flex'>
@@ -92,11 +110,11 @@ const ControlSetting = () => {
           </div>
         </div>
       </div>
-      {!isEmpty(conversation?.conversations) && (
-        <div className='w-[30%] border border-gray-300 rounded-lg'>
-          <ChatBox conversation={conversation} />
-        </div>
-      )}
+
+      <div className='w-[30%] border border-gray-300 rounded-lg'>
+        <ChatBox conversation={conversation} />
+      </div>
+
       <EditCommandModal open={open} setOpen={setOpen} data={data} fetchData={fetchAgentDetail} />
     </div>
   );

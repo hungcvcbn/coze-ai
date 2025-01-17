@@ -72,3 +72,17 @@ export const updateAgent = async (id: string, data: any) => {
     data,
   })
 }
+export const getRetrieveTranning = async (params: any) => {
+  return await Api({
+    url: `/cbot/v1/chatbots/training-center`,
+    method: 'get',
+    params,
+  })
+}
+export const resetConversation = async (data: any) => {
+  return await Api({
+    url: `/cbot/v1/chatbots/training-center/reset-conversation`,
+    method: 'post',
+    data,
+  })
+}

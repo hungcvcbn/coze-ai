@@ -32,7 +32,7 @@ export const requestUpload = async (id: any, data: any) => {
 }
 export const resetConversation = async (data: any) => {
   return await Api({
-    url: `/cbot/v1/chatbots/training-center/reset-conversation`,
+    url: `/cbot/v1/chatbots/training-center/load-conversation`,
     method: 'post',
     data,
   })

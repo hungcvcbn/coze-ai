@@ -50,70 +50,86 @@ const ChatBox = ({ conversation }: ChatBoxProps) => {
     scrollToBottom();
   }, [messages]);
 
-  const handleChat = async () => {
-    if (!input.trim() || isLoading) return;
+  const handleBotResponse = async (question: string, showUserMessage = true) => {
+    if (isLoading) return;
 
     setIsLoading(true);
-    const userMessage = { sender: "user", text: input.trim() };
-    setMessages(prev => [...prev, userMessage as Message]);
-    setInput("");
-
     setIsTyping(true);
+
+    if (showUserMessage) {
+      setMessages(prev => [...prev, { sender: "user", text: question } as Message]);
+    }
+
     try {
-      let params = {
+      const params = {
         botId: botId?.id as string,
-        question: input,
+        question,
         conversationId: conversation?.conversations[0] || conversation?.conversationId,
         stream: true,
       };
+
       const response = await chat(params);
-      const botMessage = {
-        sender: "bot",
-        text: response.data.content,
-        suggestions: [
-          "Bạn hãy nói rõ hơn về vấn đề này",
-          "Bạn có thể cho tôi biết thêm về vấn đề này không?",
-          "Bạn có thể cho tôi biết thêm về vấn đề này không?",
-        ],
-      } as Message;
-      setMessages(prev => [...prev, botMessage]);
+      setMessages(prev => [
+        ...prev,
+        {
+          sender: "bot",
+          text: response.data.content,
+        } as Message,
+      ]);
     } catch (error) {
-      console.error("Error sending message:", error);
-      const errorMessage = {
-        sender: "bot",
-        text: "Xin lỗi, đã có lỗi xảy ra. Vui lòng thử lại sau.",
-      } as Message;
-      setMessages(prev => [...prev, errorMessage]);
+      console.error("Error:", error);
+      setMessages(prev => [
+        ...prev,
+        {
+          sender: "bot",
+          text: "Xin lỗi, đã có lỗi xảy ra. Vui lòng thử lại sau.",
+        } as Message,
+      ]);
     } finally {
       setIsTyping(false);
       setIsLoading(false);
     }
   };
 
-  const handleFileUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
-    try {
-      const file = event.target.files?.[0];
-      if (!file) return;
+  const handleChat = async () => {
+    if (!input.trim()) return;
+    const question = input.trim();
+    setInput("");
+    await handleBotResponse(question);
+  };
 
+  const handleFileUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+
+    try {
       const formData = new FormData();
       formData.append("file", file);
-      const params = {
+
+      const uploadResponse = await requestUpload(5, {
         fileName: file.name,
         fileSize: file.size,
         fileType: file.type,
-      };
-      const response = await requestUpload(5, params);
+      });
 
-      await uploadFile(formData, response.data.uploadToken);
-      setMessages(prev => [...prev, { sender: "user", text: file.name }]);
-    } catch (error: any) {
-      //  to do
+      const res = await uploadFile(formData, uploadResponse.data.uploadToken);
+
+      setMessages(prev => [...prev, { sender: "user", text: file.name } as Message]);
+      await handleBotResponse(res.data.url, false);
+    } catch (error) {
+      console.error("Error handling file upload:", error);
+      setMessages(prev => [
+        ...prev,
+        {
+          sender: "bot",
+          text: "Xin lỗi, đã có lỗi xảy ra khi xử lý tệp. Vui lòng thử lại sau.",
+        } as Message,
+      ]);
     } finally {
-      if (event.target) {
-        event.target.value = "";
-      }
+      if (event.target) event.target.value = "";
     }
   };
+
   const handleLoadConversation = async () => {
     try {
       let params = {
@@ -151,11 +167,6 @@ const ChatBox = ({ conversation }: ChatBoxProps) => {
       const botMessage = {
         sender: "bot",
         text: response.data.content,
-        suggestions: [
-          "Bạn hãy nói rõ hơn về vấn đề này",
-          "Bạn có thể cho tôi biết thêm về vấn đề này không?",
-          "Tính năng chính của bot",
-        ],
       } as Message;
       setMessages(prev => [...prev, botMessage]);
     } catch (error) {

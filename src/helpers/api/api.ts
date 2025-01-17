@@ -1,7 +1,5 @@
 import axios from 'axios'
 import { userLogout, getAccessToken, getRefreshToken, saveAccessToken, saveRefreshToken, saveCookie } from '@/helpers/utils/common'
-import { v4 as uuidv4 } from 'uuid'
-import { getCookie } from 'cookies-next'
 
 const API_URL = 'http://dev-gwapi.gtech.biz.vn'
 
@@ -46,15 +44,6 @@ Api.interceptors.request.use(
       ...config.headers,
       'Accept-Language': 'vi',
       tcode: "hag",
-      'm-platform': 'WEB',
-    }
-    const uuid = getCookie('uuid')
-    if (uuid) {
-      headers = { ...headers, 'm-device-id': uuid }
-    } else {
-      const newUuid = uuidv4()
-      saveCookie('uuid', newUuid)
-      headers = { ...headers, 'm-device-id': newUuid }
     }
     config.headers = headers
     config.baseURL = API_URL

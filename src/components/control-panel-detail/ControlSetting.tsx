@@ -11,12 +11,12 @@ import { useParams, useRouter } from "next/navigation";
 import EditCommandModal from "./EditCommandModal";
 import { IcCheckCircle } from "../common/IconCommon";
 import ChatBox from "./ChatBox";
-import { getAgentDetail, getRetrieveTranning, resetConversation } from "@/helpers/api/agent";
+import { getAgentDetail, resetConversation } from "@/helpers/api/agent";
 import { setToast } from "@/redux/slices/common";
 import { useAppDispatch } from "@/redux/hooks";
 import { getConversationId } from "@/helpers/api/chatbot";
 import { isEmpty } from "@/helpers/utils/common";
-
+import ThumbDownOffAltIcon from "@mui/icons-material/ThumbDownOffAlt";
 const ControlSetting = () => {
   const router = useRouter();
   const [open, setOpen] = useState(false);
@@ -61,38 +61,44 @@ const ControlSetting = () => {
           !isEmpty(conversation?.conversations) ? "w-[70%]" : "w-[100%]"
         }`}
       >
-        <div className='flex justify-between h-[50px] border-b border-gray-200'>
+        <div className='flex justify-between h-[80px] border-b border-gray-200'>
           <div className='flex'>
-            <div className='flex justify-center items-center gap-2'>
-              <button className='cursor-pointer' onClick={() => router.back()}>
-                <ArrowBackIosIcon sx={{ color: "#000000" }} />
+            <div className='flex justify-center items-center gap-3'>
+              <button className='cursor-pointer p-1' onClick={() => router.back()}>
+                <ArrowBackIosIcon sx={{ color: "#000000", fontSize: "20px" }} />
               </button>
               <Image
                 src={LogoImage}
                 alt='Logo'
-                width={40}
-                height={40}
-                className='rounded-[8px] object-cover w-[40px] h-[40px]'
+                width={44}
+                height={44}
+                className='rounded-[8px] object-cover w-[60px] h-[60px]'
               />
             </div>
 
-            <div className='flex flex-col justify-start items-start px-2 pt-[2px]'>
-              <div className='text-14-20 flex gap-2 font-semibold text-primary'>
+            <div className='flex flex-col justify-center px-3'>
+              <div className='text-16-24 flex items-center gap-2 font-semibold text-primary mb-1'>
                 {data?.name}
-                <IconButton sx={{ padding: 0, marginBottom: "4px" }} onClick={() => setOpen(true)}>
+                <IconButton sx={{ padding: "2px" }} onClick={() => setOpen(true)}>
                   <BorderColorIcon sx={{ fontSize: "16px", color: "#007bff" }} />
                 </IconButton>
               </div>
-              <div className='flex justify-center items-center border border-[#007bff] rounded-lg p-[2px] gap-1'>
-                <div>
-                  <IcCheckCircle color='#007bff' />
+              {data?.status === "ACTIVE" ? (
+                <div className='flex items-center border border-success w-fit rounded-lg px-2 py-1 gap-1 bg-success-50'>
+                  <div>
+                    <IcCheckCircle color='#22C55E' width={16} height={16} />
+                  </div>
+                  <div className='text-12-18 font-semibold text-success'>Đang bật</div>
                 </div>
-                <div className='text-10-12 pt-[2px] font-semibold text-[#007bff]'>Đã lưu</div>
-              </div>
+              ) : (
+                <div className='flex items-center border border-danger w-fit rounded-lg px-2 gap-1 bg-danger-50'>
+                  <div>
+                    <ThumbDownOffAltIcon sx={{ color: "#EF4444", fontSize: "16px", padding: 0 }} />
+                  </div>
+                  <div className='text-12-18 font-semibold text-danger'>Đã tắt</div>
+                </div>
+              )}
             </div>
-          </div>
-          <div className='text-14-20 font-semibold text-primary flex justify-center items-center px-2 '>
-            Open AI
           </div>
         </div>
         <div className='grid grid-cols-2 gap-4'>

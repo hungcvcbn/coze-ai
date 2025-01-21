@@ -184,7 +184,7 @@ const ChatBox = ({ conversation }: ChatBoxProps) => {
 
   return (
     <div className='flex flex-col h-[calc(100vh-98px)]'>
-      <div className='text-14-20  rounded-t-lg font-semibold text-primary h-[40px] p-3 flex items-center border-b border-gray-200'>
+      <div className='text-16-24 rounded-t-lg font-semibold text-primary h-[40px] p-3 flex items-center border-b border-gray-200'>
         Dùng thử
       </div>
       <div className='flex-1 overflow-y-auto p-4 bg-white'>

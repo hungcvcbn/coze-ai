@@ -5,6 +5,13 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import Switch from "@mui/material/Switch";
 import OpeningQuestion from "./feature/OpeningQuestion";
+import BrightnessAutoIcon from "@mui/icons-material/BrightnessAuto";
+import { IconButton } from "@mui/material";
+import Popover from "@mui/material/Popover";
+import BasicButton from "../common/BasicButton";
+import WarningIcon from "@mui/icons-material/Warning";
+import { setToast } from "@/redux/slices/common";
+import { useAppDispatch } from "@/redux/hooks";
 
 type ChildOption =
   | {
@@ -29,6 +36,28 @@ interface ISettingOptions {
 const SettingOptions = ({ data }: ISettingOptions) => {
   const [collapseStates, setCollapseStates] = useState<Record<string, boolean>>({});
   const [checkedStates, setCheckedStates] = useState<Record<string, boolean>>({});
+  const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
+  const dispatch = useAppDispatch();
+  const handlePopoverClick = (event: React.MouseEvent<HTMLElement>) => {
+    event.stopPropagation();
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handlePopoverClose = () => {
+    setAnchorEl(null);
+  };
+  const handleConfirm = () => {
+    dispatch(
+      setToast({
+        message: "Thành công",
+        type: "success",
+        show: true,
+      })
+    );
+    setAnchorEl(null);
+  };
+  const open = Boolean(anchorEl);
+
   const handleChange = (index: string) => {
     setCheckedStates(prevState => ({
       ...prevState,
@@ -66,12 +95,7 @@ const SettingOptions = ({ data }: ISettingOptions) => {
       options: [
         {
           title: "Opening questions",
-          children: [
-            <OpeningQuestion key='opening-question' />,
-            { label: "Background image", help: "⭕" },
-            { label: "Shortcuts", help: "⭕" },
-            { label: "Opening questions", help: "⭕" },
-          ],
+          children: [<OpeningQuestion key='opening-question' />],
         },
         {
           title: "Auto-suggestion",
@@ -137,11 +161,18 @@ const SettingOptions = ({ data }: ISettingOptions) => {
                   className='flex justify-between items-center cursor-pointer text-16-24 font-semibold h-[55px] bg-gray-100 px-2 py-1 rounded-[4px] text-neutral'
                   onClick={() => toggleCollapse(`${featureIndex}-${parentIndex}`)}
                 >
-                  {option.title}
-                  {collapseStates[`${featureIndex}-${parentIndex}`] ? (
-                    <ExpandLessIcon />
-                  ) : (
-                    <ExpandMoreIcon />
+                  <div className='flex items-center gap-2'>
+                    {collapseStates[`${featureIndex}-${parentIndex}`] ? (
+                      <ExpandLessIcon />
+                    ) : (
+                      <ExpandMoreIcon />
+                    )}
+                    {option.title}
+                  </div>
+                  {option.title === "Opening questions" && (
+                    <IconButton onClick={handlePopoverClick}>
+                      <BrightnessAutoIcon sx={{ fontSize: 24 }} color='primary' />
+                    </IconButton>
                   )}
                 </div>
                 <div
@@ -155,6 +186,50 @@ const SettingOptions = ({ data }: ISettingOptions) => {
                     </div>
                   )}
                 </div>
+                {option.title === "Opening questions" && (
+                  <Popover
+                    open={open}
+                    anchorEl={anchorEl}
+                    onClose={handlePopoverClose}
+                    anchorOrigin={{
+                      vertical: "bottom",
+                      horizontal: "right",
+                    }}
+                    transformOrigin={{
+                      vertical: "top",
+                      horizontal: "right",
+                    }}
+                  >
+                    <div className='flex flex-col gap-2 p-4 w-[450px]'>
+                      <div className='flex justify-start gap-2 items-center'>
+                        <div className='flex justify-between items-center'>
+                          <WarningIcon color='warning' />
+                        </div>
+                        <div className='text-20-28 font-semibold'>Replace Opening Dialog</div>
+                      </div>
+
+                      <div className='pl-8'>
+                        The auto-generated opening dialog will replace the current settings.
+                      </div>
+
+                      <div style={{ display: "flex", justifyContent: "flex-end", gap: "8px" }}>
+                        <BasicButton variant='outlined' onClick={handlePopoverClose}>
+                          Cancel
+                        </BasicButton>
+                        <BasicButton
+                          variant='contained'
+                          color='red'
+                          onClick={() => {
+                            handleConfirm();
+                            // handlePopoverClose();
+                          }}
+                        >
+                          Confirm
+                        </BasicButton>
+                      </div>
+                    </div>
+                  </Popover>
+                )}
               </div>
             ))}
           </div>

@@ -17,6 +17,7 @@
     "@mui/icons-material": "^6.3.0",
     "@mui/material": "^6.3.0",
     "@reduxjs/toolkit": "^2.5.0",
+    "@tinymce/tinymce-react": "^5.1.1",
     "@types/uuid": "^10.0.0",
     "add": "^2.0.6",
     "autoprefixer": "^10.4.20",

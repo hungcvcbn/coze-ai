@@ -148,7 +148,7 @@ const SettingOptions = ({ data }: ISettingOptions) => {
   };
 
   return (
-    <div className='flex flex-col'>
+    <div className='flex flex-col border-x border-b p-3 border-gray-300 '>
       <div className='mt-4'>
         {items.map((item, featureIndex) => (
           <div key={featureIndex}>

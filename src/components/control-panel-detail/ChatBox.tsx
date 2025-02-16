@@ -9,6 +9,8 @@ import AttachFileIcon from "@mui/icons-material/AttachFile";
 import { chat, requestUpload, resetConversation, uploadFile } from "@/helpers/api/chatbot";
 import { useParams } from "next/navigation";
 import CleaningServicesIcon from "@mui/icons-material/CleaningServices";
+import { setToast } from "@/redux/slices/common";
+import { useDispatch } from "react-redux";
 type Message = {
   sender: "user" | "bot";
   text: string;
@@ -23,18 +25,13 @@ interface ChatBoxProps {
   conversation: any;
 }
 const ChatBox = ({ conversation }: ChatBoxProps) => {
-  console.log(conversation);
+  const dispatch = useDispatch();
   const botId = useParams();
   const [messages, setMessages] = useState<Message[]>([
     {
       sender: "bot",
-      text: "Chào mừng bạn! Tôi là trợ lý AI chuyên về hỗ trợ học và ứng dụng công nghệ trí tuệ nhân tạo. Tôi có thể giúp bạn:\na. Hiểu cơ bản về cách AI hoạt động\nb. Thực hành xây dựng các mô hình học máy (Machine Learning)\nc. Ứng dụng AI trong phân tích dữ liệu và tự động hóa\nd. Khám phá những xu hướng AI mới nhất\nBạn quan tâm đến chủ đề nào trước?",
-      suggestions: [
-        "Làm thế nào để bắt đầu học AI?",
-        "Cách xử lý dữ liệu trước khi huấn luyện mô hình",
-        "Giải thích đơn giản về mạng nơ-ron nhân tạo",
-        "Tìm hiểu về AI trong nhận diện hình ảnh",
-      ],
+      text: "Chào mừng bạn! Tôi là trợ lý AI chuyên về hỗ trợ học và ứng dụng công nghệ trí tuệ nhân tạo. Tôi có thể giúp bạn:\na. Hiểu cơ bản về cách AI hoạt động\nb. Thực hành xây dựng các mô hình học máy (Machine Learning)\nBạn quan tâm đến chủ đề nào trước?",
+      suggestions: ["Làm thế nào để bắt đầu học AI?", "Tìm hiểu về AI trong nhận diện hình ảnh"],
     },
   ]);
   const [input, setInput] = useState("");
@@ -76,8 +73,14 @@ const ChatBox = ({ conversation }: ChatBoxProps) => {
           text: response.data.content,
         } as Message,
       ]);
-    } catch (error) {
-      console.error("Error:", error);
+    } catch (error: any) {
+      dispatch(
+        setToast({
+          message: error.message,
+          type: "error",
+          show: true,
+        })
+      );
       setMessages(prev => [
         ...prev,
         {
@@ -117,7 +120,13 @@ const ChatBox = ({ conversation }: ChatBoxProps) => {
       setMessages(prev => [...prev, { sender: "user", text: file.name } as Message]);
       await handleBotResponse(res.data.url, false);
     } catch (error) {
-      console.error("Error handling file upload:", error);
+      dispatch(
+        setToast({
+          message: "Error handling file upload:",
+          type: "error",
+          show: true,
+        })
+      );
       setMessages(prev => [
         ...prev,
         {
@@ -138,8 +147,14 @@ const ChatBox = ({ conversation }: ChatBoxProps) => {
       };
       await resetConversation(params);
       setMessages([{ sender: "bot", text: "Xin chào! Tôi có thể giúp gì cho bạn?" }]);
-    } catch (error) {
-      console.error("Error resetting conversation:", error);
+    } catch (error: any) {
+      dispatch(
+        setToast({
+          message: error.message,
+          type: "error",
+          show: true,
+        })
+      );
     }
   };
 
@@ -169,8 +184,14 @@ const ChatBox = ({ conversation }: ChatBoxProps) => {
         text: response.data.content,
       } as Message;
       setMessages(prev => [...prev, botMessage]);
-    } catch (error) {
-      console.error("Error sending message:", error);
+    } catch (error: any) {
+      dispatch(
+        setToast({
+          message: error.message,
+          type: "error",
+          show: true,
+        })
+      );
       const errorMessage = {
         sender: "bot",
         text: "Xin lỗi, đã có lỗi xảy ra. Vui lòng thử lại sau.",

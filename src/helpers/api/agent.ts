@@ -86,3 +86,10 @@ export const resetConversation = async (data: any) => {
     data,
   })
 }
+export const updateAgentSetup = async (id: string, data: any) => {
+  return await Api({
+    url: `/cbot/v1/agents/${id}/setup`,
+    method: 'put',
+    data,
+  })
+}

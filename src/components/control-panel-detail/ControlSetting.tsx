@@ -103,7 +103,7 @@ const ControlSetting = () => {
         </div>
         <div className='grid grid-cols-2 gap-4'>
           <div>
-            <ControlCommand data={data} />
+            <ControlCommand data={data} fetchAgentDetail={fetchAgentDetail} />
           </div>
           <div>
             <SettingOptions data={data} />
@@ -111,7 +111,7 @@ const ControlSetting = () => {
         </div>
       </div>
 
-      <div className='w-[30%] h-[calc(100vh-100px)] border border-gray-300 rounded-lg'>
+      <div className='w-[30%] h-auto border border-gray-300 rounded-lg'>
         <ChatBox conversation={conversation} />
       </div>
 

@@ -55,9 +55,9 @@ const ControlSetting = () => {
     fetchAgentDetail();
   }, []);
   return (
-    <div className='flex p-4 gap-2 bg-white'>
+    <div className='flex p-4 gap-2 h-auto bg-white'>
       <div
-        className={`w-[70%] bg-white border border-gray-200 rounded-lg p-4 ${
+        className={`w-[70%] h-full bg-white border border-gray-200 rounded-lg p-4 ${
           !isEmpty(conversation?.conversations) ? "w-[70%]" : "w-[100%]"
         }`}
       >

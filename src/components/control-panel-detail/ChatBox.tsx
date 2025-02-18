@@ -204,11 +204,16 @@ const ChatBox = ({ conversation }: ChatBoxProps) => {
   };
 
   return (
-    <div className='flex flex-col h-[calc(100vh-98px)]'>
-      <div className='text-16-24 rounded-t-lg font-semibold text-primary h-[40px] p-3 flex items-center border-b border-gray-200'>
+    <div className='flex flex-col h-full '>
+      <div className='text-16-24 rounded-t-lg font-semibold text-primary h-[40px] p-3 flex items-center border-b border-gray-200 bg-white shadow-md'>
         Dùng thử
       </div>
-      <div className='flex-1 overflow-y-auto p-4 bg-white'>
+      <div
+        className='flex-1 max-h-[754px] overflow-y-auto p-4 ƯE [&::-webkit-scrollbar]:w-2
+          [&::-webkit-scrollbar-track]:bg-gray-100
+          [&::-webkit-scrollbar-thumb]:bg-gray-300
+          [&::-webkit-scrollbar-thumb]:rounded-full'
+      >
         {messages.map((msg, index) => (
           <div
             key={index}
@@ -224,7 +229,7 @@ const ChatBox = ({ conversation }: ChatBoxProps) => {
                     height={40}
                     className='rounded-full mr-2'
                   />
-                  <div className='px-4 py-2 bg-info-50 text-14-20 text-neutral rounded-lg shadow-md'>
+                  <div className='px-4 py-2 bg-white text-14-20 text-gray-800 rounded-lg shadow-lg'>
                     <pre className='whitespace-pre-wrap font-sans'>{msg.text}</pre>
                   </div>
                 </div>
@@ -233,7 +238,7 @@ const ChatBox = ({ conversation }: ChatBoxProps) => {
                     {msg.suggestions.map((suggestion, idx) => (
                       <button
                         key={idx}
-                        className='px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg text-14-20 text-neutral'
+                        className='px-4 py-2 bg-white shadow-md hover:bg-gray-300 rounded-lg text-12-18 text-gray-800 transition duration-200'
                         onClick={() => handleSuggestionClick(suggestion)}
                       >
                         {suggestion}
@@ -245,7 +250,7 @@ const ChatBox = ({ conversation }: ChatBoxProps) => {
             )}
             {msg.sender === "user" && (
               <div className='flex items-start'>
-                <div className='px-4 py-2 bg-gray-50 text-14-20 text-neutral rounded-lg shadow-md'>
+                <div className='px-4 py-2 bg-blue-100 text-14-20 text-gray-800 rounded-lg shadow-lg'>
                   {msg.text}
                   {msg.attachment && (
                     <div className='mt-2'>
@@ -259,7 +264,7 @@ const ChatBox = ({ conversation }: ChatBoxProps) => {
                         <a
                           href={msg.attachment.url}
                           download={msg.attachment.name}
-                          className='flex items-center gap-2 text-blue-500 hover:underline'
+                          className='flex items-center gap-2 text-blue-600 hover:underline'
                         >
                           <AttachFileIcon fontSize='small' />
                           {msg.attachment.name}
@@ -270,7 +275,7 @@ const ChatBox = ({ conversation }: ChatBoxProps) => {
                 </div>
                 <Image
                   src={AdminAvatar}
-                  alt='User Avatar'
+                  alt='User  Avatar'
                   width={40}
                   height={40}
                   className='rounded-full ml-2'
@@ -280,7 +285,7 @@ const ChatBox = ({ conversation }: ChatBoxProps) => {
           </div>
         ))}
         {isTyping && (
-          <div className='flex items-center gap-2 text-neutral text-12-18'>
+          <div className='flex items-center gap-2 text-gray-600 text-12-18'>
             <Image
               src={LogoImage}
               alt='Typing Avatar'
@@ -289,15 +294,15 @@ const ChatBox = ({ conversation }: ChatBoxProps) => {
               className='rounded-full mr-2'
             />
             <div className='flex gap-1'>
-              <span className='w-1 h-1 rounded-full bg-neutral animate-bounce [animation-delay:-0.3s]'></span>
-              <span className='w-1 h-1 rounded-full bg-neutral animate-bounce [animation-delay:-0.15s]'></span>
-              <span className='w-1 h-1 rounded-full bg-neutral animate-bounce'></span>
+              <span className='w-1 h-1 rounded-full bg-gray-600 animate-bounce [animation-delay:-0.3s]'></span>
+              <span className='w-1 h-1 rounded-full bg-gray-600 animate-bounce [animation-delay:-0.15s]'></span>
+              <span className='w-1 h-1 rounded-full bg-gray-600 animate-bounce'></span>
             </div>
           </div>
         )}
         <div ref={messagesEndRef} />
       </div>
-      <div className='flex items-center gap-2 pt-2 border-t border-gray-200 p-2'>
+      <div className='flex items-center rounded-b-lg gap-2 pt-2 border-t border-gray-200 p-2 bg-white shadow-md'>
         <div className='cursor-pointer' onClick={handleLoadConversation}>
           <CleaningServicesIcon sx={{ color: "#6A5ACD", "&:hover": { color: "#3E2A91" } }} />
         </div>
@@ -315,6 +320,7 @@ const ChatBox = ({ conversation }: ChatBoxProps) => {
               }
             }}
             disabled={isLoading}
+            className='bg-gray-100 rounded-lg'
           />
         </div>
         <input
@@ -324,7 +330,6 @@ const ChatBox = ({ conversation }: ChatBoxProps) => {
           className='hidden'
           onChange={handleFileUpload}
         />
-
         <div className='cursor-pointer' onClick={() => fileInputRef.current?.click()}>
           <AttachFileIcon
             fontSize='small'
@@ -337,7 +342,6 @@ const ChatBox = ({ conversation }: ChatBoxProps) => {
             }}
           />
         </div>
-
         <button onClick={handleChat} disabled={isLoading}>
           <Send fontSize='small' sx={{ color: "#6A5ACD", "&:hover": { color: "#3E2A91" } }} />
         </button>

@@ -61,7 +61,7 @@ const ControlCommand = ({ data, fetchAgentDetail }: IControlCommand) => {
   };
 
   return (
-    <div className='flex flex-col gap-2 pt-4 bg-white text-neutral border-x border-b border-gray-200  p-4'>
+    <div className='flex flex-col gap-2 pt-4 bg-white text-neutral border-x border-b border-gray-200 p-4'>
       <div className='flex gap-2 justify-between items-center'>
         <div className='text-14-20 font-semibold'>Persona & Prompt</div>
         <div className='flex gap-4 justify-end pt-1'>
@@ -87,7 +87,7 @@ const ControlCommand = ({ data, fetchAgentDetail }: IControlCommand) => {
           [&::-webkit-scrollbar-thumb]:rounded-full'
         value={personaPrompt}
         onChange={handleTextareaChange}
-        rows={31}
+        rows={30}
       />
       <div className='flex justify-end gap-2'>
         <BasicButton type='submit' variant='outlined' color='primary' onClick={handleCancel}>

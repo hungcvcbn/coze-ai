@@ -1,6 +1,6 @@
 "use client";
 import { Avatar, Popover } from "@mui/material";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import { deleteCookie } from "cookies-next";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
@@ -16,9 +16,6 @@ const LayoutHeader = () => {
   const dispatch = useAppDispatch();
   const { profile, firstLoading } = useAppSelector(state => state.common);
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
-  const [bgColor, setBgColor] = useState(
-    "bg-gradient-to-br from-black via-blue-900 to-black text-white"
-  );
 
   const handleAvatarClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -43,23 +40,10 @@ const LayoutHeader = () => {
   const open = Boolean(anchorEl);
   const id = open ? "avatar-popover" : undefined;
 
-  const handleScroll = () => {
-    if (window.scrollY > 50) {
-      setBgColor("bg-gradient-to-br from-black via-blue-600 to-black text-white");
-    } else {
-      setBgColor("bg-gradient-to-br from-black via-blue-900 to-black text-white");
-    }
-  };
-
-  useEffect(() => {
-    window.addEventListener("scroll", handleScroll);
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
-
   return (
-    <header className={`${bgColor} text-white sticky top-0 z-50 h-[64px]`}>
+    <header
+      className={`bg-gradient-to-br from-primary via-blue-400 to-primary text-white sticky top-0 z-50 h-[64px]`}
+    >
       <div className='px-4 py-3'>
         <div className=' flex justify-end items-center'>
           {!isEmpty(profile) ? (

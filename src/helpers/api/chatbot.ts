@@ -37,3 +37,9 @@ export const resetConversation = async (data: any) => {
     data,
   })
 }
+export const getListPlatformPublish = async (id: any) => {
+  return await Api({
+    url: `/cbot/v1/agents/${id}/publish`,
+    method: 'get',
+  })
+}

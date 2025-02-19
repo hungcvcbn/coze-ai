@@ -33,7 +33,7 @@ const Menu = () => {
   ];
 
   return (
-    <div className='fixed left-0 top-0 h-full w-64 bg-gray-50'>
+    <div className='fixed left-0 top-0 h-full w-64 bg-gray-50 border-r border-gray-300'>
       <div className='flex items-center gap-2 mb-8 px-4 w-full p-4 h-[64px] bg-gray-50'>
         <Image src={LogoImage} alt='Logo' width={50} height={50} className='rounded-[8px]' />
         <span className='text-xl text-black font-semibold'>Coze AI</span>

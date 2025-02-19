@@ -11,6 +11,8 @@ import { useParams } from "next/navigation";
 import CleaningServicesIcon from "@mui/icons-material/CleaningServices";
 import { setToast } from "@/redux/slices/common";
 import { useDispatch } from "react-redux";
+import BasicButton from "../common/BasicButton";
+import { useRouter } from "next/navigation";
 type Message = {
   sender: "user" | "bot";
   text: string;
@@ -27,6 +29,7 @@ interface ChatBoxProps {
 const ChatBox = ({ conversation }: ChatBoxProps) => {
   const dispatch = useDispatch();
   const botId = useParams();
+  const router = useRouter();
   const [messages, setMessages] = useState<Message[]>([
     {
       sender: "bot",
@@ -205,8 +208,10 @@ const ChatBox = ({ conversation }: ChatBoxProps) => {
 
   return (
     <div className='flex flex-col h-full '>
-      <div className='text-16-24 rounded-t-lg font-semibold text-primary h-[40px] p-3 flex items-center border-b border-gray-200 bg-white shadow-md'>
-        Dùng thử
+      <div className='h-[56px] p-3 flex items-center border-b shadow-md rounded-t-lg border-gray-200 bg-white justify-end'>
+        <BasicButton onClick={() => router.push(`/control-panel/${botId?.id}/settings/list`)}>
+          Publish
+        </BasicButton>
       </div>
       <div
         className='flex-1 max-h-[754px] overflow-y-auto p-4 ƯE [&::-webkit-scrollbar]:w-2

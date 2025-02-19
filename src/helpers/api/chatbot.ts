@@ -43,3 +43,16 @@ export const getListPlatformPublish = async (id: any) => {
     method: 'get',
   })
 }
+export const publishAgent = async (id: any, data: any) => {
+  return await Api({
+    url: `/cbot/v1/agents/${id}/publish`,
+    method: 'post',
+    data,
+  })
+}
+export const getListPlatformConfig = async (id: any) => {
+  return await Api({
+    url: `/cbot/v1/agents/${id}/publish/config-options`,
+    method: 'get',
+  })
+}

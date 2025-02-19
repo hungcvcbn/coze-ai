@@ -1,11 +1,10 @@
 import React from "react";
 import LayoutDetail from "@/components/layout/LayoutDetail";
-import ListPlatformPublish from "@/components/control-panel-detail/platform/ListPlatformPublish";
-
+import ListPlatformConfig from "@/components/control-panel-detail/platform/ListPlatformConfig";
 const SettingsListPage = () => {
   return (
     <LayoutDetail>
-      <ListPlatformPublish />
+      <ListPlatformConfig />
     </LayoutDetail>
   );
 };

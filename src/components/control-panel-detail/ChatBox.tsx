@@ -14,6 +14,8 @@ import { useDispatch } from "react-redux";
 import BasicButton from "../common/BasicButton";
 import { useRouter } from "next/navigation";
 import ListPlatformPublish from "./platform/ListPlatformPublish";
+import { IconButton, Tooltip } from "@mui/material";
+import LinkIcon from "@mui/icons-material/Link";
 type Message = {
   sender: "user" | "bot";
   text: string;
@@ -212,6 +214,11 @@ const ChatBox = ({ conversation }: ChatBoxProps) => {
     <div className='flex flex-col h-full '>
       <div className='h-[56px] p-3 flex items-center border-b shadow-md rounded-t-lg border-gray-200 bg-white justify-end'>
         <BasicButton onClick={() => setOpen(true)}>Publish</BasicButton>
+        <Tooltip title='Chọn kết nối với nền tảng' placement='top'>
+          <IconButton onClick={() => router.push(`/control-panel/${botId?.id}/settings/list`)}>
+            <LinkIcon />
+          </IconButton>
+        </Tooltip>
       </div>
       <div
         className='flex-1 max-h-[754px] overflow-y-auto p-4 ƯE [&::-webkit-scrollbar]:w-2
@@ -232,7 +239,7 @@ const ChatBox = ({ conversation }: ChatBoxProps) => {
                     alt='Bot Avatar'
                     width={40}
                     height={40}
-                    className='rounded-full mr-2'
+                    className='rounded-full w-10 h-10 object-cover mr-2'
                   />
                   <div className='px-4 py-2 bg-white text-14-20 text-gray-800 rounded-lg shadow-lg'>
                     <pre className='whitespace-pre-wrap font-sans'>{msg.text}</pre>
@@ -283,7 +290,7 @@ const ChatBox = ({ conversation }: ChatBoxProps) => {
                   alt='User  Avatar'
                   width={40}
                   height={40}
-                  className='rounded-full ml-2'
+                  className='rounded-full w-10 h-10 object-cover ml-2'
                 />
               </div>
             )}

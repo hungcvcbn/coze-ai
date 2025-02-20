@@ -93,7 +93,7 @@ const ListPlatformPublish = ({ open, setOpen }: Props) => {
             <div className='space-y-2'>
               {data?.publishedPlatforms?.map((platform: any) => (
                 <div
-                  key={platform.name}
+                  key={platform.code}
                   className='flex w-full items-center  p-4 border rounded-lg'
                 >
                   <div className='flex items-center justify-center'>

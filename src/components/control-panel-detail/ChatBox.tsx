@@ -46,6 +46,7 @@ const ChatBox = ({ conversation }: ChatBoxProps) => {
   const [isTyping, setIsTyping] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
@@ -53,6 +54,12 @@ const ChatBox = ({ conversation }: ChatBoxProps) => {
   useEffect(() => {
     scrollToBottom();
   }, [messages]);
+
+  useEffect(() => {
+    if (!isLoading && inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, [isLoading]);
 
   const handleBotResponse = async (question: string, showUserMessage = true) => {
     if (isLoading) return;
@@ -333,6 +340,7 @@ const ChatBox = ({ conversation }: ChatBoxProps) => {
             }}
             disabled={isLoading}
             className='bg-gray-100 rounded-lg'
+            inputRef={inputRef}
           />
         </div>
         <input
@@ -341,8 +349,12 @@ const ChatBox = ({ conversation }: ChatBoxProps) => {
           accept='.pdf,.doc,.docx'
           className='hidden'
           onChange={handleFileUpload}
+          disabled={isLoading}
         />
-        <div className='cursor-pointer' onClick={() => fileInputRef.current?.click()}>
+        <div
+          className={`cursor-pointer ${isLoading ? "opacity-50" : ""}`}
+          onClick={() => !isLoading && fileInputRef.current?.click()}
+        >
           <AttachFileIcon
             fontSize='small'
             sx={{
@@ -355,7 +367,13 @@ const ChatBox = ({ conversation }: ChatBoxProps) => {
           />
         </div>
         <button onClick={handleChat} disabled={isLoading}>
-          <Send fontSize='small' sx={{ color: "#6A5ACD", "&:hover": { color: "#3E2A91" } }} />
+          <Send
+            fontSize='small'
+            sx={{
+              color: isLoading ? "#A8A8A8" : "#6A5ACD",
+              "&:hover": { color: isLoading ? "#A8A8A8" : "#3E2A91" },
+            }}
+          />
         </button>
       </div>
       <ListPlatformPublish open={open} setOpen={setOpen} />

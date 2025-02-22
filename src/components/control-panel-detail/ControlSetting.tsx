@@ -54,6 +54,7 @@ const ControlSetting = () => {
   useEffect(() => {
     fetchAgentDetail();
   }, []);
+
   return (
     <div className='flex p-4 gap-2 h-auto bg-white'>
       <div

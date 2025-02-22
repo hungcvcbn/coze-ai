@@ -25,10 +25,14 @@ export const uploadFile = async (data: any, uploadToken?: any) => {
 }
 export const requestUpload = async (id: any, data: any) => {
   return await Api({
-    url: `/cbot/v1/resources/knowledge/${id}/upload-file-request`,
+    url: `/cbot/v1/resources/knowledge/${id}/add-file-resource`,
     method: 'post',
     data,
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
   })
+  
 }
 export const resetConversation = async (data: any) => {
   return await Api({

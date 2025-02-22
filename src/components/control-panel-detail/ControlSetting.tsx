@@ -112,7 +112,7 @@ const ControlSetting = () => {
         </div>
       </div>
 
-      <div className='w-[30%] h-auto border border-gray-300 rounded-lg'>
+      <div className='w-[30%] h-[840px] border border-gray-300 rounded-lg'>
         <ChatBox conversation={conversation} />
       </div>
 

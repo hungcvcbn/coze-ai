@@ -214,7 +214,7 @@ const ChatBox = ({ conversation }: ChatBoxProps) => {
   };
 
   return (
-    <div className='flex flex-col h-full '>
+    <div className='flex flex-col h-full relative'>
       <div className='h-[56px] p-3 flex items-center border-b shadow-md rounded-t-lg border-gray-200 bg-white justify-end'>
         <BasicButton onClick={() => setOpen(true)}>Publish</BasicButton>
         <Tooltip title='Chọn kết nối với nền tảng' placement='top'>
@@ -317,7 +317,7 @@ const ChatBox = ({ conversation }: ChatBoxProps) => {
         )}
         <div ref={messagesEndRef} />
       </div>
-      <div className='flex items-center rounded-b-lg gap-2 pt-2 border-t border-gray-200 p-2 bg-white shadow-md'>
+      <div className='flex items-center rounded-b-lg gap-2 pt-2 border-t border-gray-200 p-2 bg-white shadow-md absolute bottom-0 left-0 right-0'>
         <div className='cursor-pointer' onClick={handleLoadConversation}>
           <CleaningServicesIcon sx={{ color: "#6A5ACD", "&:hover": { color: "#3E2A91" } }} />
         </div>

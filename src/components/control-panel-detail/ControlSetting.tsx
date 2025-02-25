@@ -40,13 +40,6 @@ const ControlSetting = () => {
     setConversation(response?.data?.conversations);
   };
 
-  // const resetConversationAgent = async () => {
-  //   try {
-  //     await resetConversation({ botId: botId?.id });
-  //   } catch (error: any) {
-  //     dispatch(setToast({ type: "error", message: error?.message, show: true }));
-  //   }
-  // };
   const loadConversationAgent = async () => {
     try {
       let params = {

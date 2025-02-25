@@ -125,9 +125,12 @@ const ChatBox = ({ conversation }: ChatBoxProps) => {
       const formData = new FormData();
       formData.append("file", file);
 
-      const res = await requestUpload(botId?.id as string, formData);
-
-      // const res = await uploadFile(formData, uploadResponse.data.uploadToken);
+      const uploadResponse = await requestUpload(5, {
+        fileName: file.name,
+        fileSize: file.size,
+        fileType: file.type,
+      });
+      const res = await uploadFile(formData, uploadResponse.data.uploadToken);
 
       setMessages(prev => [...prev, { sender: "user", text: file.name } as Message]);
       await handleBotResponse(res.data.url, false);

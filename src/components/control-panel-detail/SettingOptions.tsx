@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
@@ -12,7 +12,11 @@ import BasicButton from "../common/BasicButton";
 import WarningIcon from "@mui/icons-material/Warning";
 import { setToast } from "@/redux/slices/common";
 import { useAppDispatch } from "@/redux/hooks";
-
+import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
+import EditKnowledgeModal from "./knowledge/EditKnowledgeModal";
+import { getKnowledge } from "@/helpers/api/knowledge";
+import EditNoteIcon from "@mui/icons-material/EditNote";
+import CustomTextField from "../hook-form/CustomTextField";
 type ChildOption =
   | {
       label: string;
@@ -35,8 +39,11 @@ interface ISettingOptions {
 }
 const SettingOptions = ({ data }: ISettingOptions) => {
   const [collapseStates, setCollapseStates] = useState<Record<string, boolean>>({});
-  const [checkedStates, setCheckedStates] = useState<Record<string, boolean>>({});
+  const [selectedKnowledge, setSelectedKnowledge] = useState<any>({});
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
+  const [openEditKnowledgeModal, setOpenEditKnowledgeModal] = useState(false);
+  const [knowledge, setKnowledge] = useState<any>({});
+  const [editableValues, setEditableValues] = useState<Record<string, string>>({});
   const dispatch = useAppDispatch();
   const handlePopoverClick = (event: React.MouseEvent<HTMLElement>) => {
     event.stopPropagation();
@@ -58,13 +65,6 @@ const SettingOptions = ({ data }: ISettingOptions) => {
   };
   const open = Boolean(anchorEl);
 
-  const handleChange = (index: string) => {
-    setCheckedStates(prevState => ({
-      ...prevState,
-      [index]: !prevState[index],
-    }));
-  };
-
   const toggleCollapse = (index: string) => {
     setCollapseStates(prevState => ({
       ...prevState,
@@ -72,20 +72,46 @@ const SettingOptions = ({ data }: ISettingOptions) => {
     }));
   };
 
+  const fetchKnowledge = async () => {
+    try {
+      const res = await getKnowledge();
+      setKnowledge(res?.data);
+    } catch (error: any) {
+      dispatch(setToast({ type: "error", message: error?.message, show: true }));
+    }
+  };
+
+  useEffect(() => {
+    fetchKnowledge();
+  }, []);
+
+  const textKnowledge = knowledge?.items?.filter((item: any) => item.type === "TEXT") || [];
+  const tableKnowledge = knowledge?.items?.filter((item: any) => item.type === "TABLE") || [];
+
   const items: ListItem[] = [
     {
       featureName: "Knowledge",
       options: [
         {
           title: "Text",
-          children: [{ label: "Chọn dữ liệu huấn luyện khi hỏi đáp", help: "⭕" }],
+          children: [
+            ...textKnowledge.map((item: any) => ({
+              label: item.name,
+              help: item.description,
+              id: item.id,
+              type: item.type,
+            })),
+          ],
         },
         {
           title: "Table",
           children: [
-            { label: "Mô hình", help: "⭕" },
-            { label: "Sinh bảng tự động", help: "⭕" },
-            { label: "Tối ưu bảng", help: "⭕" },
+            ...tableKnowledge.map((item: any) => ({
+              label: item.name,
+              help: item.description,
+              id: item.id,
+              type: item.type,
+            })),
           ],
         },
       ],
@@ -119,6 +145,13 @@ const SettingOptions = ({ data }: ISettingOptions) => {
     },
   ];
 
+  const handleInputChange = (label: string, value: string) => {
+    setEditableValues(prev => ({
+      ...prev,
+      [label]: value,
+    }));
+  };
+
   const renderSettingOptions = (children: ChildOption[], parentIndex: number) => {
     return (
       <div className='flex flex-col gap-4'>
@@ -128,17 +161,26 @@ const SettingOptions = ({ data }: ISettingOptions) => {
           }
 
           const childOption = option as { label: string; help?: string };
+          const currentValue = editableValues[childOption.label] ?? childOption.help ?? "";
+
           return (
-            <div key={childIndex} className='flex justify-between items-center'>
-              <div className='flex items-center gap-2'>
-                {childOption.label}
-                {childOption.help && <span className='cursor-help'>{childOption.help}</span>}
-              </div>
-              <div>
-                <Switch
-                  checked={checkedStates[`${parentIndex}-${childIndex}`] || false}
-                  onChange={() => handleChange(`${parentIndex}-${childIndex}`)}
+            <div key={childIndex} className='flex justify-between gap-2'>
+              <div className='flex-1'>
+                <CustomTextField
+                  label={childOption.label}
+                  value={currentValue}
+                  onChange={e => handleInputChange(childOption.label, e.target.value)}
                 />
+              </div>
+              <div className='flex items-center pt-5'>
+                <IconButton
+                  onClick={() => {
+                    setSelectedKnowledge(childOption);
+                    setOpenEditKnowledgeModal(true);
+                  }}
+                >
+                  <EditNoteIcon />
+                </IconButton>
               </div>
             </div>
           );
@@ -169,11 +211,25 @@ const SettingOptions = ({ data }: ISettingOptions) => {
                     )}
                     {option.title}
                   </div>
-                  {option.title === "Opening questions" && (
-                    <IconButton onClick={handlePopoverClick}>
-                      <BrightnessAutoIcon sx={{ fontSize: 24 }} color='primary' />
-                    </IconButton>
-                  )}
+                  <div className='flex items-center gap-2'>
+                    {option.title === "Opening questions" && (
+                      <IconButton onClick={handlePopoverClick}>
+                        <BrightnessAutoIcon sx={{ fontSize: 24 }} color='primary' />
+                      </IconButton>
+                    )}
+                    {(option.title === "Text" || option.title === "Table") && (
+                      <button
+                        className='cursor-pointer'
+                        onClick={e => {
+                          e.stopPropagation();
+                          setOpenEditKnowledgeModal(true);
+                          setSelectedKnowledge({});
+                        }}
+                      >
+                        <AddCircleOutlineIcon sx={{ fontSize: 24 }} color='primary' />
+                      </button>
+                    )}
+                  </div>
                 </div>
                 <div
                   className={`mt-2 text-14-20 text-neutral transition-all duration-1000 ease-in-out overflow-hidden ${
@@ -235,6 +291,12 @@ const SettingOptions = ({ data }: ISettingOptions) => {
           </div>
         ))}
       </div>
+      <EditKnowledgeModal
+        open={openEditKnowledgeModal}
+        setOpen={setOpenEditKnowledgeModal}
+        fetchKnowledge={() => fetchKnowledge()}
+        selectedKnowledge={selectedKnowledge}
+      />
     </div>
   );
 };

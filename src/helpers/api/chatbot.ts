@@ -1,7 +1,7 @@
 import Api from './api'
 export const chat = async (data: any) => {
   return await Api({
-    url: `/cbot/v1/chatbots/training-center/chat`,
+    url: `/cbrain/agents/chat`,
     method: 'post',
     data,
   })
@@ -30,7 +30,7 @@ export const requestUpload = async (id: any, data: any) => {
     data,
   })
 }
-export const resetConversation = async (data: any) => {
+export const loadConversation = async (data: any) => {
   return await Api({
     url: `/cbot/v1/chatbots/training-center/load-conversation`,
     method: 'post',

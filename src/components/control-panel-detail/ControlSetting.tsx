@@ -11,7 +11,8 @@ import { useParams, useRouter } from "next/navigation";
 import EditCommandModal from "./EditCommandModal";
 import { IcCheckCircle } from "../common/IconCommon";
 import ChatBox from "./ChatBox";
-import { getAgentDetail, resetConversation } from "@/helpers/api/agent";
+import { getAgentDetail } from "@/helpers/api/agent";
+import { loadConversation } from "@/helpers/api/chatbot";
 import { setToast } from "@/redux/slices/common";
 import { useAppDispatch } from "@/redux/hooks";
 import { getConversationId } from "@/helpers/api/chatbot";
@@ -21,9 +22,10 @@ const ControlSetting = () => {
   const router = useRouter();
   const [open, setOpen] = useState(false);
   const [data, setData] = useState<any>({});
-  const [conversation, setConversation] = useState<any>({});
+  const [conversation, setConversation] = useState<any>([]);
   const dispatch = useAppDispatch();
   const botId = useParams();
+  console.log("conversation", conversation);
 
   const fetchAgentDetail = async () => {
     try {
@@ -35,25 +37,43 @@ const ControlSetting = () => {
   };
   const getConversation = async () => {
     const response = await getConversationId({ botId: botId?.id });
-    setConversation(response?.data);
+    setConversation(response?.data?.conversations);
   };
 
-  const resetConversationAgent = async () => {
+  // const resetConversationAgent = async () => {
+  //   try {
+  //     await resetConversation({ botId: botId?.id });
+  //   } catch (error: any) {
+  //     dispatch(setToast({ type: "error", message: error?.message, show: true }));
+  //   }
+  // };
+  const loadConversationAgent = async () => {
     try {
-      await resetConversation({ botId: botId?.id });
+      let params = {
+        botId: botId?.id as string,
+        conversationId: conversation ? conversation[0] : undefined,
+      };
+      await loadConversation(params);
     } catch (error: any) {
-      dispatch(setToast({ type: "error", message: error?.message, show: true }));
+      dispatch(
+        setToast({
+          message: error.message,
+          type: "error",
+          show: true,
+        })
+      );
     }
   };
   useEffect(() => {
-    if (isEmpty(conversation?.conversations)) {
-      resetConversationAgent();
-    }
+    fetchAgentDetail();
     getConversation();
   }, []);
   useEffect(() => {
-    fetchAgentDetail();
-  }, []);
+    if (!isEmpty(conversation)) {
+      loadConversationAgent();
+    }
+  }, [conversation]);
+
   return (
     <div className='flex p-4 gap-2 h-auto bg-white'>
       <div

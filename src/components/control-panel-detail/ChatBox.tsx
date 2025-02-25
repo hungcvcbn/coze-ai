@@ -6,7 +6,7 @@ import Image from "next/image";
 import AdminAvatar from "@/assets/icons/avatar_admin.png";
 import { Send } from "@mui/icons-material";
 import AttachFileIcon from "@mui/icons-material/AttachFile";
-import { chat, requestUpload, resetConversation, uploadFile } from "@/helpers/api/chatbot";
+import { chat, requestUpload, uploadFile } from "@/helpers/api/chatbot";
 import { useParams } from "next/navigation";
 import CleaningServicesIcon from "@mui/icons-material/CleaningServices";
 import { setToast } from "@/redux/slices/common";
@@ -16,6 +16,7 @@ import { useRouter } from "next/navigation";
 import ListPlatformPublish from "./platform/ListPlatformPublish";
 import { IconButton, Tooltip } from "@mui/material";
 import LinkIcon from "@mui/icons-material/Link";
+import { resetConversation } from "@/helpers/api/agent";
 type Message = {
   sender: "user" | "bot";
   text: string;
@@ -30,6 +31,7 @@ interface ChatBoxProps {
   conversation: any;
 }
 const ChatBox = ({ conversation }: ChatBoxProps) => {
+  console.log("conversation", conversation);
   const [open, setOpen] = useState<boolean>(false);
   const dispatch = useDispatch();
   const botId = useParams();
@@ -73,9 +75,9 @@ const ChatBox = ({ conversation }: ChatBoxProps) => {
 
     try {
       const params = {
-        botId: botId?.id as string,
+        agentId: botId?.id as string,
         question,
-        conversationId: conversation?.conversations[0] || conversation?.conversationId,
+        conversationId: conversation ? conversation[0] : undefined,
         stream: true,
       };
 
@@ -157,7 +159,6 @@ const ChatBox = ({ conversation }: ChatBoxProps) => {
     try {
       let params = {
         botId: botId?.id as string,
-        conversationId: conversation?.conversations[0],
       };
       await resetConversation(params);
       setMessages([{ sender: "bot", text: "Xin chào! Tôi có thể giúp gì cho bạn?" }]);
@@ -187,9 +188,9 @@ const ChatBox = ({ conversation }: ChatBoxProps) => {
     setIsTyping(true);
     try {
       let params = {
-        botId: botId?.id as string,
+        agentId: botId?.id as string,
         question: suggestion,
-        conversationId: conversation?.conversations[0] || conversation?.conversationId,
+        conversationId: conversation ? conversation[0] : undefined,
         stream: true,
       };
       const response = await chat(params);

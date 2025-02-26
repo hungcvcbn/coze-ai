@@ -2,7 +2,7 @@
 import { Checkbox } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
-import { getListPlatformPublish, publishAgent } from "@/helpers/api/chatbot";
+import { getListPlatformConfig, publishAgent } from "@/helpers/api/chatbot";
 import { useAppDispatch } from "@/redux/hooks";
 import { setToast } from "@/redux/slices/common";
 import BasicDialog from "@/components/common/BasicDialog";
@@ -19,10 +19,11 @@ const ListPlatformPublish = ({ open, setOpen }: Props) => {
   const [selectedPlatforms, setSelectedPlatforms] = useState<any[]>([]);
   const dispatch = useAppDispatch();
   const { id } = useParams();
+  console.log("data", data);
 
   const fetchListPlatformPublish = async () => {
     try {
-      const res = await getListPlatformPublish(id);
+      const res = await getListPlatformConfig(id);
       setData(res.data);
     } catch (error: any) {
       dispatch(
@@ -91,7 +92,7 @@ const ListPlatformPublish = ({ open, setOpen }: Props) => {
           <div className='flex flex-col mb-4 rounded-lg bg-white p-4 text-neutral'>
             <div className='text-16-24 font-bold mb-4'>Nền tảng hỗ trợ</div>
             <div className='space-y-2'>
-              {data?.publishedPlatforms?.map((platform: any) => (
+              {data?.availablePlatforms?.map((platform: any) => (
                 <div
                   key={platform.code}
                   className='flex w-full items-center  p-4 border rounded-lg'

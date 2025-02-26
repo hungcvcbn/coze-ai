@@ -341,9 +341,56 @@ const ChatBox = ({ conversation }: ChatBoxProps) => {
             disabled={isLoading}
             className='bg-gray-100 rounded-lg'
             inputRef={inputRef}
+            sx={{
+              "& .MuiInputBase-root": {
+                borderRadius: "100px",
+                height: "40px",
+                display: "flex",
+                alignItems: "center",
+              },
+              "& .MuiInputBase-input": {
+                fontSize: "14px",
+                padding: "10px 14px",
+              },
+              "& .MuiInputBase-input::placeholder": {
+                fontSize: "14px",
+              },
+            }}
+            InputProps={{
+              endAdornment: (
+                <div className='flex items-center gap-2'>
+                  <AttachFileIcon
+                    fontSize='small'
+                    sx={{
+                      color: isLoading ? "#A8A8A8" : "#6A5ACD",
+                      cursor: isLoading ? "default" : "pointer",
+                      "&:hover": { color: isLoading ? "#A8A8A8" : "#3E2A91" },
+                    }}
+                    onClick={() => !isLoading && fileInputRef.current?.click()}
+                  />
+                  <Send
+                    fontSize='small'
+                    sx={{
+                      color: isLoading ? "#A8A8A8" : "#6A5ACD",
+                      cursor: isLoading ? "default" : "pointer",
+                      "&:hover": { color: isLoading ? "#A8A8A8" : "#3E2A91" },
+                    }}
+                    onClick={handleChat}
+                  />
+                </div>
+              ),
+            }}
           />
         </div>
         <input
+          ref={fileInputRef}
+          type='file'
+          accept='.pdf,.doc,.docx'
+          className='hidden'
+          onChange={handleFileUpload}
+          disabled={isLoading}
+        />
+        {/* <input
           ref={fileInputRef}
           type='file'
           accept='.pdf,.doc,.docx'
@@ -374,7 +421,7 @@ const ChatBox = ({ conversation }: ChatBoxProps) => {
               "&:hover": { color: isLoading ? "#A8A8A8" : "#3E2A91" },
             }}
           />
-        </button>
+        </button> */}
       </div>
       <ListPlatformPublish open={open} setOpen={setOpen} />
     </div>

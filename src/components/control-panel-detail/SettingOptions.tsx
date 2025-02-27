@@ -13,10 +13,9 @@ import WarningIcon from "@mui/icons-material/Warning";
 import { setToast } from "@/redux/slices/common";
 import { useAppDispatch } from "@/redux/hooks";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
-import EditKnowledgeModal from "./knowledge/EditKnowledgeModal";
+import ListKnowledge from "./knowledge/ListKnowledge";
 import { getKnowledge } from "@/helpers/api/knowledge";
-import EditNoteIcon from "@mui/icons-material/EditNote";
-import CustomTextField from "../hook-form/CustomTextField";
+
 type ChildOption =
   | {
       label: string;
@@ -27,6 +26,7 @@ type ChildOption =
 
 type ParentOption = {
   title: string;
+  description?: string;
   children: ChildOption[];
 };
 
@@ -72,19 +72,6 @@ const SettingOptions = ({ data }: ISettingOptions) => {
     }));
   };
 
-  const fetchKnowledge = async () => {
-    try {
-      const res = await getKnowledge();
-      setKnowledge(res?.data);
-    } catch (error: any) {
-      dispatch(setToast({ type: "error", message: error?.message, show: true }));
-    }
-  };
-
-  useEffect(() => {
-    fetchKnowledge();
-  }, []);
-
   const textKnowledge = knowledge?.items?.filter((item: any) => item.type === "TEXT") || [];
   const tableKnowledge = knowledge?.items?.filter((item: any) => item.type === "TABLE") || [];
 
@@ -94,6 +81,8 @@ const SettingOptions = ({ data }: ISettingOptions) => {
       options: [
         {
           title: "Text",
+          description:
+            "After documents, URLs, and third-party data sources are uploaded into text knowledge, the agent can reference its content to answer your questions.",
           children: [
             ...textKnowledge.map((item: any) => ({
               label: item.name,
@@ -105,6 +94,8 @@ const SettingOptions = ({ data }: ISettingOptions) => {
         },
         {
           title: "Table",
+          description:
+            "Table supports matching appropriate rows according to a certain column of the table. It also supports querying and calculating the database based on natural language.",
           children: [
             ...tableKnowledge.map((item: any) => ({
               label: item.name,
@@ -145,49 +136,42 @@ const SettingOptions = ({ data }: ISettingOptions) => {
     },
   ];
 
-  const handleInputChange = (label: string, value: string) => {
-    setEditableValues(prev => ({
-      ...prev,
-      [label]: value,
-    }));
-  };
+  // const renderSettingOptions = (children: ChildOption[], parentIndex: number) => {
+  //   return (
+  //     <div className='flex flex-col gap-4'>
+  //       {children.map((option, childIndex) => {
+  //         if (React.isValidElement(option)) {
+  //           return option;
+  //         }
 
-  const renderSettingOptions = (children: ChildOption[], parentIndex: number) => {
-    return (
-      <div className='flex flex-col gap-4'>
-        {children.map((option, childIndex) => {
-          if (React.isValidElement(option)) {
-            return option;
-          }
+  //         const childOption = option as { label: string; help?: string };
+  //         const currentValue = editableValues[childOption.label] ?? childOption.help ?? "";
 
-          const childOption = option as { label: string; help?: string };
-          const currentValue = editableValues[childOption.label] ?? childOption.help ?? "";
-
-          return (
-            <div key={childIndex} className='flex justify-between gap-2'>
-              <div className='flex-1'>
-                <CustomTextField
-                  label={childOption.label}
-                  value={currentValue}
-                  onChange={e => handleInputChange(childOption.label, e.target.value)}
-                />
-              </div>
-              <div className='flex items-center pt-5'>
-                <IconButton
-                  onClick={() => {
-                    setSelectedKnowledge(childOption);
-                    setOpenEditKnowledgeModal(true);
-                  }}
-                >
-                  <EditNoteIcon />
-                </IconButton>
-              </div>
-            </div>
-          );
-        })}
-      </div>
-    );
-  };
+  //         return (
+  //           <div key={childIndex} className='flex justify-between gap-2'>
+  //             <div className='flex-1'>
+  //               <CustomTextField
+  //                 label={childOption.label}
+  //                 value={currentValue}
+  //                 onChange={e => handleInputChange(childOption.label, e.target.value)}
+  //               />
+  //             </div>
+  //             <div className='flex items-center pt-5'>
+  //               <IconButton
+  //                 onClick={() => {
+  //                   setSelectedKnowledge(childOption);
+  //                   setOpenEditKnowledgeModal(true);
+  //                 }}
+  //               >
+  //                 <EditNoteIcon />
+  //               </IconButton>
+  //             </div>
+  //           </div>
+  //         );
+  //       })}
+  //     </div>
+  //   );
+  // };
 
   return (
     <div className='flex flex-col border-x border-b p-3 border-gray-300 '>
@@ -211,34 +195,34 @@ const SettingOptions = ({ data }: ISettingOptions) => {
                     )}
                     {option.title}
                   </div>
-                  <div className='flex items-center gap-2'>
-                    {option.title === "Opening questions" && (
-                      <IconButton onClick={handlePopoverClick}>
-                        <BrightnessAutoIcon sx={{ fontSize: 24 }} color='primary' />
-                      </IconButton>
-                    )}
-                    {(option.title === "Text" || option.title === "Table") && (
-                      <button
-                        className='cursor-pointer'
-                        onClick={e => {
-                          e.stopPropagation();
-                          setOpenEditKnowledgeModal(true);
-                          setSelectedKnowledge({});
-                        }}
-                      >
-                        <AddCircleOutlineIcon sx={{ fontSize: 24 }} color='primary' />
-                      </button>
-                    )}
-                  </div>
+                  {option.title === "Opening questions" && (
+                    <IconButton onClick={handlePopoverClick}>
+                      <BrightnessAutoIcon sx={{ fontSize: 24 }} color='primary' />
+                    </IconButton>
+                  )}
                 </div>
+
                 <div
                   className={`mt-2 text-14-20 text-neutral transition-all duration-1000 ease-in-out overflow-hidden ${
                     collapseStates[`${featureIndex}-${parentIndex}`] ? "max-h-[500px]" : "max-h-0"
                   }`}
                 >
                   {collapseStates[`${featureIndex}-${parentIndex}`] && (
-                    <div className='pb-4 px-2'>
-                      {renderSettingOptions(option.children, parentIndex)}
+                    <div className='flex'>
+                      {option?.description && (
+                        <div className='py-2 text-14-20 text-neutral'>{option.description}</div>
+                      )}
+                      <div className='flex items-center gap-2'>
+                        <IconButton
+                          onClick={e => {
+                            e.stopPropagation();
+                            setOpenEditKnowledgeModal(true);
+                            setSelectedKnowledge({});
+                          }}
+                        >
+                          <AddCircleOutlineIcon sx={{ fontSize: 24 }} color='primary' />
+                        </IconButton>
+                      </div>
                     </div>
                   )}
                 </div>
@@ -291,12 +275,7 @@ const SettingOptions = ({ data }: ISettingOptions) => {
           </div>
         ))}
       </div>
-      <EditKnowledgeModal
-        open={openEditKnowledgeModal}
-        setOpen={setOpenEditKnowledgeModal}
-        fetchKnowledge={() => fetchKnowledge()}
-        selectedKnowledge={selectedKnowledge}
-      />
+      <ListKnowledge open={openEditKnowledgeModal} setOpen={setOpenEditKnowledgeModal} />
     </div>
   );
 };

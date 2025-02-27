@@ -31,7 +31,6 @@ interface ChatBoxProps {
   conversation: any;
 }
 const ChatBox = ({ conversation }: ChatBoxProps) => {
-  console.log("conversation", conversation);
   const [open, setOpen] = useState<boolean>(false);
   const dispatch = useDispatch();
   const botId = useParams();

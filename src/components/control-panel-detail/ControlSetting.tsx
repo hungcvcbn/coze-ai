@@ -25,7 +25,6 @@ const ControlSetting = () => {
   const [conversation, setConversation] = useState<any>([]);
   const dispatch = useAppDispatch();
   const botId = useParams();
-  console.log("conversation", conversation);
 
   const fetchAgentDetail = async () => {
     try {

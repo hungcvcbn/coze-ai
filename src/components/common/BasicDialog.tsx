@@ -12,6 +12,7 @@ interface BasicDialogProps extends DialogProps {
   showCloseIcon?: boolean;
   titleClass?: string;
   contentClassContainer?: string;
+  height?: string;
 }
 
 const BasicDialog = (props: BasicDialogProps) => {
@@ -25,6 +26,7 @@ const BasicDialog = (props: BasicDialogProps) => {
     sx,
     titleClass,
     contentClassContainer,
+    height,
     ...other
   } = props;
 
@@ -61,7 +63,9 @@ const BasicDialog = (props: BasicDialogProps) => {
             </button>
           )}
         </div>
-        <div className='overflow-y-auto h-auto'>{children}</div>
+        <div className='overflow-y-auto' style={{ height: height || "auto" }}>
+          {children}
+        </div>
       </div>
     </Dialog>
   );

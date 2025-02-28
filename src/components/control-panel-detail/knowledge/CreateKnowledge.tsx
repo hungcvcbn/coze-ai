@@ -15,6 +15,7 @@ import yup from "@/helpers/utils/yupConfig";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { updateKnowledge } from "@/helpers/api/knowledge";
 import { useAppDispatch } from "@/redux/hooks";
+import { requestUpload } from "@/helpers/api/chatbot";
 
 interface CreateKnowledgeProps {
   openCreateModal: boolean;
@@ -117,11 +118,23 @@ const CreateKnowledge = ({
     }
   };
 
-  const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (file) {
-      console.log("Selected file:", file);
-      console.log("Selected source:", selectedSource);
+  const handleFileUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    try {
+      const file = event.target.files?.[0];
+      if (!file) return;
+
+      const formData = new FormData();
+      formData.append("file", file);
+
+      await requestUpload(selectedKnowledge?.id, formData);
+      dispatch(setToast({ message: "Tải lên sản phẩm thành công", type: "success", show: true }));
+      fetchKnowledge();
+    } catch (error: any) {
+      dispatch(setToast({ message: error?.message, type: "error", show: true }));
+    } finally {
+      if (fileInputRef.current) {
+        fileInputRef.current.value = "";
+      }
     }
   };
 
@@ -208,13 +221,6 @@ const CreateKnowledge = ({
                 </button>
               </div>
 
-              <input
-                type='file'
-                ref={fileInputRef}
-                onChange={handleFileUpload}
-                className='hidden'
-              />
-
               <RHFTextField
                 name='name'
                 label='Tên knowledge'
@@ -229,44 +235,49 @@ const CreateKnowledge = ({
                 rows={4}
                 isRequired
               />
-
-              <div className='grid grid-cols-2 gap-4'>
-                {renderSourceButton("local", "📄", "Local documents", "Upload DOC, PDF, TXT files")}
-                {renderSourceButton("online", "🌐", "Online data", "Upload HTML, URL files")}
-                {renderSourceButton("notion", "📝", "Notion", "Upload Markdown files")}
-                {renderSourceButton("custom", "📑", "Custom", "Upload any file type")}
-              </div>
-              <div className='border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-primary-600 transition-colors'>
-                <input
-                  type='file'
-                  id='file-upload'
-                  className='hidden'
-                  accept={getAcceptedFileTypes(selectedSource as SourceType)}
-                  onChange={e => {
-                    const file = e.target.files?.[0];
-                    if (file) {
-                      console.log("Selected file:", file);
-                    }
-                  }}
-                />
-                <label
-                  htmlFor='file-upload'
-                  className='cursor-pointer flex flex-col items-center gap-2'
-                >
-                  <CloudUpload className='text-gray-400 text-4xl' />
-                  <div className='text-gray-600'>
-                    {selectedSource ? (
-                      <span className='text-primary-600 font-medium'>
-                        Click để tải lên {getAcceptedFileTypes(selectedSource as SourceType)} files
-                      </span>
-                    ) : (
-                      <span className='text-gray-400'>
-                        Vui lòng chọn loại nguồn trước khi tải lên
-                      </span>
+              {selectedKnowledge && (
+                <div className='flex flex-col gap-4'>
+                  <div className='grid grid-cols-2 gap-4'>
+                    {renderSourceButton(
+                      "local",
+                      "📄",
+                      "Local documents",
+                      "Upload DOC, PDF, TXT files"
                     )}
+                    {renderSourceButton("online", "🌐", "Online data", "Upload HTML, URL files")}
+                    {renderSourceButton("notion", "📝", "Notion", "Upload Markdown files")}
+                    {renderSourceButton("custom", "📑", "Custom", "Upload any file type")}
                   </div>
-                </label>
-              </div>
+                  <div className='border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-primary-600 transition-colors'>
+                    <input
+                      type='file'
+                      id='file-upload'
+                      className='hidden'
+                      ref={fileInputRef}
+                      accept={getAcceptedFileTypes(selectedSource as SourceType)}
+                      onChange={handleFileUpload}
+                    />
+                    <label
+                      htmlFor='file-upload'
+                      className='cursor-pointer flex flex-col items-center gap-2'
+                    >
+                      <CloudUpload className='text-gray-400 text-4xl' />
+                      <div className='text-gray-600'>
+                        {selectedSource ? (
+                          <span className='text-primary-600 font-medium'>
+                            Click để tải lên {getAcceptedFileTypes(selectedSource as SourceType)}{" "}
+                            files
+                          </span>
+                        ) : (
+                          <span className='text-gray-400'>
+                            Vui lòng chọn loại nguồn trước khi tải lên
+                          </span>
+                        )}
+                      </div>
+                    </label>
+                  </div>
+                </div>
+              )}
             </div>
           </BasicDialogContent>
           <BasicDialogActions>

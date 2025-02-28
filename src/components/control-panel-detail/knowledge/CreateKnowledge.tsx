@@ -256,6 +256,7 @@ const CreateKnowledge = ({
                       ref={fileInputRef}
                       accept={getAcceptedFileTypes(selectedSource as SourceType)}
                       onChange={handleFileUpload}
+                      disabled={!selectedSource}
                     />
                     <label
                       htmlFor='file-upload'

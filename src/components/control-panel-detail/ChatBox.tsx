@@ -327,6 +327,8 @@ const ChatBox = ({ conversation }: ChatBoxProps) => {
         <div className='flex-1'>
           <CustomTextField
             fullWidth
+            multiline
+            maxRows={7}
             size='small'
             value={input}
             onChange={e => setInput(e.target.value)}
@@ -342,14 +344,15 @@ const ChatBox = ({ conversation }: ChatBoxProps) => {
             inputRef={inputRef}
             sx={{
               "& .MuiInputBase-root": {
-                borderRadius: "100px",
-                height: "40px",
+                borderRadius: "20px",
+                minHeight: "30px",
                 display: "flex",
                 alignItems: "center",
               },
               "& .MuiInputBase-input": {
                 fontSize: "14px",
-                padding: "10px 14px",
+                maxHeight: "300px",
+                overflowY: "auto",
               },
               "& .MuiInputBase-input::placeholder": {
                 fontSize: "14px",
@@ -389,38 +392,6 @@ const ChatBox = ({ conversation }: ChatBoxProps) => {
           onChange={handleFileUpload}
           disabled={isLoading}
         />
-        {/* <input
-          ref={fileInputRef}
-          type='file'
-          accept='.pdf,.doc,.docx'
-          className='hidden'
-          onChange={handleFileUpload}
-          disabled={isLoading}
-        />
-        <div
-          className={`cursor-pointer ${isLoading ? "opacity-50" : ""}`}
-          onClick={() => !isLoading && fileInputRef.current?.click()}
-        >
-          <AttachFileIcon
-            fontSize='small'
-            sx={{
-              color: "#6A5ACD",
-              transition: "color 0.1s ease-in-out",
-              "&:hover": {
-                color: "#3E2A91",
-              },
-            }}
-          />
-        </div>
-        <button onClick={handleChat} disabled={isLoading}>
-          <Send
-            fontSize='small'
-            sx={{
-              color: isLoading ? "#A8A8A8" : "#6A5ACD",
-              "&:hover": { color: isLoading ? "#A8A8A8" : "#3E2A91" },
-            }}
-          />
-        </button> */}
       </div>
       <ListPlatformPublish open={open} setOpen={setOpen} />
     </div>

@@ -1,5 +1,5 @@
 "use client";
-
+import React from "react";
 import BasicDialog from "@/components/common/BasicDialog";
 import BasicDialogContent from "@/components/common/BasicDialogContent";
 import { setToast } from "@/redux/slices/common";
@@ -7,10 +7,12 @@ import { useAppDispatch } from "@/redux/hooks";
 import { useEffect, useState } from "react";
 import BasicButton from "@/components/common/BasicButton";
 import { getKnowledge } from "@/helpers/api/knowledge";
-import { Tabs, Tab } from "@mui/material";
+import { Tabs, Tab, IconButton, Tooltip } from "@mui/material";
 import CustomTextField from "@/components/hook-form/CustomTextField";
 import CreateKnowledge from "./CreateKnowledge";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
+import EditNoteIcon from "@mui/icons-material/EditNote";
+import { requestUpload } from "@/helpers/api/chatbot";
 interface EditKnowledgeModalProps {
   open: boolean;
   setOpen: (open: boolean) => void;
@@ -23,6 +25,8 @@ const EditKnowledgeModal = ({ open, setOpen }: EditKnowledgeModalProps) => {
   const [selectedType, setSelectedType] = useState<string>("ALL");
   const [selectedKnowledge, setSelectedKnowledge] = useState<any>({});
   const [knowledge, setKnowledge] = useState<any>([]);
+
+  const fileInputRef = React.useRef<HTMLInputElement>(null);
 
   const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
     setTabValue(newValue);
@@ -49,7 +53,25 @@ const EditKnowledgeModal = ({ open, setOpen }: EditKnowledgeModalProps) => {
       dispatch(setToast({ type: "error", message: error?.message, show: true }));
     }
   };
+  const handleFileUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    try {
+      const file = event.target.files?.[0];
+      if (!file) return;
 
+      const formData = new FormData();
+      formData.append("file", file);
+
+      await requestUpload(selectedKnowledge?.id, formData);
+      dispatch(setToast({ message: "Tải lên file thành công", type: "success", show: true }));
+      fetchKnowledge();
+    } catch (error: any) {
+      dispatch(setToast({ message: error?.message, type: "error", show: true }));
+    } finally {
+      if (fileInputRef.current) {
+        fileInputRef.current.value = "";
+      }
+    }
+  };
   useEffect(() => {
     if (open) {
       fetchKnowledge();
@@ -67,9 +89,9 @@ const EditKnowledgeModal = ({ open, setOpen }: EditKnowledgeModalProps) => {
         height='80vh'
       >
         <BasicDialogContent>
-          <div className='grid grid-cols-12 gap-4'>
+          <div className='grid grid-cols-12 gap-4 min-w-0 overflow-x-auto'>
             {/* Left side - Create knowledge section */}
-            <div className='col-span-3 flex flex-col gap-4'>
+            <div className='col-span-3 flex flex-col gap-4 min-w-[200px]'>
               <CustomTextField placeholder='Search' />
               <BasicButton
                 onClick={() => {
@@ -83,7 +105,7 @@ const EditKnowledgeModal = ({ open, setOpen }: EditKnowledgeModalProps) => {
             </div>
 
             {/* Right side - List section */}
-            <div className='col-span-9'>
+            <div className='col-span-9 min-w-0'>
               <div className='flex items-center gap-4 border-b'>
                 <Tabs
                   value={tabValue}
@@ -99,30 +121,47 @@ const EditKnowledgeModal = ({ open, setOpen }: EditKnowledgeModalProps) => {
               </div>
 
               {/* Knowledge list will be rendered here */}
-              <div className='mt-4 min-h-full flex flex-col gap-2'>
+              <div className='mt-4 min-h-full flex flex-col gap-2 overflow-x-auto'>
                 {filteredKnowledge?.map((item: any) => (
                   <div
                     key={item?.id}
-                    className='flex justify-between items-center gap-3 p-3 rounded-lg border border-gray-300 hover:bg-gray-50 cursor-pointer'
+                    className='flex justify-between items-center gap-3 p-3 rounded-lg border border-gray-300 hover:bg-gray-50 cursor-pointer min-w-0'
                   >
-                    <div className='flex items-center gap-3'>
+                    <div className='flex items-center gap-3 overflow-hidden'>
                       <div className='w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center'>
                         <i className='text-blue-500'>📄</i>
                       </div>
-                      <div className='flex flex-col'>
-                        <span className='text-14-20 font-semibold'>{item.name}</span>
-                        <span className='text-14-20 text-neutral'>{item.description}</span>
+                      <div className='flex flex-col overflow-hidden'>
+                        <span className='text-14-20 font-semibold truncate'>{item.name}</span>
+                        <span className='text-14-20 text-neutral truncate'>{item.description}</span>
                       </div>
                     </div>
-                    <button
-                      className='flex items-center gap-2'
-                      onClick={() => {
-                        setSelectedKnowledge(item);
-                        setOpenCreateModal(true);
-                      }}
-                    >
-                      <AddCircleOutlineIcon color='primary' />
-                    </button>
+                    <div className='flex items-center'>
+                      <IconButton
+                        onClick={() => {
+                          setSelectedKnowledge(item);
+                          setOpenCreateModal(true);
+                        }}
+                      >
+                        <EditNoteIcon />
+                      </IconButton>
+                      <label htmlFor={`file-upload-${item.id}`}>
+                        <Tooltip title='Tải file cho knowledge' placement='top'>
+                          <IconButton component='span'>
+                            <AddCircleOutlineIcon />
+                          </IconButton>
+                        </Tooltip>
+                      </label>
+                      <input
+                        type='file'
+                        id={`file-upload-${item.id}`}
+                        className='hidden'
+                        ref={fileInputRef}
+                        accept='*/*'
+                        onChange={handleFileUpload}
+                        onClick={() => setSelectedKnowledge(item)}
+                      />
+                    </div>
                   </div>
                 ))}
               </div>
@@ -132,6 +171,7 @@ const EditKnowledgeModal = ({ open, setOpen }: EditKnowledgeModalProps) => {
       </BasicDialog>
       {openCreateModal && (
         <CreateKnowledge
+          fetchKnowledge={fetchKnowledge}
           openCreateModal={openCreateModal}
           setOpenCreateModal={setOpenCreateModal}
           selectedKnowledge={selectedKnowledge}

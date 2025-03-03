@@ -3,24 +3,25 @@ import BasicDialog from "@/components/common/BasicDialog";
 import BasicDialogContent from "@/components/common/BasicDialogContent";
 import BasicDialogActions from "@/components/common/BasicDialogActions";
 import BasicButton from "@/components/common/BasicButton";
-import { CloudUpload } from "@mui/icons-material";
+// import { CloudUpload } from "@mui/icons-material";
 
-import RHFSelect from "@/components/hook-form/RHFSelect";
+// import RHFSelect from "@/components/hook-form/RHFSelect";
 import RHFTextField from "@/components/hook-form/RHFTextField";
 import FormProvider from "@/components/hook-form/FormProvider";
 import { setToast } from "@/redux/slices/common";
-import { addKnowledge, getKnowledge } from "@/helpers/api/knowledge";
+import { addKnowledge } from "@/helpers/api/knowledge";
 import { useForm } from "react-hook-form";
 import yup from "@/helpers/utils/yupConfig";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { updateKnowledge } from "@/helpers/api/knowledge";
 import { useAppDispatch } from "@/redux/hooks";
-import { requestUpload } from "@/helpers/api/chatbot";
+// import { requestUpload } from "@/helpers/api/chatbot";
 
 interface CreateKnowledgeProps {
   openCreateModal: boolean;
   setOpenCreateModal: (open: boolean) => void;
   selectedKnowledge: any;
+  fetchKnowledge: () => void;
 }
 
 type BotType = {
@@ -37,12 +38,13 @@ const CreateKnowledge = ({
   openCreateModal,
   setOpenCreateModal,
   selectedKnowledge,
+  fetchKnowledge,
 }: CreateKnowledgeProps) => {
   const dispatch = useAppDispatch();
-  const [knowledge, setKnowledge] = useState<any>([]);
+  // const [knowledge, setKnowledge] = useState<any>([]);
   const [selectedType, setSelectedType] = useState<FileType>("TEXT");
-  const [selectedSource, setSelectedSource] = useState<SourceType | "">("");
-  const fileInputRef = React.useRef<HTMLInputElement>(null);
+  // const [selectedSource, setSelectedSource] = useState<SourceType | "">("");
+  // const fileInputRef = React.useRef<HTMLInputElement>(null);
 
   const defaultValues: BotType = {
     type: "TEXT",
@@ -58,18 +60,18 @@ const CreateKnowledge = ({
     resolver: yupResolver(schema),
     defaultValues,
   });
-  const fetchKnowledge = async () => {
-    try {
-      const res = await getKnowledge();
-      setKnowledge(res?.data);
-    } catch (error: any) {
-      dispatch(setToast({ type: "error", message: error?.message, show: true }));
-    }
-  };
+  // const fetchKnowledge = async () => {
+  //   try {
+  //     const res = await getKnowledge();
+  //     setKnowledge(res?.data);
+  //   } catch (error: any) {
+  //     dispatch(setToast({ type: "error", message: error?.message, show: true }));
+  //   }
+  // };
 
-  useEffect(() => {
-    fetchKnowledge();
-  }, []);
+  // useEffect(() => {
+  //   fetchKnowledge();
+  // }, []);
   const onSubmit = async (data: BotType) => {
     let params = {
       ...data,
@@ -91,6 +93,7 @@ const CreateKnowledge = ({
   useEffect(() => {
     if (openCreateModal) {
       form.reset();
+      setSelectedType("TEXT");
     }
   }, [openCreateModal]);
   useEffect(() => {
@@ -100,66 +103,67 @@ const CreateKnowledge = ({
         description: selectedKnowledge.description,
         type: selectedKnowledge.type,
       });
+      setSelectedType(selectedKnowledge.type as FileType);
     }
   }, [selectedKnowledge]);
 
-  const getAcceptedFileTypes = (source: SourceType) => {
-    switch (source) {
-      case "local":
-        return ".doc,.docx,.pdf,.txt";
-      case "online":
-        return ".html,.htm,.url";
-      case "notion":
-        return ".md,.mdx";
-      case "custom":
-        return "*.*";
-      default:
-        return "";
-    }
-  };
+  // const getAcceptedFileTypes = (source: SourceType) => {
+  //   switch (source) {
+  //     case "local":
+  //       return ".doc,.docx,.pdf,.txt";
+  //     case "online":
+  //       return ".html,.htm,.url";
+  //     case "notion":
+  //       return ".md,.mdx";
+  //     case "custom":
+  //       return "*.*";
+  //     default:
+  //       return "";
+  //   }
+  // };
 
-  const handleFileUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
-    try {
-      const file = event.target.files?.[0];
-      if (!file) return;
+  // const handleFileUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
+  //   try {
+  //     const file = event.target.files?.[0];
+  //     if (!file) return;
 
-      const formData = new FormData();
-      formData.append("file", file);
+  //     const formData = new FormData();
+  //     formData.append("file", file);
 
-      await requestUpload(selectedKnowledge?.id, formData);
-      dispatch(setToast({ message: "Tải lên sản phẩm thành công", type: "success", show: true }));
-      fetchKnowledge();
-    } catch (error: any) {
-      dispatch(setToast({ message: error?.message, type: "error", show: true }));
-    } finally {
-      if (fileInputRef.current) {
-        fileInputRef.current.value = "";
-      }
-    }
-  };
+  //     await requestUpload(selectedKnowledge?.id, formData);
+  //     dispatch(setToast({ message: "Tải lên sản phẩm thành công", type: "success", show: true }));
+  //     fetchKnowledge();
+  //   } catch (error: any) {
+  //     dispatch(setToast({ message: error?.message, type: "error", show: true }));
+  //   } finally {
+  //     if (fileInputRef.current) {
+  //       fileInputRef.current.value = "";
+  //     }
+  //   }
+  // };
 
-  const handleSourceClick = (source: SourceType) => {
-    setSelectedSource(source);
-  };
+  // const handleSourceClick = (source: SourceType) => {
+  //   setSelectedSource(source);
+  // };
 
-  const renderSourceButton = (
-    source: SourceType,
-    icon: string,
-    title: string,
-    description: string
-  ) => (
-    <button
-      type='button'
-      onClick={() => handleSourceClick(source)}
-      className={`p-2 rounded-lg border-2 flex flex-col items-center ${
-        selectedSource === source ? "border-primary-600 bg-primary-50" : "border-gray-200"
-      }`}
-    >
-      <span className='text-2xl'>{icon}</span>
-      <span className='font-medium text-14-20'>{title}</span>
-      <span className='text-12-18 text-gray-500  '>{description}</span>
-    </button>
-  );
+  // const renderSourceButton = (
+  //   source: SourceType,
+  //   icon: string,
+  //   title: string,
+  //   description: string
+  // ) => (
+  //   <button
+  //     type='button'
+  //     onClick={() => handleSourceClick(source)}
+  //     className={`p-2 rounded-lg border-2 flex flex-col items-center ${
+  //       selectedSource === source ? "border-primary-600 bg-primary-50" : "border-gray-200"
+  //     }`}
+  //   >
+  //     <span className='text-2xl'>{icon}</span>
+  //     <span className='font-medium text-14-20'>{title}</span>
+  //     <span className='text-12-18 text-gray-500  '>{description}</span>
+  //   </button>
+  // );
 
   return (
     <div>
@@ -235,7 +239,7 @@ const CreateKnowledge = ({
                 rows={4}
                 isRequired
               />
-              {selectedKnowledge && (
+              {/* {selectedKnowledge && (
                 <div className='flex flex-col gap-4'>
                   <div className='grid grid-cols-2 gap-4'>
                     {renderSourceButton(
@@ -278,7 +282,7 @@ const CreateKnowledge = ({
                     </label>
                   </div>
                 </div>
-              )}
+              )} */}
             </div>
           </BasicDialogContent>
           <BasicDialogActions>

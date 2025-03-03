@@ -217,7 +217,7 @@ const SettingOptions = ({ data }: ISettingOptions) => {
                           onClick={e => {
                             e.stopPropagation();
                             setOpenEditKnowledgeModal(true);
-                            setSelectedKnowledge({});
+                            setSelectedKnowledge(item);
                           }}
                         >
                           <AddCircleOutlineIcon sx={{ fontSize: 24 }} color='primary' />

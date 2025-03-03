@@ -168,8 +168,8 @@ const SettingOptions = ({ data }: ISettingOptions) => {
             >
               <div className='text-16-24 font-semibold text-neutral'>{childOption.label}</div>
               {childOption.files &&
-                childOption.files.map((file: any) => (
-                  <div key={file.id} className='text-14-20 text-primary'>
+                childOption.files.map((file: any, index: number) => (
+                  <div key={index} className='text-14-20 text-primary'>
                     {file.name}
                   </div>
                 ))}

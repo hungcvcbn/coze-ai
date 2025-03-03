@@ -107,64 +107,6 @@ const CreateKnowledge = ({
     }
   }, [selectedKnowledge]);
 
-  // const getAcceptedFileTypes = (source: SourceType) => {
-  //   switch (source) {
-  //     case "local":
-  //       return ".doc,.docx,.pdf,.txt";
-  //     case "online":
-  //       return ".html,.htm,.url";
-  //     case "notion":
-  //       return ".md,.mdx";
-  //     case "custom":
-  //       return "*.*";
-  //     default:
-  //       return "";
-  //   }
-  // };
-
-  // const handleFileUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
-  //   try {
-  //     const file = event.target.files?.[0];
-  //     if (!file) return;
-
-  //     const formData = new FormData();
-  //     formData.append("file", file);
-
-  //     await requestUpload(selectedKnowledge?.id, formData);
-  //     dispatch(setToast({ message: "Tải lên sản phẩm thành công", type: "success", show: true }));
-  //     fetchKnowledge();
-  //   } catch (error: any) {
-  //     dispatch(setToast({ message: error?.message, type: "error", show: true }));
-  //   } finally {
-  //     if (fileInputRef.current) {
-  //       fileInputRef.current.value = "";
-  //     }
-  //   }
-  // };
-
-  // const handleSourceClick = (source: SourceType) => {
-  //   setSelectedSource(source);
-  // };
-
-  // const renderSourceButton = (
-  //   source: SourceType,
-  //   icon: string,
-  //   title: string,
-  //   description: string
-  // ) => (
-  //   <button
-  //     type='button'
-  //     onClick={() => handleSourceClick(source)}
-  //     className={`p-2 rounded-lg border-2 flex flex-col items-center ${
-  //       selectedSource === source ? "border-primary-600 bg-primary-50" : "border-gray-200"
-  //     }`}
-  //   >
-  //     <span className='text-2xl'>{icon}</span>
-  //     <span className='font-medium text-14-20'>{title}</span>
-  //     <span className='text-12-18 text-gray-500  '>{description}</span>
-  //   </button>
-  // );
-
   return (
     <div>
       {" "}

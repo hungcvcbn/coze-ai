@@ -16,6 +16,7 @@ import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import ListKnowledge from "./knowledge/ListKnowledge";
 import CustomTextField from "../hook-form/CustomTextField";
 import EditNoteIcon from "@mui/icons-material/EditNote";
+import { getKnowledge } from "@/helpers/api/knowledge";
 type ChildOption =
   | {
       label: string;
@@ -43,7 +44,7 @@ const SettingOptions = ({ data }: ISettingOptions) => {
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
   const [openEditKnowledgeModal, setOpenEditKnowledgeModal] = useState(false);
   const [knowledge, setKnowledge] = useState<any>({});
-  const [editableValues, setEditableValues] = useState<Record<string, string>>({});
+
   const dispatch = useAppDispatch();
   const handlePopoverClick = (event: React.MouseEvent<HTMLElement>) => {
     event.stopPropagation();
@@ -71,7 +72,19 @@ const SettingOptions = ({ data }: ISettingOptions) => {
       [index]: !prevState[index],
     }));
   };
+  const fetchKnowledge = async () => {
+    try {
+      const res = await getKnowledge();
+      console.log(res);
 
+      setKnowledge(res?.data);
+    } catch (error: any) {
+      dispatch(setToast({ type: "error", message: error?.message, show: true }));
+    }
+  };
+  useEffect(() => {
+    fetchKnowledge();
+  }, []);
   const textKnowledge = knowledge?.items?.filter((item: any) => item.type === "TEXT") || [];
   const tableKnowledge = knowledge?.items?.filter((item: any) => item.type === "TABLE") || [];
 
@@ -89,6 +102,7 @@ const SettingOptions = ({ data }: ISettingOptions) => {
               help: item.description,
               id: item.id,
               type: item.type,
+              files: item.files,
             })),
           ],
         },
@@ -101,6 +115,7 @@ const SettingOptions = ({ data }: ISettingOptions) => {
               label: item.name,
               help: item.description,
               id: item.id,
+              files: item.files,
               type: item.type,
             })),
           ],
@@ -135,12 +150,7 @@ const SettingOptions = ({ data }: ISettingOptions) => {
       ],
     },
   ];
-  const handleInputChange = (label: string, value: string) => {
-    setEditableValues(prev => ({
-      ...prev,
-      [label]: value,
-    }));
-  };
+
   const renderSettingOptions = (children: ChildOption[], parentIndex: number) => {
     return (
       <div className='flex flex-col gap-4'>
@@ -149,17 +159,20 @@ const SettingOptions = ({ data }: ISettingOptions) => {
             return option;
           }
 
-          const childOption = option as { label: string; help?: string };
+          const childOption = option as { label: string; help?: string; files?: any[] };
 
           return (
-            <div key={childIndex} className='flex justify-between gap-2'>
-              <div className='flex-1 pt-4 text-14-20 text-neutral'>
-                {childOption.label} {childOption.help}
-              </div>
-
-              <IconButton>
-                <Switch />
-              </IconButton>
+            <div
+              key={childIndex}
+              className='flex flex-col border p-2 overflow-y-auto max-h-[200px] rounded-md border-gray-300 justify-between gap-2'
+            >
+              <div className='text-16-24 font-semibold text-neutral'>{childOption.label}</div>
+              {childOption.files &&
+                childOption.files.map((file: any) => (
+                  <div key={file.id} className='text-14-20 text-primary'>
+                    {file.name}
+                  </div>
+                ))}
             </div>
           );
         })}
@@ -189,43 +202,42 @@ const SettingOptions = ({ data }: ISettingOptions) => {
                     )}
                     {option.title}
                   </div>
-                  {option.title === "Opening questions" && (
-                    <IconButton onClick={handlePopoverClick}>
-                      <BrightnessAutoIcon sx={{ fontSize: 24 }} color='primary' />
-                    </IconButton>
-                  )}
+                  <div className='flex items-center'>
+                    {(option.title === "Table" || option.title === "Text") && (
+                      <IconButton
+                        onClick={e => {
+                          e.stopPropagation();
+                          setOpenEditKnowledgeModal(true);
+                          setSelectedKnowledge(item);
+                        }}
+                      >
+                        <AddCircleOutlineIcon sx={{ fontSize: 24 }} color='primary' />
+                      </IconButton>
+                    )}
+                    {option.title === "Opening questions" && (
+                      <IconButton onClick={handlePopoverClick}>
+                        <BrightnessAutoIcon sx={{ fontSize: 24 }} color='primary' />
+                      </IconButton>
+                    )}
+                  </div>
                 </div>
 
                 <div
-                  className={`mt-2 text-14-20 text-neutral transition-all duration-1000 ease-in-out overflow-hidden ${
-                    collapseStates[`${featureIndex}-${parentIndex}`] ? "max-h-[500px]" : "max-h-0"
-                  }`}
+                  className={`mt-2 text-14-20 text-neutral transition-all duration-1000 ease-in-out overflow-y-auto
+           [&::-webkit-scrollbar]:w-2
+          [&::-webkit-scrollbar-track]:bg-gray-100
+          [&::-webkit-scrollbar-thumb]:bg-gray-300
+          [&::-webkit-scrollbar-thumb]:rounded-full ${
+            collapseStates[`${featureIndex}-${parentIndex}`]
+              ? "max-h-[400px]"
+              : "max-h-0 overflow-hidden"
+          }`}
                 >
                   {collapseStates[`${featureIndex}-${parentIndex}`] && (
-                    <div
-                      className={` ${
-                        option?.title === "Table" || option?.title === "Text" ? "flex" : ""
-                      }`}
-                    >
+                    <div>
                       <div className='pb-4 px-2'>
                         {renderSettingOptions(option.children, parentIndex)}
                       </div>
-                      {option?.description && (
-                        <div className='py-2 text-14-20 text-neutral'>{option.description}</div>
-                      )}
-                      {(option?.title === "Table" || option?.title === "Text") && (
-                        <div className='flex items-center gap-2'>
-                          <IconButton
-                            onClick={e => {
-                              e.stopPropagation();
-                              setOpenEditKnowledgeModal(true);
-                              setSelectedKnowledge(item);
-                            }}
-                          >
-                            <AddCircleOutlineIcon sx={{ fontSize: 24 }} color='primary' />
-                          </IconButton>
-                        </div>
-                      )}
                     </div>
                   )}
                 </div>

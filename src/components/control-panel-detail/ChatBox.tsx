@@ -227,7 +227,7 @@ const ChatBox = ({ conversation }: ChatBoxProps) => {
         </Tooltip>
       </div>
       <div
-        className='flex-1 max-h-[754px] overflow-y-auto p-4 ƯE [&::-webkit-scrollbar]:w-2
+        className='flex-1 max-h-[754px] overflow-y-auto p-4 [&::-webkit-scrollbar]:w-2
           [&::-webkit-scrollbar-track]:bg-gray-100
           [&::-webkit-scrollbar-thumb]:bg-gray-300
           [&::-webkit-scrollbar-thumb]:rounded-full'

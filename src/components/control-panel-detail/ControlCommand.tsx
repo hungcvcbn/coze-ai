@@ -80,7 +80,7 @@ const ControlCommand = ({ data, fetchAgentDetail }: IControlCommand) => {
 
       <textarea
         ref={textareaRef}
-        className='text-14-20 text-gray-500 w-full p-2 border border-gray-200 rounded
+        className='text-14-20 text-gray-500 w-full p-2 border border-gray-200 rounded resize-none
           [&::-webkit-scrollbar]:w-2
           [&::-webkit-scrollbar-track]:bg-gray-100
           [&::-webkit-scrollbar-thumb]:bg-gray-300

@@ -75,7 +75,6 @@ const SettingOptions = ({ data }: ISettingOptions) => {
   const fetchKnowledge = async () => {
     try {
       const res = await getKnowledge();
-      console.log(res);
 
       setKnowledge(res?.data);
     } catch (error: any) {
@@ -127,7 +126,7 @@ const SettingOptions = ({ data }: ISettingOptions) => {
       options: [
         {
           title: "Opening questions",
-          children: [<OpeningQuestion key='opening-question' />],
+          children: [<OpeningQuestion key='opening-question' id={data?.id} />],
         },
         {
           title: "Auto-suggestion",
@@ -151,7 +150,11 @@ const SettingOptions = ({ data }: ISettingOptions) => {
     },
   ];
 
-  const renderSettingOptions = (children: ChildOption[], parentIndex: number) => {
+  const renderSettingOptions = (
+    children: ChildOption[],
+    parentIndex: number,
+    featureName: string
+  ) => {
     return (
       <div className='flex flex-col gap-4'>
         {children.map((option, childIndex) => {
@@ -164,7 +167,9 @@ const SettingOptions = ({ data }: ISettingOptions) => {
           return (
             <div
               key={childIndex}
-              className='flex flex-col border p-2 overflow-y-auto max-h-[200px] rounded-md border-gray-300 justify-between gap-2'
+              className={`flex flex-col p-2 overflow-y-auto max-h-[200px] rounded-md justify-between gap-2 ${
+                featureName !== "Chat experience" ? "border border-gray-300" : ""
+              }`}
             >
               <div className='text-16-24 font-semibold text-neutral'>{childOption.label}</div>
               {childOption.files &&
@@ -229,14 +234,14 @@ const SettingOptions = ({ data }: ISettingOptions) => {
           [&::-webkit-scrollbar-thumb]:bg-gray-300
           [&::-webkit-scrollbar-thumb]:rounded-full ${
             collapseStates[`${featureIndex}-${parentIndex}`]
-              ? "max-h-[400px]"
+              ? "max-h-[600px]"
               : "max-h-0 overflow-hidden"
           }`}
                 >
                   {collapseStates[`${featureIndex}-${parentIndex}`] && (
                     <div>
                       <div className='pb-4 px-2'>
-                        {renderSettingOptions(option.children, parentIndex)}
+                        {renderSettingOptions(option.children, parentIndex, item.featureName)}
                       </div>
                     </div>
                   )}

@@ -72,10 +72,6 @@ const EditCommandModal = ({ open, setOpen, data, fetchData }: CreateBotModalProp
               <span className='font-semibold'>Bot ID:</span> {data?.id}
             </div>
             <RHFTextField name='name' label='Tên bot' placeholder='Nhập tên bot' isRequired />
-            {/* <div className='flex flex-col gap-2'>
-              <div className='text-14-20 font-semibold text-neutral'>Ảnh đại diện:</div>
-              <RHFUploadImage name='imageUrl' uploadFolder='avatar' />
-            </div> */}
           </div>
         </BasicDialogContent>
 

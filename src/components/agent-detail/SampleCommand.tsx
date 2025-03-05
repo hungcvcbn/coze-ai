@@ -11,9 +11,8 @@ import { useEffect, useState } from "react";
 import BasicButton from "../common/BasicButton";
 import { yupResolver } from "@hookform/resolvers/yup";
 import yup from "@/helpers/utils/yupConfig";
-import { TYPE_COMMAND } from "@/helpers/constants/common";
 import SelectField from "../hook-form/SelectField";
-import { SelectChangeEvent } from "@mui/material";
+
 interface CreateBotModalProps {
   open: boolean;
   setOpen: (open: boolean) => void;

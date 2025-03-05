@@ -5,10 +5,10 @@ import LogoImage from "@/assets/icons/logo.png";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import BorderColorIcon from "@mui/icons-material/BorderColor";
 import IconButton from "@mui/material/IconButton";
-import ControlCommand from "./ControlCommand";
+import PersonalPrompt from "./PersonalPrompt";
 import SettingOptions from "./SettingOptions";
 import { useParams, useRouter } from "next/navigation";
-import EditCommandModal from "./EditCommandModal";
+import EditAgentName from "./EditAgentName";
 import { IcCheckCircle } from "../common/IconCommon";
 import ChatBox from "./ChatBox";
 import { getAgentDetail } from "@/helpers/api/agent";
@@ -115,7 +115,7 @@ const ControlSetting = () => {
         </div>
         <div className='grid grid-cols-2 gap-4'>
           <div>
-            <ControlCommand data={data} fetchAgentDetail={fetchAgentDetail} />
+            <PersonalPrompt data={data} fetchAgentDetail={fetchAgentDetail} />
           </div>
           <div>
             <SettingOptions data={data} />
@@ -127,7 +127,7 @@ const ControlSetting = () => {
         <ChatBox conversation={conversation} />
       </div>
 
-      <EditCommandModal open={open} setOpen={setOpen} data={data} fetchData={fetchAgentDetail} />
+      <EditAgentName open={open} setOpen={setOpen} data={data} fetchData={fetchAgentDetail} />
     </div>
   );
 };

@@ -1,6 +1,6 @@
 import React from "react";
 import LayoutDetail from "@/components/layout/LayoutDetail";
-import ControlSetting from "@/components/control-panel-detail/ControlSetting";
+import ControlSetting from "@/components/agent-detail/ControlSetting";
 
 const SettingsPage = () => {
   return (

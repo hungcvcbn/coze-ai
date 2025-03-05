@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import MenuControlPanelDetail from "../control-panel-detail/MenuControlPanel";
+import MenuControlPanelDetail from "../agent-detail/MenuControlPanel";
 import LayoutHeader from "./LayoutHeader";
 
 interface LayoutProps {

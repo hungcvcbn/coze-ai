@@ -5,9 +5,10 @@ import { getChatExperience, updateChatExperience } from "@/helpers/api/chatExper
 import { setToast } from "@/redux/slices/common";
 import { useAppDispatch } from "@/redux/hooks";
 import { TrashIcon } from "@/components/common/IconCommon";
-import { IconButton } from "@mui/material";
 import { Tooltip } from "@mui/material";
 import SaveIcon from "@mui/icons-material/Save";
+import DragIndicatorIcon from "@mui/icons-material/DragIndicator";
+
 const OpeningQuestion = ({ id }: { id: string }) => {
   const [editorContent, setEditorContent] = useState("");
   const dispatch = useAppDispatch();
@@ -141,7 +142,7 @@ const OpeningQuestion = ({ id }: { id: string }) => {
               onDragStart={e => handleDragStart(e, index)}
               onDragOver={handleDragOver}
               onDrop={e => handleDrop(e, index)}
-              className='flex items-center gap-2 p-3 border rounded-md mb-2 bg-white cursor-move'
+              className='flex items-center gap-2 p-3 border rounded-md mb-2 bg-white'
             >
               {editingQuestionId === question.id ? (
                 <div className='flex flex-grow items-center gap-2'>
@@ -161,6 +162,9 @@ const OpeningQuestion = ({ id }: { id: string }) => {
                 </div>
               ) : (
                 <>
+                  <div className='cursor-move text-gray-400'>
+                    <DragIndicatorIcon fontSize='small' />
+                  </div>
                   <div
                     className='flex-grow cursor-pointer'
                     onClick={() => handleEditQuestion(question.id, question.content)}

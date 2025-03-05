@@ -1,9 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
-
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
-import Switch from "@mui/material/Switch";
 import OpeningQuestion from "./feature/OpeningQuestion";
 import BrightnessAutoIcon from "@mui/icons-material/BrightnessAuto";
 import { IconButton } from "@mui/material";
@@ -14,9 +12,8 @@ import { setToast } from "@/redux/slices/common";
 import { useAppDispatch } from "@/redux/hooks";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import ListKnowledge from "./knowledge/ListKnowledge";
-import CustomTextField from "../hook-form/CustomTextField";
-import EditNoteIcon from "@mui/icons-material/EditNote";
 import { getKnowledge } from "@/helpers/api/knowledge";
+import AutoSuggestion from "./feature/AutoSuggestion";
 type ChildOption =
   | {
       label: string;
@@ -40,7 +37,6 @@ interface ISettingOptions {
 }
 const SettingOptions = ({ data }: ISettingOptions) => {
   const [collapseStates, setCollapseStates] = useState<Record<string, boolean>>({});
-  const [selectedKnowledge, setSelectedKnowledge] = useState<any>({});
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
   const [openEditKnowledgeModal, setOpenEditKnowledgeModal] = useState(false);
   const [knowledge, setKnowledge] = useState<any>({});
@@ -130,22 +126,17 @@ const SettingOptions = ({ data }: ISettingOptions) => {
         },
         {
           title: "Auto-suggestion",
-          children: [
-            { label: "Auto-suggestion", help: "⭕" },
-            { label: "Background image", help: "⭕" },
-            { label: "Shortcuts", help: "⭕" },
-            { label: "Opening questions", help: "⭕" },
-          ],
+          children: [<AutoSuggestion key='auto-suggestion' />],
         },
-        {
-          title: "Shortcuts",
-          children: [
-            { label: "Auto-suggestion", help: "⭕" },
-            { label: "Background image", help: "⭕" },
-            { label: "Shortcuts", help: "⭕" },
-            { label: "Opening questions", help: "⭕" },
-          ],
-        },
+        // {
+        //   title: "Shortcuts",
+        //   children: [
+        //     { label: "Auto-suggestion", help: "⭕" },
+        //     { label: "Background image", help: "⭕" },
+        //     { label: "Shortcuts", help: "⭕" },
+        //     { label: "Opening questions", help: "⭕" },
+        //   ],
+        // },
       ],
     },
   ];
@@ -213,7 +204,6 @@ const SettingOptions = ({ data }: ISettingOptions) => {
                         onClick={e => {
                           e.stopPropagation();
                           setOpenEditKnowledgeModal(true);
-                          setSelectedKnowledge(item);
                         }}
                       >
                         <AddCircleOutlineIcon sx={{ fontSize: 24 }} color='primary' />

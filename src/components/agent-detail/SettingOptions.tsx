@@ -128,15 +128,6 @@ const SettingOptions = ({ data }: ISettingOptions) => {
           title: "Auto-suggestion",
           children: [<AutoSuggestion key='auto-suggestion' />],
         },
-        // {
-        //   title: "Shortcuts",
-        //   children: [
-        //     { label: "Auto-suggestion", help: "⭕" },
-        //     { label: "Background image", help: "⭕" },
-        //     { label: "Shortcuts", help: "⭕" },
-        //     { label: "Opening questions", help: "⭕" },
-        //   ],
-        // },
       ],
     },
   ];

@@ -60,3 +60,10 @@ export const getListPlatformConfig = async (id: any) => {
     method: 'get',
   })
 }
+export const getChatExperience = async (id: any) => {
+  return await Api({
+    url: `/cbot/v1/agents/${id}/chat-experiences`,
+    method: 'get',
+  })
+}
+

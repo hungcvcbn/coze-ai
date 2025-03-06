@@ -6,7 +6,7 @@ import Image from "next/image";
 import AdminAvatar from "@/assets/icons/avatar_admin.png";
 import { Send } from "@mui/icons-material";
 import AttachFileIcon from "@mui/icons-material/AttachFile";
-import { chat, requestUpload, uploadFile } from "@/helpers/api/chatbot";
+import { chat, getChatExperience, requestUpload, uploadFile } from "@/helpers/api/chatbot";
 import { useParams } from "next/navigation";
 import CleaningServicesIcon from "@mui/icons-material/CleaningServices";
 import { setToast } from "@/redux/slices/common";
@@ -17,6 +17,7 @@ import ListPlatformPublish from "./platform/ListPlatformPublish";
 import { IconButton, Tooltip } from "@mui/material";
 import LinkIcon from "@mui/icons-material/Link";
 import { resetConversation } from "@/helpers/api/agent";
+import { useAppSelector } from "@/redux/hooks";
 type Message = {
   sender: "user" | "bot";
   text: string;
@@ -31,17 +32,13 @@ interface ChatBoxProps {
   conversation: any;
 }
 const ChatBox = ({ conversation }: ChatBoxProps) => {
+  const { triggerTime } = useAppSelector(state => state.common);
   const [open, setOpen] = useState<boolean>(false);
   const dispatch = useDispatch();
   const botId = useParams();
   const router = useRouter();
-  const [messages, setMessages] = useState<Message[]>([
-    {
-      sender: "bot",
-      text: "Chào mừng bạn! Tôi là trợ lý AI chuyên về hỗ trợ học và ứng dụng công nghệ trí tuệ nhân tạo. Tôi có thể giúp bạn:\na. Hiểu cơ bản về cách AI hoạt động\nb. Thực hành xây dựng các mô hình học máy (Machine Learning)\nBạn quan tâm đến chủ đề nào trước?",
-      suggestions: ["Làm thế nào để bắt đầu học AI?", "Tìm hiểu về AI trong nhận diện hình ảnh"],
-    },
-  ]);
+  const [messages, setMessages] = useState<Message[]>([]);
+  console.log(messages);
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [isTyping, setIsTyping] = useState(false);
@@ -51,7 +48,40 @@ const ChatBox = ({ conversation }: ChatBoxProps) => {
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
+  const getSuggestions = async () => {
+    try {
+      const res = await getChatExperience(botId?.id as string);
 
+      if (res && res.data && res.data.openingConversation) {
+        setMessages([
+          {
+            sender: "bot",
+            text:
+              res.data.openingConversation.openingText || "Xin chào! Tôi có thể giúp gì cho bạn?",
+            suggestions: Array.isArray(res.data.openingConversation.openingQuestions)
+              ? res.data.openingConversation.openingQuestions
+              : [],
+          },
+        ]);
+        return Array.isArray(res.data.openingConversation.openingQuestions)
+          ? res.data.openingConversation.openingQuestions
+          : [];
+      }
+    } catch (error: any) {
+      dispatch(
+        setToast({
+          message: error.message || "Đã xảy ra lỗi khi tải dữ liệu",
+          type: "error",
+          show: true,
+        })
+      );
+    }
+  };
+  useEffect(() => {
+    if (triggerTime) {
+      getSuggestions();
+    }
+  }, [triggerTime]);
   useEffect(() => {
     scrollToBottom();
   }, [messages]);

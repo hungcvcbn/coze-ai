@@ -1,8 +1,8 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
-import { getChatExperience, updateChatExperience } from "@/helpers/api/chatExperience";
-import { setToast } from "@/redux/slices/common";
+import { updateChatExperience } from "@/helpers/api/chatExperience";
+import { setToast, setTriggerTime } from "@/redux/slices/common";
 import { useAppDispatch } from "@/redux/hooks";
 import { TrashIcon } from "@/components/common/IconCommon";
 import { Tooltip } from "@mui/material";
@@ -83,32 +83,13 @@ const OpeningQuestion = ({ id }: { id: string }) => {
       };
       await updateChatExperience(id, params);
       dispatch(setToast({ message: "Cập nhật thành công", type: "success", show: true }));
-      fetchChatExperience();
+
+      dispatch(setTriggerTime(new Date().getTime()));
     } catch (error: any) {
       dispatch(setToast({ message: error.message, type: "error", show: true }));
     }
   };
 
-  const fetchChatExperience = async () => {
-    try {
-      const res = await getChatExperience(id);
-      setEditorContent(res.data.openingConversation.openingText || "");
-
-      const questions = Array.isArray(res.data.openingConversation.openingQuestions)
-        ? res.data.openingConversation.openingQuestions.map((content: any, index: any) => ({
-            id: (index + 1).toString(),
-            content: content,
-          }))
-        : [];
-
-      setPresetQuestions(questions);
-    } catch (error: any) {
-      dispatch(setToast({ message: error.message, type: "error", show: true }));
-    }
-  };
-  useEffect(() => {
-    fetchChatExperience();
-  }, []);
   return (
     <div className='flex flex-col'>
       <div>

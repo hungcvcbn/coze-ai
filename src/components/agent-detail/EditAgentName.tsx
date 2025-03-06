@@ -5,7 +5,7 @@ import BasicDialogContent from "../common/BasicDialogContent";
 import BasicDialogActions from "../common/BasicDialogActions";
 import RHFTextField from "../hook-form/RHFTextField";
 import { useForm } from "react-hook-form";
-import { setToast, setTriggerTime } from "@/redux/slices/common";
+import { setToast } from "@/redux/slices/common";
 import { useAppDispatch } from "@/redux/hooks";
 import FormProvider from "../hook-form/FormProvider";
 import { useEffect } from "react";

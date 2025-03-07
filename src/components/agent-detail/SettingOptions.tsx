@@ -207,12 +207,12 @@ const SettingOptions = ({ data }: ISettingOptions) => {
                           setOpenEditKnowledgeModal(true);
                         }}
                       >
-                        <AddCircleOutlineIcon sx={{ fontSize: 20 }} color='primary' />
+                        <AddCircleOutlineIcon sx={{ fontSize: 20, color: "#6A5ACD" }} />
                       </IconButton>
                     )}
                     {option.title === "Opening questions" && (
                       <IconButton onClick={handlePopoverClick}>
-                        <BrightnessAutoIcon sx={{ fontSize: 20 }} color='primary' />
+                        <BrightnessAutoIcon sx={{ fontSize: 20, color: "#6A5ACD" }} />
                       </IconButton>
                     )}
                   </div>

@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import LogoImage from "@/assets/icons/logo.png";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
-import BorderColorIcon from "@mui/icons-material/BorderColor";
 import IconButton from "@mui/material/IconButton";
 import PersonalPrompt from "./PersonalPrompt";
 import SettingOptions from "./SettingOptions";
@@ -18,6 +17,7 @@ import { useAppDispatch } from "@/redux/hooks";
 import { getConversationId } from "@/helpers/api/chatbot";
 import { isEmpty } from "@/helpers/utils/common";
 import ThumbDownOffAltIcon from "@mui/icons-material/ThumbDownOffAlt";
+import EditNoteIcon from "@mui/icons-material/EditNote";
 const ControlSetting = () => {
   const router = useRouter();
   const [open, setOpen] = useState(false);
@@ -87,8 +87,8 @@ const ControlSetting = () => {
             <div className='flex flex-col justify-center px-3'>
               <div className='text-16-24 flex items-center gap-2 font-semibold text-primary mb-1'>
                 {data?.name}
-                <IconButton sx={{ padding: "2px" }} onClick={() => setOpen(true)}>
-                  <BorderColorIcon sx={{ fontSize: "16px", color: "#007bff" }} />
+                <IconButton onClick={() => setOpen(true)}>
+                  <EditNoteIcon sx={{ fontSize: "20px", color: "#6A5ACD" }} />
                 </IconButton>
               </div>
               {data?.status === "ACTIVE" ? (

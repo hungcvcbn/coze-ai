@@ -252,7 +252,7 @@ const ChatBox = ({ conversation }: ChatBoxProps) => {
         <BasicButton onClick={() => setOpen(true)}>Publish</BasicButton>
         <Tooltip title='Chọn kết nối với nền tảng' placement='top'>
           <IconButton onClick={() => router.push(`/control-panel/${botId?.id}/settings/list`)}>
-            <LinkIcon />
+            <LinkIcon sx={{ color: "#6A5ACD" }} />
           </IconButton>
         </Tooltip>
       </div>
@@ -314,7 +314,7 @@ const ChatBox = ({ conversation }: ChatBoxProps) => {
                           download={msg.attachment.name}
                           className='flex items-center gap-2 text-blue-600 hover:underline'
                         >
-                          <AttachFileIcon fontSize='small' />
+                          <AttachFileIcon sx={{ fontSize: "20px", color: "#6A5ACD" }} />
                           {msg.attachment.name}
                         </a>
                       )}
@@ -352,7 +352,7 @@ const ChatBox = ({ conversation }: ChatBoxProps) => {
       </div>
       <div className='flex items-center rounded-b-lg gap-2 pt-2 border-t border-gray-200 p-2 bg-white absolute bottom-0 left-0 right-0'>
         <div className='cursor-pointer' onClick={handleLoadConversation}>
-          <CleaningServicesIcon sx={{ color: "#6A5ACD", "&:hover": { color: "#3E2A91" } }} />
+          <CleaningServicesIcon sx={{ color: "#6A5ACD", "&:hover": { color: "#6A5ACD" } }} />
         </div>
         <div className='flex-1'>
           <CustomTextField

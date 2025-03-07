@@ -11,6 +11,7 @@ import { useRouter } from "next/navigation";
 import { logout } from "@/helpers/api/system";
 import { setProfile, setToast } from "@/redux/slices/common";
 import { REFRESH_TOKEN, TOKEN } from "@/helpers/constants";
+import { IcBell, IconMessage } from "../common/IconCommon";
 const LayoutHeader = () => {
   const router = useRouter();
   const dispatch = useAppDispatch();
@@ -42,19 +43,24 @@ const LayoutHeader = () => {
 
   return (
     <header
-      className={`bg-gradient-to-br from-primary via-blue-400 to-primary text-white sticky top-0 z-50 h-[64px]`}
+      className={`bg-gradient-to-r from-slate-50 via-slate-100 to-slate-50 text-white sticky top-0 z-50 h-[63px]`}
     >
       <div className='px-4 py-3'>
         <div className=' flex justify-end items-center'>
           {!isEmpty(profile) ? (
             <>
-              <div className='text-14-20 font-semibold pr-2'>{profile?.username}</div>
-              <Avatar
-                alt={""}
-                src={AdminAvatar.src}
-                onClick={handleAvatarClick}
-                className='cursor-pointer'
-              />
+              <div className='flex items-center gap-2'>
+                <IconMessage /> <IcBell />
+                <div className='text-14-20 text-neutral font-semibold px-2'>
+                  {profile?.username}
+                </div>
+                <Avatar
+                  alt={""}
+                  src={AdminAvatar.src}
+                  onClick={handleAvatarClick}
+                  className='cursor-pointer'
+                />
+              </div>
               <Popover
                 id={id}
                 open={open}

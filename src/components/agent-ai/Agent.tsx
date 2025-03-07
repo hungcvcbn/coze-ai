@@ -65,24 +65,23 @@ const ControlPanel = () => {
   };
   return (
     <div className='flex flex-col'>
-      <div className='sticky z-10 p-0' style={{ top: "64px" }}>
-        <div className='flex justify-between gap-2 px-4 pt-2 bg-gray-50'>
-          <Grid className='flex gap-2'>
-            <Grid size={12}>
-              <CustomTextField
-                label='Tìm kiếm'
-                placeholder='Nhập tên bot'
-                sx={{ backgroundColor: "white" }}
-                value={term}
-                onChange={handleChangeTerm}
-              />
-            </Grid>
+      <div className='bg-white sticky top-[64px] z-10 flex justify-between gap-2 px-4 pt-2'>
+        <Grid className='flex gap-2'>
+          <Grid size={12}>
+            <CustomTextField
+              label='Tìm kiếm'
+              placeholder='Nhập tên bot'
+              sx={{ backgroundColor: "white" }}
+              value={term}
+              onChange={handleChangeTerm}
+            />
           </Grid>
-          <div className='pt-4 mt-3'>
-            <BasicTab tabOptions={tabOptions} value={tab} onChange={handleChange} />
-          </div>
+        </Grid>
+        <div className='pt-4 mt-3'>
+          <BasicTab tabOptions={tabOptions} value={tab} onChange={handleChange} />
         </div>
       </div>
+
       <div className='flex flex-col px-4 py-2 gap-3'>{renderTabContent()}</div>
     </div>
   );

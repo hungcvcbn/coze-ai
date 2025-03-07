@@ -24,7 +24,7 @@ const Layout = ({ children }: LayoutProps) => {
   }
 
   return (
-    <div className='bg-gray-50 flex flex-col'>
+    <div className=' flex flex-col'>
       <Menu />
       <div className='pl-64 flex-1 flex flex-col'>
         <div className='sticky top-0 z-10 bg-white'>

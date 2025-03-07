@@ -67,9 +67,9 @@ const ControlSetting = () => {
   }, [conversation]);
 
   return (
-    <div className='flex p-4 gap-2 h-auto bg-white'>
-      <div className={`w-[70%] h-full bg-white border border-gray-200 rounded-lg px-4 pb-4`}>
-        <div className='flex justify-between h-[80px] border-b border-gray-200 bg-white'>
+    <div className='grid grid-cols-12 gap-2 p-4 bg-white'>
+      <div className='col-span-4 sticky top-[64px] h-[calc(100vh-104px)] bg-white border border-gray-200 rounded-lg px-4 pb-4'>
+        <div className='flex justify-between h-[80px] border-b border-gray-200'>
           <div className='flex'>
             <div className='flex justify-center items-center gap-3'>
               <button className='cursor-pointer p-1' onClick={() => router.back()}>
@@ -109,17 +109,16 @@ const ControlSetting = () => {
             </div>
           </div>
         </div>
-        <div className='grid grid-cols-2 gap-4 '>
-          <div>
-            <PersonalPrompt data={data} fetchAgentDetail={fetchAgentDetail} />
-          </div>
-          <div>
-            <SettingOptions data={data} />
-          </div>
+        <div>
+          <PersonalPrompt data={data} fetchAgentDetail={fetchAgentDetail} />
         </div>
       </div>
 
-      <div className='w-[30%] h-[calc(100vh-32px)] sticky top-2 border border-gray-300 rounded-lg'>
+      <div className='col-span-5 h-auto border border-gray-200 rounded-lg'>
+        <SettingOptions data={data} />
+      </div>
+
+      <div className='sticky top-[64px] col-span-3 h-[calc(100vh-104px)] border border-gray-200 rounded-lg'>
         <ChatBox conversation={conversation} />
       </div>
 

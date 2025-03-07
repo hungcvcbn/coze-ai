@@ -61,7 +61,7 @@ const ControlCommand = ({ data, fetchAgentDetail }: IControlCommand) => {
   };
 
   return (
-    <div className='flex flex-col gap-2 pt-4 bg-white text-neutral border-x border-b border-gray-200 p-4'>
+    <div className='flex flex-col gap-2 pt-4 bg-white text-neutral'>
       <div className='flex gap-2 justify-between items-center'>
         <div className='text-14-20 font-semibold'>Persona & Prompt</div>
         <div className='flex gap-4 justify-end pt-1'>

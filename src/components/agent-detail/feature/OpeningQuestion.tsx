@@ -122,9 +122,7 @@ const OpeningQuestion = ({ id }: { id: string }) => {
   return (
     <div className='flex flex-col'>
       <div>
-        <div className='flex justify-between text-gray-600 mb-2 items-center gap-2'>
-          <div className='text-sm font-medium'>Opening text</div>
-        </div>
+        <div className='text-14-20 font-medium text-gray-400 '>Opening text</div>
 
         <textarea
           value={editorContent}
@@ -136,7 +134,7 @@ const OpeningQuestion = ({ id }: { id: string }) => {
 
       <div className='mt-4'>
         <div className='flex justify-between items-center mb-2'>
-          <div className='text-gray-600'>Preset opening questions</div>
+          <div className='text-14-20 font-medium text-gray-400'>Preset opening questions</div>
         </div>
 
         <div className='flex flex-col gap-2'>
@@ -171,7 +169,7 @@ const OpeningQuestion = ({ id }: { id: string }) => {
                     <DragIndicatorIcon fontSize='small' />
                   </div>
                   <div
-                    className='flex-grow cursor-pointer'
+                    className='flex-grow cursor-text'
                     onClick={() => handleEditQuestion(question.id, question.content)}
                   >
                     {question.content}

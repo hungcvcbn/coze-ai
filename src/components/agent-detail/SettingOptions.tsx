@@ -149,8 +149,10 @@ const SettingOptions = ({ data }: ISettingOptions) => {
           return (
             <div
               key={childIndex}
-              className={`flex flex-col p-2 overflow-y-auto max-h-[200px] rounded-md justify-between gap-2 ${
-                featureName !== "Chat experience" ? "border border-gray-300" : ""
+              className={`flex flex-col p-3 overflow-y-auto max-h-[200px] rounded-lg justify-between gap-2 ${
+                featureName !== "Chat experience"
+                  ? "border border-gray-200 hover:border-gray-300 transition-colors duration-200"
+                  : ""
               }`}
             >
               <div className='text-16-24 font-semibold text-neutral'>{childOption.label}</div>
@@ -168,26 +170,34 @@ const SettingOptions = ({ data }: ISettingOptions) => {
   };
 
   return (
-    <div className='flex flex-col border-x border-b p-3 border-gray-300 '>
-      <div className='mt-4'>
+    <div className='flex flex-col p-3 space-y-4'>
+      <div className=''>
         {items.map((item, featureIndex) => (
-          <div key={featureIndex}>
-            <div className='text-12-18 font-semibold px-2 py-1 text-neutral'>
+          <div key={featureIndex} className='space-y-2'>
+            <div className='text-12-18 font-semibold px-2 text-neutral pt-4'>
               {item.featureName}
             </div>
             {item.options.map((option, parentIndex) => (
-              <div key={parentIndex} className='border-b'>
+              <div
+                key={parentIndex}
+                className='mb-2 rounded-lg overflow-hidden border border-gray-200'
+              >
                 <div
-                  className='flex justify-between items-center cursor-pointer text-16-24 font-semibold h-[55px] bg-gray-100 px-2 py-1 rounded-[4px] text-neutral'
+                  className='flex justify-between items-center cursor-pointer text-16-24 font-semibold h-[40px] hover:bg-gray-50 bg-white px-4 py-1 text-neutral transition-colors duration-200'
                   onClick={() => toggleCollapse(`${featureIndex}-${parentIndex}`)}
                 >
                   <div className='flex items-center gap-2'>
-                    {collapseStates[`${featureIndex}-${parentIndex}`] ? (
-                      <ExpandLessIcon />
-                    ) : (
+                    <div
+                      className='transition-transform duration-300'
+                      style={{
+                        transform: collapseStates[`${featureIndex}-${parentIndex}`]
+                          ? "rotate(180deg)"
+                          : "rotate(0deg)",
+                      }}
+                    >
                       <ExpandMoreIcon />
-                    )}
-                    {option.title}
+                    </div>
+                    <div className='text-14-20 font-semibold text-neutral'>{option.title}</div>
                   </div>
                   <div className='flex items-center'>
                     {(option.title === "Table" || option.title === "Text") && (
@@ -197,33 +207,32 @@ const SettingOptions = ({ data }: ISettingOptions) => {
                           setOpenEditKnowledgeModal(true);
                         }}
                       >
-                        <AddCircleOutlineIcon sx={{ fontSize: 24 }} color='primary' />
+                        <AddCircleOutlineIcon sx={{ fontSize: 20 }} color='primary' />
                       </IconButton>
                     )}
                     {option.title === "Opening questions" && (
                       <IconButton onClick={handlePopoverClick}>
-                        <BrightnessAutoIcon sx={{ fontSize: 24 }} color='primary' />
+                        <BrightnessAutoIcon sx={{ fontSize: 20 }} color='primary' />
                       </IconButton>
                     )}
                   </div>
                 </div>
 
                 <div
-                  className={`mt-2 text-14-20 text-neutral transition-all duration-1000 ease-in-out overflow-y-auto
-           [&::-webkit-scrollbar]:w-2
-          [&::-webkit-scrollbar-track]:bg-gray-100
-          [&::-webkit-scrollbar-thumb]:bg-gray-300
-          [&::-webkit-scrollbar-thumb]:rounded-full ${
-            collapseStates[`${featureIndex}-${parentIndex}`]
-              ? "max-h-[600px]"
-              : "max-h-0 overflow-hidden"
-          }`}
+                  className={`text-14-20 text-neutral transition-all duration-200 ease-in-out overflow-y-auto
+                  [&::-webkit-scrollbar]:w-2
+                  [&::-webkit-scrollbar-track]:bg-gray-50
+                  [&::-webkit-scrollbar-thumb]:bg-gray-300
+                  [&::-webkit-scrollbar-thumb]:rounded-full
+                  ${
+                    collapseStates[`${featureIndex}-${parentIndex}`]
+                      ? "max-h-[600px] opacity-100"
+                      : "max-h-0 opacity-0 overflow-hidden"
+                  }`}
                 >
                   {collapseStates[`${featureIndex}-${parentIndex}`] && (
-                    <div>
-                      <div className='pb-4 px-2'>
-                        {renderSettingOptions(option.children, parentIndex, item.featureName)}
-                      </div>
+                    <div className='p-4 border-t border-gray-100'>
+                      {renderSettingOptions(option.children, parentIndex, item.featureName)}
                     </div>
                   )}
                 </div>

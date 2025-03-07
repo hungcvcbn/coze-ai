@@ -1,13 +1,9 @@
 "use client";
-import React, { useEffect } from "react";
+import React from "react";
 import LayoutHeader from "./LayoutHeader";
 import Menu from "./Menu";
-import { usePathname, useRouter } from "next/navigation";
-import { useAppDispatch } from "@/redux/hooks";
-import { setFirstLoading, setProfile } from "@/redux/slices/common";
-import { getProfile } from "@/helpers/api/system";
-import { TOKEN } from "@/helpers/constants";
-import { getCookie } from "cookies-next";
+import { usePathname } from "next/navigation";
+import { useProfileFetch } from "@/hooks/useProfileFetch";
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -15,31 +11,9 @@ interface LayoutProps {
 
 const Layout = ({ children }: LayoutProps) => {
   const pathname = usePathname();
-  const router = useRouter();
   const isLoginPage = pathname === "/login" || pathname === "/sign-in" || pathname === "/sign-up";
 
-  const dispatch = useAppDispatch();
-  const fetchProfile = async () => {
-    try {
-      const res = await getProfile();
-      if (res?.data) {
-        dispatch(setProfile(res.data));
-      }
-    } catch (error) {
-      console.log(error);
-    } finally {
-      dispatch(setFirstLoading(false));
-    }
-  };
-  useEffect(() => {
-    const token = getCookie(TOKEN);
-    if (token) {
-      fetchProfile();
-    } else {
-      dispatch(setFirstLoading(false));
-      router.push("/login");
-    }
-  }, []);
+  useProfileFetch();
 
   if (isLoginPage) {
     return (

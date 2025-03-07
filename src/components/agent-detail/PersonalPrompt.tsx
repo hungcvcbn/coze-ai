@@ -65,14 +65,14 @@ const ControlCommand = ({ data, fetchAgentDetail }: IControlCommand) => {
       <div className='flex gap-2 justify-between items-center'>
         <div className='text-14-20 font-semibold'>Persona & Prompt</div>
         <div className='flex gap-4 justify-end pt-1'>
-          <div className='text-14-20 flex justify-center items-center font-semibold text-primary border border-primary rounded-[10px] px-2 py-1 cursor-pointer'>
+          <div className='text-12-18 flex justify-center items-center font-semibold text-primary border border-primary rounded-[10px] px-2 py-1 cursor-pointer'>
             Tối ưu
           </div>
           <button
             className='text-14-20 flex justify-center items-center font-semibold text-primary gap-1 px-2 py-1 cursor-pointer'
             onClick={() => setOpen(true)}
           >
-            <AddCircleOutlineIcon />
+            <AddCircleOutlineIcon sx={{ fontSize: "20px" }} />
             Lệnh mẫu
           </button>
         </div>
@@ -90,10 +90,17 @@ const ControlCommand = ({ data, fetchAgentDetail }: IControlCommand) => {
         rows={30}
       />
       <div className='flex justify-end gap-2'>
-        <BasicButton type='submit' variant='outlined' color='primary' onClick={handleCancel}>
+        <BasicButton
+          size='sm'
+          type='button'
+          variant='outlined'
+          color='primary'
+          onClick={handleCancel}
+        >
           Huỷ
         </BasicButton>
         <BasicButton
+          size='sm'
           type='submit'
           variant='contained'
           color='primary'

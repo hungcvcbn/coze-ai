@@ -4,6 +4,10 @@ export const chat = async (data: any) => {
     url: `/cbrain/agents/chat`,
     method: 'post',
     data,
+    // headers: {
+    //   'Content-Type': 'application/json',
+    //   'model': 'GEMINI',
+    // },
   })
 }
 export const getConversationId = async (params: any) => {

@@ -249,7 +249,9 @@ const ChatBox = ({ conversation }: ChatBoxProps) => {
   return (
     <div className='flex flex-col h-full relative'>
       <div className='h-[56px] p-3 flex items-center border-b rounded-t-lg border-gray-200 bg-white justify-end'>
-        <BasicButton onClick={() => setOpen(true)}>Publish</BasicButton>
+        <BasicButton size='sm' onClick={() => setOpen(true)}>
+          Publish
+        </BasicButton>
         <Tooltip title='Chọn kết nối với nền tảng' placement='top'>
           <IconButton onClick={() => router.push(`/control-panel/${botId?.id}/settings/list`)}>
             <LinkIcon sx={{ color: "#6A5ACD" }} />

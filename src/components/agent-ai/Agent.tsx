@@ -69,6 +69,7 @@ const ControlPanel = () => {
         <Grid className='flex gap-2'>
           <Grid size={12}>
             <CustomTextField
+              fullWidth
               label='Tìm kiếm'
               placeholder='Nhập tên bot'
               sx={{ backgroundColor: "white" }}

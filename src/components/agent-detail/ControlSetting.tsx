@@ -78,21 +78,21 @@ const ControlSetting = () => {
               <Image
                 src={LogoImage}
                 alt='Logo'
-                width={44}
-                height={44}
+                width={30}
+                height={30}
                 className='rounded-[8px] object-cover w-[60px] h-[60px]'
               />
             </div>
 
             <div className='flex flex-col justify-center px-3'>
-              <div className='text-16-24 flex items-center gap-2 font-semibold text-primary mb-1'>
+              <div className='text-14-20 flex items-center gap-2 font-semibold text-primary'>
                 {data?.name}
                 <IconButton onClick={() => setOpen(true)}>
                   <EditNoteIcon sx={{ fontSize: "20px", color: "#6A5ACD" }} />
                 </IconButton>
               </div>
               {data?.status === "ACTIVE" ? (
-                <div className='flex items-center border border-success w-fit rounded-lg px-2 py-1 gap-1 bg-success-50'>
+                <div className='flex items-center border border-success w-fit rounded-lg px-2 gap-1 bg-success-50'>
                   <div>
                     <IcCheckCircle color='#22C55E' width={16} height={16} />
                   </div>

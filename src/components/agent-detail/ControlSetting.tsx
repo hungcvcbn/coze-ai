@@ -68,12 +68,8 @@ const ControlSetting = () => {
 
   return (
     <div className='flex p-4 gap-2 h-auto bg-white'>
-      <div
-        className={`w-[70%] h-full bg-white border border-gray-200 rounded-lg px-4 pb-4 ${
-          !isEmpty(conversation?.conversations) ? "w-[70%]" : "w-[100%]"
-        }`}
-      >
-        <div className='flex justify-between h-[80px] border-b border-gray-200'>
+      <div className={`w-[70%] h-full bg-white border border-gray-200 rounded-lg px-4 pb-4`}>
+        <div className='flex justify-between h-[80px] border-b border-gray-200 bg-white'>
           <div className='flex'>
             <div className='flex justify-center items-center gap-3'>
               <button className='cursor-pointer p-1' onClick={() => router.back()}>
@@ -113,7 +109,7 @@ const ControlSetting = () => {
             </div>
           </div>
         </div>
-        <div className='grid grid-cols-2 gap-4'>
+        <div className='grid grid-cols-2 gap-4 '>
           <div>
             <PersonalPrompt data={data} fetchAgentDetail={fetchAgentDetail} />
           </div>
@@ -123,7 +119,7 @@ const ControlSetting = () => {
         </div>
       </div>
 
-      <div className='w-[30%] h-[840px] border border-gray-300 rounded-lg'>
+      <div className='w-[30%] h-[calc(100vh-32px)] sticky top-2 border border-gray-300 rounded-lg'>
         <ChatBox conversation={conversation} />
       </div>
 

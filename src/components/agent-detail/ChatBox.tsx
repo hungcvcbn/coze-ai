@@ -370,7 +370,6 @@ const ChatBox = ({ conversation }: ChatBoxProps) => {
               }
             }}
             disabled={isLoading}
-            className='bg-gray-100 rounded-lg'
             inputRef={inputRef}
             sx={{
               "& .MuiInputBase-root": {

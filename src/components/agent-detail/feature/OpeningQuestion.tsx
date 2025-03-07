@@ -1,12 +1,11 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
-import { updateChatExperience } from "@/helpers/api/chatExperience";
+import { getChatExperience, updateChatExperience } from "@/helpers/api/chatExperience";
 import { setToast, setTriggerTime } from "@/redux/slices/common";
 import { useAppDispatch } from "@/redux/hooks";
 import { TrashIcon } from "@/components/common/IconCommon";
 import { Tooltip } from "@mui/material";
-import SaveIcon from "@mui/icons-material/Save";
 import DragIndicatorIcon from "@mui/icons-material/DragIndicator";
 
 const OpeningQuestion = ({ id }: { id: string }) => {
@@ -18,6 +17,32 @@ const OpeningQuestion = ({ id }: { id: string }) => {
   const [newQuestion, setNewQuestion] = useState("");
   const [editingQuestionId, setEditingQuestionId] = useState<string | null>(null);
   const [editingContent, setEditingContent] = useState("");
+
+  const saveChanges = async () => {
+    try {
+      const openingQuestions = presetQuestions.map(question => question.content);
+      const params = {
+        openingConversation: {
+          openingText: editorContent,
+          openingQuestions: openingQuestions,
+        },
+      };
+      await updateChatExperience(id, params);
+      dispatch(setTriggerTime(new Date().getTime()));
+    } catch (error: any) {
+      dispatch(setToast({ message: error.message, type: "error", show: true }));
+    }
+  };
+
+  useEffect(() => {
+    if (editorContent !== "" || presetQuestions.length > 0) {
+      const timer = setTimeout(() => {
+        saveChanges();
+      }, 100);
+
+      return () => clearTimeout(timer);
+    }
+  }, [editorContent, presetQuestions]);
 
   const handleDragStart = (e: React.DragEvent, index: number) => {
     e.dataTransfer.setData("index", index.toString());
@@ -71,35 +96,34 @@ const OpeningQuestion = ({ id }: { id: string }) => {
   const handleDeleteQuestion = (id: string) => {
     setPresetQuestions(presetQuestions.filter(question => question.id !== id));
   };
-
-  const handleSave = async () => {
+  const fetchChatExperience = async () => {
     try {
-      const openingQuestions = presetQuestions.map(question => question.content);
-      const params = {
-        openingConversation: {
-          openingText: editorContent,
-          openingQuestions: openingQuestions,
-        },
-      };
-      await updateChatExperience(id, params);
-      dispatch(setToast({ message: "Cập nhật thành công", type: "success", show: true }));
+      const res = await getChatExperience(id);
+      const openingConversation = res.data.openingConversation || {};
+      setEditorContent(openingConversation.openingText || "");
 
-      dispatch(setTriggerTime(new Date().getTime()));
+      const questions = Array.isArray(openingConversation.openingQuestions)
+        ? openingConversation.openingQuestions.map((content: any, index: any) => ({
+            id: (index + 1).toString(),
+            content: content,
+          }))
+        : [];
+
+      setPresetQuestions(questions);
     } catch (error: any) {
       dispatch(setToast({ message: error.message, type: "error", show: true }));
     }
   };
+
+  useEffect(() => {
+    fetchChatExperience();
+  }, []);
 
   return (
     <div className='flex flex-col'>
       <div>
         <div className='flex justify-between text-gray-600 mb-2 items-center gap-2'>
           <div className='text-sm font-medium'>Opening text</div>
-          <Tooltip title='Lưu' placement='top'>
-            <div onClick={handleSave} className='cursor-pointer hover:bg-gray-100 rounded-lg p-1'>
-              <SaveIcon sx={{ color: "#6A5ACD" }} />
-            </div>
-          </Tooltip>
         </div>
 
         <textarea
@@ -176,10 +200,12 @@ const OpeningQuestion = ({ id }: { id: string }) => {
                 handleAddQuestion();
               }
             }}
+            onBlur={() => {
+              if (newQuestion.trim()) {
+                handleAddQuestion();
+              }
+            }}
           />
-          <button onClick={handleAddQuestion} className='text-blue-600'>
-            Add
-          </button>
         </div>
       </div>
     </div>

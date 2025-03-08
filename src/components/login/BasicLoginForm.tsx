@@ -227,7 +227,9 @@ const FormLoginBasic = () => {
                 </Link>
               </div>
             </FormProvider>
-            <ConnectGoogle />
+            <div className="mt-4">
+              <ConnectGoogle />
+            </div>
           </div>
         </div>
       </div>

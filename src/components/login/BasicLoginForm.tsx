@@ -15,7 +15,7 @@ import Image from "next/image";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import GoogleIconImage from "@/assets/icons/google.png";
 import clsx from "clsx";
-import { REFRESH_TOKEN, TOKEN } from "@/helpers/constants";
+import { LOGIN_CLIENT_ID, REFRESH_TOKEN, TOKEN } from "@/helpers/constants";
 import yup from "@/helpers/utils/yupConfig";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
@@ -62,7 +62,7 @@ const FormLoginBasic = () => {
       setLoading(true);
       const res = await login({
         ...data,
-        clientId: "ecb8bbf1",
+        clientId: LOGIN_CLIENT_ID,
         grantType: "password",
       });
 

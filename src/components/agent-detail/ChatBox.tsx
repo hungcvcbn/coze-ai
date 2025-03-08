@@ -338,7 +338,7 @@ const ChatBox = ({ conversation }: ChatBoxProps) => {
                     {msg.suggestions.map((suggestion, idx) => (
                       <button
                         key={idx}
-                        className='px-4 py-2 bg-white shadow-md hover:bg-gray-300 rounded-lg text-12-18 text-gray-800 transition duration-200'
+                        className='text-start px-4 py-2 bg-white shadow-md hover:bg-gray-300 rounded-lg text-12-18 text-gray-800 transition duration-200'
                         onClick={() => handleSuggestionClick(suggestion)}
                       >
                         {suggestion}

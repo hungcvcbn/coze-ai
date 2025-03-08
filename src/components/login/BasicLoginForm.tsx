@@ -88,13 +88,13 @@ const FormLoginBasic = () => {
       <div className='relative grid grid-rows-7 py-3 sm:max-w-xl sm:mx-auto text-gray-700 w-full'>
         <div className='relative row-span-7 px-4 py-10 bg-white mx-8 md:mx-0 shadow rounded-3xl sm:p-10'>
           <div className='max-w-md mx-auto'>
-            <div className='flex flex-col items-center mb-8'>
+            <div className='flex flex-col items-center mb-4'>
               <Image
                 src={LogoZenee}
                 alt='Zenee AI'
-                width={80}
-                height={80}
-                className='rounded-lg border p-2 bg-primary-50'
+                width={100}
+                height={100}
+                className='rounded-lg'
               />
               <div className='text-28-36 font-semibold mt-2'>Zenee AI</div>
             </div>

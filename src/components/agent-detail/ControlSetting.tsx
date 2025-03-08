@@ -80,7 +80,7 @@ const ControlSetting = () => {
                 alt='Logo'
                 width={30}
                 height={30}
-                className='rounded-[8px] border p-1 bg-primary-50 object-cover w-[50px] h-[50px]'
+                className='rounded-[8px] object-cover w-[50px] h-[50px]'
               />
             </div>
 

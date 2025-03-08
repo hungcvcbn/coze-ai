@@ -75,7 +75,7 @@ const Menu = () => {
       >
         <div className='flex items-center gap-2 mb-2 px-4 w-full p-4 h-[64px]'>
           <Image src={LogoImage} alt='Logo' width={40} height={40} className='rounded-lg' />
-          <span className='text-xl text-neutral font-semibold'>Zenee AI</span>
+          <span className='text-24-32 text-neutral font-semibold pt-1'>Zenee AI</span>
         </div>
         <div className='flex justify-center pb-3 px-4'>
           <button

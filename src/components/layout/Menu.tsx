@@ -73,7 +73,7 @@ const Menu = () => {
         transition-transform duration-300 ease-in-out lg:translate-x-0
         ${isMenuOpen ? "translate-x-0" : "-translate-x-full"} lg:block z-40`}
       >
-        <div className='flex items-center gap-2 mb-2 px-4 w-full p-4 h-[64px]'>
+        <div className='flex justify-center items-center gap-2 mb-2 px-4 w-full p-4 h-[64px]'>
           <Image src={LogoImage} alt='Logo' width={40} height={40} className='rounded-lg' />
           <span className='text-24-32 text-neutral font-semibold pt-1'>Zenee AI</span>
         </div>

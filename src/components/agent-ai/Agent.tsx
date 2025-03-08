@@ -65,9 +65,9 @@ const ControlPanel = () => {
   };
   return (
     <div className='flex flex-col'>
-      <div className='bg-white sticky top-[64px] z-10 flex justify-between gap-2 px-4 pt-2'>
-        <Grid className='flex gap-2'>
-          <Grid size={12}>
+      <div className='bg-white sticky top-[64px] z-10 px-4 pt-2'>
+        <div className='flex flex-col md:flex-row md:items-center justify-between gap-4'>
+          <div className='w-full md:w-1/2 lg:w-1/3'>
             <CustomTextField
               fullWidth
               label='Tìm kiếm'
@@ -76,14 +76,14 @@ const ControlPanel = () => {
               value={term}
               onChange={handleChangeTerm}
             />
-          </Grid>
-        </Grid>
-        <div className='pt-4 mt-3'>
-          <BasicTab tabOptions={tabOptions} value={tab} onChange={handleChange} />
+          </div>
+          <div className=''>
+            <BasicTab tabOptions={tabOptions} value={tab} onChange={handleChange} />
+          </div>
         </div>
       </div>
 
-      <div className='flex flex-col px-4 py-2 gap-3'>{renderTabContent()}</div>
+      <div className='p-4'>{renderTabContent()}</div>
     </div>
   );
 };

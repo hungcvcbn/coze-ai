@@ -37,7 +37,10 @@ const LayoutDetail = ({ children }: LayoutProps) => {
       <div className='bg-white sticky top-0 z-10 shadow-sm'>
         <LayoutHeader />
       </div>
-      <div className='fixed left-0 top-0 w-[70px] h-full bg-white border-r border-gray-200 z-10'>
+      <div
+        className='fixed left-0 top-0 w-[70px] h-full bg-white border-r border-gray-200 z-10 
+        hidden sm:block'
+      >
         <div className='flex items-center gap-3 border-b border-gray-200 w-full p-5 h-[64px]'>
           <button
             onClick={() => router.push("/control-panel")}
@@ -63,7 +66,7 @@ const LayoutDetail = ({ children }: LayoutProps) => {
           })}
         </div>
       </div>
-      <div className='pl-[70px] '>{children}</div>
+      <div className='sm:pl-[70px] p-4'>{children}</div>
     </div>
   );
 };

@@ -68,7 +68,7 @@ const ControlSetting = () => {
 
   return (
     <div className='grid grid-cols-12 gap-2 p-4 bg-white'>
-      <div className='col-span-4 sticky top-[64px] h-[calc(100vh-104px)] bg-white border border-gray-200 rounded-lg px-4 pb-4'>
+      <div className='col-span-12 lg:col-span-4 lg:sticky lg:top-[64px] h-auto lg:h-[calc(100vh-104px)] bg-white border border-gray-200 rounded-lg px-4 pb-4'>
         <div className='flex justify-between h-[80px] border-b border-gray-200'>
           <div className='flex'>
             <div className='flex justify-center items-center gap-3'>
@@ -114,11 +114,11 @@ const ControlSetting = () => {
         </div>
       </div>
 
-      <div className='col-span-5 h-auto border border-gray-200 rounded-lg'>
+      <div className='col-span-12 lg:col-span-5 h-auto border border-gray-200 rounded-lg'>
         <SettingOptions data={data} />
       </div>
 
-      <div className='sticky top-[64px] col-span-3 h-[calc(100vh-104px)] border border-gray-200 rounded-lg'>
+      <div className='col-span-12 lg:col-span-3 lg:sticky lg:top-[64px] h-auto lg:h-[calc(100vh-104px)] border border-gray-200 rounded-lg'>
         <ChatBox conversation={conversation} />
       </div>
 

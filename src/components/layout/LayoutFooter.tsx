@@ -6,8 +6,8 @@ const FooterLayout = () => {
   return (
     <footer className='relative pt-8 pb-6 bg-gradient-to-r from-[#f3f3f3] to-[#d1d1cc]'>
       <div className='container mx-auto px-4'>
-        <div className='flex flex-wrap text-left lg:text-left'>
-          <div className='w-full lg:w-6/12 px-4'>
+        <div className='flex flex-wrap text-left'>
+          <div className='w-full lg:w-6/12 px-4 mb-8 lg:mb-0'>
             <h4 className='text-3xl font-semibold text-blueGray-700'>Let's keep in touch!</h4>
             <h5 className='text-[16px] mt-0 mb-2 text-blueGray-600'>
               Find me on any of these platforms, I respond 1-2 business days.
@@ -15,7 +15,7 @@ const FooterLayout = () => {
           </div>
           <div className='w-full lg:w-6/12 px-4'>
             <div className='flex flex-wrap items-top mb-6'>
-              <div className='w-full lg:w-4/12 px-4 ml-auto'>
+              <div className='w-full sm:w-6/12 lg:w-4/12 px-4 mb-8 sm:mb-0'>
                 <span className='block uppercase text-blueGray-500 text-sm font-semibold mb-2'>
                   Useful Links
                 </span>
@@ -42,7 +42,7 @@ const FooterLayout = () => {
                   </li>
                 </ul>
               </div>
-              <div className='w-full lg:w-4/12 px-4'>
+              <div className='w-full sm:w-6/12 lg:w-4/12 px-4'>
                 <span className='block uppercase text-blueGray-500 text-sm font-semibold mb-2'>
                   Other Resources
                 </span>

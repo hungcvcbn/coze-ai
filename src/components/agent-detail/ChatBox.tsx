@@ -255,9 +255,9 @@ const ChatBox = ({ conversation }: ChatBoxProps) => {
 
   return (
     <div className='flex flex-col h-full relative'>
-      <div className='h-[56px] p-3 flex items-center border-b rounded-t-lg border-gray-200 bg-white justify-between'>
-        <Grid container spacing={2}>
-          <Grid item xs={12} md={8}>
+      <div className='h-auto min-h-[56px] p-3 flex items-center border-b rounded-t-lg border-gray-200 bg-white justify-between'>
+        <Grid container spacing={2} alignItems='center'>
+          <Grid item xs={12} sm={8} md={8}>
             <FormControl fullWidth size='small'>
               <Select
                 size='small'
@@ -292,20 +292,24 @@ const ChatBox = ({ conversation }: ChatBoxProps) => {
               </Select>
             </FormControl>
           </Grid>
+          <Grid item xs={12} sm={4} md={4}>
+            <div className='flex items-center gap-2 justify-end'>
+              <BasicButton size='sm' onClick={() => setOpen(true)}>
+                Publish
+              </BasicButton>
+              <Tooltip title='Chọn kết nối với nền tảng' placement='top'>
+                <IconButton
+                  onClick={() => router.push(`/control-panel/${botId?.id}/settings/list`)}
+                >
+                  <LinkIcon sx={{ color: "#6A5ACD" }} />
+                </IconButton>
+              </Tooltip>
+            </div>
+          </Grid>
         </Grid>
-        <div className='flex items-center gap-2'>
-          <BasicButton size='sm' onClick={() => setOpen(true)}>
-            Publish
-          </BasicButton>
-          <Tooltip title='Chọn kết nối với nền tảng' placement='top'>
-            <IconButton onClick={() => router.push(`/control-panel/${botId?.id}/settings/list`)}>
-              <LinkIcon sx={{ color: "#6A5ACD" }} />
-            </IconButton>
-          </Tooltip>
-        </div>
       </div>
       <div
-        className='flex-1 max-h-[754px] overflow-y-auto p-4 [&::-webkit-scrollbar]:w-2
+        className='flex-1 max-h-[calc(100vh-200px)] overflow-y-auto p-2 sm:p-4 [&::-webkit-scrollbar]:w-2
           [&::-webkit-scrollbar-track]:bg-gray-100
           [&::-webkit-scrollbar-thumb]:bg-gray-300
           [&::-webkit-scrollbar-thumb]:rounded-full'
@@ -316,7 +320,7 @@ const ChatBox = ({ conversation }: ChatBoxProps) => {
             className={`mb-4 flex ${msg.sender === "user" ? "justify-end" : "justify-start"}`}
           >
             {msg.sender === "bot" && (
-              <div className='flex items-start flex-col'>
+              <div className='flex items-start flex-col max-w-[85%] sm:max-w-[75%]'>
                 <div className='flex items-start'>
                   <Image
                     src={LogoImage}
@@ -345,7 +349,7 @@ const ChatBox = ({ conversation }: ChatBoxProps) => {
               </div>
             )}
             {msg.sender === "user" && (
-              <div className='flex items-start'>
+              <div className='flex items-start max-w-[85%] sm:max-w-[75%]'>
                 <div className='px-4 py-2 bg-blue-100 text-14-20 text-gray-800 rounded-lg shadow-lg'>
                   {msg.text}
                   {msg.attachment && (
@@ -398,7 +402,7 @@ const ChatBox = ({ conversation }: ChatBoxProps) => {
         )}
         <div ref={messagesEndRef} />
       </div>
-      <div className='flex items-center rounded-b-lg gap-2 pt-2 border-t border-gray-200 p-2 bg-white absolute bottom-0 left-0 right-0'>
+      <div className='flex items-center rounded-b-lg gap-2 pt-2 border-t border-gray-200 p-2 bg-white sticky bottom-0 left-0 right-0'>
         <div className='cursor-pointer' onClick={handleLoadConversation}>
           <CleaningServicesIcon sx={{ color: "#6A5ACD", "&:hover": { color: "#6A5ACD" } }} />
         </div>
@@ -422,14 +426,16 @@ const ChatBox = ({ conversation }: ChatBoxProps) => {
             sx={{
               "& .MuiInputBase-root": {
                 borderRadius: "20px",
-                minHeight: "30px",
+                minHeight: "40px",
                 display: "flex",
                 alignItems: "center",
+                padding: "4px 8px",
               },
               "& .MuiInputBase-input": {
                 fontSize: "14px",
-                maxHeight: "300px",
+                maxHeight: "150px",
                 overflowY: "auto",
+                padding: "8px 12px",
               },
               "& .MuiInputBase-input::placeholder": {
                 fontSize: "14px",

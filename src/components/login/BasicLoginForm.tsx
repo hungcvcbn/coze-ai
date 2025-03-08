@@ -12,8 +12,6 @@ import { setProfile, setToast } from "@/redux/slices/common";
 import { useRouter } from "next/navigation";
 import { setCookie } from "cookies-next";
 import Image from "next/image";
-import FacebookIcon from "@mui/icons-material/Facebook";
-import GoogleIconImage from "@/assets/icons/google.png";
 import clsx from "clsx";
 import { LOGIN_CLIENT_ID, REFRESH_TOKEN, TOKEN } from "@/helpers/constants";
 import yup from "@/helpers/utils/yupConfig";
@@ -22,7 +20,7 @@ import { useForm } from "react-hook-form";
 import FormProvider from "@/components/hook-form/FormProvider";
 import RHFTextField from "../hook-form/RHFTextField";
 import ConnectGoogle from "../connect-google/ConnectGoogle";
-
+import LogoZenee from "@/assets/icons/logo.png";
 type LoginFrom = {
   username: string;
   password: string;
@@ -92,13 +90,13 @@ const FormLoginBasic = () => {
           <div className='max-w-md mx-auto'>
             <div className='flex flex-col items-center mb-8'>
               <Image
-                src='/logo.png'
-                alt='Mindmaid.ai'
+                src={LogoZenee}
+                alt='Zenee AI'
                 width={80}
                 height={80}
-                className='rounded-lg'
+                className='rounded-lg border p-2 bg-primary-50'
               />
-              <div className='text-28-36 font-semibold mt-2'>Coze AI</div>
+              <div className='text-28-36 font-semibold mt-2'>Zenee AI</div>
             </div>
 
             <div className='flex flex-col gap-3 mb-6'>

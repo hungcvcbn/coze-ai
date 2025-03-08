@@ -79,7 +79,7 @@ const FormSignUp = () => {
                 height={80}
                 className='rounded-[8px]'
               />
-              <div className='text-[36px] font-semibold mt-2'>Coze AI</div>
+              <div className='text-[36px] font-semibold mt-2'>Zenee AI</div>
             </div>
             <div className='flex flex-col gap-3 mb-6'>
               <button

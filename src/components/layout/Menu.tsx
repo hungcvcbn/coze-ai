@@ -69,13 +69,13 @@ const Menu = () => {
 
       <div
         ref={menuRef}
-        className={`fixed left-0 top-0 h-full w-64 bg-gray-50 border-r border-gray-300 
+        className={`fixed left-0 top-0 h-full w-64 bg-gray-50 border-r border-gray-100 
         transition-transform duration-300 ease-in-out lg:translate-x-0
         ${isMenuOpen ? "translate-x-0" : "-translate-x-full"} lg:block z-40`}
       >
-        <div className='flex items-center gap-2 mb-8 px-4 w-full p-4 h-[64px] bg-gray-50'>
-          <Image src={LogoImage} alt='Logo' width={50} height={50} className='rounded-[8px]' />
-          <span className='text-xl text-black font-semibold'>Coze AI</span>
+        <div className='flex items-center gap-2 mb-2 px-4 w-full p-4 h-[64px]'>
+          <Image src={LogoImage} alt='Logo' width={40} height={40} className='rounded-lg' />
+          <span className='text-xl text-neutral font-semibold'>Zenee AI</span>
         </div>
         <div className='flex justify-center pb-3 px-4'>
           <button

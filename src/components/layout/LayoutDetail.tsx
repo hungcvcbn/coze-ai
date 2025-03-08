@@ -41,7 +41,7 @@ const LayoutDetail = ({ children }: LayoutProps) => {
         className='fixed left-0 top-0 w-[70px] h-full bg-white border-r border-gray-200 z-10 
         hidden sm:block'
       >
-        <div className='flex items-center gap-3 border-b border-gray-200 w-full p-5 h-[64px]'>
+        <div className='flex items-center gap-3 w-full p-5 h-[64px]'>
           <button
             onClick={() => router.push("/control-panel")}
             className='flex items-center gap-3 hover:opacity-80 transition-opacity'
@@ -49,7 +49,7 @@ const LayoutDetail = ({ children }: LayoutProps) => {
             <Image src={LogoImage} alt='Logo' width={32} height={32} className='rounded-[8px]' />
           </button>
         </div>
-        <div className='p-4 space-y-1'>
+        <div className='px-4 space-y-1'>
           {menuItems.map(item => {
             const isActive = pathname === item.path;
             return (

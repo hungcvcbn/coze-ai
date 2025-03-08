@@ -3,7 +3,8 @@ import BasicButton from "../common/BasicButton";
 import { Tooltip } from "@mui/material";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import { STATUS_BOT } from "@/helpers/constants/common";
-
+import LogoZenee from "@/assets/icons/logo.png";
+import Image from "next/image";
 interface BotCardProps {
   bot: any;
   onOpenDetail: (id: any) => void;
@@ -52,8 +53,8 @@ const BotCard: React.FC<BotCardProps> = ({
       </div>
       <div className='flex items-center justify-between py-2'>
         <div className='flex items-center gap-1'>
-          <img src='/logo.png' className='w-6 h-6 rounded-full' />
-          <span className='text-14-20 text-primary font-semibold'>Coze AI</span>
+          <Image src={LogoZenee} alt='Zenee AI' width={20} height={20} className='rounded-lg' />
+          <span className='text-14-20 text-primary font-semibold'>Zenee AI</span>
         </div>
         <Tooltip title='Trạng thái công khai/ Không công khai'>
           <BasicButton

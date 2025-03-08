@@ -14,7 +14,7 @@ const HomePage = () => {
             animation: "fadeInEase 1s forwards, slideDownEase 1s forwards",
           }}
         >
-          Training AI with Coze AI
+          Training AI with Zenee AI
         </h1>
         <p
           className='text-lg md:text-xl text-center max-w-3xl mb-12'

@@ -50,7 +50,7 @@ const ControlPanel = () => {
   }, [triggerTime]);
 
   const tabOptions = [
-    { label: "Coze AI", value: 1 },
+    { label: "Zenee AI", value: 1 },
     { label: "GPTs (Nâng cao)", value: 2 },
   ];
   const renderTabContent = () => {

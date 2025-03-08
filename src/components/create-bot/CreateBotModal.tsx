@@ -78,7 +78,7 @@ const CreateBotModal = ({ open, setOpen }: CreateBotModalProps) => {
             <RHFSelect
               name='botType'
               options={[
-                { value: "Coze-AI", label: "Bot Coze AI" },
+                { value: "Coze-AI", label: "Bot Zenee AI" },
                 { value: "GPTs", label: "Bot GPTs (Nâng cao)" },
               ]}
               label='Chọn loại bot'

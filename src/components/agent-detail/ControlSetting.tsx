@@ -80,11 +80,11 @@ const ControlSetting = () => {
                 alt='Logo'
                 width={30}
                 height={30}
-                className='rounded-[8px] object-cover w-[60px] h-[60px]'
+                className='rounded-[8px] border p-1 bg-primary-50 object-cover w-[50px] h-[50px]'
               />
             </div>
 
-            <div className='flex flex-col justify-center px-3'>
+            <div className='flex flex-col justify-center px-3 pb-2'>
               <div className='text-14-20 flex items-center gap-2 font-semibold text-primary'>
                 {data?.name}
                 <IconButton onClick={() => setOpen(true)}>

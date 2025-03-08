@@ -1,15 +1,14 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import Grid from "@mui/material/Grid2";
-import { isEmpty } from "@/helpers/utils/common";
-import TableEmpty from "../common/TableEmpty";
 import { setToast } from "@/redux/slices/common";
 import { useAppDispatch } from "@/redux/hooks";
 import { searchBotStore } from "@/helpers/api/botStore";
 import CustomTextField from "../hook-form/CustomTextField";
 import PaidIcon from "@mui/icons-material/Paid";
 import CommonSkeleton from "../common/Skeleton";
-
+import LogoZenee from "@/assets/icons/logo.png";
+import Image from "next/image";
 const BotStore = () => {
   const [data, setData] = useState<any>();
   const [term, setTerm] = useState<string>("");
@@ -39,10 +38,10 @@ const BotStore = () => {
 
   return (
     <div>
-      <div className='flex items-center justify-between sticky z-10 p-0' style={{ top: "64px" }}>
-        <div className='flexgap-2 px-4 py-2 w-full bg-gray-50'>
+      <div className='flex items-center justify-between sticky z-10 p-0' style={{ top: "63px" }}>
+        <div className='px-4 py-2 w-full bg-white'>
           <Grid container spacing={2}>
-            <Grid size={4}>
+            <Grid size={12}>
               <CustomTextField
                 label='Tìm kiếm'
                 placeholder='Nhập tên sản phẩm'
@@ -71,8 +70,8 @@ const BotStore = () => {
                   <div className='flex flex-col gap-1'>
                     <h3 className='font-semibold text-neutral text-16-24 mb-1'>{bot?.name}</h3>
                     <div className='flex items-center gap-1'>
-                      <img src='/logo.png' className='w-4 h-4' alt='logo' />
-                      <span className='text-14-20 text-neutral'>{bot?.provider || "Coze AI"}</span>
+                      <Image src={LogoZenee} alt='Zenee AI' width={16} height={16} />
+                      <span className='text-14-20 text-neutral'>{bot?.provider || "Zenee AI"}</span>
                     </div>
                     <p className='text-14-20 text-neutral font-medium mb-4 line-clamp-2'>
                       {bot.description}

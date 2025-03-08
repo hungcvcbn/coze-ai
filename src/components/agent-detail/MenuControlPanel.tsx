@@ -26,7 +26,7 @@ const MenuControlPanelDetail = () => {
   return (
     <div className='fixed left-0 top-0 w-[70px] h-full bg-gray-200 border-r border-gray-200'>
       <button
-        className='flex justify-center items-center gap-2 border-b border-gray-200 w-full p-4 h-[64px]'
+        className='flex justify-center items-center gap-2 w-full p-4 h-[64px]'
         onClick={() => router.push("/control-panel")}
       >
         <Image src={LogoImage} alt='Logo' width={50} height={50} className='rounded-[8px]' />

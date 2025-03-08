@@ -50,14 +50,14 @@ const LayoutHeader = () => {
         <div className='flex lg:justify-end justify-between items-center'>
           <div className='lg:hidden flex items-center gap-2 ml-12'>
             <Image src={LogoImage} alt='Logo' width={32} height={32} className='rounded-[8px]' />
-            <span className='text-neutral font-semibold'>Coze AI</span>
+            <span className='text-neutral font-semibold pt-2'>Zenee AI</span>
           </div>
           <div className='flex justify-end items-center'>
             {!isEmpty(profile) ? (
               <>
                 <div className='flex items-center gap-2'>
                   <IconMessage /> <IcBell />
-                  <div className='text-14-20 text-neutral font-semibold px-2'>
+                  <div className='text-14-20 text-neutral font-semibold px-2 max-w-[70px] overflow-hidden text-ellipsis whitespace-nowrap sm:max-w-[200px] md:max-w-none'>
                     {profile?.username}
                   </div>
                   <Avatar
@@ -81,7 +81,10 @@ const LayoutHeader = () => {
                     horizontal: "right",
                   }}
                 >
-                  <div className='p-2'>
+                  <div className='p-2 flex flex-col gap-2'>
+                    <div className='text-neutral font-semibold border-b pb-2'>
+                      {profile?.username}
+                    </div>
                     <button
                       className='text-neutral hover:underline w-[100px] h-[30px]'
                       onClick={e => {

@@ -21,3 +21,14 @@ export const logout = async () => {
     method: 'post',
   })
 }
+
+export const loginGoogle = async (data: { clientId: string, token: string }) => {
+  return await Api({
+    url: `/iam/v1/auth/login/oauth2/openid`,
+    method: 'post',
+    data: {
+      ...data,
+      type: 'GOOGLE'
+    },
+  })
+}

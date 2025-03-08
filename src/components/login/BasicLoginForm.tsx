@@ -21,6 +21,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import FormProvider from "@/components/hook-form/FormProvider";
 import RHFTextField from "../hook-form/RHFTextField";
+import ConnectGoogle from "../connect-google/ConnectGoogle";
 
 type LoginFrom = {
   username: string;
@@ -226,6 +227,7 @@ const FormLoginBasic = () => {
                 </Link>
               </div>
             </FormProvider>
+            <ConnectGoogle />
           </div>
         </div>
       </div>

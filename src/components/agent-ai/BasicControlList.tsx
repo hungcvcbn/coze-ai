@@ -9,6 +9,8 @@ import { STATUS_BOT } from "@/helpers/constants/common";
 import CommonSkeleton from "../common/Skeleton";
 import { useRouter } from "next/navigation";
 import BotCard from "./BotCard";
+import { isEmpty } from "@/helpers/utils/common";
+import TableEmpty from "../common/TableEmpty";
 
 interface Props {
   data: any;
@@ -70,6 +72,8 @@ const BasicControlList = ({ data, loading, fetchData }: Props) => {
     <div>
       {loading ? (
         <CommonSkeleton itemCount={16} />
+      ) : isEmpty(data) ? (
+        <TableEmpty />
       ) : (
         <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4'>
           {data?.map((bot: any, index: any) => (

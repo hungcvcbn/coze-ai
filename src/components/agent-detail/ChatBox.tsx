@@ -14,10 +14,12 @@ import { useDispatch } from "react-redux";
 import BasicButton from "../common/BasicButton";
 import { useRouter } from "next/navigation";
 import ListPlatformPublish from "./platform/ListPlatformPublish";
-import { IconButton, Tooltip } from "@mui/material";
+import { IconButton, Tooltip, Select, MenuItem, FormControl } from "@mui/material";
 import LinkIcon from "@mui/icons-material/Link";
 import { resetConversation } from "@/helpers/api/agent";
 import { useAppSelector } from "@/redux/hooks";
+import Grid from "@mui/material/Grid";
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 type Message = {
   sender: "user" | "bot";
   text: string;
@@ -38,13 +40,18 @@ const ChatBox = ({ conversation }: ChatBoxProps) => {
   const botId = useParams();
   const router = useRouter();
   const [messages, setMessages] = useState<Message[]>([]);
-  console.log(messages);
+  const [model, setModel] = useState("GPT-4o");
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [isTyping, setIsTyping] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  const [selectOpen, setSelectOpen] = useState(false);
+
+  const handleChangeModel = (value: string | number) => {
+    setModel(value as string);
+  };
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
@@ -248,15 +255,54 @@ const ChatBox = ({ conversation }: ChatBoxProps) => {
 
   return (
     <div className='flex flex-col h-full relative'>
-      <div className='h-[56px] p-3 flex items-center border-b rounded-t-lg border-gray-200 bg-white justify-end'>
-        <BasicButton size='sm' onClick={() => setOpen(true)}>
-          Publish
-        </BasicButton>
-        <Tooltip title='Chọn kết nối với nền tảng' placement='top'>
-          <IconButton onClick={() => router.push(`/control-panel/${botId?.id}/settings/list`)}>
-            <LinkIcon sx={{ color: "#6A5ACD" }} />
-          </IconButton>
-        </Tooltip>
+      <div className='h-[56px] p-3 flex items-center border-b rounded-t-lg border-gray-200 bg-white justify-between'>
+        <Grid container spacing={2}>
+          <Grid item xs={12} md={8}>
+            <FormControl fullWidth size='small'>
+              <Select
+                size='small'
+                value={model}
+                open={selectOpen}
+                onOpen={() => setSelectOpen(true)}
+                onClose={() => setSelectOpen(false)}
+                onChange={e => handleChangeModel(e.target.value)}
+                sx={{
+                  borderRadius: "8px",
+                  height: "30px",
+                  paddingRight: "10px",
+                  "& .MuiOutlinedInput-notchedOutline": {
+                    borderColor: "#E5E7EB",
+                  },
+                }}
+                IconComponent={() => (
+                  <KeyboardArrowDownIcon
+                    height={18}
+                    width={18}
+                    sx={{
+                      transform: selectOpen ? "rotate(180deg)" : "rotate(0)",
+                      transition: "transform 0.2s ease-in-out",
+                    }}
+                  />
+                )}
+              >
+                <MenuItem value='GPT-4o'>GPT-4o</MenuItem>
+                <MenuItem value='GPT-4o-mini'>GPT-4o-mini</MenuItem>
+                <MenuItem value='GPT-3.5-turbo'>GPT-3.5-turbo</MenuItem>
+                <MenuItem value='GEMINI'>GEMINI</MenuItem>
+              </Select>
+            </FormControl>
+          </Grid>
+        </Grid>
+        <div className='flex items-center gap-2'>
+          <BasicButton size='sm' onClick={() => setOpen(true)}>
+            Publish
+          </BasicButton>
+          <Tooltip title='Chọn kết nối với nền tảng' placement='top'>
+            <IconButton onClick={() => router.push(`/control-panel/${botId?.id}/settings/list`)}>
+              <LinkIcon sx={{ color: "#6A5ACD" }} />
+            </IconButton>
+          </Tooltip>
+        </div>
       </div>
       <div
         className='flex-1 max-h-[754px] overflow-y-auto p-4 [&::-webkit-scrollbar]:w-2

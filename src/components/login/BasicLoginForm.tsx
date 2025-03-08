@@ -102,12 +102,14 @@ const FormLoginBasic = () => {
             </div>
 
             <div className='flex flex-col gap-3 mb-6'>
-              <button className='flex items-center justify-center gap-2 w-full py-2 px-4 border border-gray-300 rounded-lg hover:bg-gray-50'>
+              <ConnectGoogle />
+
+              {/* <button className='flex items-center justify-center gap-2 w-full py-2 px-4 border border-gray-300 rounded-lg hover:bg-gray-50'>
                 <Image src={GoogleIconImage} alt='Mindmaid.ai' width={25} height={25} />
 
                 <span className='text-16-24 font-medium'>Đăng nhập bằng Google</span>
-              </button>
-              <button className='flex items-center justify-center gap-2 w-full py-2 px-4 border border-gray-300 rounded-lg hover:bg-gray-50'>
+              </button> */}
+              {/* <button className='flex items-center justify-center gap-2 w-full py-2 px-4 border border-gray-300 rounded-lg hover:bg-gray-50'>
                 <FacebookIcon
                   sx={{
                     color: "#3b5998",
@@ -116,7 +118,7 @@ const FormLoginBasic = () => {
                   }}
                 />
                 <span className='text-16-24 font-medium'>Đăng nhập bằng Facebook</span>
-              </button>
+              </button> */}
             </div>
 
             <div className='flex items-center justify-center my-4'>
@@ -227,9 +229,6 @@ const FormLoginBasic = () => {
                 </Link>
               </div>
             </FormProvider>
-            <div className="mt-4">
-              <ConnectGoogle />
-            </div>
           </div>
         </div>
       </div>

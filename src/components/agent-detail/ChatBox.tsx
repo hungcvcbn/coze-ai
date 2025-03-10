@@ -28,7 +28,7 @@ import Grid from "@mui/material/Grid";
 import { IconArrowDown } from "../common/IconCommon";
 import { isEmpty } from "@/helpers/utils/common";
 type Message = {
-  sender: "user" | "bot";
+  sender: "user" | "system";
   text: string;
   suggestions?: string[];
   attachment?: {
@@ -69,7 +69,7 @@ const ChatBox = ({ conversation }: ChatBoxProps) => {
       if (res && res.data && res.data.openingConversation) {
         setMessages([
           {
-            sender: "bot",
+            sender: "system",
             text:
               res.data.openingConversation.openingText || "Xin chào! Tôi có thể giúp gì cho bạn?",
             suggestions: Array.isArray(res.data.openingConversation.openingQuestions)
@@ -128,7 +128,7 @@ const ChatBox = ({ conversation }: ChatBoxProps) => {
       setMessages(prev => [
         ...prev,
         {
-          sender: "bot",
+          sender: "system",
           text: response.data.content,
         } as Message,
       ]);
@@ -143,7 +143,7 @@ const ChatBox = ({ conversation }: ChatBoxProps) => {
       setMessages(prev => [
         ...prev,
         {
-          sender: "bot",
+          sender: "system",
           text: "Xin lỗi, đã có lỗi xảy ra. Vui lòng thử lại sau.",
         } as Message,
       ]);
@@ -188,7 +188,7 @@ const ChatBox = ({ conversation }: ChatBoxProps) => {
       setMessages(prev => [
         ...prev,
         {
-          sender: "bot",
+          sender: "system",
           text: "Xin lỗi, đã có lỗi xảy ra khi xử lý tệp. Vui lòng thử lại sau.",
         } as Message,
       ]);
@@ -206,7 +206,7 @@ const ChatBox = ({ conversation }: ChatBoxProps) => {
       console.log(res);
 
       if (res.data) {
-        setMessages([{ sender: "bot", text: "Xin chào! Tôi có thể giúp gì cho bạn?" }]);
+        setMessages([{ sender: "system", text: "Xin chào! Tôi có thể giúp gì cho bạn?" }]);
       }
     } catch (error: any) {
       dispatch(
@@ -241,7 +241,7 @@ const ChatBox = ({ conversation }: ChatBoxProps) => {
       };
       const response = await chat(params);
       const botMessage = {
-        sender: "bot",
+        sender: "system",
         text: response.data.content,
       } as Message;
       setMessages(prev => [...prev, botMessage]);
@@ -254,7 +254,7 @@ const ChatBox = ({ conversation }: ChatBoxProps) => {
         })
       );
       const errorMessage = {
-        sender: "bot",
+        sender: "system",
         text: "Xin lỗi, đã có lỗi xảy ra. Vui lòng thử lại sau.",
       } as Message;
       setMessages(prev => [...prev, errorMessage]);
@@ -273,14 +273,14 @@ const ChatBox = ({ conversation }: ChatBoxProps) => {
 
       if (res.data?.items && Array.isArray(res.data.items)) {
         const formattedMessages: Message[] = res.data.items.map((item: any) => ({
-          sender: item.role === "user" ? "user" : "bot",
+          sender: item.role === "user" ? "user" : "system",
           text: item.content,
         }));
         setMessages(formattedMessages);
       } else {
         setMessages([
           {
-            sender: "bot",
+            sender: "system",
             text: "Xin chào! Tôi có thể giúp gì cho bạn?",
           },
         ]);
@@ -382,7 +382,7 @@ const ChatBox = ({ conversation }: ChatBoxProps) => {
             key={index}
             className={`mb-4 flex ${msg.sender === "user" ? "justify-end" : "justify-start"}`}
           >
-            {msg.sender === "bot" && (
+            {msg.sender === "system" && (
               <div className='flex items-start flex-col max-w-[85%] sm:max-w-[75%]'>
                 <div className='flex items-start'>
                   <Image

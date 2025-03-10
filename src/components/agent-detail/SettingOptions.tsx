@@ -1,7 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import OpeningQuestion from "./feature/OpeningQuestion";
-import BrightnessAutoIcon from "@mui/icons-material/BrightnessAuto";
 import { IconButton, Tooltip } from "@mui/material";
 import Popover from "@mui/material/Popover";
 import BasicButton from "../common/BasicButton";
@@ -12,7 +11,8 @@ import AddIcon from "@mui/icons-material/Add";
 import ListKnowledge from "./knowledge/ListKnowledge";
 import { addKnowledgeIntoAgent, getKnowledge } from "@/helpers/api/knowledge";
 import AutoSuggestion from "./feature/AutoSuggestion";
-import { IconArrowDown } from "../common/IconCommon";
+import { IconArrowDown, IconAuto } from "../common/IconCommon";
+import { isEmpty } from "@/helpers/utils/common";
 type ChildOption =
   | {
       label: string;
@@ -125,7 +125,7 @@ const SettingOptions = ({ data }: ISettingOptions) => {
         {
           title: "Image",
           description:
-            "Image supports matching appropriate rows according to a certain column of the table. It also supports querying and calculating the database based on natural language.",
+            "After uploading the image, you can choose to automatically or manually add the semantic description. Then, the agent can match the most appropriate image based on its description.",
           children: [
             ...imageKnowledge.map((item: any) => ({
               label: item.name,
@@ -168,31 +168,33 @@ const SettingOptions = ({ data }: ISettingOptions) => {
           const childOption = option as { label: string; help?: string; files?: any[]; id: string };
 
           return (
-            <div
-              key={childIndex}
-              className={`flex flex-col p-3 overflow-y-auto max-h-[200px] rounded-lg justify-between gap-2 ${
-                featureName !== "Chat experience"
-                  ? "border border-gray-200 hover:border-gray-300 transition-colors duration-200"
-                  : ""
-              }`}
-            >
-              <div className='flex justify-between items-center'>
-                <div className='text-16-24 font-semibold text-neutral'>{childOption.label}</div>
-                <Tooltip title='Thêm knowledge vào agent' placement='top'>
-                  <button
-                    onClick={() => addKnowledgeToAgent(childOption.id)}
-                    className='text-14-20 text-primary font-semibold hover:bg-primary hover:text-white transition-colors duration-200 cursor-pointer border border-primary rounded-lg px-2 py-1'
-                  >
-                    Add
-                  </button>
-                </Tooltip>
+            <div className='flex flex-col gap-4'>
+              <div
+                key={childIndex}
+                className={`flex flex-col p-3 overflow-y-auto max-h-[200px] rounded-lg justify-between gap-2 ${
+                  featureName !== "Chat experience"
+                    ? "border border-gray-200 hover:border-gray-300 transition-colors duration-200"
+                    : ""
+                }`}
+              >
+                <div className='flex justify-between items-center'>
+                  <div className='text-16-24 font-semibold text-neutral'>{childOption.label}</div>
+                  <Tooltip title='Thêm knowledge vào agent' placement='top'>
+                    <button
+                      onClick={() => addKnowledgeToAgent(childOption.id)}
+                      className='text-14-20 text-primary font-semibold hover:bg-primary hover:text-white transition-colors duration-200 cursor-pointer border border-primary rounded-lg px-2 py-1'
+                    >
+                      Add
+                    </button>
+                  </Tooltip>
+                </div>
+                {childOption.files &&
+                  childOption.files.map((file: any, index: number) => (
+                    <div key={index} className='text-14-20 text-primary'>
+                      {file.name}
+                    </div>
+                  ))}
               </div>
-              {childOption.files &&
-                childOption.files.map((file: any, index: number) => (
-                  <div key={index} className='text-14-20 text-primary'>
-                    {file.name}
-                  </div>
-                ))}
             </div>
           );
         })}
@@ -247,7 +249,7 @@ const SettingOptions = ({ data }: ISettingOptions) => {
                     )}
                     {option.title === "Opening questions" && (
                       <IconButton onClick={handlePopoverClick}>
-                        <BrightnessAutoIcon sx={{ fontSize: 20, color: "#6A5ACD" }} />
+                        <IconAuto width={20} height={20} color='#6A5ACD' />
                       </IconButton>
                     )}
                   </div>
@@ -267,7 +269,13 @@ const SettingOptions = ({ data }: ISettingOptions) => {
                 >
                   {collapseStates[`${featureIndex}-${parentIndex}`] && (
                     <div className='p-4 border-t border-gray-100'>
-                      {renderSettingOptions(option.children, parentIndex, item.featureName)}
+                      {!isEmpty(option?.children) ? (
+                        renderSettingOptions(option.children, parentIndex, item.featureName)
+                      ) : (
+                        <div className='text-14-20 font-sans text-gray-500'>
+                          {option?.description}
+                        </div>
+                      )}
                     </div>
                   )}
                 </div>

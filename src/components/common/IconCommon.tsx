@@ -95,3 +95,41 @@ export const IconArrowDown: React.FC<Props> = ({ width = 24, height = 24, color 
     </svg>
   );
 };
+export const IconAuto: React.FC<Props> = ({ width = 16, height = 16, color = "#6A5ACD" }) => {
+  return (
+    <svg
+      xmlns='http://www.w3.org/2000/svg'
+      width={width}
+      height={height}
+      fill='none'
+      viewBox='0 0 16 16'
+    >
+      <mask
+        id='icon-auto_svg__a'
+        width='16'
+        height='16'
+        x='0'
+        y='0'
+        maskUnits='userSpaceOnUse'
+        style={{ maskType: "alpha" }}
+      >
+        <path fill='#000' d='M0 0h16v16H0V0Z'></path>
+      </mask>
+      <g mask='url(#icon-auto_svg__a)'>
+        <path
+          fill={color}
+          d='m5.007 11.17 2.215-6.34h1.56l2.21 6.34H9.6l-.48-1.537H6.88L6.4 11.17H5.007Zm2.98-5.11-.8 2.58h1.626l-.8-2.58h-.026Z'
+        ></path>
+        <rect
+          width='13'
+          height='13'
+          x='1.5'
+          y='1.5'
+          stroke={color}
+          strokeWidth='1.33'
+          rx='6.5'
+        ></rect>
+      </g>
+    </svg>
+  );
+};

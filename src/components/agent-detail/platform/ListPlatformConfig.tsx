@@ -13,7 +13,8 @@ const ListPlatformPublish = () => {
   const [data, setData] = useState<any>({});
   const [openEditPlatformModal, setOpenEditPlatformModal] = useState<boolean>(false);
   const dispatch = useAppDispatch();
-  const { id } = useParams();
+  const params = useParams();
+  const id = params?.id as string;
 
   const router = useRouter();
   const goBack = () => {

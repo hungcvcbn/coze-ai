@@ -18,7 +18,8 @@ const ListPlatformPublish = ({ open, setOpen }: Props) => {
   const [data, setData] = useState<any>({});
   const [selectedPlatforms, setSelectedPlatforms] = useState<any[]>([]);
   const dispatch = useAppDispatch();
-  const { id } = useParams();
+  const params = useParams();
+  const id = params?.id as string;
 
   const fetchListPlatformPublish = async () => {
     try {

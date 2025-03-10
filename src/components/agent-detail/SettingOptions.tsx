@@ -14,7 +14,6 @@ import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import ListKnowledge from "./knowledge/ListKnowledge";
 import { addKnowledgeIntoAgent, getKnowledge } from "@/helpers/api/knowledge";
 import AutoSuggestion from "./feature/AutoSuggestion";
-import { useParams } from "next/navigation";
 type ChildOption =
   | {
       label: string;
@@ -41,7 +40,7 @@ const SettingOptions = ({ data }: ISettingOptions) => {
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
   const [openEditKnowledgeModal, setOpenEditKnowledgeModal] = useState(false);
   const [knowledge, setKnowledge] = useState<any>({});
-  const { botId } = useParams();
+
   const dispatch = useAppDispatch();
   const handlePopoverClick = (event: React.MouseEvent<HTMLElement>) => {
     event.stopPropagation();

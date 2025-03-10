@@ -97,7 +97,7 @@ const ControlSetting = () => {
       </div>
 
       <div className='col-span-12 lg:col-span-3 lg:sticky lg:top-[64px] h-auto lg:h-[calc(100vh-104px)] border border-gray-200 rounded-lg'>
-        <ChatBox conversation={conversation} />
+        <ChatBox conversation={conversation} data={data} />
       </div>
 
       <EditAgentName open={open} setOpen={setOpen} data={data} fetchData={fetchAgentDetail} />

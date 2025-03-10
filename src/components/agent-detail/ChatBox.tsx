@@ -39,12 +39,12 @@ type Message = {
 };
 interface ChatBoxProps {
   conversation: any;
+  data: any;
 }
-const ChatBox = ({ conversation }: ChatBoxProps) => {
+const ChatBox = ({ conversation, data }: ChatBoxProps) => {
   const { triggerTime } = useAppSelector(state => state.common);
   const [open, setOpen] = useState<boolean>(false);
   const dispatch = useDispatch();
-  const botId = useParams();
   const router = useRouter();
   const [messages, setMessages] = useState<Message[]>([]);
   const [model, setModel] = useState("GPT-4o");
@@ -64,7 +64,7 @@ const ChatBox = ({ conversation }: ChatBoxProps) => {
   };
   const getSuggestions = async () => {
     try {
-      const res = await getChatExperience(botId?.id as string);
+      const res = await getChatExperience(data?.id);
 
       if (res && res.data && res.data.openingConversation) {
         setMessages([
@@ -118,7 +118,7 @@ const ChatBox = ({ conversation }: ChatBoxProps) => {
 
     try {
       const params = {
-        agentId: botId?.id as string,
+        agentId: data?.id,
         question,
         conversationId: conversation ? conversation[0] : undefined,
         stream: true,
@@ -200,7 +200,7 @@ const ChatBox = ({ conversation }: ChatBoxProps) => {
   const handleLoadConversation = async () => {
     try {
       let params = {
-        botId: botId?.id as string,
+        botId: data?.id,
       };
       const res = await resetConversation(params);
       console.log(res);
@@ -234,7 +234,7 @@ const ChatBox = ({ conversation }: ChatBoxProps) => {
     setIsTyping(true);
     try {
       let params = {
-        agentId: botId?.id as string,
+        agentId: data?.id,
         question: suggestion,
         conversationId: conversation ? conversation[0] : undefined,
         stream: true,
@@ -266,7 +266,7 @@ const ChatBox = ({ conversation }: ChatBoxProps) => {
   const loadConversationAgent = async () => {
     try {
       let params = {
-        botId: botId?.id as string,
+        botId: data?.id,
         conversationId: conversation ? conversation[0] : undefined,
       };
       const res = await loadConversation(params);
@@ -361,9 +361,7 @@ const ChatBox = ({ conversation }: ChatBoxProps) => {
                 Publish
               </BasicButton>
               <Tooltip title='Chọn kết nối với nền tảng' placement='top'>
-                <IconButton
-                  onClick={() => router.push(`/control-panel/${botId?.id}/settings/list`)}
-                >
+                <IconButton onClick={() => router.push(`/control-panel/${data?.id}/settings/list`)}>
                   <LinkIcon sx={{ color: "#6A5ACD" }} />
                 </IconButton>
               </Tooltip>

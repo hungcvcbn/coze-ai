@@ -39,32 +39,10 @@ const ControlSetting = () => {
     setConversation(response?.data?.conversations);
   };
 
-  const loadConversationAgent = async () => {
-    try {
-      let params = {
-        botId: botId?.id as string,
-        conversationId: conversation ? conversation[0] : undefined,
-      };
-      await loadConversation(params);
-    } catch (error: any) {
-      dispatch(
-        setToast({
-          message: error.message,
-          type: "error",
-          show: true,
-        })
-      );
-    }
-  };
   useEffect(() => {
     fetchAgentDetail();
     getConversation();
   }, []);
-  useEffect(() => {
-    if (!isEmpty(conversation)) {
-      loadConversationAgent();
-    }
-  }, [conversation]);
 
   return (
     <div className='grid grid-cols-12 gap-2 p-4 bg-white'>

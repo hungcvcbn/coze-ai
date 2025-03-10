@@ -6,7 +6,13 @@ import Image from "next/image";
 import AdminAvatar from "@/assets/icons/avatar_admin.png";
 import { Send } from "@mui/icons-material";
 import AttachFileIcon from "@mui/icons-material/AttachFile";
-import { chat, getChatExperience, requestUpload, uploadFile } from "@/helpers/api/chatbot";
+import {
+  chat,
+  getChatExperience,
+  loadConversation,
+  requestUpload,
+  uploadFile,
+} from "@/helpers/api/chatbot";
 import { useParams } from "next/navigation";
 import CleaningServicesIcon from "@mui/icons-material/CleaningServices";
 import { setToast } from "@/redux/slices/common";
@@ -20,6 +26,7 @@ import { resetConversation } from "@/helpers/api/agent";
 import { useAppSelector } from "@/redux/hooks";
 import Grid from "@mui/material/Grid";
 import { IconArrowDown } from "../common/IconCommon";
+import { isEmpty } from "@/helpers/utils/common";
 type Message = {
   sender: "user" | "bot";
   text: string;
@@ -195,8 +202,12 @@ const ChatBox = ({ conversation }: ChatBoxProps) => {
       let params = {
         botId: botId?.id as string,
       };
-      await resetConversation(params);
-      setMessages([{ sender: "bot", text: "Xin chào! Tôi có thể giúp gì cho bạn?" }]);
+      const res = await resetConversation(params);
+      console.log(res);
+
+      if (res.data) {
+        setMessages([{ sender: "bot", text: "Xin chào! Tôi có thể giúp gì cho bạn?" }]);
+      }
     } catch (error: any) {
       dispatch(
         setToast({
@@ -252,7 +263,43 @@ const ChatBox = ({ conversation }: ChatBoxProps) => {
       setIsLoading(false);
     }
   };
+  const loadConversationAgent = async () => {
+    try {
+      let params = {
+        botId: botId?.id as string,
+        conversationId: conversation ? conversation[0] : undefined,
+      };
+      const res = await loadConversation(params);
 
+      if (res.data?.items && Array.isArray(res.data.items)) {
+        const formattedMessages: Message[] = res.data.items.map((item: any) => ({
+          sender: item.role === "user" ? "user" : "bot",
+          text: item.content,
+        }));
+        setMessages(formattedMessages);
+      } else {
+        setMessages([
+          {
+            sender: "bot",
+            text: "Xin chào! Tôi có thể giúp gì cho bạn?",
+          },
+        ]);
+      }
+    } catch (error: any) {
+      dispatch(
+        setToast({
+          message: error.message,
+          type: "error",
+          show: true,
+        })
+      );
+    }
+  };
+  useEffect(() => {
+    if (!isEmpty(conversation)) {
+      loadConversationAgent();
+    }
+  }, [conversation]);
   return (
     <div className='flex flex-col h-full relative'>
       <div className='h-auto min-h-[56px] p-3 flex items-center border-b rounded-t-lg border-gray-200 bg-white justify-between'>

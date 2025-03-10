@@ -4,7 +4,7 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import OpeningQuestion from "./feature/OpeningQuestion";
 import BrightnessAutoIcon from "@mui/icons-material/BrightnessAuto";
-import { IconButton } from "@mui/material";
+import { IconButton, Tooltip } from "@mui/material";
 import Popover from "@mui/material/Popover";
 import BasicButton from "../common/BasicButton";
 import WarningIcon from "@mui/icons-material/Warning";
@@ -12,8 +12,9 @@ import { setToast } from "@/redux/slices/common";
 import { useAppDispatch } from "@/redux/hooks";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import ListKnowledge from "./knowledge/ListKnowledge";
-import { getKnowledge } from "@/helpers/api/knowledge";
+import { addKnowledgeIntoAgent, getKnowledge } from "@/helpers/api/knowledge";
 import AutoSuggestion from "./feature/AutoSuggestion";
+import { useParams } from "next/navigation";
 type ChildOption =
   | {
       label: string;
@@ -40,7 +41,7 @@ const SettingOptions = ({ data }: ISettingOptions) => {
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
   const [openEditKnowledgeModal, setOpenEditKnowledgeModal] = useState(false);
   const [knowledge, setKnowledge] = useState<any>({});
-
+  const { botId } = useParams();
   const dispatch = useAppDispatch();
   const handlePopoverClick = (event: React.MouseEvent<HTMLElement>) => {
     event.stopPropagation();
@@ -83,6 +84,14 @@ const SettingOptions = ({ data }: ISettingOptions) => {
   const textKnowledge = knowledge?.items?.filter((item: any) => item.type === "TEXT") || [];
   const tableKnowledge = knowledge?.items?.filter((item: any) => item.type === "TABLE") || [];
 
+  const addKnowledgeToAgent = async (id: string) => {
+    try {
+      await addKnowledgeIntoAgent(data?.id, { id: id });
+      dispatch(setToast({ type: "success", message: "Thành công", show: true }));
+    } catch (error: any) {
+      dispatch(setToast({ type: "error", message: error?.message, show: true }));
+    }
+  };
   const items: ListItem[] = [
     {
       featureName: "Knowledge",
@@ -144,7 +153,7 @@ const SettingOptions = ({ data }: ISettingOptions) => {
             return option;
           }
 
-          const childOption = option as { label: string; help?: string; files?: any[] };
+          const childOption = option as { label: string; help?: string; files?: any[]; id: string };
 
           return (
             <div
@@ -155,7 +164,17 @@ const SettingOptions = ({ data }: ISettingOptions) => {
                   : ""
               }`}
             >
-              <div className='text-16-24 font-semibold text-neutral'>{childOption.label}</div>
+              <div className='flex justify-between items-center'>
+                <div className='text-16-24 font-semibold text-neutral'>{childOption.label}</div>
+                <Tooltip title='Thêm knowledge vào agent' placement='top'>
+                  <button
+                    onClick={() => addKnowledgeToAgent(childOption.id)}
+                    className='text-14-20 text-primary font-semibold hover:bg-primary hover:text-white transition-colors duration-200 cursor-pointer border border-primary rounded-lg px-2 py-1'
+                  >
+                    Add
+                  </button>
+                </Tooltip>
+              </div>
               {childOption.files &&
                 childOption.files.map((file: any, index: number) => (
                   <div key={index} className='text-14-20 text-primary'>
@@ -272,7 +291,6 @@ const SettingOptions = ({ data }: ISettingOptions) => {
                           color='red'
                           onClick={() => {
                             handleConfirm();
-                            // handlePopoverClose();
                           }}
                         >
                           Confirm

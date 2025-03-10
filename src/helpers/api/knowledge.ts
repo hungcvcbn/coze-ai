@@ -23,3 +23,11 @@ export const updateKnowledge = async (id: string, data: any) => {
     data,
   });
 };
+
+export const addKnowledgeIntoAgent = async (id: string, data: any) => {
+  return await Api({
+    url: `/cbot/v1/agents/${id}/knowledge`,
+    method: "post",
+    data,
+  });
+};

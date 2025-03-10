@@ -66,7 +66,7 @@ const LayoutDetail = ({ children }: LayoutProps) => {
           })}
         </div>
       </div>
-      <div className='sm:pl-[70px] p-4'>{children}</div>
+      <div className='sm:pl-[70px]'>{children}</div>
     </div>
   );
 };

@@ -367,7 +367,7 @@ const ChatBox = ({ conversation }: ChatBoxProps) => {
               </div>
             )}
             {msg.sender === "user" && (
-              <div className='flex items-start max-w-[85%] sm:max-w-[75%]'>
+              <div className='flex font-sans  items-start max-w-[85%] sm:max-w-[75%]'>
                 <div className='px-4 py-2 bg-blue-100 text-14-20 text-neutral font-sans font-normal rounded-lg shadow-lg'>
                   {msg.text}
                   {msg.attachment && (
@@ -393,7 +393,7 @@ const ChatBox = ({ conversation }: ChatBoxProps) => {
                 </div>
                 <Image
                   src={AdminAvatar}
-                  alt='User  Avatar'
+                  alt='User Avatar'
                   width={40}
                   height={40}
                   className='rounded-full w-10 h-10 object-cover ml-2'

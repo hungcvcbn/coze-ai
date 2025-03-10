@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import { getChatExperience, updateChatExperience } from "@/helpers/api/chatExperience";
 import { setToast, setTriggerTime } from "@/redux/slices/common";
 import { useAppDispatch } from "@/redux/hooks";
-import { TrashIcon } from "@/components/common/IconCommon";
+import { IconInfo, TrashIcon } from "@/components/common/IconCommon";
 import { Tooltip } from "@mui/material";
 import DragIndicatorIcon from "@mui/icons-material/DragIndicator";
 
@@ -122,7 +122,9 @@ const OpeningQuestion = ({ id }: { id: string }) => {
   return (
     <div className='flex flex-col'>
       <div>
-        <div className='text-14-20 font-medium text-gray-400 '>Opening text</div>
+        <div className='text-14-20 font-sans font-normal text-gray-600 flex items-center gap-2 pb-1'>
+          Opening text <IconInfo />
+        </div>
 
         <textarea
           value={editorContent}
@@ -133,8 +135,8 @@ const OpeningQuestion = ({ id }: { id: string }) => {
       </div>
 
       <div className='mt-4'>
-        <div className='flex justify-between items-center mb-2'>
-          <div className='text-14-20 font-medium text-gray-400'>Preset opening questions</div>
+        <div className='text-14-20 flex items-center gap-2 font-sans font-normal text-gray-600 pb-1'>
+          Preset opening questions <IconInfo />
         </div>
 
         <div className='flex flex-col gap-2'>
@@ -186,7 +188,7 @@ const OpeningQuestion = ({ id }: { id: string }) => {
           ))}
         </div>
 
-        <div className='flex items-center gap-2 p-3 border rounded-md border-dashed'>
+        <div className='flex items-center font-sans gap-2 p-3 border rounded-md border-dashed'>
           <input
             type='text'
             placeholder='Enter the opening question'

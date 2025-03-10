@@ -76,3 +76,22 @@ export const IconMessage: React.FC<Props> = ({ width = 24, height = 24, color = 
     </svg>
   );
 };
+export const IconArrowDown: React.FC<Props> = ({ width = 24, height = 24, color = "#6A6A6A" }) => {
+  return (
+    <svg
+      xmlns='http://www.w3.org/2000/svg'
+      width={width}
+      height={height}
+      viewBox='0 0 18 18'
+      fill='none'
+    >
+      <path
+        d='M14.9401 6.71252L10.0501 11.6025C9.47256 12.18 8.52756 12.18 7.95006 11.6025L3.06006 6.71252'
+        stroke={color}
+        strokeMiterlimit='10'
+        strokeLinecap='round'
+        strokeLinejoin='round'
+      />
+    </svg>
+  );
+};

@@ -72,6 +72,17 @@ module.exports = {
         'danger-100': '#FBD2D9',
         'danger-50': '#FEE9ED',
       },
+      fontFamily: {
+        'thin': ['Inter'],
+        'extralight': ['Inter'],
+        'light': ['Inter'],
+        'regular': ['Inter'],
+        'medium': ['Inter'],
+        'semibold': ['Inter'],
+        'bold': ['Inter'],
+        'extrabold': ['Inter'],
+        'black': ['Inter'],
+      },
     },
     screens: {
       sm: '640px',

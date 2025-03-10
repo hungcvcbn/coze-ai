@@ -121,6 +121,7 @@ const BasicButton = forwardRef<HTMLButtonElement, ButtonProps>(
           renderClassByVariantAndColor(),
           "flex items-center justify-center",
           "whitespace-nowrap",
+          "font-sans",
           clases,
           {
             ["cursor-not-allowed opacity-50"]: props.disabled || loading,
@@ -133,7 +134,7 @@ const BasicButton = forwardRef<HTMLButtonElement, ButtonProps>(
         <span
           className={clsx(
             { "ml-[8px]": !!startIcon, "mr-[8px]": !!endIcon },
-            "flex items-center font-semibold"
+            "flex items-center font-sans font-semibold"
           )}
         >
           {props.children}

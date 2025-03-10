@@ -1,7 +1,5 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import OpeningQuestion from "./feature/OpeningQuestion";
 import BrightnessAutoIcon from "@mui/icons-material/BrightnessAuto";
 import { IconButton, Tooltip } from "@mui/material";
@@ -10,10 +8,11 @@ import BasicButton from "../common/BasicButton";
 import WarningIcon from "@mui/icons-material/Warning";
 import { setToast } from "@/redux/slices/common";
 import { useAppDispatch } from "@/redux/hooks";
-import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
+import AddIcon from "@mui/icons-material/Add";
 import ListKnowledge from "./knowledge/ListKnowledge";
 import { addKnowledgeIntoAgent, getKnowledge } from "@/helpers/api/knowledge";
 import AutoSuggestion from "./feature/AutoSuggestion";
+import { IconArrowDown } from "../common/IconCommon";
 type ChildOption =
   | {
       label: string;
@@ -82,7 +81,7 @@ const SettingOptions = ({ data }: ISettingOptions) => {
   }, []);
   const textKnowledge = knowledge?.items?.filter((item: any) => item.type === "TEXT") || [];
   const tableKnowledge = knowledge?.items?.filter((item: any) => item.type === "TABLE") || [];
-
+  const imageKnowledge = knowledge?.items?.filter((item: any) => item.type === "IMAGE") || [];
   const addKnowledgeToAgent = async (id: string) => {
     try {
       await addKnowledgeIntoAgent(data?.id, { id: id });
@@ -115,6 +114,20 @@ const SettingOptions = ({ data }: ISettingOptions) => {
             "Table supports matching appropriate rows according to a certain column of the table. It also supports querying and calculating the database based on natural language.",
           children: [
             ...tableKnowledge.map((item: any) => ({
+              label: item.name,
+              help: item.description,
+              id: item.id,
+              files: item.files,
+              type: item.type,
+            })),
+          ],
+        },
+        {
+          title: "Image",
+          description:
+            "Image supports matching appropriate rows according to a certain column of the table. It also supports querying and calculating the database based on natural language.",
+          children: [
+            ...imageKnowledge.map((item: any) => ({
               label: item.name,
               help: item.description,
               id: item.id,
@@ -201,7 +214,7 @@ const SettingOptions = ({ data }: ISettingOptions) => {
                 className='mb-2 rounded-lg overflow-hidden border border-gray-200'
               >
                 <div
-                  className='flex justify-between items-center cursor-pointer text-16-24 font-semibold h-[40px] hover:bg-gray-50 bg-white px-4 py-1 text-neutral transition-colors duration-200'
+                  className='flex justify-between items-center cursor-pointer text-16-24 font-sans font-semibold h-[40px] hover:bg-gray-50 bg-white p-1 text-neutral transition-colors duration-200'
                   onClick={() => toggleCollapse(`${featureIndex}-${parentIndex}`)}
                 >
                   <div className='flex items-center gap-2'>
@@ -213,19 +226,23 @@ const SettingOptions = ({ data }: ISettingOptions) => {
                           : "rotate(0deg)",
                       }}
                     >
-                      <ExpandMoreIcon />
+                      <IconArrowDown width={16} height={16} />
                     </div>
-                    <div className='text-14-20 font-semibold text-neutral'>{option.title}</div>
+                    <div className='text-14-20 font-sans font-semibold text-neutral'>
+                      {option.title}
+                    </div>
                   </div>
                   <div className='flex items-center'>
-                    {(option.title === "Table" || option.title === "Text") && (
+                    {(option.title === "Table" ||
+                      option.title === "Text" ||
+                      option.title === "Image") && (
                       <IconButton
                         onClick={e => {
                           e.stopPropagation();
                           setOpenEditKnowledgeModal(true);
                         }}
                       >
-                        <AddCircleOutlineIcon sx={{ fontSize: 20, color: "#6A5ACD" }} />
+                        <AddIcon sx={{ fontSize: 20, color: "#6A5ACD" }} />
                       </IconButton>
                     )}
                     {option.title === "Opening questions" && (

@@ -19,7 +19,7 @@ import LinkIcon from "@mui/icons-material/Link";
 import { resetConversation } from "@/helpers/api/agent";
 import { useAppSelector } from "@/redux/hooks";
 import Grid from "@mui/material/Grid";
-import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import { IconArrowDown } from "../common/IconCommon";
 type Message = {
   sender: "user" | "bot";
   text: string;
@@ -257,7 +257,7 @@ const ChatBox = ({ conversation }: ChatBoxProps) => {
     <div className='flex flex-col h-full relative'>
       <div className='h-auto min-h-[56px] p-3 flex items-center border-b rounded-t-lg border-gray-200 bg-white justify-between'>
         <Grid container spacing={2} alignItems='center'>
-          <Grid item xs={12} sm={8} md={8}>
+          <Grid item xs={12} sm={6} md={6}>
             <FormControl fullWidth size='small'>
               <Select
                 size='small'
@@ -269,30 +269,46 @@ const ChatBox = ({ conversation }: ChatBoxProps) => {
                 sx={{
                   borderRadius: "8px",
                   height: "30px",
+                  width: "auto",
+                  fontSize: "14px",
                   paddingRight: "10px",
                   "& .MuiOutlinedInput-notchedOutline": {
                     borderColor: "#E5E7EB",
                   },
                 }}
                 IconComponent={() => (
-                  <KeyboardArrowDownIcon
-                    height={18}
-                    width={18}
-                    sx={{
+                  <button
+                    style={{
                       transform: selectOpen ? "rotate(180deg)" : "rotate(0)",
                       transition: "transform 0.2s ease-in-out",
+                      cursor: "pointer",
+                      padding: "0px",
                     }}
-                  />
+                    onClick={e => {
+                      e.stopPropagation();
+                      setSelectOpen(!selectOpen);
+                    }}
+                  >
+                    <IconArrowDown width={16} height={16} />
+                  </button>
                 )}
               >
-                <MenuItem value='GPT-4o'>GPT-4o</MenuItem>
-                <MenuItem value='GPT-4o-mini'>GPT-4o-mini</MenuItem>
-                <MenuItem value='GPT-3.5-turbo'>GPT-3.5-turbo</MenuItem>
-                <MenuItem value='GEMINI'>GEMINI</MenuItem>
+                <MenuItem sx={{ fontSize: "14px" }} value='GPT-4o'>
+                  GPT-4o
+                </MenuItem>
+                <MenuItem sx={{ fontSize: "14px" }} value='GPT-4o-mini'>
+                  GPT-4o-mini
+                </MenuItem>
+                <MenuItem sx={{ fontSize: "14px" }} value='GPT-3.5-turbo'>
+                  GPT-3.5-turbo
+                </MenuItem>
+                <MenuItem sx={{ fontSize: "14px" }} value='GEMINI'>
+                  GEMINI
+                </MenuItem>
               </Select>
             </FormControl>
           </Grid>
-          <Grid item xs={12} sm={4} md={4}>
+          <Grid item xs={12} sm={6} md={6}>
             <div className='flex items-center gap-2 justify-end'>
               <BasicButton size='sm' onClick={() => setOpen(true)}>
                 Publish
@@ -329,8 +345,10 @@ const ChatBox = ({ conversation }: ChatBoxProps) => {
                     height={40}
                     className='rounded-full w-10 h-10 object-cover mr-2'
                   />
-                  <div className='px-4 py-2 bg-white text-14-20 text-gray-800 rounded-lg shadow-lg'>
-                    <pre className='whitespace-pre-wrap font-sans'>{msg.text}</pre>
+                  <div className='px-4 py-2 bg-white text-14-20 rounded-lg shadow-lg'>
+                    <pre className='whitespace-pre-wrap font-sans font-normal text-neutral'>
+                      {msg.text}
+                    </pre>
                   </div>
                 </div>
                 {msg.suggestions && (
@@ -338,7 +356,7 @@ const ChatBox = ({ conversation }: ChatBoxProps) => {
                     {msg.suggestions.map((suggestion, idx) => (
                       <button
                         key={idx}
-                        className='text-start px-4 py-2 bg-white shadow-md hover:bg-gray-300 rounded-lg text-12-18 text-gray-800 transition duration-200'
+                        className='text-start px-4 py-2 bg-white shadow-md hover:bg-gray-300 rounded-lg text-12-18 text-neutral font-sans font-normal transition duration-200'
                         onClick={() => handleSuggestionClick(suggestion)}
                       >
                         {suggestion}
@@ -350,7 +368,7 @@ const ChatBox = ({ conversation }: ChatBoxProps) => {
             )}
             {msg.sender === "user" && (
               <div className='flex items-start max-w-[85%] sm:max-w-[75%]'>
-                <div className='px-4 py-2 bg-blue-100 text-14-20 text-gray-800 rounded-lg shadow-lg'>
+                <div className='px-4 py-2 bg-blue-100 text-14-20 text-neutral font-sans font-normal rounded-lg shadow-lg'>
                   {msg.text}
                   {msg.attachment && (
                     <div className='mt-2'>
@@ -385,7 +403,7 @@ const ChatBox = ({ conversation }: ChatBoxProps) => {
           </div>
         ))}
         {isTyping && (
-          <div className='flex items-center gap-2 text-gray-600 text-12-18'>
+          <div className='flex items-center gap-2 text-neutral font-sans font-normal text-12-18'>
             <Image
               src={LogoImage}
               alt='Typing Avatar'

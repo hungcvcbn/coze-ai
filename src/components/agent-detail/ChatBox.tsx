@@ -280,25 +280,7 @@ const ChatBox = ({ conversation, data }: ChatBoxProps) => {
       );
     }
   };
-  const fetchAvailableModels = async () => {
-    try {
-      const res = await getAvailableModels(data?.id);
-      setAvailableModels(res.data);
-    } catch (error: any) {
-      dispatch(
-        setToast({
-          message: error.message,
-          type: "error",
-          show: true,
-        })
-      );
-    }
-  };
-  useEffect(() => {
-    if (data?.id) {
-      fetchAvailableModels();
-    }
-  }, [data?.id]);
+
   useEffect(() => {
     if (!isEmpty(conversation) && data?.id) {
       loadConversationAgent();

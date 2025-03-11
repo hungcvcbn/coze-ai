@@ -56,7 +56,7 @@ const LayoutHeader = () => {
             {!isEmpty(profile) ? (
               <>
                 <div className='flex items-center gap-2'>
-                  <IconMessage /> <IcBell />
+                  {/* <IconMessage /> <IcBell /> */}
                   <div className='text-14-20 text-neutral font-semibold px-2 max-w-[70px] overflow-hidden text-ellipsis whitespace-nowrap sm:max-w-[200px] md:max-w-none'>
                     {profile?.username}
                   </div>

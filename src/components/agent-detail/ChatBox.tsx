@@ -321,20 +321,16 @@ const ChatBox = ({ conversation, data }: ChatBoxProps) => {
   return (
     <div className='flex flex-col h-full relative'>
       <div className='h-auto min-h-[56px] p-3 flex items-center border-b rounded-t-lg border-gray-200 bg-white justify-between'>
-        <Grid container spacing={2} alignItems='center'>
-          <Grid item xs={12} sm={6} md={6}>
-            <div className='flex items-center gap-2 justify-end'>
-              <BasicButton size='sm' onClick={() => setOpen(true)}>
-                Publish
-              </BasicButton>
-              <Tooltip title='Chọn kết nối với nền tảng' placement='top'>
+        <div className='flex items-center gap-2 justify-end w-full'>
+          <BasicButton size='sm' onClick={() => setOpen(true)}>
+            Publish
+          </BasicButton>
+          {/* <Tooltip title='Chọn kết nối với nền tảng' placement='top'>
                 <IconButton onClick={() => router.push(`/control-panel/${data?.id}/settings/list`)}>
                   <LinkIcon sx={{ color: "#6A5ACD" }} />
                 </IconButton>
-              </Tooltip>
-            </div>
-          </Grid>
-        </Grid>
+              </Tooltip> */}
+        </div>
       </div>
       <div
         className='flex-1 max-h-[calc(100vh-200px)] overflow-y-auto p-2 sm:p-4 [&::-webkit-scrollbar]:w-2

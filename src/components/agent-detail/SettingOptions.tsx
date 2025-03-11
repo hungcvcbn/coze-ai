@@ -10,7 +10,7 @@ import { useAppDispatch } from "@/redux/hooks";
 import AddIcon from "@mui/icons-material/Add";
 import ListKnowledge from "./knowledge/ListKnowledge";
 import {
-  addKnowledgeIntoAgent,
+  // addKnowledgeIntoAgent,
   getKnowledge,
   removeKnowledgeFromAgent,
 } from "@/helpers/api/knowledge";
@@ -19,10 +19,10 @@ import { IconArrowDown, IconAuto } from "../common/IconCommon";
 import { isEmpty } from "@/helpers/utils/common";
 type ChildOption =
   | {
-      label: string;
-      help?: string;
-      value?: boolean;
-    }
+    label: string;
+    help?: string;
+    value?: boolean;
+  }
   | React.ReactNode;
 
 type ParentOption = {
@@ -116,34 +116,34 @@ const SettingOptions = ({ data }: ISettingOptions) => {
             })),
           ],
         },
-        {
-          title: "Table",
-          description:
-            "Table supports matching appropriate rows according to a certain column of the table. It also supports querying and calculating the database based on natural language.",
-          children: [
-            ...tableKnowledge?.map((item: any) => ({
-              label: item.name,
-              help: item.description,
-              id: item.id,
-              files: item.files,
-              type: item.type,
-            })),
-          ],
-        },
-        {
-          title: "Image",
-          description:
-            "After uploading the image, you can choose to automatically or manually add the semantic description. Then, the agent can match the most appropriate image based on its description.",
-          children: [
-            ...imageKnowledge?.map((item: any) => ({
-              label: item.name,
-              help: item.description,
-              id: item.id,
-              files: item.files,
-              type: item.type,
-            })),
-          ],
-        },
+        // {
+        //   title: "Table",
+        //   description:
+        //     "Table supports matching appropriate rows according to a certain column of the table. It also supports querying and calculating the database based on natural language.",
+        //   children: [
+        //     ...tableKnowledge?.map((item: any) => ({
+        //       label: item.name,
+        //       help: item.description,
+        //       id: item.id,
+        //       files: item.files,
+        //       type: item.type,
+        //     })),
+        //   ],
+        // },
+        // {
+        //   title: "Image",
+        //   description:
+        //     "After uploading the image, you can choose to automatically or manually add the semantic description. Then, the agent can match the most appropriate image based on its description.",
+        //   children: [
+        //     ...imageKnowledge?.map((item: any) => ({
+        //       label: item.name,
+        //       help: item.description,
+        //       id: item.id,
+        //       files: item.files,
+        //       type: item.type,
+        //     })),
+        //   ],
+        // },
       ],
     },
     {
@@ -174,11 +174,10 @@ const SettingOptions = ({ data }: ISettingOptions) => {
           return (
             <div key={childIndex} className='flex flex-col gap-4'>
               <div
-                className={`flex flex-col p-3 overflow-y-auto max-h-[200px] rounded-lg justify-between gap-2 ${
-                  featureName !== "Chat experience"
-                    ? "border border-gray-200 hover:border-gray-300 transition-colors duration-200"
-                    : ""
-                }`}
+                className={`flex flex-col p-3 overflow-y-auto max-h-[200px] rounded-lg justify-between gap-2 ${featureName !== "Chat experience"
+                  ? "border border-gray-200 hover:border-gray-300 transition-colors duration-200"
+                  : ""
+                  }`}
               >
                 <div className='flex justify-between items-center'>
                   <div className='text-16-24 font-semibold text-neutral'>{childOption.label}</div>
@@ -241,15 +240,15 @@ const SettingOptions = ({ data }: ISettingOptions) => {
                     {(option.title === "Table" ||
                       option.title === "Text" ||
                       option.title === "Image") && (
-                      <IconButton
-                        onClick={e => {
-                          e.stopPropagation();
-                          setOpenEditKnowledgeModal(true);
-                        }}
-                      >
-                        <AddIcon sx={{ fontSize: 20, color: "#6A5ACD" }} />
-                      </IconButton>
-                    )}
+                        <IconButton
+                          onClick={e => {
+                            e.stopPropagation();
+                            setOpenEditKnowledgeModal(true);
+                          }}
+                        >
+                          <AddIcon sx={{ fontSize: 20, color: "#6A5ACD" }} />
+                        </IconButton>
+                      )}
                     {option.title === "Opening questions" && (
                       <IconButton onClick={handlePopoverClick}>
                         <IconAuto width={20} height={20} color='#6A5ACD' />
@@ -264,11 +263,10 @@ const SettingOptions = ({ data }: ISettingOptions) => {
                   [&::-webkit-scrollbar-track]:bg-gray-50
                   [&::-webkit-scrollbar-thumb]:bg-gray-300
                   [&::-webkit-scrollbar-thumb]:rounded-full
-                  ${
-                    collapseStates[`${featureIndex}-${parentIndex}`]
+                  ${collapseStates[`${featureIndex}-${parentIndex}`]
                       ? "max-h-[600px] opacity-100"
                       : "max-h-0 opacity-0 overflow-hidden"
-                  }`}
+                    }`}
                 >
                   {collapseStates[`${featureIndex}-${parentIndex}`] && (
                     <div className='p-4 border-t border-gray-100'>

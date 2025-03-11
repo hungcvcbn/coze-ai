@@ -102,8 +102,8 @@ const EditKnowledgeModal = ({ open, setOpen, data }: EditKnowledgeModalProps) =>
         fullWidth
       >
         <BasicDialogContent>
-          <div className='grid grid-cols-12 gap-4 min-w-0 overflow-x-auto'>
-            <div className='col-span-3 flex flex-col gap-4 min-w-[200px]'>
+          <div className='grid grid-cols-12 gap-4'>
+            <div className='pl-3 col-span-3 flex flex-col gap-4 min-w-[200px]'>
               <CustomTextField placeholder='Search' />
               <BasicButton
                 onClick={() => {
@@ -111,13 +111,13 @@ const EditKnowledgeModal = ({ open, setOpen, data }: EditKnowledgeModalProps) =>
                   setOpenCreateModal(true);
                 }}
               >
-                <AddCircleOutlineIcon />&nbsp;
-                Create knowledge
+                <AddCircleOutlineIcon />
+                &nbsp; Create knowledge
               </BasicButton>
             </div>
 
             {/* Right side - List section */}
-            <div className='col-span-9 min-w-0'>
+            <div className='col-span-9'>
               <div className='flex items-center gap-4 border-b'>
                 <Tabs
                   value={tabValue}
@@ -127,23 +127,23 @@ const EditKnowledgeModal = ({ open, setOpen, data }: EditKnowledgeModalProps) =>
                 >
                   <Tab label='All' value={0} />
                   <Tab label='Document' value={1} />
-                  <Tab label='Table' value={2} />
-                  <Tab label='Images' value={3} />
+                  {/* <Tab label='Table' value={2} />
+                  <Tab label='Images' value={3} /> */}
                 </Tabs>
               </div>
 
               {/* Knowledge list will be rendered here */}
-              <div className='mt-4 min-h-full flex flex-col gap-2 overflow-x-auto'>
+              <div className='mt-4 min-h-full flex flex-col gap-2'>
                 {filteredKnowledge?.map((item: any) => (
                   <div
                     key={item?.id}
                     className='flex justify-between items-center gap-3 p-3 rounded-lg border border-gray-300 hover:bg-gray-50 cursor-pointer min-w-0'
                   >
-                    <div className='flex items-center gap-3 overflow-hidden'>
+                    <div className='flex items-center gap-3'>
                       <div className='w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center'>
                         <i className='text-blue-500'>📄</i>
                       </div>
-                      <div className='flex flex-col overflow-hidden'>
+                      <div className='flex flex-col'>
                         <span className='text-14-20 font-semibold truncate'>{item.name}</span>
                         <span className='text-14-20 text-neutral truncate'>{item.description}</span>
                         {item?.files?.map((file: any, index: number) => (

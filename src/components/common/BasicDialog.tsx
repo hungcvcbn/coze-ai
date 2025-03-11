@@ -1,8 +1,7 @@
 import Dialog, { DialogProps } from "@mui/material/Dialog";
 import clsx from "clsx";
-// import { IconX } from '../icons/common'
-import CloseIcon from "@mui/icons-material/Close";
 import React from "react";
+import CloseIcon from "@mui/icons-material/Close";
 
 interface BasicDialogProps extends DialogProps {
   title?: string;
@@ -12,7 +11,6 @@ interface BasicDialogProps extends DialogProps {
   showCloseIcon?: boolean;
   titleClass?: string;
   contentClassContainer?: string;
-  height?: string;
 }
 
 const BasicDialog = (props: BasicDialogProps) => {
@@ -26,7 +24,6 @@ const BasicDialog = (props: BasicDialogProps) => {
     sx,
     titleClass,
     contentClassContainer,
-    height,
     ...other
   } = props;
 
@@ -39,8 +36,16 @@ const BasicDialog = (props: BasicDialogProps) => {
       sx={{
         ".MuiPaper-root": {
           borderRadius: "8px",
+          overflow: "hidden",
           "& ::-webkit-scrollbar": {
-            height: "8px",
+            width: "8px",
+          },
+          "& ::-webkit-scrollbar-thumb": {
+            backgroundColor: "#C6C6C6",
+            borderRadius: "4px",
+          },
+          "& ::-webkit-scrollbar-thumb:hover": {
+            backgroundColor: "#C6C6C6",
           },
         },
         ".MuiDialog-paperWidthMd": {
@@ -53,12 +58,7 @@ const BasicDialog = (props: BasicDialogProps) => {
       <div className={clsx("py-3", contentClassContainer)}>
         <div className='flex flex-row justify-between items-center px-4 sticky border-b border-[#E5E7EB] pb-2'>
           {title && (
-            <p
-              className={clsx(
-                "text-[20px] text-neutral text-center font-sans font-semibold",
-                titleClass || ""
-              )}
-            >
+            <p className={clsx("text-20-28 text-center font-inter-700", titleClass || "")}>
               {title}
             </p>
           )}
@@ -68,9 +68,7 @@ const BasicDialog = (props: BasicDialogProps) => {
             </button>
           )}
         </div>
-        <div className='overflow-y-auto' style={{ height: height || "auto" }}>
-          {children}
-        </div>
+        <div className='overflow-y-auto h-auto'>{children}</div>
       </div>
     </Dialog>
   );

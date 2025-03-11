@@ -24,7 +24,7 @@ const ControlCommand = ({ data, fetchAgentDetail }: IControlCommand) => {
   const defaultPrompt = data?.setup?.personaPrompt || "";
   const [personaPrompt, setPersonaPrompt] = useState<string>(defaultPrompt);
   const [selectOpen, setSelectOpen] = useState(false);
-  const [model, setModel] = useState("GPT-4o");
+  const [model, setModel] = useState("gpt-4");
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const [availableModels, setAvailableModels] = useState<any>({});
 

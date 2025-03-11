@@ -17,12 +17,13 @@ import {
 import AutoSuggestion from "./feature/AutoSuggestion";
 import { IconArrowDown, IconAuto } from "../common/IconCommon";
 import { isEmpty } from "@/helpers/utils/common";
+import BackgroundImage from "./feature/BackgroundImage";
 type ChildOption =
   | {
-    label: string;
-    help?: string;
-    value?: boolean;
-  }
+      label: string;
+      help?: string;
+      value?: boolean;
+    }
   | React.ReactNode;
 
 type ParentOption = {
@@ -43,7 +44,7 @@ const SettingOptions = ({ data }: ISettingOptions) => {
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
   const [openEditKnowledgeModal, setOpenEditKnowledgeModal] = useState(false);
   const [knowledge, setKnowledge] = useState<any>({});
-
+  const [openBackgroundImageModal, setOpenBackgroundImageModal] = useState(false);
   const dispatch = useAppDispatch();
   const handlePopoverClick = (event: React.MouseEvent<HTMLElement>) => {
     event.stopPropagation();
@@ -86,8 +87,8 @@ const SettingOptions = ({ data }: ISettingOptions) => {
     }
   }, [data?.id]);
   const textKnowledge = knowledge?.items?.filter((item: any) => item.type === "TEXT") || [];
-  const tableKnowledge = knowledge?.items?.filter((item: any) => item.type === "TABLE") || [];
-  const imageKnowledge = knowledge?.items?.filter((item: any) => item.type === "IMAGE") || [];
+  // const tableKnowledge = knowledge?.items?.filter((item: any) => item.type === "TABLE") || [];
+  // const imageKnowledge = knowledge?.items?.filter((item: any) => item.type === "IMAGE") || [];
 
   const removeKnowledge = async (id: string) => {
     try {
@@ -148,6 +149,7 @@ const SettingOptions = ({ data }: ISettingOptions) => {
     },
     {
       featureName: "Chat experience",
+
       options: [
         {
           title: "Opening questions",
@@ -156,6 +158,12 @@ const SettingOptions = ({ data }: ISettingOptions) => {
         {
           title: "Auto-suggestion",
           children: [<AutoSuggestion key='auto-suggestion' />],
+        },
+        {
+          title: "Background Image",
+          description:
+            "Add a background image for your agent in the Coze Agent Store for a more immersive chat experience",
+          children: [],
         },
       ],
     },
@@ -174,10 +182,11 @@ const SettingOptions = ({ data }: ISettingOptions) => {
           return (
             <div key={childIndex} className='flex flex-col gap-4'>
               <div
-                className={`flex flex-col p-3 overflow-y-auto max-h-[200px] rounded-lg justify-between gap-2 ${featureName !== "Chat experience"
-                  ? "border border-gray-200 hover:border-gray-300 transition-colors duration-200"
-                  : ""
-                  }`}
+                className={`flex flex-col p-3 overflow-y-auto max-h-[200px] rounded-lg justify-between gap-2 ${
+                  featureName !== "Chat experience"
+                    ? "border border-gray-200 hover:border-gray-300 transition-colors duration-200"
+                    : ""
+                }`}
               >
                 <div className='flex justify-between items-center'>
                   <div className='text-16-24 font-semibold text-neutral'>{childOption.label}</div>
@@ -212,7 +221,7 @@ const SettingOptions = ({ data }: ISettingOptions) => {
             <div className='text-12-18 font-semibold px-2 text-neutral pt-4'>
               {item.featureName}
             </div>
-            {item.options.map((option, parentIndex) => (
+            {item?.options?.map((option, parentIndex) => (
               <div
                 key={parentIndex}
                 className='mb-2 rounded-lg overflow-hidden border border-gray-200'
@@ -240,15 +249,24 @@ const SettingOptions = ({ data }: ISettingOptions) => {
                     {(option.title === "Table" ||
                       option.title === "Text" ||
                       option.title === "Image") && (
-                        <IconButton
-                          onClick={e => {
-                            e.stopPropagation();
-                            setOpenEditKnowledgeModal(true);
-                          }}
-                        >
-                          <AddIcon sx={{ fontSize: 20, color: "#6A5ACD" }} />
-                        </IconButton>
-                      )}
+                      <IconButton
+                        onClick={e => {
+                          e.stopPropagation();
+                          setOpenEditKnowledgeModal(true);
+                        }}
+                      >
+                        <AddIcon sx={{ fontSize: 20, color: "#6A5ACD" }} />
+                      </IconButton>
+                    )}
+                    {option.title === "Background Image" && (
+                      <IconButton
+                        onClick={() => {
+                          setOpenBackgroundImageModal(true);
+                        }}
+                      >
+                        <AddIcon sx={{ fontSize: 20, color: "#6A5ACD" }} />
+                      </IconButton>
+                    )}
                     {option.title === "Opening questions" && (
                       <IconButton onClick={handlePopoverClick}>
                         <IconAuto width={20} height={20} color='#6A5ACD' />
@@ -263,10 +281,11 @@ const SettingOptions = ({ data }: ISettingOptions) => {
                   [&::-webkit-scrollbar-track]:bg-gray-50
                   [&::-webkit-scrollbar-thumb]:bg-gray-300
                   [&::-webkit-scrollbar-thumb]:rounded-full
-                  ${collapseStates[`${featureIndex}-${parentIndex}`]
+                  ${
+                    collapseStates[`${featureIndex}-${parentIndex}`]
                       ? "max-h-[600px] opacity-100"
                       : "max-h-0 opacity-0 overflow-hidden"
-                    }`}
+                  }`}
                 >
                   {collapseStates[`${featureIndex}-${parentIndex}`] && (
                     <div className='p-4 border-t border-gray-100'>
@@ -333,6 +352,11 @@ const SettingOptions = ({ data }: ISettingOptions) => {
         open={openEditKnowledgeModal}
         setOpen={setOpenEditKnowledgeModal}
         data={data}
+      />
+      <BackgroundImage
+        key='background-image'
+        open={openBackgroundImageModal}
+        setOpen={setOpenBackgroundImageModal}
       />
     </div>
   );

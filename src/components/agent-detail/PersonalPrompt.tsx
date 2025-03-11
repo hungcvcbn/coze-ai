@@ -129,16 +129,16 @@ const ControlCommand = ({ data, fetchAgentDetail }: IControlCommand) => {
           </div>
         </div>
         <div className='flex gap-4 justify-end pt-1'>
-          <div className='text-12-18 flex justify-center items-center font-semibold text-primary border border-primary rounded-[10px] px-2 py-1 cursor-pointer'>
+          {/* <div className='text-12-18 flex justify-center items-center font-semibold text-primary border border-primary rounded-[10px] px-2 py-1 cursor-pointer'>
             Tối ưu
-          </div>
-          <button
+          </div> */}
+          {/* <button
             className='text-14-20 flex justify-center items-center font-semibold text-primary gap-1 px-2 py-1 cursor-pointer'
             onClick={() => setOpen(true)}
           >
             <AddCircleOutlineIcon sx={{ fontSize: "20px" }} />
             Lệnh mẫu
-          </button>
+          </button> */}
         </div>
       </div>
 

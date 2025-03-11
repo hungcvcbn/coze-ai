@@ -111,7 +111,7 @@ const EditKnowledgeModal = ({ open, setOpen, data }: EditKnowledgeModalProps) =>
                   setOpenCreateModal(true);
                 }}
               >
-                <AddCircleOutlineIcon />
+                <AddCircleOutlineIcon />&nbsp;
                 Create knowledge
               </BasicButton>
             </div>

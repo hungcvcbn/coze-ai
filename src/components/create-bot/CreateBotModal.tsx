@@ -14,22 +14,21 @@ import BasicButton from "../common/BasicButton";
 import { addAgent } from "@/helpers/api/agent";
 import { yupResolver } from "@hookform/resolvers/yup";
 import yup from "@/helpers/utils/yupConfig";
-import { useSelector } from "react-redux";
+import { useRouter } from "next/navigation";
 interface CreateBotModalProps {
   open: boolean;
   setOpen: (open: boolean) => void;
 }
 
 type BotType = {
-  botType?: string;
   name: string;
   description?: string;
 };
 
 const CreateBotModal = ({ open, setOpen }: CreateBotModalProps) => {
   const dispatch = useAppDispatch();
+  const router = useRouter();
   const defaultValues: BotType = {
-    botType: "Coze-AI",
     name: "",
     description: "",
   };
@@ -43,18 +42,19 @@ const CreateBotModal = ({ open, setOpen }: CreateBotModalProps) => {
     defaultValues,
   });
 
-  const botType = form.watch("botType");
 
   const onSubmit = async (data: BotType) => {
     let params = {
       ...data,
     };
-    delete params.botType;
     try {
-      await addAgent(params);
-      dispatch(setToast({ message: "Thành công", type: "success", show: true }));
-      setOpen(false);
-      dispatch(setTriggerTime(new Date().getTime()));
+      const res = await addAgent(params);
+      if (res?.data) {
+        dispatch(setToast({ message: "Thành công", type: "success", show: true }));
+        setOpen(false);
+        dispatch(setTriggerTime(new Date().getTime()));
+        router.push(`/control-panel/${res.data.id}/settings`);
+      }
     } catch (error: any) {
       dispatch(setToast({ message: error.message, type: "error", show: true }));
     }
@@ -75,35 +75,22 @@ const CreateBotModal = ({ open, setOpen }: CreateBotModalProps) => {
       <FormProvider methods={form} onSubmit={form.handleSubmit(onSubmit)}>
         <BasicDialogContent>
           <div className='flex flex-col gap-2'>
-            <RHFSelect
+            {/* <RHFSelect
               name='botType'
               options={[
                 { value: "Coze-AI", label: "Bot Zenee AI" },
                 { value: "GPTs", label: "Bot GPTs (Nâng cao)" },
               ]}
               label='Chọn loại bot'
-            />
+            /> */}
             <RHFTextField name='name' label='Tên bot' placeholder='Nhập tên bot' isRequired />
-
-            {botType === "Mindmaid" ? (
-              <RHFTextField
-                name='description'
-                label='Lệnh điều khiển'
-                placeholder='Nhập lệnh điều khiển'
-                multiline
-                rows={4}
-                isRequired
-              />
-            ) : (
-              <RHFTextField
-                name='description'
-                label='Mô tả'
-                placeholder='Nhập mô tả'
-                multiline
-                rows={4}
-                isRequired
-              />
-            )}
+            <RHFTextField
+              name='description'
+              label='Mô tả'
+              placeholder='Nhập mô tả'
+              multiline
+              rows={4}
+            />
           </div>
         </BasicDialogContent>
         <BasicDialogActions>

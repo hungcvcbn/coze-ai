@@ -81,7 +81,7 @@ Api.interceptors.response.use(
           if (!isRefreshing) {
             isRefreshing = true
             try {
-              const res = await axios.post(process.env.NEXT_PUBLIC_API_URL + '/account-service/v1/auth/refresh-token', {
+              const res = await axios.post(process.env.NEXT_PUBLIC_API_URL + '/iam/v1/auth/refresh-token', {
                 token: refreshToken,
               })
               const { data } = res.data

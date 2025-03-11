@@ -9,10 +9,11 @@ export const addKnowledge = async (data: any) => {
   })
 }
 
-export const getKnowledge = async () => {
+export const getKnowledge = async (id: string, params?: any) => {
   return await Api({
-    url: `/cbot/v1/resources/knowledge`,
+    url: `/cbot/v1/agents/${id}/knowledge`,
     method: 'get',
+    params,
   })
 }
 
@@ -28,6 +29,14 @@ export const addKnowledgeIntoAgent = async (id: string, data: any) => {
   return await Api({
     url: `/cbot/v1/agents/${id}/knowledge`,
     method: "post",
+    data,
+  });
+};
+
+export const removeKnowledgeFromAgent = async (id: string, data: any) => {
+  return await Api({
+    url: `/cbot/v1/agents/${id}/knowledge`,
+    method: "delete",
     data,
   });
 };

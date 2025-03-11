@@ -8,6 +8,7 @@ import { Send } from "@mui/icons-material";
 import AttachFileIcon from "@mui/icons-material/AttachFile";
 import {
   chat,
+  getAvailableModels,
   getChatExperience,
   loadConversation,
   requestUpload,
@@ -54,14 +55,12 @@ const ChatBox = ({ conversation, data }: ChatBoxProps) => {
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
-  const [selectOpen, setSelectOpen] = useState(false);
+  const [availableModels, setAvailableModels] = useState<any[]>([]);
 
-  const handleChangeModel = (value: string | number) => {
-    setModel(value as string);
-  };
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
+
   const getSuggestions = async () => {
     try {
       const res = await getChatExperience(data?.id);
@@ -91,20 +90,6 @@ const ChatBox = ({ conversation, data }: ChatBoxProps) => {
       );
     }
   };
-  useEffect(() => {
-    if (triggerTime) {
-      getSuggestions();
-    }
-  }, [triggerTime]);
-  useEffect(() => {
-    scrollToBottom();
-  }, [messages]);
-
-  useEffect(() => {
-    if (!isLoading && inputRef.current) {
-      inputRef.current.focus();
-    }
-  }, [isLoading]);
 
   const handleBotResponse = async (question: string, showUserMessage = true) => {
     if (isLoading) return;
@@ -295,66 +280,48 @@ const ChatBox = ({ conversation, data }: ChatBoxProps) => {
       );
     }
   };
+  const fetchAvailableModels = async () => {
+    try {
+      const res = await getAvailableModels(data?.id);
+      setAvailableModels(res.data);
+    } catch (error: any) {
+      dispatch(
+        setToast({
+          message: error.message,
+          type: "error",
+          show: true,
+        })
+      );
+    }
+  };
   useEffect(() => {
-    if (!isEmpty(conversation)) {
+    if (data?.id) {
+      fetchAvailableModels();
+    }
+  }, [data?.id]);
+  useEffect(() => {
+    if (!isEmpty(conversation) && data?.id) {
       loadConversationAgent();
     }
-  }, [conversation]);
+  }, [conversation, data?.id]);
+  useEffect(() => {
+    if (triggerTime && data?.id) {
+      getSuggestions();
+    }
+  }, [triggerTime, data?.id]);
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages]);
+
+  useEffect(() => {
+    if (!isLoading && inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, [isLoading]);
   return (
     <div className='flex flex-col h-full relative'>
       <div className='h-auto min-h-[56px] p-3 flex items-center border-b rounded-t-lg border-gray-200 bg-white justify-between'>
         <Grid container spacing={2} alignItems='center'>
-          <Grid item xs={12} sm={6} md={6}>
-            <FormControl fullWidth size='small'>
-              <Select
-                size='small'
-                value={model}
-                open={selectOpen}
-                onOpen={() => setSelectOpen(true)}
-                onClose={() => setSelectOpen(false)}
-                onChange={e => handleChangeModel(e.target.value)}
-                sx={{
-                  borderRadius: "8px",
-                  height: "30px",
-                  width: "auto",
-                  fontSize: "14px",
-                  paddingRight: "10px",
-                  "& .MuiOutlinedInput-notchedOutline": {
-                    borderColor: "#E5E7EB",
-                  },
-                }}
-                IconComponent={() => (
-                  <button
-                    style={{
-                      transform: selectOpen ? "rotate(180deg)" : "rotate(0)",
-                      transition: "transform 0.2s ease-in-out",
-                      cursor: "pointer",
-                      padding: "0px",
-                    }}
-                    onClick={e => {
-                      e.stopPropagation();
-                      setSelectOpen(!selectOpen);
-                    }}
-                  >
-                    <IconArrowDown width={16} height={16} />
-                  </button>
-                )}
-              >
-                <MenuItem sx={{ fontSize: "14px" }} value='GPT-4o'>
-                  GPT-4o
-                </MenuItem>
-                <MenuItem sx={{ fontSize: "14px" }} value='GPT-4o-mini'>
-                  GPT-4o-mini
-                </MenuItem>
-                <MenuItem sx={{ fontSize: "14px" }} value='GPT-3.5-turbo'>
-                  GPT-3.5-turbo
-                </MenuItem>
-                <MenuItem sx={{ fontSize: "14px" }} value='GEMINI'>
-                  GEMINI
-                </MenuItem>
-              </Select>
-            </FormControl>
-          </Grid>
           <Grid item xs={12} sm={6} md={6}>
             <div className='flex items-center gap-2 justify-end'>
               <BasicButton size='sm' onClick={() => setOpen(true)}>

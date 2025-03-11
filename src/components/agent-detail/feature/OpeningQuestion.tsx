@@ -5,10 +5,11 @@ import { getChatExperience, updateChatExperience } from "@/helpers/api/chatExper
 import { setToast, setTriggerTime } from "@/redux/slices/common";
 import { useAppDispatch } from "@/redux/hooks";
 import { IconInfo, TrashIcon } from "@/components/common/IconCommon";
-import { Tooltip } from "@mui/material";
 import DragIndicatorIcon from "@mui/icons-material/DragIndicator";
-
-const OpeningQuestion = ({ id }: { id: string }) => {
+interface OpeningQuestionProps {
+  data: any;
+}
+const OpeningQuestion = ({ data }: OpeningQuestionProps) => {
   const [editorContent, setEditorContent] = useState("");
   const dispatch = useAppDispatch();
   const [presetQuestions, setPresetQuestions] = useState<Array<{ id: string; content: string }>>(
@@ -27,7 +28,7 @@ const OpeningQuestion = ({ id }: { id: string }) => {
           openingQuestions: openingQuestions,
         },
       };
-      await updateChatExperience(id, params);
+      await updateChatExperience(data?.id, params);
       dispatch(setTriggerTime(new Date().getTime()));
     } catch (error: any) {
       dispatch(setToast({ message: error.message, type: "error", show: true }));
@@ -98,7 +99,7 @@ const OpeningQuestion = ({ id }: { id: string }) => {
   };
   const fetchChatExperience = async () => {
     try {
-      const res = await getChatExperience(id);
+      const res = await getChatExperience(data?.id);
       const openingConversation = res.data.openingConversation || {};
       setEditorContent(openingConversation.openingText || "");
 
@@ -116,8 +117,10 @@ const OpeningQuestion = ({ id }: { id: string }) => {
   };
 
   useEffect(() => {
-    fetchChatExperience();
-  }, []);
+    if (data?.id) {
+      fetchChatExperience();
+    }
+  }, [data?.id]);
 
   return (
     <div className='flex flex-col'>

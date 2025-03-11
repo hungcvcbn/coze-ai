@@ -9,7 +9,11 @@ import { setToast } from "@/redux/slices/common";
 import { useAppDispatch } from "@/redux/hooks";
 import AddIcon from "@mui/icons-material/Add";
 import ListKnowledge from "./knowledge/ListKnowledge";
-import { addKnowledgeIntoAgent, getKnowledge } from "@/helpers/api/knowledge";
+import {
+  addKnowledgeIntoAgent,
+  getKnowledge,
+  removeKnowledgeFromAgent,
+} from "@/helpers/api/knowledge";
 import AutoSuggestion from "./feature/AutoSuggestion";
 import { IconArrowDown, IconAuto } from "../common/IconCommon";
 import { isEmpty } from "@/helpers/utils/common";
@@ -69,7 +73,7 @@ const SettingOptions = ({ data }: ISettingOptions) => {
   };
   const fetchKnowledge = async () => {
     try {
-      const res = await getKnowledge();
+      const res = await getKnowledge(data?.id, { scope: "ASSIGNED" });
 
       setKnowledge(res?.data);
     } catch (error: any) {
@@ -77,14 +81,18 @@ const SettingOptions = ({ data }: ISettingOptions) => {
     }
   };
   useEffect(() => {
-    fetchKnowledge();
-  }, []);
+    if (data?.id) {
+      fetchKnowledge();
+    }
+  }, [data?.id]);
   const textKnowledge = knowledge?.items?.filter((item: any) => item.type === "TEXT") || [];
   const tableKnowledge = knowledge?.items?.filter((item: any) => item.type === "TABLE") || [];
   const imageKnowledge = knowledge?.items?.filter((item: any) => item.type === "IMAGE") || [];
-  const addKnowledgeToAgent = async (id: string) => {
+
+  const removeKnowledge = async (id: string) => {
     try {
-      await addKnowledgeIntoAgent(data?.id, { id: id });
+      await removeKnowledgeFromAgent(data?.id, { id: id });
+      fetchKnowledge();
       dispatch(setToast({ type: "success", message: "Thành công", show: true }));
     } catch (error: any) {
       dispatch(setToast({ type: "error", message: error?.message, show: true }));
@@ -99,7 +107,7 @@ const SettingOptions = ({ data }: ISettingOptions) => {
           description:
             "After documents, URLs, and third-party data sources are uploaded into text knowledge, the agent can reference its content to answer your questions.",
           children: [
-            ...textKnowledge.map((item: any) => ({
+            ...textKnowledge?.map((item: any) => ({
               label: item.name,
               help: item.description,
               id: item.id,
@@ -113,7 +121,7 @@ const SettingOptions = ({ data }: ISettingOptions) => {
           description:
             "Table supports matching appropriate rows according to a certain column of the table. It also supports querying and calculating the database based on natural language.",
           children: [
-            ...tableKnowledge.map((item: any) => ({
+            ...tableKnowledge?.map((item: any) => ({
               label: item.name,
               help: item.description,
               id: item.id,
@@ -127,7 +135,7 @@ const SettingOptions = ({ data }: ISettingOptions) => {
           description:
             "After uploading the image, you can choose to automatically or manually add the semantic description. Then, the agent can match the most appropriate image based on its description.",
           children: [
-            ...imageKnowledge.map((item: any) => ({
+            ...imageKnowledge?.map((item: any) => ({
               label: item.name,
               help: item.description,
               id: item.id,
@@ -143,7 +151,7 @@ const SettingOptions = ({ data }: ISettingOptions) => {
       options: [
         {
           title: "Opening questions",
-          children: [<OpeningQuestion key='opening-question' id={data?.id} />],
+          children: [<OpeningQuestion key='opening-question' data={data} />],
         },
         {
           title: "Auto-suggestion",
@@ -153,14 +161,10 @@ const SettingOptions = ({ data }: ISettingOptions) => {
     },
   ];
 
-  const renderSettingOptions = (
-    children: ChildOption[],
-    parentIndex: number,
-    featureName: string
-  ) => {
+  const renderSettingOptions = (children: ChildOption[], featureName: string) => {
     return (
       <div className='flex flex-col gap-4'>
-        {children.map((option, childIndex) => {
+        {children?.map((option, childIndex) => {
           if (React.isValidElement(option)) {
             return option;
           }
@@ -168,9 +172,8 @@ const SettingOptions = ({ data }: ISettingOptions) => {
           const childOption = option as { label: string; help?: string; files?: any[]; id: string };
 
           return (
-            <div className='flex flex-col gap-4'>
+            <div key={childIndex} className='flex flex-col gap-4'>
               <div
-                key={childIndex}
                 className={`flex flex-col p-3 overflow-y-auto max-h-[200px] rounded-lg justify-between gap-2 ${
                   featureName !== "Chat experience"
                     ? "border border-gray-200 hover:border-gray-300 transition-colors duration-200"
@@ -179,12 +182,12 @@ const SettingOptions = ({ data }: ISettingOptions) => {
               >
                 <div className='flex justify-between items-center'>
                   <div className='text-16-24 font-semibold text-neutral'>{childOption.label}</div>
-                  <Tooltip title='Thêm knowledge vào agent' placement='top'>
+                  <Tooltip title='Xóa knowledge khỏi agent' placement='top'>
                     <button
-                      onClick={() => addKnowledgeToAgent(childOption.id)}
-                      className='text-14-20 text-primary font-semibold hover:bg-primary hover:text-white transition-colors duration-200 cursor-pointer border border-primary rounded-lg px-2 py-1'
+                      onClick={() => removeKnowledge(childOption.id)}
+                      className='text-12-18 text-danger font-semibold hover:bg-danger hover:text-white transition-colors duration-200 cursor-pointer border border-danger rounded-lg px-2 py-1'
                     >
-                      Add
+                      Xóa
                     </button>
                   </Tooltip>
                 </div>
@@ -270,7 +273,7 @@ const SettingOptions = ({ data }: ISettingOptions) => {
                   {collapseStates[`${featureIndex}-${parentIndex}`] && (
                     <div className='p-4 border-t border-gray-100'>
                       {!isEmpty(option?.children) ? (
-                        renderSettingOptions(option.children, parentIndex, item.featureName)
+                        renderSettingOptions(option.children, item.featureName)
                       ) : (
                         <div className='text-14-20 font-sans text-gray-500'>
                           {option?.description}
@@ -328,7 +331,11 @@ const SettingOptions = ({ data }: ISettingOptions) => {
           </div>
         ))}
       </div>
-      <ListKnowledge open={openEditKnowledgeModal} setOpen={setOpenEditKnowledgeModal} />
+      <ListKnowledge
+        open={openEditKnowledgeModal}
+        setOpen={setOpenEditKnowledgeModal}
+        data={data}
+      />
     </div>
   );
 };

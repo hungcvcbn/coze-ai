@@ -71,3 +71,9 @@ export const getChatExperience = async (id: any) => {
   })
 }
 
+export const getAvailableModels = async (id: any) => {
+  return await Api({
+    url: `/cbot/v1/agents/${id}/available-models`,
+    method: 'get',
+  })
+}

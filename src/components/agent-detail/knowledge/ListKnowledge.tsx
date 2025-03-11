@@ -6,19 +6,22 @@ import { setToast } from "@/redux/slices/common";
 import { useAppDispatch } from "@/redux/hooks";
 import { useEffect, useState } from "react";
 import BasicButton from "@/components/common/BasicButton";
-import { getKnowledge } from "@/helpers/api/knowledge";
+import { addKnowledgeIntoAgent, getKnowledge } from "@/helpers/api/knowledge";
 import { Tabs, Tab, IconButton, Tooltip } from "@mui/material";
 import CustomTextField from "@/components/hook-form/CustomTextField";
 import CreateKnowledge from "./CreateKnowledge";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import EditNoteIcon from "@mui/icons-material/EditNote";
 import { requestUpload } from "@/helpers/api/chatbot";
+import BasicDialogActions from "@/components/common/BasicDialogActions";
+import FileUploadIcon from "@mui/icons-material/FileUpload";
 interface EditKnowledgeModalProps {
   open: boolean;
   setOpen: (open: boolean) => void;
+  data: any;
 }
 
-const EditKnowledgeModal = ({ open, setOpen }: EditKnowledgeModalProps) => {
+const EditKnowledgeModal = ({ open, setOpen, data }: EditKnowledgeModalProps) => {
   const dispatch = useAppDispatch();
   const [tabValue, setTabValue] = useState(0);
   const [openCreateModal, setOpenCreateModal] = useState(false);
@@ -40,14 +43,16 @@ const EditKnowledgeModal = ({ open, setOpen }: EditKnowledgeModalProps) => {
     setSelectedType(typeMap[newValue as keyof typeof typeMap]);
   };
 
-  const filteredKnowledge = knowledge?.items?.filter((item: any) => {
-    if (selectedType === "ALL") return true;
-    return item.type === selectedType;
-  });
+  const filteredKnowledge =
+    knowledge?.items?.filter((item: any) => {
+      if (!item) return false;
+      if (selectedType === "ALL") return item.scope?.toLowerCase() === "accessible";
+      return item.type === selectedType && item.scope?.toLowerCase() === "accessible";
+    }) || [];
 
   const fetchKnowledge = async () => {
     try {
-      const res = await getKnowledge();
+      const res = await getKnowledge(data?.id, { scope: "ACCESSIBLE" });
       setKnowledge(res?.data);
     } catch (error: any) {
       dispatch(setToast({ type: "error", message: error?.message, show: true }));
@@ -77,6 +82,15 @@ const EditKnowledgeModal = ({ open, setOpen }: EditKnowledgeModalProps) => {
       fetchKnowledge();
     }
   }, [open]);
+  const handleAddKnowledgeToAgent = async (id: string) => {
+    try {
+      await addKnowledgeIntoAgent(data?.id, { id: id });
+      dispatch(setToast({ type: "success", message: "Thành công", show: true }));
+      fetchKnowledge();
+    } catch (error: any) {
+      dispatch(setToast({ type: "error", message: error?.message, show: true }));
+    }
+  };
   return (
     <div>
       <BasicDialog
@@ -86,11 +100,9 @@ const EditKnowledgeModal = ({ open, setOpen }: EditKnowledgeModalProps) => {
         showCloseIcon
         maxWidth='lg'
         fullWidth
-        height='80vh'
       >
         <BasicDialogContent>
           <div className='grid grid-cols-12 gap-4 min-w-0 overflow-x-auto'>
-            {/* Left side - Create knowledge section */}
             <div className='col-span-3 flex flex-col gap-4 min-w-[200px]'>
               <CustomTextField placeholder='Search' />
               <BasicButton
@@ -134,24 +146,29 @@ const EditKnowledgeModal = ({ open, setOpen }: EditKnowledgeModalProps) => {
                       <div className='flex flex-col overflow-hidden'>
                         <span className='text-14-20 font-semibold truncate'>{item.name}</span>
                         <span className='text-14-20 text-neutral truncate'>{item.description}</span>
+                        {item?.files?.map((file: any, index: number) => (
+                          <div key={index} className='text-14-20 text-primary'>
+                            {file?.name}
+                          </div>
+                        ))}
                       </div>
                     </div>
                     <div className='flex items-center'>
-                      <IconButton
-                        onClick={() => {
-                          setSelectedKnowledge(item);
-                          setOpenCreateModal(true);
-                        }}
-                      >
-                        <EditNoteIcon />
-                      </IconButton>
                       <label htmlFor={`file-upload-${item.id}`}>
                         <Tooltip title='Tải file cho knowledge' placement='top'>
-                          <IconButton component='span'>
-                            <AddCircleOutlineIcon />
-                          </IconButton>
+                          <button className='cursor-pointer pl-1'>
+                            <FileUploadIcon sx={{ color: "#6A6A6A" }} />
+                          </button>
                         </Tooltip>
                       </label>
+                      <Tooltip title='Thêm knowledge vào agent' placement='top'>
+                        <button
+                          className='cursor-pointer pl-1'
+                          onClick={() => handleAddKnowledgeToAgent(item?.id)}
+                        >
+                          <AddCircleOutlineIcon sx={{ color: "#6A6A6A" }} />
+                        </button>
+                      </Tooltip>
                       <input
                         type='file'
                         id={`file-upload-${item.id}`}
@@ -168,6 +185,11 @@ const EditKnowledgeModal = ({ open, setOpen }: EditKnowledgeModalProps) => {
             </div>
           </div>
         </BasicDialogContent>
+        <BasicDialogActions>
+          <BasicButton variant='outlined' onClick={() => setOpen(false)}>
+            Quay lại
+          </BasicButton>
+        </BasicDialogActions>
       </BasicDialog>
       {openCreateModal && (
         <CreateKnowledge

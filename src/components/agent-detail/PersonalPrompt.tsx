@@ -7,6 +7,11 @@ import { setToast } from "@/redux/slices/common";
 import { useDispatch } from "react-redux";
 import BasicButton from "../common/BasicButton";
 import ConfirmDialog from "../hook-form/ConfirmDialog";
+import { MenuItem } from "@mui/material";
+import { Select } from "@mui/material";
+import { Grid } from "@mui/material";
+import { FormControl } from "@mui/material";
+import { IconArrowDown } from "../common/IconCommon";
 interface IControlCommand {
   data: any;
   fetchAgentDetail: Function;
@@ -17,8 +22,13 @@ const ControlCommand = ({ data, fetchAgentDetail }: IControlCommand) => {
   const [openConfirm, setOpenConfirm] = useState(false);
   const defaultPrompt = data?.setup?.personaPrompt || "";
   const [personaPrompt, setPersonaPrompt] = useState<string>(defaultPrompt);
+  const [selectOpen, setSelectOpen] = useState(false);
+  const [model, setModel] = useState("GPT-4o");
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
+  const handleChangeModel = (value: string | number) => {
+    setModel(value as string);
+  };
   useEffect(() => {
     if (data?.setup?.personaPrompt) {
       setPersonaPrompt(data.setup.personaPrompt);
@@ -31,8 +41,12 @@ const ControlCommand = ({ data, fetchAgentDetail }: IControlCommand) => {
 
   const handleUpdatePrompt = async (isConfirm?: boolean) => {
     if (isConfirm) {
+      let dataUpdate = {
+        personaPrompt,
+        model,
+      };
       try {
-        await updateAgentSetup(data.id, { personaPrompt });
+        await updateAgentSetup(data.id, dataUpdate);
         dispatch(
           setToast({
             message: "Cập nhật thành công",
@@ -63,7 +77,57 @@ const ControlCommand = ({ data, fetchAgentDetail }: IControlCommand) => {
   return (
     <div className='flex flex-col gap-2 pt-2 bg-white text-neutral'>
       <div className='flex gap-2 justify-between items-center'>
-        <div className='text-14-20 font-semibold'>Persona & Prompt</div>
+        <div className='flex gap-2 items-center'>
+          <div className='text-14-20 font-semibold w-full'>Persona & Prompt</div>
+          <div>
+            <Select
+              size='small'
+              value={model}
+              open={selectOpen}
+              onOpen={() => setSelectOpen(true)}
+              onClose={() => setSelectOpen(false)}
+              onChange={e => handleChangeModel(e.target.value)}
+              sx={{
+                borderRadius: "8px",
+                height: "30px",
+                fontSize: "14px",
+                paddingRight: "10px",
+                "& .MuiOutlinedInput-notchedOutline": {
+                  borderColor: "#E5E7EB",
+                },
+              }}
+              IconComponent={() => (
+                <button
+                  style={{
+                    transform: selectOpen ? "rotate(180deg)" : "rotate(0)",
+                    transition: "transform 0.2s ease-in-out",
+                    cursor: "pointer",
+                    padding: "0px",
+                  }}
+                  onClick={e => {
+                    e.stopPropagation();
+                    setSelectOpen(!selectOpen);
+                  }}
+                >
+                  <IconArrowDown width={16} height={16} />
+                </button>
+              )}
+            >
+              <MenuItem sx={{ fontSize: "14px" }} value='GPT-4o'>
+                GPT-4o
+              </MenuItem>
+              <MenuItem sx={{ fontSize: "14px" }} value='GPT-4o-mini'>
+                GPT-4o-mini
+              </MenuItem>
+              <MenuItem sx={{ fontSize: "14px" }} value='GPT-3.5-turbo'>
+                GPT-3.5-turbo
+              </MenuItem>
+              <MenuItem sx={{ fontSize: "14px" }} value='GEMINI'>
+                GEMINI
+              </MenuItem>
+            </Select>
+          </div>
+        </div>
         <div className='flex gap-4 justify-end pt-1'>
           <div className='text-12-18 flex justify-center items-center font-semibold text-primary border border-primary rounded-[10px] px-2 py-1 cursor-pointer'>
             Tối ưu

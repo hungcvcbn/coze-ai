@@ -19,9 +19,15 @@ interface EditKnowledgeModalProps {
   open: boolean;
   setOpen: (open: boolean) => void;
   data: any;
+  fetchDataAssigned: () => void;
 }
 
-const EditKnowledgeModal = ({ open, setOpen, data }: EditKnowledgeModalProps) => {
+const EditKnowledgeModal = ({
+  open,
+  setOpen,
+  data,
+  fetchDataAssigned,
+}: EditKnowledgeModalProps) => {
   const dispatch = useAppDispatch();
   const [tabValue, setTabValue] = useState(0);
   const [openCreateModal, setOpenCreateModal] = useState(false);
@@ -87,6 +93,7 @@ const EditKnowledgeModal = ({ open, setOpen, data }: EditKnowledgeModalProps) =>
       await addKnowledgeIntoAgent(data?.id, { id: id });
       dispatch(setToast({ type: "success", message: "Thành công", show: true }));
       fetchKnowledge();
+      fetchDataAssigned();
     } catch (error: any) {
       dispatch(setToast({ type: "error", message: error?.message, show: true }));
     }

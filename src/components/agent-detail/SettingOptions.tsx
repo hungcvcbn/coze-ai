@@ -352,6 +352,7 @@ const SettingOptions = ({ data }: ISettingOptions) => {
         open={openEditKnowledgeModal}
         setOpen={setOpenEditKnowledgeModal}
         data={data}
+        fetchDataAssigned={fetchKnowledge}
       />
       <BackgroundImage
         key='background-image'

@@ -158,7 +158,10 @@ const EditKnowledgeModal = ({ open, setOpen, data }: EditKnowledgeModalProps) =>
                         <Tooltip title='Tải file cho knowledge' placement='top'>
                           <button
                             className='cursor-pointer pl-1'
-                            onClick={() => fileInputRef.current?.click()}
+                            onClick={() => {
+                              fileInputRef.current?.click();
+                              setSelectedKnowledge(item);
+                            }}
                           >
                             <FileUploadIcon sx={{ color: "#6A6A6A" }} />
                           </button>

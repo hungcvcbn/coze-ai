@@ -182,13 +182,12 @@ const ChatBox = ({ conversation, data }: ChatBoxProps) => {
     }
   };
 
-  const handleLoadConversation = async () => {
+  const handleResetConversation = async () => {
     try {
       let params = {
         botId: data?.id,
       };
       const res = await resetConversation(params);
-      console.log(res);
 
       if (res.data) {
         setMessages([{ sender: "system", text: "Xin chào! Tôi có thể giúp gì cho bạn?" }]);
@@ -256,19 +255,12 @@ const ChatBox = ({ conversation, data }: ChatBoxProps) => {
       };
       const res = await loadConversation(params);
 
-      if (res.data?.items && Array.isArray(res.data.items)) {
+      if (res.data?.items && !isEmpty(res.data.items)) {
         const formattedMessages: Message[] = res.data.items.map((item: any) => ({
           sender: item.role === "user" ? "user" : "system",
           text: item.content,
         }));
         setMessages(formattedMessages);
-      } else {
-        setMessages([
-          {
-            sender: "system",
-            text: "Xin chào! Tôi có thể giúp gì cho bạn?",
-          },
-        ]);
       }
     } catch (error: any) {
       dispatch(
@@ -411,7 +403,7 @@ const ChatBox = ({ conversation, data }: ChatBoxProps) => {
         <div ref={messagesEndRef} />
       </div>
       <div className='flex items-center rounded-b-lg gap-2 pt-2 border-t border-gray-200 p-2 bg-white sticky bottom-0 left-0 right-0'>
-        <div className='cursor-pointer' onClick={handleLoadConversation}>
+        <div className='cursor-pointer' onClick={handleResetConversation}>
           <CleaningServicesIcon sx={{ color: "#6A5ACD", "&:hover": { color: "#6A5ACD" } }} />
         </div>
         <div className='flex-1'>

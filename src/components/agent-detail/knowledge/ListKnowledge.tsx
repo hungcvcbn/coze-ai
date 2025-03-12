@@ -156,7 +156,10 @@ const EditKnowledgeModal = ({ open, setOpen, data }: EditKnowledgeModalProps) =>
                     <div className='flex items-center'>
                       <label htmlFor={`file-upload-${item.id}`}>
                         <Tooltip title='Tải file cho knowledge' placement='top'>
-                          <button className='cursor-pointer pl-1'>
+                          <button
+                            className='cursor-pointer pl-1'
+                            onClick={() => fileInputRef.current?.click()}
+                          >
                             <FileUploadIcon sx={{ color: "#6A6A6A" }} />
                           </button>
                         </Tooltip>

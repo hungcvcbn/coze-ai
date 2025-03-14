@@ -294,16 +294,30 @@ const ChatBox = ({ conversation, data }: ChatBoxProps) => {
   }, [isLoading]);
   return (
     <div className='flex flex-col h-full relative'>
-      <div className='h-auto min-h-[56px] p-3 flex items-center border-b rounded-t-lg border-gray-200 bg-white justify-between'>
-        <div className='flex items-center gap-2 justify-end w-full'>
-          <BasicButton size='sm' onClick={() => setOpen(true)}>
+      <div className='h-auto min-h-[50px] p-3 flex items-center border-b rounded-t-lg border-gray-200 bg-white justify-between'>
+        <div className='flex items-center gap-2'>
+          <Image
+            src={LogoImage}
+            alt='Bot Avatar'
+            width={40}
+            height={40}
+            className='rounded-full w-10 h-10 object-cover'
+          />
+          <div className='flex flex-col'>
+            <span className='font-sans font-semibold text-neutral text-14-20'>
+              {data?.name || "AI Assistant"}
+            </span>
+          </div>
+        </div>
+        <div className='flex items-center gap-3'>
+          <Tooltip title='Reset conversation' placement='top'>
+            <IconButton onClick={handleResetConversation} size='small'>
+              <CleaningServicesIcon sx={{ color: "#6A5ACD", fontSize: "1.1rem" }} />
+            </IconButton>
+          </Tooltip>
+          <BasicButton size='sm' onClick={() => setOpen(true)} variant='outlined'>
             Publish
           </BasicButton>
-          {/* <Tooltip title='Chọn kết nối với nền tảng' placement='top'>
-                <IconButton onClick={() => router.push(`/control-panel/${data?.id}/settings/list`)}>
-                  <LinkIcon sx={{ color: "#6A5ACD" }} />
-                </IconButton>
-              </Tooltip> */}
         </div>
       </div>
       <div
@@ -403,9 +417,6 @@ const ChatBox = ({ conversation, data }: ChatBoxProps) => {
         <div ref={messagesEndRef} />
       </div>
       <div className='flex items-center rounded-b-lg gap-2 pt-2 border-t border-gray-200 p-2 bg-white sticky bottom-0 left-0 right-0'>
-        <div className='cursor-pointer' onClick={handleResetConversation}>
-          <CleaningServicesIcon sx={{ color: "#6A5ACD", "&:hover": { color: "#6A5ACD" } }} />
-        </div>
         <div className='flex-1'>
           <CustomTextField
             fullWidth

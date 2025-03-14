@@ -58,7 +58,12 @@ const BasicDialog = (props: BasicDialogProps) => {
       <div className={clsx("py-3", contentClassContainer)}>
         <div className='flex flex-row justify-between items-center px-4 sticky border-b border-[#E5E7EB] pb-2'>
           {title && (
-            <p className={clsx("text-20-28 text-center font-inter-700", titleClass || "")}>
+            <p
+              className={clsx(
+                "text-20-28 text-center text-neutral font-sans font-semibold",
+                titleClass || ""
+              )}
+            >
               {title}
             </p>
           )}

@@ -9,11 +9,11 @@ const AutoSuggestion = () => {
     <div>
       <div>
         <div className='flex flex-col text-gray-600 mb-2 gap-2'>
-          <div className='text-sm font-medium'>
+          <div className='text-sm font-inter-500'>
             After agent response, provide at most three suggested questions based on the context and
             prompt.
           </div>
-          <div className='text-14-20 font-medium flex items-center'>
+          <div className='text-14-20 font-inter-500 flex items-center'>
             <Checkbox checked={isChecked} onChange={e => setIsChecked(e.target.checked)} />
             <div className='text-14-20'>Custom prompt</div>
           </div>

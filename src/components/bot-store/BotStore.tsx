@@ -36,7 +36,7 @@ const BotStore = () => {
   }, []);
 
   return (
-    <div className='flex flex-col text-neutral font-sans'>
+    <div className='flex flex-col text-neutral font-inter-600'>
       <div className='flex items-center justify-between sticky z-10 p-0' style={{ top: "63px" }}>
         <div className='px-4 py-2 w-full bg-white'>
           <Grid container spacing={2}>
@@ -67,16 +67,14 @@ const BotStore = () => {
                     {bot?.avatar || "🤖"}
                   </div>
                   <div className='flex flex-col gap-1'>
-                    <h3 className='font-semibold text-neutral text-16-24 mb-1 font-sans'>
-                      {bot?.name}
-                    </h3>
+                    <h3 className='font-inter-600 text-neutral text-16-24 mb-1'>{bot?.name}</h3>
                     <div className='flex items-center gap-1'>
                       <Image src={LogoZenee} alt='Zenee AI' width={16} height={16} />
-                      <span className='text-14-20 text-neutral font-sans font-medium'>
+                      <span className='text-14-20 text-neutral font-inter-500'>
                         {bot?.provider || "Zenee AI"}
                       </span>
                     </div>
-                    <p className='text-14-20 text-neutral font-sans font-medium mb-4 line-clamp-2'>
+                    <p className='text-14-20 text-neutral font-inter-500 mb-4 line-clamp-2'>
                       {bot.description}
                     </p>
                   </div>

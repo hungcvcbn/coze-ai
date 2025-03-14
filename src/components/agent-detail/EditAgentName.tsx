@@ -68,8 +68,8 @@ const EditCommandModal = ({ open, setOpen, data, fetchData }: CreateBotModalProp
       <FormProvider methods={form} onSubmit={form.handleSubmit(onSubmit)}>
         <BasicDialogContent>
           <div className='flex flex-col gap-2'>
-            <div className='text-14-20 font-medium text-neutral'>
-              <span className='font-semibold'>Bot ID:</span> {data?.id}
+            <div className='text-14-20 font-inter-500 text-neutral'>
+              <span className='font-inter-600'>Bot ID:</span> {data?.id}
             </div>
             <RHFTextField name='name' label='Tên bot' placeholder='Nhập tên bot' isRequired />
           </div>

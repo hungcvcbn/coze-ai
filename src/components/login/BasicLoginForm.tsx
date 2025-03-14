@@ -96,7 +96,7 @@ const FormLoginBasic = () => {
                 height={100}
                 className='rounded-lg'
               />
-              <div className='text-28-36 font-semibold mt-2'>Zenee AI</div>
+              <div className='text-28-36 font-inter-600    mt-2'>Zenee AI</div>
             </div>
 
             <div className='flex flex-col gap-3 mb-6'>
@@ -105,7 +105,7 @@ const FormLoginBasic = () => {
               {/* <button className='flex items-center justify-center gap-2 w-full py-2 px-4 border border-gray-300 rounded-lg hover:bg-gray-50'>
                 <Image src={GoogleIconImage} alt='Mindmaid.ai' width={25} height={25} />
 
-                <span className='text-16-24 font-medium'>Đăng nhập bằng Google</span>
+                <span className='text-16-24 font-inter-500'>Đăng nhập bằng Google</span>
               </button> */}
               {/* <button className='flex items-center justify-center gap-2 w-full py-2 px-4 border border-gray-300 rounded-lg hover:bg-gray-50'>
                 <FacebookIcon
@@ -115,13 +115,13 @@ const FormLoginBasic = () => {
                     height: "25px",
                   }}
                 />
-                <span className='text-16-24 font-medium'>Đăng nhập bằng Facebook</span>
+                <span className='text-16-24 font-inter-500'>Đăng nhập bằng Facebook</span>
               </button> */}
             </div>
 
             <div className='flex items-center justify-center my-4'>
               <div className='border-t flex-grow'></div>
-              <span className='px-4 text-16-24 font-medium text-neutral'>Hoặc</span>
+              <span className='px-4 text-16-24 font-inter-500 text-neutral'>Hoặc</span>
               <div className='border-t flex-grow'></div>
             </div>
 
@@ -193,13 +193,13 @@ const FormLoginBasic = () => {
                       },
                     }}
                   />
-                  <div className='text-14-20 px-1 font-medium text-neutral'>
+                  <div className='text-14-20 px-1 font-inter-500 text-neutral'>
                     Đồng ý với các điều khoản và điều kiện
                   </div>
                 </div>
                 <Link
                   href={``}
-                  className='text-14-20 font-medium text-blue-600 hover:text-blue-800'
+                  className='text-14-20 font-inter-500 text-blue-600 hover:text-blue-800'
                 >
                   Quên mật khẩu?
                 </Link>
@@ -208,9 +208,9 @@ const FormLoginBasic = () => {
               <button
                 type='submit'
                 className={clsx(
-                  `w-full py-2.5 px-4 text-16-24 font-semibold`,
+                  `w-full py-2.5 px-4 text-16-24 font-inter-600`,
                   loading ? "bg-gray-400 cursor-not-allowed" : "bg-primary hover:opacity-80",
-                  `text-white rounded-lg font-medium transition-colors`
+                  `text-white rounded-lg font-inter-500 transition-colors`
                 )}
                 disabled={loading}
               >
@@ -221,7 +221,7 @@ const FormLoginBasic = () => {
                 <span className='text-16-24 text-neutral'>Chưa có tài khoản? </span>
                 <Link
                   href={`/sign-up`}
-                  className='text-blue-600 hover:text-blue-800 text-16-24 font-medium hover:font-bold'
+                  className='text-blue-600 hover:text-blue-800 text-16-24 font-inter-500 hover:font-bold'
                 >
                   Đăng ký ngay!
                 </Link>

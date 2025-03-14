@@ -104,7 +104,7 @@ const CreateBotModal = ({ open, setOpen }: CreateBotModalProps) => {
           </div>
           <div className='flex flex-col gap-2 bg-gray-200 rounded-[8px] p-2 mt-2 h-[500px] overflow-y-auto'>
             {value && (
-              <div className='text-14-20 text-neutral font-medium'>
+              <div className='text-14-20 text-neutral font-inter-500'>
                 {sampleCommands.find(item => item.value === value)?.description}
               </div>
             )}

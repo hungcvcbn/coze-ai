@@ -48,7 +48,7 @@ const HomePage = () => {
                 }s`,
               }}
             >
-              <h3 className='text-xl font-semibold mb-3'>{feature.title}</h3>
+              <h3 className='text-xl font-inter-600 mb-3'>{feature.title}</h3>
               <p className='text-sm text-gray-700'>{feature.description}</p>
             </div>
           ))}
@@ -62,7 +62,7 @@ const HomePage = () => {
               animation: "fadeInEase 1s forwards 1.8s, slideUpEase 1s forwards 1.8s",
             }}
           >
-            <h3 className='text-2xl font-bold mb-3'>AI Growth Analytics</h3>
+            <h3 className='text-2xl font-inter-600 mb-3'>AI Growth Analytics</h3>
             <p className='text-sm'>Visualize progress in training models over time.</p>
           </div>
 
@@ -73,7 +73,7 @@ const HomePage = () => {
               animation: "fadeInEase 1s forwards 1s, slideUpEase 1s forwards 1s",
             }}
           >
-            <h3 className='text-2xl font-bold mb-3'>What Our Clients Say</h3>
+            <h3 className='text-2xl font-inter-600 mb-3'>What Our Clients Say</h3>
             <p className='text-sm'>“This platform transformed the way we approach AI training!”</p>
           </div>
         </div>
@@ -85,7 +85,7 @@ const HomePage = () => {
             animation: "fadeInEase 1s forwards 1s, slideUpEase 1s forwards 1s",
           }}
         >
-          <button className='bg-blue-600 text-white px-6 py-3 rounded-lg text-lg font-medium hover:bg-blue-700 transition-colors'>
+          <button className='bg-blue-600 text-white px-6 py-3 rounded-lg text-lg font-inter-500 hover:bg-blue-700 transition-colors'>
             Get Started
           </button>
         </div>

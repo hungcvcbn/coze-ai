@@ -79,7 +79,7 @@ const FormSignUp = () => {
                 height={80}
                 className='rounded-[8px]'
               />
-              <div className='text-[36px] font-semibold mt-2'>Zenee AI</div>
+              <div className='text-[36px] font-inter-600 mt-2'>Zenee AI</div>
             </div>
             <div className='flex flex-col gap-3 mb-6'>
               <button
@@ -88,13 +88,13 @@ const FormSignUp = () => {
               >
                 <Image src={GoogleIconImage} alt='Mindmaid.ai' width={25} height={25} />
 
-                <span className='text-[16px] font-medium'>Đăng ký bằng Google</span>
+                <span className='text-[16px] font-inter-500'>Đăng ký bằng Google</span>
               </button>
             </div>
 
             <div className='flex items-center justify-center my-2 mx-5'>
               <div className='border-t flex-grow'></div>
-              <span className='px-4 text-[16px] font-medium text-gray-500'>Hoặc</span>
+              <span className='px-4 text-[16px] font-inter-500 text-gray-500'>Hoặc</span>
               <div className='border-t flex-grow'></div>
             </div>
             <div className='flex flex-col gap-4'>
@@ -292,7 +292,7 @@ const FormSignUp = () => {
 
             <button
               className={clsx(
-                `w-full py-2.5 px-4 text-white rounded-lg font-medium transition-colors`,
+                `w-full py-2.5 px-4 text-white rounded-lg font-inter-500 transition-colors`,
                 loading ||
                   (step === 1 && (!userName || !phoneNumber)) ||
                   (step === 2 && !otp) ||
@@ -326,10 +326,10 @@ const FormSignUp = () => {
             </button>
 
             <div className='text-center mt-6'>
-              <span className='text-[16px] font-medium text-gray-600'>Đã có tài khoản? </span>
+              <span className='text-[16px] font-inter-500 text-gray-600'>Đã có tài khoản? </span>
               <Link
                 href={`/login`}
-                className='text-neutral-700 hover:text-neutral-800 font-medium hover:font-bold'
+                className='text-neutral-700 hover:text-neutral-800 font-inter-500 hover:font-bold'
               >
                 Đăng nhập ngay!
               </Link>

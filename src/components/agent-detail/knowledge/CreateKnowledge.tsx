@@ -211,7 +211,7 @@ const CreateKnowledge = ({
                       <CloudUpload className='text-gray-400 text-4xl' />
                       <div className='text-gray-600'>
                         {selectedSource ? (
-                          <span className='text-primary-600 font-medium'>
+                          <span className='text-primary-600 font-inter-500'>
                             Click để tải lên {getAcceptedFileTypes(selectedSource as SourceType)}{" "}
                             files
                           </span>

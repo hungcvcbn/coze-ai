@@ -92,13 +92,13 @@ const AdvancedGPT = ({ data }: Props) => {
           }}
         >
           <div className='flex flex-col w-[120px] rounded-lg bg-white'>
-            <button className='text-14-20 text-neutral font-medium px-4 py-2 border-b border-gray-300 hover:bg-gray-100'>
+            <button className='text-14-20 text-neutral font-inter-500 px-4 py-2 border-b border-gray-300 hover:bg-gray-100'>
               Cài đặt
             </button>
-            <button className='text-14-20 text-neutral font-medium px-4 py-2 border-b border-gray-300 hover:bg-gray-100'>
+            <button className='text-14-20 text-neutral font-inter-500 px-4 py-2 border-b border-gray-300 hover:bg-gray-100'>
               Công khai
             </button>
-            <button className='text-14-20 text-danger font-medium px-4 py-2 hover:bg-gray-100'>
+            <button className='text-14-20 text-danger font-inter-500 px-4 py-2 hover:bg-gray-100'>
               Xóa bot
             </button>
           </div>

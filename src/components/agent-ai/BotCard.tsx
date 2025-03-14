@@ -32,7 +32,7 @@ const BotCard: React.FC<BotCardProps> = ({
         >
           <span className='text-16-24'>{bot?.avatar}</span>
           <Tooltip title={bot?.name}>
-            <div className='font-semibold text-16-24 line-clamp-2 w-[calc(100%-40px)] text-neutral font-sans'>
+            <div className='text-16-24 line-clamp-2 w-[calc(100%-40px)] text-neutral font-inter-600'>
               {bot?.name}
             </div>
           </Tooltip>
@@ -54,11 +54,11 @@ const BotCard: React.FC<BotCardProps> = ({
       <div className='flex items-center justify-between py-2'>
         <div className='flex items-center gap-1'>
           <Image src={LogoZenee} alt='Zenee AI' width={20} height={20} className='rounded-lg' />
-          <span className='text-14-20 font-sans font-semibold text-primary'>Zenee AI</span>
+          <span className='text-14-20 font-inter-600 text-primary'>Zenee AI</span>
         </div>
         <Tooltip title='Trạng thái công khai/ Không công khai'>
           <BasicButton
-            className={`px-3 py-1 text-14-20 font-sans ${
+            className={`px-3 py-1 text-14-20 font-inter-400 ${
               bot?.status === STATUS_BOT.ACTIVE
                 ? "bg-green-50 text-success"
                 : "bg-danger-50 hover:bg-danger-50 hover:border-danger hover:border-[1px] text-danger"

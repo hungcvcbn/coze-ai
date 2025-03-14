@@ -112,7 +112,7 @@ const ControlCommand = ({ data, fetchAgentDetail }: IControlCommand) => {
   return (
     <div className='flex flex-col gap-2 pt-2 bg-white text-neutral'>
       <div className='flex items-center gap-2 justify-between'>
-        <div className='text-14-20 font-inter-600'>Persona & Prompt</div>
+        <div className='text-14-20 font-semibold'>Persona & Prompt</div>
         <div className='w-[200px]'>
           <Select
             size='small'

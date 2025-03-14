@@ -41,27 +41,27 @@ const BasicButton = forwardRef<HTMLButtonElement, ButtonProps>(
       switch (size) {
         case "sm":
           // height: 32px
-          return `h-[32px] ${variant !== "text" && "px-[14px]"} text-14-18 font-inter-600 ${
+          return `h-[32px] ${variant !== "text" && "px-[14px]"} text-14-18 font-semibold ${
             isRadius100 ? "rounded-[100px]" : "rounded-[8px]"
           }`;
         case "md":
           // height: 40px
-          return `h-[40px] ${variant !== "text" && "px-[16px]"} text-14-18 font-inter-600 ${
+          return `h-[40px] ${variant !== "text" && "px-[16px]"} text-14-18 font-semibold ${
             isRadius100 ? "rounded-[100px]" : "rounded-[8px]"
           }`;
         case "lg":
           // height: 44px
-          return `h-[44px] ${variant !== "text" && "px-[16px]"} text-16-20 font-inter-600 ${
+          return `h-[44px] ${variant !== "text" && "px-[16px]"} text-16-20 font-semibold ${
             isRadius100 ? "rounded-[100px]" : "rounded-[12px]"
           }`;
         case "xl":
           // height: 48px
-          return `h-[48px] ${variant !== "text" && "px-[24px]"} text-16-20 font-inter-600 ${
+          return `h-[48px] ${variant !== "text" && "px-[24px]"} text-16-20 font-semibold ${
             isRadius100 ? "rounded-[100px]" : "rounded-[12px]"
           }`;
         case "xxl":
           // height: 64px
-          return `h-[64px] ${variant !== "text" && "px-[28px]"} text-20-24 font-inter-600 ${
+          return `h-[64px] ${variant !== "text" && "px-[28px]"} text-20-24 font-semibold ${
             isRadius100 ? "rounded-[100px]" : "rounded-[16px]"
           }`;
         default:
@@ -121,7 +121,7 @@ const BasicButton = forwardRef<HTMLButtonElement, ButtonProps>(
           renderClassByVariantAndColor(),
           "flex items-center justify-center",
           "whitespace-nowrap",
-          "font-inter-500",
+          "font-sans",
           clases,
           {
             ["cursor-not-allowed opacity-50"]: props.disabled || loading,
@@ -134,7 +134,7 @@ const BasicButton = forwardRef<HTMLButtonElement, ButtonProps>(
         <span
           className={clsx(
             { "ml-[8px]": !!startIcon, "mr-[8px]": !!endIcon },
-            "flex items-center font-inter-600"
+            "flex items-center font-sans font-semibold"
           )}
         >
           {props.children}

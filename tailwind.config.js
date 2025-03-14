@@ -1,6 +1,4 @@
 /** @type {import('tailwindcss').Config} */
-const plugin = require('tailwindcss/plugin')
-
 module.exports = {
   content: [
     './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
@@ -145,27 +143,5 @@ module.exports = {
       '48-48': ['48px', '48px'],
     },
   },
-  plugins: [
-    plugin(function({ addUtilities }) {
-      const fontUtilities = {}
-      const weights = [100, 200, 300, 400, 500, 600, 700, 800, 900]
-      
-
-      weights.forEach(weight => {
-        fontUtilities[`.font-inter-${weight}`] = {
-          'font-family': 'var(--font-inter)',
-          'font-weight': weight
-        }
-      })
-  
-      weights.forEach(weight => {
-        fontUtilities[`.font-arial-${weight}`] = {
-          'font-family': 'Arial, sans-serif',
-          'font-weight': weight
-        }
-      })
-      
-      addUtilities(fontUtilities)
-    })
-  ],
+  plugins: [],
 } 

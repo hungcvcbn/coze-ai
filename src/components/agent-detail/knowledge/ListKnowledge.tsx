@@ -151,7 +151,7 @@ const EditKnowledgeModal = ({
                         <i className='text-blue-500'>📄</i>
                       </div>
                       <div className='flex flex-col overflow-hidden'>
-                        <span className='text-14-20 font-inter-600 truncate'>{item.name}</span>
+                        <span className='text-14-20 font-semibold truncate'>{item.name}</span>
                         <span className='text-14-20 text-neutral truncate'>{item.description}</span>
                         {item?.files?.map((file: any, index: number) => (
                           <div key={index} className='text-14-20 text-primary'>

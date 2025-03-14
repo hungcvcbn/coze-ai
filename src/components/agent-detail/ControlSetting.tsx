@@ -63,7 +63,7 @@ const ControlSetting = () => {
             </div>
 
             <div className='flex flex-col justify-center px-3 pb-2'>
-              <div className='text-14-20 flex items-center gap-2 font-inter-600 text-primary'>
+              <div className='text-14-20 flex items-center gap-2 font-semibold text-primary'>
                 {data?.name}
                 <IconButton onClick={() => setOpen(true)}>
                   <EditNoteIcon sx={{ fontSize: "20px", color: "#6A5ACD" }} />
@@ -74,14 +74,14 @@ const ControlSetting = () => {
                   <div>
                     <IcCheckCircle color='#22C55E' width={16} height={16} />
                   </div>
-                  <div className='text-12-18 font-inter-600 text-success'>Đang bật</div>
+                  <div className='text-12-18 font-semibold text-success'>Đang bật</div>
                 </div>
               ) : (
                 <div className='flex items-center border border-danger w-fit rounded-lg px-2 gap-1 bg-danger-50'>
                   <div>
                     <ThumbDownOffAltIcon sx={{ color: "#EF4444", fontSize: "16px", padding: 0 }} />
                   </div>
-                  <div className='text-12-18 font-inter-600 text-danger'>Đã tắt</div>
+                  <div className='text-12-18 font-semibold text-danger'>Đã tắt</div>
                 </div>
               )}
             </div>

@@ -40,8 +40,8 @@ const ConfirmDialog: React.FC<ConfirmDialogProps> = ({
       <div className='flex flex-col justify-center items-center space-y-6 p-9 rounded-[16px]'>
         {icon && <div className='flex justify-center items-center'>{icon}</div>}
         <div>
-          <div className='text-28-40 text-center font-inter-600'>{title}</div>
-          {subTitle && <div className='text-14-20 text-center pt-2 font-inter-600'>{subTitle}</div>}
+          <div className='text-28-40 text-center font-semibold'>{title}</div>
+          {subTitle && <div className='text-14-20 text-center pt-2 font-semibold'>{subTitle}</div>}
         </div>
         <div className='flex flex-row justify-center space-x-4'>
           <BasicButton variant='outlined' onClick={() => onClose()} clases='text-neutral'>

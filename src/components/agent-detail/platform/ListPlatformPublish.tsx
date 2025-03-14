@@ -90,7 +90,7 @@ const ListPlatformPublish = ({ open, setOpen }: Props) => {
       <BasicDialogContent>
         <div className='flex flex-col text-neutral'>
           <div className='flex flex-col mb-4 rounded-lg bg-white p-4 text-neutral'>
-            <div className='text-20-24 font-inter-500 mb-4'>Nền tảng hỗ trợ</div>
+            <div className='text-20-24 font-sans font-medium mb-4'>Nền tảng hỗ trợ</div>
             <div className='space-y-2'>
               {data?.availablePlatforms?.map((platform: any) => (
                 <div
@@ -107,10 +107,8 @@ const ListPlatformPublish = ({ open, setOpen }: Props) => {
                   <div className='flex items-center gap-4'>
                     <span className='text-2xl'>{platform.icon}</span>
                     <div>
-                      <h3 className='text-14-20 font-inter-600'>{platform.name}</h3>
-                      <p className='text-14-20 font-inter-400 text-gray-600'>
-                        {platform.description}
-                      </p>
+                      <h3 className='text-14-20 font-sans font-semibold'>{platform.name}</h3>
+                      <p className='text-14-20 font-sans text-gray-600'>{platform.description}</p>
                     </div>
                   </div>
                 </div>

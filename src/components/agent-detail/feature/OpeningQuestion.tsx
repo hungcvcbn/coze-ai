@@ -125,7 +125,7 @@ const OpeningQuestion = ({ data }: OpeningQuestionProps) => {
   return (
     <div className='flex flex-col'>
       <div>
-        <div className='text-14-20 font-inter-400 text-gray-600 flex items-center gap-2 pb-1'>
+        <div className='text-14-20 font-sans font-normal text-gray-600 flex items-center gap-2 pb-1'>
           Opening text <IconInfo />
         </div>
 
@@ -138,7 +138,7 @@ const OpeningQuestion = ({ data }: OpeningQuestionProps) => {
       </div>
 
       <div className='mt-4'>
-        <div className='text-14-20 flex items-center gap-2 font-inter-400 text-gray-600 pb-1'>
+        <div className='text-14-20 flex items-center gap-2 font-sans font-normal text-gray-600 pb-1'>
           Preset opening questions <IconInfo />
         </div>
 
@@ -191,7 +191,7 @@ const OpeningQuestion = ({ data }: OpeningQuestionProps) => {
           ))}
         </div>
 
-        <div className='flex items-center font-inter-500 gap-2 p-3 border rounded-md border-dashed'>
+        <div className='flex items-center font-sans gap-2 p-3 border rounded-md border-dashed'>
           <input
             type='text'
             placeholder='Enter the opening question'

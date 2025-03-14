@@ -50,14 +50,14 @@ const LayoutHeader = () => {
         <div className='flex lg:justify-end justify-between items-center'>
           <div className='lg:hidden flex items-center gap-2 ml-12'>
             <Image src={LogoImage} alt='Logo' width={32} height={32} className='rounded-[8px]' />
-            <span className='text-neutral font-inter-600 pt-2'>Zenee AI</span>
+            <span className='text-neutral font-semibold pt-2'>Zenee AI</span>
           </div>
           <div className='flex justify-end items-center'>
             {!isEmpty(profile) ? (
               <>
                 <div className='flex items-center gap-2'>
                   {/* <IconMessage /> <IcBell /> */}
-                  <div className='text-14-20 text-neutral font-inter-600 px-2 max-w-[70px] overflow-hidden text-ellipsis whitespace-nowrap sm:max-w-[200px] md:max-w-none'>
+                  <div className='text-14-20 text-neutral font-semibold px-2 max-w-[70px] overflow-hidden text-ellipsis whitespace-nowrap sm:max-w-[200px] md:max-w-none'>
                     {profile?.username}
                   </div>
                   <Avatar
@@ -82,7 +82,7 @@ const LayoutHeader = () => {
                   }}
                 >
                   <div className='p-2 flex flex-col gap-2'>
-                    <div className='text-neutral font-inter-600 border-b pb-2'>
+                    <div className='text-neutral font-semibold border-b pb-2'>
                       {profile?.username}
                     </div>
                     <button
@@ -103,7 +103,7 @@ const LayoutHeader = () => {
                 {!firstLoading && (
                   <Link href={"/login"}>
                     <BasicButton size='md' variant='contained' color='primary'>
-                      <div className='flex items-center gap-2 font-inter-600'>Đăng nhập</div>
+                      <div className='flex items-center gap-2 font-semibold'>Đăng nhập</div>
                     </BasicButton>
                   </Link>
                 )}

@@ -45,10 +45,10 @@ const BackgroundImage = ({ open, setOpen }: IBackgroundImage) => {
         >
           <CloudUploadIcon sx={{ fontSize: 48, color: "#6A5ACD" }} />
           <div className='text-center'>
-            <p className='mb-1 text-14-20 font-inter-500 text-gray-500'>
+            <p className='mb-1 text-14-20 font-sans font-medium text-gray-500'>
               Click to upload or drag and drop the image here
             </p>
-            <p className='text-14-20 font-inter-400 text-gray-500'>
+            <p className='text-14-20 font-sans font-normal text-gray-500'>
               Supports uploading images in PNG, JPG, and JPEG formats
             </p>
           </div>

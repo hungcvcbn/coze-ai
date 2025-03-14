@@ -75,11 +75,11 @@ const Menu = () => {
       >
         <div className='flex justify-center items-center gap-2 mb-2 px-4 w-full p-4 h-[64px]'>
           <Image src={LogoImage} alt='Logo' width={40} height={40} className='rounded-lg' />
-          <span className='text-24-32 text-neutral font-inter-600 pt-1'>Zenee AI</span>
+          <span className='text-24-32 text-neutral font-semibold pt-1'>Zenee AI</span>
         </div>
         <div className='flex justify-center pb-3 px-4'>
           <button
-            className='bg-primary w-full text-white px-4 py-2 rounded-lg font-inter-600 text-14-20'
+            className='bg-primary w-full text-white px-4 py-2 rounded-lg font-semibold text-14-20'
             onClick={() => setOpen(true)}
           >
             Tạo Bot
@@ -97,7 +97,7 @@ const Menu = () => {
                 }`}
               >
                 {item.icon}
-                <span className='font-inter-600 text-[16px]'>{item.title}</span>
+                <span className='font-semibold text-[16px]'>{item.title}</span>
               </Link>
             );
           })}

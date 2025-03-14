@@ -189,11 +189,11 @@ const SettingOptions = ({ data }: ISettingOptions) => {
                 }`}
               >
                 <div className='flex justify-between items-center'>
-                  <div className='text-16-24 font-inter-600 text-neutral'>{childOption.label}</div>
+                  <div className='text-16-24 font-semibold text-neutral'>{childOption.label}</div>
                   <Tooltip title='Xóa knowledge khỏi agent' placement='top'>
                     <button
                       onClick={() => removeKnowledge(childOption.id)}
-                      className='text-12-18 text-danger font-inter-600 hover:bg-danger hover:text-white transition-colors duration-200 cursor-pointer border border-danger rounded-lg px-2 py-1'
+                      className='text-12-18 text-danger font-semibold hover:bg-danger hover:text-white transition-colors duration-200 cursor-pointer border border-danger rounded-lg px-2 py-1'
                     >
                       Xóa
                     </button>
@@ -218,7 +218,7 @@ const SettingOptions = ({ data }: ISettingOptions) => {
       <div className=''>
         {items.map((item, featureIndex) => (
           <div key={featureIndex} className='space-y-2'>
-            <div className='text-12-18 font-inter-600 px-2 text-neutral pt-4'>
+            <div className='text-12-18 font-semibold px-2 text-neutral pt-4'>
               {item.featureName}
             </div>
             {item?.options?.map((option, parentIndex) => (
@@ -227,7 +227,7 @@ const SettingOptions = ({ data }: ISettingOptions) => {
                 className='mb-2 rounded-lg overflow-hidden border border-gray-200'
               >
                 <div
-                  className='flex justify-between items-center cursor-pointer text-16-24 font-inter-600 h-[40px] hover:bg-gray-50 bg-white p-1 text-neutral transition-colors duration-200'
+                  className='flex justify-between items-center cursor-pointer text-16-24 font-sans font-semibold h-[40px] hover:bg-gray-50 bg-white p-1 text-neutral transition-colors duration-200'
                   onClick={() => toggleCollapse(`${featureIndex}-${parentIndex}`)}
                 >
                   <div className='flex items-center gap-2'>
@@ -241,7 +241,9 @@ const SettingOptions = ({ data }: ISettingOptions) => {
                     >
                       <IconArrowDown width={16} height={16} />
                     </div>
-                    <div className='text-14-20 font-inter-600 text-neutral'>{option.title}</div>
+                    <div className='text-14-20 font-sans font-semibold text-neutral'>
+                      {option.title}
+                    </div>
                   </div>
                   <div className='flex items-center'>
                     {(option.title === "Table" ||
@@ -290,7 +292,7 @@ const SettingOptions = ({ data }: ISettingOptions) => {
                       {!isEmpty(option?.children) ? (
                         renderSettingOptions(option.children, item.featureName)
                       ) : (
-                        <div className='text-14-20 font-inter-400 text-gray-500'>
+                        <div className='text-14-20 font-sans text-gray-500'>
                           {option?.description}
                         </div>
                       )}
@@ -317,7 +319,7 @@ const SettingOptions = ({ data }: ISettingOptions) => {
                         <div className='flex justify-between items-center'>
                           <WarningIcon color='warning' />
                         </div>
-                        <div className='text-16-24 font-inter-600'>Replace Opening Dialog</div>
+                        <div className='text-20-28 font-semibold'>Replace Opening Dialog</div>
                       </div>
 
                       <div className='pl-8'>

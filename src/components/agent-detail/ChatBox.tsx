@@ -293,55 +293,53 @@ const ChatBox = ({ conversation, data }: ChatBoxProps) => {
     }
   }, [isLoading]);
   return (
-    <div className='flex flex-col h-full relative bg-gray-50 shadow-sm rounded-lg overflow-hidden'>
-      <div className='h-auto min-h-[56px] p-3 flex items-center border-b rounded-t-lg border-gray-200 bg-white justify-between sticky top-0 z-10 shadow-sm'>
+    <div className='flex flex-col h-full relative'>
+      <div className='h-auto min-h-[56px] p-3 flex items-center border-b rounded-t-lg border-gray-200 bg-white justify-between'>
         <div className='flex items-center gap-2 justify-end w-full'>
           <BasicButton size='sm' onClick={() => setOpen(true)}>
             Publish
           </BasicButton>
+          {/* <Tooltip title='Chọn kết nối với nền tảng' placement='top'>
+                <IconButton onClick={() => router.push(`/control-panel/${data?.id}/settings/list`)}>
+                  <LinkIcon sx={{ color: "#6A5ACD" }} />
+                </IconButton>
+              </Tooltip> */}
         </div>
       </div>
       <div
-        className='flex-1 max-h-[calc(100vh-200px)] overflow-y-auto p-4 space-y-2 
-          [&::-webkit-scrollbar]:w-2
-          [&::-webkit-scrollbar-track]:bg-gray-100/50
-          [&::-webkit-scrollbar-thumb]:bg-gray-300/70
-          [&::-webkit-scrollbar-thumb]:rounded-full
-          [scroll-behavior:smooth]'
+        className='flex-1 max-h-[calc(100vh-200px)] overflow-y-auto p-2 sm:p-4 [&::-webkit-scrollbar]:w-2
+          [&::-webkit-scrollbar-track]:bg-gray-100
+          [&::-webkit-scrollbar-thumb]:bg-gray-300
+          [&::-webkit-scrollbar-thumb]:rounded-full'
       >
         {messages.map((msg, index) => (
           <div
             key={index}
-            className={`flex ${msg.sender === "user" ? "justify-end" : "justify-start"} 
-            animate-fadeIn transition-opacity duration-300 ease-in-out`}
+            className={`mb-4 flex ${msg.sender === "user" ? "justify-end" : "justify-start"}`}
           >
             {msg.sender === "system" && (
-              <div className='flex items-start flex-col group'>
+              <div className='flex items-start flex-col max-w-[85%] sm:max-w-[75%]'>
                 <div className='flex items-start'>
-                  <div className='shrink-0'>
-                    <Image
-                      src={LogoImage}
-                      alt='Bot Avatar'
-                      width={36}
-                      height={36}
-                      className='rounded-full w-9 h-9 object-cover mr-3 mt-1 border border-gray-200/50 shadow-sm'
-                    />
-                  </div>
-                  <div className='px-4 py-3 bg-white text-14-20 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow'>
-                    <pre className='whitespace-pre-wrap font-inter-400 text-neutral leading-relaxed'>
+                  <Image
+                    src={LogoImage}
+                    alt='Bot Avatar'
+                    width={40}
+                    height={40}
+                    className='rounded-full w-10 h-10 object-cover mr-2'
+                  />
+                  <div className='px-4 py-2 bg-white text-14-20 rounded-lg shadow-lg'>
+                    <pre className='whitespace-pre-wrap font-sans font-normal text-neutral'>
                       {msg.text}
                     </pre>
                   </div>
                 </div>
                 {msg.suggestions && (
-                  <div className='ml-12 mt-3 flex gap-2 flex-wrap'>
+                  <div className='ml-12 mt-2 flex gap-2 flex-wrap'>
                     {msg.suggestions.map((suggestion, idx) => (
                       <button
                         key={idx}
-                        className='text-start px-4 py-2 bg-white shadow-sm hover:bg-gray-100 rounded-xl text-12-18 
-                        text-neutral font-inter-400  transition duration-200 border border-gray-200/50'
+                        className='text-start px-4 py-2 bg-white shadow-md hover:bg-gray-300 rounded-lg text-12-18 text-neutral font-sans font-normal transition duration-200'
                         onClick={() => handleSuggestionClick(suggestion)}
-                        disabled={isLoading}
                       >
                         {suggestion}
                       </button>
@@ -351,8 +349,8 @@ const ChatBox = ({ conversation, data }: ChatBoxProps) => {
               </div>
             )}
             {msg.sender === "user" && (
-              <div className='flex items-start group'>
-                <div className='p-2 bg-blue-50 text-14-20 text-neutral font-inter-400 rounded-lg shadow-sm border border-blue-100/60'>
+              <div className='flex font-sans  items-start max-w-[85%] sm:max-w-[75%]'>
+                <div className='px-4 py-2 bg-blue-100 text-14-20 text-neutral font-sans font-normal rounded-lg shadow-lg'>
                   {msg.text}
                   {msg.attachment && (
                     <div className='mt-2'>
@@ -375,21 +373,19 @@ const ChatBox = ({ conversation, data }: ChatBoxProps) => {
                     </div>
                   )}
                 </div>
-                <div className='shrink-0'>
-                  <Image
-                    src={AdminAvatar}
-                    alt='User Avatar'
-                    width={36}
-                    height={36}
-                    className='rounded-full w-9 h-9 object-cover ml-3 mt-1 border border-gray-200/50 shadow-sm'
-                  />
-                </div>
+                <Image
+                  src={AdminAvatar}
+                  alt='User Avatar'
+                  width={40}
+                  height={40}
+                  className='rounded-full w-10 h-10 object-cover ml-2'
+                />
               </div>
             )}
           </div>
         ))}
         {isTyping && (
-          <div className='flex items-center gap-2 text-neutral font-inter-400 text-12-18'>
+          <div className='flex items-center gap-2 text-neutral font-sans font-normal text-12-18'>
             <Image
               src={LogoImage}
               alt='Typing Avatar'
@@ -406,18 +402,11 @@ const ChatBox = ({ conversation, data }: ChatBoxProps) => {
         )}
         <div ref={messagesEndRef} />
       </div>
-      <div className='flex items-center rounded-b-lg pt-3 pb-3 border-t border-gray-200 px-4 bg-white sticky bottom-0 left-0 right-0 shadow-md'>
-        <button
-          onClick={handleResetConversation}
-          className='p-2 rounded-full hover:bg-gray-100 transition-colors'
-          disabled={isLoading}
-          title='Bắt đầu cuộc trò chuyện mới'
-        >
-          <CleaningServicesIcon
-            sx={{ color: isLoading ? "#A8A8A8" : "#6A5ACD", fontSize: "20px" }}
-          />
-        </button>
-        <div className='flex-1 relative'>
+      <div className='flex items-center rounded-b-lg gap-2 pt-2 border-t border-gray-200 p-2 bg-white sticky bottom-0 left-0 right-0'>
+        <div className='cursor-pointer' onClick={handleResetConversation}>
+          <CleaningServicesIcon sx={{ color: "#6A5ACD", "&:hover": { color: "#6A5ACD" } }} />
+        </div>
+        <div className='flex-1'>
           <CustomTextField
             fullWidth
             multiline
@@ -454,37 +443,25 @@ const ChatBox = ({ conversation, data }: ChatBoxProps) => {
             }}
             InputProps={{
               endAdornment: (
-                <div className='flex items-center mr-1'>
-                  <button
-                    disabled={isLoading}
+                <div className='flex items-center gap-2'>
+                  <AttachFileIcon
+                    fontSize='small'
+                    sx={{
+                      color: isLoading ? "#A8A8A8" : "#6A5ACD",
+                      cursor: isLoading ? "default" : "pointer",
+                      "&:hover": { color: isLoading ? "#A8A8A8" : "#3E2A91" },
+                    }}
                     onClick={() => !isLoading && fileInputRef.current?.click()}
-                    className={`rounded-full ${
-                      isLoading ? "opacity-50" : "hover:bg-gray-100"
-                    } transition-colors`}
-                    title='Đính kèm tệp'
-                  >
-                    <AttachFileIcon
-                      fontSize='small'
-                      sx={{
-                        color: isLoading ? "#A8A8A8" : "#6A5ACD",
-                      }}
-                    />
-                  </button>
-                  <button
+                  />
+                  <Send
+                    fontSize='small'
+                    sx={{
+                      color: isLoading ? "#A8A8A8" : "#6A5ACD",
+                      cursor: isLoading ? "default" : "pointer",
+                      "&:hover": { color: isLoading ? "#A8A8A8" : "#3E2A91" },
+                    }}
                     onClick={handleChat}
-                    disabled={isLoading || !input.trim()}
-                    className={`p-1.5 rounded-full ${
-                      isLoading || !input.trim() ? "opacity-50" : "hover:bg-gray-100"
-                    } transition-colors`}
-                    title='Gửi tin nhắn'
-                  >
-                    <Send
-                      fontSize='small'
-                      sx={{
-                        color: isLoading ? "#A8A8A8" : "#6A5ACD",
-                      }}
-                    />
-                  </button>
+                  />
                 </div>
               ),
             }}

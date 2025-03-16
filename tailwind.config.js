@@ -21,14 +21,14 @@ module.exports = {
         text: '#333333',
 
         // Primary color
-        primary: '#6A5ACD',
-        'primary-50': '#E6E6FA',
-        'primary-100': '#D8BFD8',
-        'primary-200': '#B0C4DE',
-        'primary-400': '#7B68EE',
-        'primary-500': '#483D8B',
-        'primary-600': '#4B0082',
-        'primary-700': '#3E2A91',
+        primary: '#39B5E0',
+        'primary-50': '#E6F7FD',
+        'primary-100': '#C3EBFA',
+        'primary-200': '#9DDEF7',
+        'primary-400': '#61C6EA',
+        'primary-500': '#2AA3D0',
+        'primary-600': '#1E8AB2',
+        'primary-700': '#157299',
 
         // Bg color
         background: '#334155',

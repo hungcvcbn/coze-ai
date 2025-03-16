@@ -24,13 +24,13 @@ const Layout = ({ children }: LayoutProps) => {
   }
 
   return (
-    <div className='flex flex-col'>
+    <div className='flex flex-col min-h-screen bg-gray-100'>
       <Menu />
       <div className='lg:pl-64 flex-1 flex flex-col'>
-        <div className='sticky top-0 z-10 bg-white'>
+        {/* <div className='sticky top-0 z-10 bg-white'>
           <LayoutHeader />
-        </div>
-        <main className='flex-1 rounded-lg p-4'>{children}</main>
+        </div> */}
+        <main className='flex-1 bg-white m-4 rounded-lg shadow-sm'>{children}</main>
       </div>
     </div>
   );

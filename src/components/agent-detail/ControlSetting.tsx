@@ -45,7 +45,7 @@ const ControlSetting = () => {
   }, []);
 
   return (
-    <div className='grid grid-cols-12 gap-2 p-4 bg-white'>
+    <div className='grid grid-cols-12 gap-2 p-4 bg-white rounded-lg'>
       <div className='col-span-12 lg:col-span-4 lg:sticky lg:top-[64px] h-auto lg:h-[calc(100vh-104px)] bg-white border border-gray-200 rounded-lg px-4 pb-4'>
         <div className='flex justify-between h-[80px] border-b border-gray-200'>
           <div className='flex'>

@@ -1,12 +1,12 @@
 import React from "react";
-import LayoutDetail from "@/components/layout/LayoutDetail";
+import Layout from "@/components/layout/Layout";
 import ControlSetting from "@/components/agent-detail/ControlSetting";
 
 const SettingsPage = () => {
   return (
-    <LayoutDetail>
+    <Layout>
       <ControlSetting />
-    </LayoutDetail>
+    </Layout>
   );
 };
 

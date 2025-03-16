@@ -21,7 +21,7 @@ import { useDispatch } from "react-redux";
 import BasicButton from "../common/BasicButton";
 import { useRouter } from "next/navigation";
 import ListPlatformPublish from "./platform/ListPlatformPublish";
-import { IconButton, Tooltip, Select, MenuItem, FormControl } from "@mui/material";
+import { IconButton, Tooltip, Select, MenuItem, FormControl, Avatar } from "@mui/material";
 import LinkIcon from "@mui/icons-material/Link";
 import { resetConversation } from "@/helpers/api/agent";
 import { useAppSelector } from "@/redux/hooks";
@@ -321,7 +321,7 @@ const ChatBox = ({ conversation, data }: ChatBoxProps) => {
         </div>
       </div>
       <div
-        className='flex-1 max-h-[calc(100vh-200px)] overflow-y-auto p-2 sm:p-4 [&::-webkit-scrollbar]:w-2
+        className='flex-1 max-h-[calc(100vh-200px)] bg-slate-50 rounded-lg overflow-y-auto p-2 sm:p-4 [&::-webkit-scrollbar]:w-2
           [&::-webkit-scrollbar-track]:bg-gray-100
           [&::-webkit-scrollbar-thumb]:bg-gray-300
           [&::-webkit-scrollbar-thumb]:rounded-full'
@@ -333,14 +333,9 @@ const ChatBox = ({ conversation, data }: ChatBoxProps) => {
           >
             {msg.sender === "system" && (
               <div className='flex items-start flex-col max-w-[85%] sm:max-w-[75%]'>
-                <div className='flex items-start'>
-                  <Image
-                    src={LogoImage}
-                    alt='Bot Avatar'
-                    width={40}
-                    height={40}
-                    className='rounded-full w-10 h-10 object-cover mr-2'
-                  />
+                <div className='flex items-start gap-2'>
+                  <Avatar src={LogoImage?.src} alt='Bot Avatar' />
+
                   <div className='px-4 py-2 bg-white text-14-20 rounded-lg shadow-lg'>
                     <pre className='whitespace-pre-wrap font-sans font-normal text-neutral'>
                       {msg.text}
@@ -363,9 +358,11 @@ const ChatBox = ({ conversation, data }: ChatBoxProps) => {
               </div>
             )}
             {msg.sender === "user" && (
-              <div className='flex font-sans  items-start max-w-[85%] sm:max-w-[75%]'>
-                <div className='px-4 py-2 bg-blue-100 text-14-20 text-neutral font-sans font-normal rounded-lg shadow-lg'>
-                  {msg.text}
+              <div className='flex font-sans justify-end items-start max-w-[320px] gap-2'>
+                <div className='px-4 py-2 bg-blue-100 text-14-20 text-neutral font-sans font-normal rounded-lg shadow-lg break-words overflow-hidden'>
+                  <pre className='whitespace-pre-wrap font-sans font-normal text-neutral m-0'>
+                    {msg.text}
+                  </pre>
                   {msg.attachment && (
                     <div className='mt-2'>
                       {msg.attachment.type === "image" ? (
@@ -387,26 +384,14 @@ const ChatBox = ({ conversation, data }: ChatBoxProps) => {
                     </div>
                   )}
                 </div>
-                <Image
-                  src={AdminAvatar}
-                  alt='User Avatar'
-                  width={40}
-                  height={40}
-                  className='rounded-full w-10 h-10 object-cover ml-2'
-                />
+                <Avatar src={AdminAvatar?.src} alt='User Avatar' />
               </div>
             )}
           </div>
         ))}
         {isTyping && (
           <div className='flex items-center gap-2 text-neutral font-sans font-normal text-12-18'>
-            <Image
-              src={LogoImage}
-              alt='Typing Avatar'
-              width={40}
-              height={40}
-              className='rounded-full mr-2'
-            />
+            <Avatar src={LogoImage?.src} alt='Typing Avatar' />
             <div className='flex gap-1'>
               <span className='w-1 h-1 rounded-full bg-gray-600 animate-bounce [animation-delay:-0.3s]'></span>
               <span className='w-1 h-1 rounded-full bg-gray-600 animate-bounce [animation-delay:-0.15s]'></span>

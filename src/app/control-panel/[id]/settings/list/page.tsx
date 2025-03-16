@@ -1,11 +1,11 @@
 import React from "react";
-import LayoutDetail from "@/components/layout/LayoutDetail";
+import Layout from "@/components/layout/Layout";
 import ListPlatformConfig from "@/components/agent-detail/platform/ListPlatformConfig";
 const SettingsListPage = () => {
   return (
-    <LayoutDetail>
+    <Layout>
       <ListPlatformConfig />
-    </LayoutDetail>
+    </Layout>
   );
 };
 

@@ -196,11 +196,13 @@ const Menu = () => {
               </Popover>
             </div>
           ) : (
-            <Link href={"/login"}>
-              <BasicButton size='md' variant='contained' color='primary'>
-                <div className='flex items-center gap-2 font-semibold'>Đăng nhập</div>
-              </BasicButton>
-            </Link>
+            <div className='mt-auto border-t mx-auto border-gray-200 p-2'>
+              <Link href={"/login"}>
+                <BasicButton size='md' variant='contained' color='primary'>
+                  <div className='flex items-center gap-2 font-semibold'>Đăng nhập</div>
+                </BasicButton>
+              </Link>
+            </div>
           )}
         </div>
 

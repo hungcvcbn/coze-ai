@@ -193,13 +193,13 @@ const FormLoginBasic = () => {
                       },
                     }}
                   />
-                  <div className='text-14-20 px-1 font-medium text-neutral'>
+                  <div className='text-12-18 px-1 font-medium text-neutral'>
                     Đồng ý với các điều khoản và điều kiện
                   </div>
                 </div>
                 <Link
                   href={``}
-                  className='text-14-20 font-medium text-blue-600 hover:text-blue-800'
+                  className='text-12-18 font-medium text-blue-600 hover:text-blue-800'
                 >
                   Quên mật khẩu?
                 </Link>
@@ -218,10 +218,10 @@ const FormLoginBasic = () => {
               </button>
 
               <div className='text-center mt-6'>
-                <span className='text-16-24 text-neutral'>Chưa có tài khoản? </span>
+                <span className='text-14-20 text-neutral'>Chưa có tài khoản? </span>
                 <Link
                   href={`/sign-up`}
-                  className='text-blue-600 hover:text-blue-800 text-16-24 font-medium hover:font-bold'
+                  className='text-blue-600 hover:text-blue-800 text-14-20 font-medium hover:font-bold'
                 >
                   Đăng ký ngay!
                 </Link>

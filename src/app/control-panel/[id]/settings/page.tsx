@@ -5,7 +5,9 @@ import ControlSetting from "@/components/agent-detail/ControlSetting";
 const SettingsPage = () => {
   return (
     <Layout>
-      <ControlSetting />
+      <div className='flex justify-center items-center h-screen'>
+        <ControlSetting />
+      </div>
     </Layout>
   );
 };

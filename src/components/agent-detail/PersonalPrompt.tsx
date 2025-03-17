@@ -114,11 +114,12 @@ const ControlCommand = ({ data, fetchAgentDetail }: IControlCommand) => {
 
   return (
     <div className='flex flex-col gap-2 pt-2 bg-white text-neutral'>
-      <div className='flex items-center gap-2 justify-between'>
+      <div className='flex flex-col items-center gap-2 justify-between'>
         <div className='text-14-20 font-semibold'>Persona & Prompt</div>
-        <div className='w-[200px]'>
+        <div className='w-full'>
           <Select
             size='small'
+            fullWidth
             value={model}
             open={selectOpen}
             onOpen={() => setSelectOpen(true)}
@@ -127,7 +128,6 @@ const ControlCommand = ({ data, fetchAgentDetail }: IControlCommand) => {
             sx={{
               borderRadius: "8px",
               height: "30px",
-              minWidth: "200px",
               fontSize: "14px",
               fontFamily: "'JetBrains Mono', monospace",
               paddingRight: "10px",
@@ -197,7 +197,7 @@ const ControlCommand = ({ data, fetchAgentDetail }: IControlCommand) => {
           [&::-webkit-scrollbar-thumb]:rounded-full'
         value={personaPrompt}
         onChange={handleTextareaChange}
-        rows={32}
+        rows={31}
       />
       <div className='flex justify-end gap-2'>
         <BasicButton

@@ -27,9 +27,6 @@ const Layout = ({ children }: LayoutProps) => {
     <div className='flex flex-col bg-gray-100'>
       <Menu />
       <div className='lg:pl-64 flex-1 flex flex-col h-full'>
-        {/* <div className='sticky top-0 z-10 bg-white'>
-          <LayoutHeader />
-        </div> */}
         <main className='flex-1 bg-white rounded-lg'>{children}</main>
       </div>
     </div>

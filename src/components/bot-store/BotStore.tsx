@@ -37,7 +37,7 @@ const BotStore = () => {
 
   return (
     <div className='flex flex-col text-neutral font-sans'>
-      <div className='flex items-center justify-between sticky z-10 p-0' style={{ top: "63px" }}>
+      <div className='flex items-center justify-between sticky z-10 p-0 top-0'>
         <div className='px-4 py-2 w-full bg-white'>
           <Grid container spacing={2}>
             <Grid size={12}>

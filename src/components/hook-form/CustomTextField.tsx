@@ -31,8 +31,11 @@ const CustomTextField = forwardRef<HTMLDivElement, CustomTextFieldProps>(
                   padding: "3px 8px",
                   height: "24px",
                   fontSize: "12px",
+                  fontFamily: "'JetBrains Mono', monospace",
                 }
-              : {},
+              : {
+                  fontFamily: "'JetBrains Mono', monospace",
+                },
           }}
           error={!!error}
           sx={{
@@ -41,10 +44,14 @@ const CustomTextField = forwardRef<HTMLDivElement, CustomTextFieldProps>(
                   overflow: "hidden",
                   textOverflow: "ellipsis",
                   whiteSpace: "nowrap",
+                  fontFamily: "'JetBrains Mono', monospace",
                 }
-              : {},
+              : {
+                  fontFamily: "'JetBrains Mono', monospace",
+                },
             "& .MuiInputBase-input::placeholder": {
               fontSize: "14px",
+              fontFamily: "'JetBrains Mono', monospace",
             },
             "& .Mui-disabled": {
               backgroundColor: "#F9FAFB",
@@ -68,6 +75,7 @@ const CustomTextField = forwardRef<HTMLDivElement, CustomTextFieldProps>(
             },
             "& .MuiFormHelperText-root": {
               marginLeft: "0px !important",
+              fontFamily: "'JetBrains Mono', monospace",
             },
             ...(dashedBorder && {
               height: "16px",

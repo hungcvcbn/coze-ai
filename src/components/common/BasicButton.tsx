@@ -134,7 +134,7 @@ const BasicButton = forwardRef<HTMLButtonElement, ButtonProps>(
         <span
           className={clsx(
             { "ml-[8px]": !!startIcon, "mr-[8px]": !!endIcon },
-            "flex items-center font-sans font-semibold"
+            "flex items-center font-mono font-semibold"
           )}
         >
           {props.children}

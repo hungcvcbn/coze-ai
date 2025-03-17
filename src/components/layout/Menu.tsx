@@ -92,7 +92,7 @@ const Menu = () => {
       <button
         ref={buttonRef}
         onClick={() => setIsMenuOpen(!isMenuOpen)}
-        className='lg:hidden fixed top-3 left-4 z-50 p-2 rounded-lg'
+        className='md:hidden fixed top-3 left-4 z-50 p-2 rounded-lg'
       >
         {!isMenuOpen ? (
           <MenuIcon

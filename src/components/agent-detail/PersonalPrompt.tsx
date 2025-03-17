@@ -35,8 +35,8 @@ const ControlCommand = ({ data, fetchAgentDetail }: IControlCommand) => {
   const fetchAgent = async () => {
     try {
       const response = await getAgentDetail(botId?.id as string);
-      setPersonaPrompt(response.data.setup.personaPrompt);
-      setModel(response.data.setup.model);
+      setPersonaPrompt(response?.data?.setup?.personaPrompt || "");
+      setModel(response?.data?.setup?.model || "gpt-4");
     } catch (error: any) {
       dispatch(setToast({ type: "error", message: error?.message, show: true }));
     }
@@ -129,9 +129,13 @@ const ControlCommand = ({ data, fetchAgentDetail }: IControlCommand) => {
               height: "30px",
               minWidth: "200px",
               fontSize: "14px",
+              fontFamily: "'JetBrains Mono', monospace",
               paddingRight: "10px",
               "& .MuiOutlinedInput-notchedOutline": {
                 borderColor: "#E5E7EB",
+              },
+              "& .MuiSelect-select": {
+                fontFamily: "'JetBrains Mono', monospace",
               },
             }}
             IconComponent={() => (
@@ -160,6 +164,7 @@ const ControlCommand = ({ data, fetchAgentDetail }: IControlCommand) => {
                     textTransform: "uppercase",
                     color: "#6B7280",
                     backgroundColor: "#F9FAFB",
+                    fontFamily: "'JetBrains Mono', monospace",
                   }}
                 >
                   {provider}
@@ -168,7 +173,11 @@ const ControlCommand = ({ data, fetchAgentDetail }: IControlCommand) => {
                   <MenuItem
                     key={`${model.provider}-${model.code}`}
                     value={model.code}
-                    sx={{ fontSize: "14px", pl: 3 }}
+                    sx={{
+                      fontSize: "14px",
+                      pl: 3,
+                      fontFamily: "'JetBrains Mono', monospace",
+                    }}
                   >
                     {model.code} ({model.releaseYear})
                   </MenuItem>

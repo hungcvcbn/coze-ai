@@ -26,9 +26,10 @@ const BasicTabs = ({ value, tabOptions, onChange }: Props) => {
           fontSize: "14px",
           textTransform: "none",
           fontWeight: "bold",
-          margin: "0 4px",
+          margin: "16px 4px",
           minHeight: "36px",
           padding: "6px 16px",
+          fontFamily: "'JetBrains Mono', monospace",
         },
         "& .Mui-selected": {
           backgroundColor: "#39B5E0",

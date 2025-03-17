@@ -9,7 +9,7 @@ const AutoSuggestion = () => {
     <div>
       <div>
         <div className='flex flex-col text-gray-600 mb-2 gap-2'>
-          <div className='text-sm font-medium'>
+          <div className='text-14-20 font-normal text-gray-500'>
             After agent response, provide at most three suggested questions based on the context and
             prompt.
           </div>

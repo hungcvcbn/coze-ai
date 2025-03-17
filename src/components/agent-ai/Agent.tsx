@@ -65,25 +65,24 @@ const ControlPanel = () => {
   };
   return (
     <div className='flex flex-col'>
-      <div className='bg-white sticky top-0 z-10 px-4 pt-2'>
-        <div className='flex flex-col md:flex-row md:items-center justify-between gap-4'>
-          <div className='w-full md:w-1/2 lg:w-1/3'>
+      <div className='bg-white sticky top-0 z-10 px-3 pt-3'>
+        <div className='flex flex-col md:flex-row md:items-center justify-between gap-1 '>
+          <div className='flex justify-center items-center'>
+            <BasicTab tabOptions={tabOptions} value={tab} onChange={handleChange} />
+          </div>
+          <div className='w-full md:w-1/2 lg:w-1/3 '>
             <CustomTextField
               fullWidth
-              label='Tìm kiếm'
-              placeholder='Nhập tên bot'
+              placeholder='Tìm kiếm'
               sx={{ backgroundColor: "white" }}
               value={term}
               onChange={handleChangeTerm}
             />
           </div>
-          <div className=''>
-            <BasicTab tabOptions={tabOptions} value={tab} onChange={handleChange} />
-          </div>
         </div>
       </div>
 
-      <div className='p-4'>{renderTabContent()}</div>
+      <div className='px-3 pb-3'>{renderTabContent()}</div>
     </div>
   );
 };

@@ -73,15 +73,8 @@ module.exports = {
         'danger-50': '#FEE9ED',
       },
       fontFamily: {
-        'thin': ['Inter'],
-        'extralight': ['Inter'],
-        'light': ['Inter'],
-        'regular': ['Inter'],
-        'medium': ['Inter'],
-        'semibold': ['Inter'],
-        'bold': ['Inter'],
-        'extrabold': ['Inter'],
-        'black': ['Inter'],
+        sans: ['var(--font-jetbrains)'],
+        mono: ['var(--font-jetbrains)'],
       },
     },
     screens: {

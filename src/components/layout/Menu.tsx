@@ -107,7 +107,7 @@ const Menu = () => {
 
       <div
         ref={menuRef}
-        className={`fixed left-0 top-0 h-full w-64 bg-white text-black
+        className={`fixed left-0 top-0 h-full w-64 bg-white text-black border-r border-gray-200
         transition-transform duration-300 ease-in-out lg:translate-x-0 overflow-y-auto
         ${isMenuOpen ? "translate-x-0" : "-translate-x-full"} lg:block z-40`}
       >

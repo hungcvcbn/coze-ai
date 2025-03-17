@@ -20,7 +20,7 @@ const BasicTabs = ({ value, tabOptions, onChange }: Props) => {
           color: "none",
         },
         "& .MuiTab-root": {
-          border: "1px solid #6A5ACD",
+          border: "1px solid #39B5E0",
           borderRadius: "8px",
           color: "neutral",
           fontSize: "14px",
@@ -31,7 +31,7 @@ const BasicTabs = ({ value, tabOptions, onChange }: Props) => {
           padding: "6px 16px",
         },
         "& .Mui-selected": {
-          backgroundColor: "#6A5ACD",
+          backgroundColor: "#39B5E0",
           color: "#FFFFFF !important",
         },
       }}

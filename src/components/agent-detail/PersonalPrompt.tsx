@@ -1,6 +1,5 @@
 "use client";
 import React, { useState, useEffect, useRef } from "react";
-import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import SampleCommand from "./SampleCommand";
 import { updateAgentSetup } from "@/helpers/api/agent";
 import { setToast } from "@/redux/slices/common";
@@ -11,7 +10,8 @@ import { MenuItem, ListSubheader } from "@mui/material";
 import { Select } from "@mui/material";
 import { IconArrowDown } from "../common/IconCommon";
 import { getAvailableModels } from "@/helpers/api/chatbot";
-
+import { getAgentDetail } from "@/helpers/api/agent";
+import { useParams } from "next/navigation";
 interface IControlCommand {
   data: any;
   fetchAgentDetail: Function;
@@ -24,21 +24,23 @@ const ControlCommand = ({ data, fetchAgentDetail }: IControlCommand) => {
   const defaultPrompt = data?.setup?.personaPrompt || "";
   const [personaPrompt, setPersonaPrompt] = useState<string>(defaultPrompt);
   const [selectOpen, setSelectOpen] = useState(false);
-  const [model, setModel] = useState("gpt-4");
+  const [model, setModel] = useState<any>("gpt-4");
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const [availableModels, setAvailableModels] = useState<any>({});
+  const botId = useParams();
 
   const handleChangeModel = (value: string | number) => {
     setModel(value as string);
   };
-
-  useEffect(() => {
-    if (data?.setup?.personaPrompt) {
-      setPersonaPrompt(data.setup.personaPrompt);
-      setModel(data.setup.model);
+  const fetchAgent = async () => {
+    try {
+      const response = await getAgentDetail(botId?.id as string);
+      setPersonaPrompt(response.data.setup.personaPrompt);
+      setModel(response.data.setup.model);
+    } catch (error: any) {
+      dispatch(setToast({ type: "error", message: error?.message, show: true }));
     }
-  }, [data]);
-
+  };
   const handleTextareaChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setPersonaPrompt(e.target.value);
   };
@@ -61,6 +63,7 @@ const ControlCommand = ({ data, fetchAgentDetail }: IControlCommand) => {
   useEffect(() => {
     if (data?.id) {
       fetchAvailableModels();
+      fetchAgent();
     }
   }, [data?.id]);
 

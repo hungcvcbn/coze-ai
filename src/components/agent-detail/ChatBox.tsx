@@ -312,7 +312,7 @@ const ChatBox = ({ conversation, data }: ChatBoxProps) => {
         <div className='flex items-center gap-3'>
           <Tooltip title='Reset conversation' placement='top'>
             <IconButton onClick={handleResetConversation} size='small'>
-              <CleaningServicesIcon sx={{ color: "#6A5ACD", fontSize: "1.1rem" }} />
+              <CleaningServicesIcon sx={{ color: "#39B5E0", fontSize: "1.1rem" }} />
             </IconButton>
           </Tooltip>
           <BasicButton size='sm' onClick={() => setOpen(true)} variant='outlined'>
@@ -321,7 +321,7 @@ const ChatBox = ({ conversation, data }: ChatBoxProps) => {
         </div>
       </div>
       <div
-        className='flex-1 max-h-[calc(100vh-200px)] bg-slate-50 rounded-lg overflow-y-auto p-2 sm:p-4 [&::-webkit-scrollbar]:w-2
+        className='flex-1 max-h-[calc(100vh-160px)] bg-slate-50 rounded-lg overflow-y-auto p-2 sm:p-4 [&::-webkit-scrollbar]:w-2
           [&::-webkit-scrollbar-track]:bg-gray-100
           [&::-webkit-scrollbar-thumb]:bg-gray-300
           [&::-webkit-scrollbar-thumb]:rounded-full'
@@ -377,7 +377,7 @@ const ChatBox = ({ conversation, data }: ChatBoxProps) => {
                           download={msg.attachment.name}
                           className='flex items-center gap-2 text-blue-600 hover:underline'
                         >
-                          <AttachFileIcon sx={{ fontSize: "20px", color: "#6A5ACD" }} />
+                          <AttachFileIcon sx={{ fontSize: "20px", color: "#39B5E0" }} />
                           {msg.attachment.name}
                         </a>
                       )}
@@ -443,18 +443,18 @@ const ChatBox = ({ conversation, data }: ChatBoxProps) => {
                   <AttachFileIcon
                     fontSize='small'
                     sx={{
-                      color: isLoading ? "#A8A8A8" : "#6A5ACD",
+                      color: isLoading ? "#A8A8A8" : "#39B5E0",
                       cursor: isLoading ? "default" : "pointer",
-                      "&:hover": { color: isLoading ? "#A8A8A8" : "#3E2A91" },
+                      "&:hover": { color: isLoading ? "#A8A8A8" : "#157299" },
                     }}
                     onClick={() => !isLoading && fileInputRef.current?.click()}
                   />
                   <Send
                     fontSize='small'
                     sx={{
-                      color: isLoading ? "#A8A8A8" : "#6A5ACD",
+                      color: isLoading ? "#A8A8A8" : "#39B5E0",
                       cursor: isLoading ? "default" : "pointer",
-                      "&:hover": { color: isLoading ? "#A8A8A8" : "#3E2A91" },
+                      "&:hover": { color: isLoading ? "#A8A8A8" : "#157299" },
                     }}
                     onClick={handleChat}
                   />

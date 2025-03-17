@@ -15,6 +15,7 @@ import EditNoteIcon from "@mui/icons-material/EditNote";
 import { requestUpload } from "@/helpers/api/chatbot";
 import BasicDialogActions from "@/components/common/BasicDialogActions";
 import FileUploadIcon from "@mui/icons-material/FileUpload";
+import InsertDriveFileIcon from '@mui/icons-material/InsertDriveFile';
 interface EditKnowledgeModalProps {
   open: boolean;
   setOpen: (open: boolean) => void;
@@ -154,7 +155,8 @@ const EditKnowledgeModal = ({
                         <span className='text-14-20 font-semibold truncate'>{item.name}</span>
                         <span className='text-14-20 text-neutral truncate'>{item.description}</span>
                         {item?.files?.map((file: any, index: number) => (
-                          <div key={index} className='text-14-20 text-primary'>
+                          <div key={index} className='text-14-20 text-primary flex gap-1'>
+                            <InsertDriveFileIcon sx={{ color: "#CCCCCC", fontSize: "1.1rem" }} />
                             {file?.name}
                           </div>
                         ))}
@@ -170,7 +172,7 @@ const EditKnowledgeModal = ({
                               setSelectedKnowledge(item);
                             }}
                           >
-                            <FileUploadIcon sx={{ color: "#6A6A6A" }} />
+                            <FileUploadIcon sx={{ color: "#39B5E0" }} />
                           </button>
                         </Tooltip>
                       </label>
@@ -179,7 +181,7 @@ const EditKnowledgeModal = ({
                           className='cursor-pointer pl-1'
                           onClick={() => handleAddKnowledgeToAgent(item?.id)}
                         >
-                          <AddCircleOutlineIcon sx={{ color: "#6A6A6A" }} />
+                          <AddCircleOutlineIcon sx={{ color: "#39B5E0" }} />
                         </button>
                       </Tooltip>
                       <input

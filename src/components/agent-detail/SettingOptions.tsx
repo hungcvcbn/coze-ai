@@ -214,8 +214,8 @@ const SettingOptions = ({ data }: ISettingOptions) => {
   };
 
   return (
-    <div className='flex flex-col p-3 space-y-4'>
-      <div className=''>
+    <div className='flex flex-col p-3 space-y-4 overflow-y-auto max-h-[900px] [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-track]:bg-gray-50 [&::-webkit-scrollbar-thumb]:bg-gray-300 [&::-webkit-scrollbar-thumb]:rounded-full'>
+      <div className='w-auto'>
         {items.map((item, featureIndex) => (
           <div key={featureIndex} className='space-y-2'>
             <div className='text-12-18 font-semibold px-2 text-neutral pt-4'>
@@ -224,13 +224,47 @@ const SettingOptions = ({ data }: ISettingOptions) => {
             {item?.options?.map((option, parentIndex) => (
               <div
                 key={parentIndex}
-                className='mb-2 rounded-lg overflow-hidden border border-gray-200'
+                className='mb-2 rounded-lg overflow-hidden border border-gray-200 px-2'
               >
                 <div
                   className='flex justify-between items-center cursor-pointer text-16-24 font-sans font-semibold h-[40px] hover:bg-gray-50 bg-white p-1 text-neutral transition-colors duration-200'
                   onClick={() => toggleCollapse(`${featureIndex}-${parentIndex}`)}
                 >
                   <div className='flex items-center gap-2'>
+                    <div className='text-14-20 font-sans font-semibold text-neutral'>
+                      {option.title}
+                    </div>
+                  </div>
+
+                  <div className='flex items-center'>
+                    <div className='flex items-center'>
+                      {(option.title === "Table" ||
+                        option.title === "Text" ||
+                        option.title === "Image") && (
+                        <IconButton
+                          onClick={e => {
+                            e.stopPropagation();
+                            setOpenEditKnowledgeModal(true);
+                          }}
+                        >
+                          <AddIcon sx={{ fontSize: 20, color: "#39B5E0" }} />
+                        </IconButton>
+                      )}
+                      {option.title === "Background Image" && (
+                        <IconButton
+                          onClick={() => {
+                            setOpenBackgroundImageModal(true);
+                          }}
+                        >
+                          <AddIcon sx={{ fontSize: 20, color: "#39B5E0" }} />
+                        </IconButton>
+                      )}
+                      {option.title === "Opening questions" && (
+                        <IconButton onClick={handlePopoverClick}>
+                          <IconAuto width={20} height={20} color='#39B5E0' />
+                        </IconButton>
+                      )}
+                    </div>
                     <div
                       className='transition-transform duration-300'
                       style={{
@@ -241,37 +275,6 @@ const SettingOptions = ({ data }: ISettingOptions) => {
                     >
                       <IconArrowDown width={16} height={16} />
                     </div>
-                    <div className='text-14-20 font-sans font-semibold text-neutral'>
-                      {option.title}
-                    </div>
-                  </div>
-                  <div className='flex items-center'>
-                    {(option.title === "Table" ||
-                      option.title === "Text" ||
-                      option.title === "Image") && (
-                      <IconButton
-                        onClick={e => {
-                          e.stopPropagation();
-                          setOpenEditKnowledgeModal(true);
-                        }}
-                      >
-                        <AddIcon sx={{ fontSize: 20, color: "#6A5ACD" }} />
-                      </IconButton>
-                    )}
-                    {option.title === "Background Image" && (
-                      <IconButton
-                        onClick={() => {
-                          setOpenBackgroundImageModal(true);
-                        }}
-                      >
-                        <AddIcon sx={{ fontSize: 20, color: "#6A5ACD" }} />
-                      </IconButton>
-                    )}
-                    {option.title === "Opening questions" && (
-                      <IconButton onClick={handlePopoverClick}>
-                        <IconAuto width={20} height={20} color='#6A5ACD' />
-                      </IconButton>
-                    )}
                   </div>
                 </div>
 

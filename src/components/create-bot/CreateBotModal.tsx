@@ -42,7 +42,6 @@ const CreateBotModal = ({ open, setOpen }: CreateBotModalProps) => {
     defaultValues,
   });
 
-
   const onSubmit = async (data: BotType) => {
     let params = {
       ...data,
@@ -75,14 +74,6 @@ const CreateBotModal = ({ open, setOpen }: CreateBotModalProps) => {
       <FormProvider methods={form} onSubmit={form.handleSubmit(onSubmit)}>
         <BasicDialogContent>
           <div className='flex flex-col gap-2'>
-            {/* <RHFSelect
-              name='botType'
-              options={[
-                { value: "Coze-AI", label: "Bot Zenee AI" },
-                { value: "GPTs", label: "Bot GPTs (Nâng cao)" },
-              ]}
-              label='Chọn loại bot'
-            /> */}
             <RHFTextField name='name' label='Tên bot' placeholder='Nhập tên bot' isRequired />
             <RHFTextField
               name='description'

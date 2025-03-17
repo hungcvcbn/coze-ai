@@ -114,7 +114,7 @@ const ControlCommand = ({ data, fetchAgentDetail }: IControlCommand) => {
 
   return (
     <div className='flex flex-col gap-2 pt-2 bg-white text-neutral'>
-      <div className='flex flex-col items-center gap-2 justify-between'>
+      <div className='flex flex-col items-center gap-1 justify-between'>
         <div className='text-14-20 font-semibold'>Persona & Prompt</div>
         <div className='w-full'>
           <Select
@@ -194,12 +194,12 @@ const ControlCommand = ({ data, fetchAgentDetail }: IControlCommand) => {
           [&::-webkit-scrollbar]:w-2
           [&::-webkit-scrollbar-track]:bg-gray-100
           [&::-webkit-scrollbar-thumb]:bg-gray-300
-          [&::-webkit-scrollbar-thumb]:rounded-full'
+          [&::-webkit-scrollbar-thumb]:rounded-full focus:outline-none'
         value={personaPrompt}
         onChange={handleTextareaChange}
-        rows={31}
+        rows={34}
       />
-      <div className='flex justify-end gap-2'>
+      <div className='flex justify-end gap-2 pt-1'>
         <BasicButton
           size='sm'
           type='button'

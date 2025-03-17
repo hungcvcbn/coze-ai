@@ -8,25 +8,20 @@ import { Send } from "@mui/icons-material";
 import AttachFileIcon from "@mui/icons-material/AttachFile";
 import {
   chat,
-  getAvailableModels,
   getChatExperience,
   loadConversation,
   requestUpload,
   uploadFile,
 } from "@/helpers/api/chatbot";
-import { useParams } from "next/navigation";
 import CleaningServicesIcon from "@mui/icons-material/CleaningServices";
 import { setToast } from "@/redux/slices/common";
 import { useDispatch } from "react-redux";
 import BasicButton from "../common/BasicButton";
 import { useRouter } from "next/navigation";
 import ListPlatformPublish from "./platform/ListPlatformPublish";
-import { IconButton, Tooltip, Select, MenuItem, FormControl, Avatar } from "@mui/material";
-import LinkIcon from "@mui/icons-material/Link";
+import { IconButton, Tooltip, Avatar } from "@mui/material";
 import { resetConversation } from "@/helpers/api/agent";
 import { useAppSelector } from "@/redux/hooks";
-import Grid from "@mui/material/Grid";
-import { IconArrowDown } from "../common/IconCommon";
 import { isEmpty } from "@/helpers/utils/common";
 type Message = {
   sender: "user" | "system";
@@ -43,23 +38,21 @@ interface ChatBoxProps {
   data: any;
 }
 const ChatBox = ({ conversation, data }: ChatBoxProps) => {
-  const { triggerTime } = useAppSelector(state => state.common);
   const [open, setOpen] = useState<boolean>(false);
-  const dispatch = useDispatch();
-  const router = useRouter();
   const [messages, setMessages] = useState<Message[]>([]);
-  const [model, setModel] = useState("GPT-4o");
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [isTyping, setIsTyping] = useState(false);
+
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
-  const [availableModels, setAvailableModels] = useState<any[]>([]);
-
+  const dispatch = useDispatch();
+  const { triggerTime, profile } = useAppSelector(state => state.common);
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
+  console.log("profile", profile);
 
   const getSuggestions = async () => {
     try {
@@ -384,7 +377,7 @@ const ChatBox = ({ conversation, data }: ChatBoxProps) => {
                     </div>
                   )}
                 </div>
-                <Avatar src={AdminAvatar?.src} alt='User Avatar' />
+                <Avatar src={profile?.avatar} alt='User Avatar' />
               </div>
             )}
           </div>

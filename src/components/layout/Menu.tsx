@@ -18,7 +18,7 @@ import { setProfile, setToast } from "@/redux/slices/common";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { isEmpty } from "@/helpers/utils/common";
 import BasicButton from "../common/BasicButton";
-
+import PersonIcon from "@mui/icons-material/Person";
 const Menu = () => {
   const [open, setOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -186,6 +186,13 @@ const Menu = () => {
                   horizontal: "right",
                 }}
               >
+                <button
+                  onClick={() => router.push("/profile")}
+                  className='flex items-center gap-2 px-4 py-2 text-neutral hover:bg-gray-100 rounded-lg w-full'
+                >
+                  <PersonIcon fontSize='small' />
+                  <span className='text-14-20 font-sans font-medium'>Thông tin cá nhân</span>
+                </button>
                 <button
                   onClick={handleLogout}
                   className='flex items-center gap-2 px-4 py-2 text-danger hover:bg-gray-100 rounded-lg w-full'

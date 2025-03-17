@@ -21,6 +21,8 @@ import FormProvider from "@/components/hook-form/FormProvider";
 import RHFTextField from "../hook-form/RHFTextField";
 import ConnectGoogle from "../connect-google/ConnectGoogle";
 import LogoZenee from "@/assets/icons/logo.png";
+import BackgroundImage from "@/assets/images/background.jpg";
+
 type LoginFrom = {
   username: string;
   password: string;
@@ -84,7 +86,10 @@ const FormLoginBasic = () => {
   };
 
   return (
-    <div className='h-screen w-full flex items-center justify-center bg-gradient-to-r from-gray-900 via-blue-900 to-black'>
+    <div
+      className='h-screen w-full flex items-center justify-center'
+      style={{ backgroundImage: `url(${BackgroundImage.src})` }}
+    >
       <div className='relative grid grid-rows-7 py-3 sm:max-w-xl sm:mx-auto text-gray-700 w-full'>
         <div className='relative row-span-7 px-4 py-10 bg-white mx-8 md:mx-0 shadow rounded-3xl sm:p-10'>
           <div className='max-w-md mx-auto'>

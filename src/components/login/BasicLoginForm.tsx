@@ -21,7 +21,7 @@ import FormProvider from "@/components/hook-form/FormProvider";
 import RHFTextField from "../hook-form/RHFTextField";
 import ConnectGoogle from "../connect-google/ConnectGoogle";
 import LogoZenee from "@/assets/icons/logo.png";
-import BackgroundImage from "@/assets/images/background.jpg";
+import BackgroundImage from "@/assets/images/background.png";
 
 type LoginFrom = {
   username: string;

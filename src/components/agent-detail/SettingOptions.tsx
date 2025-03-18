@@ -15,9 +15,10 @@ import {
   removeKnowledgeFromAgent,
 } from "@/helpers/api/knowledge";
 import AutoSuggestion from "./feature/AutoSuggestion";
-import { IconArrowDown, IconAuto } from "../common/IconCommon";
+import { IconArrowDown, IconAuto, IconTrash } from "../common/IconCommon";
 import { isEmpty } from "@/helpers/utils/common";
 import BackgroundImage from "./feature/BackgroundImage";
+import InsertDriveFileIcon from "@mui/icons-material/InsertDriveFile";
 type ChildOption =
   | {
       label: string;
@@ -182,7 +183,7 @@ const SettingOptions = ({ data }: ISettingOptions) => {
           return (
             <div key={childIndex} className='flex flex-col gap-4'>
               <div
-                className={`flex flex-col p-3 overflow-y-auto max-h-[200px] rounded-lg justify-between gap-2 ${
+                className={`flex flex-col p-3 overflow-y-auto max-h-[200px] hidden-scroll-bar rounded-lg justify-between gap-2 ${
                   featureName !== "Chat experience"
                     ? "border border-gray-200 hover:border-gray-300 transition-colors duration-200"
                     : ""
@@ -191,18 +192,21 @@ const SettingOptions = ({ data }: ISettingOptions) => {
                 <div className='flex justify-between items-center'>
                   <div className='text-16-24 font-semibold text-neutral'>{childOption.label}</div>
                   <Tooltip title='Xóa knowledge khỏi agent' placement='top'>
-                    <button
-                      onClick={() => removeKnowledge(childOption.id)}
-                      className='text-12-18 text-danger font-semibold hover:bg-danger hover:text-white transition-colors duration-200 cursor-pointer border border-danger rounded-lg px-2 py-1'
-                    >
-                      Xóa
-                    </button>
+                    <IconButton onClick={() => removeKnowledge(childOption.id)}>
+                      <IconTrash color='#334155' width={16} height={16} />
+                    </IconButton>
                   </Tooltip>
                 </div>
                 {childOption.files &&
                   childOption.files.map((file: any, index: number) => (
-                    <div key={index} className='text-14-20 text-primary'>
-                      {file.name}
+                    <div
+                      key={index}
+                      className='text-14-20 bg-gray-100 rounded-lg p-2 text-neutral flex justify-start mt-2 gap-2'
+                    >
+                      <div className='flex gap-1 border rounded-full p-2 bg-white'>
+                        <InsertDriveFileIcon sx={{ color: "#6A6A6A", fontSize: "1.1rem" }} />
+                      </div>
+                      <div className='pt-2'> {file?.name}</div>
                     </div>
                   ))}
               </div>
@@ -214,7 +218,7 @@ const SettingOptions = ({ data }: ISettingOptions) => {
   };
 
   return (
-    <div className='flex flex-col p-3 space-y-4 overflow-y-auto max-h-[900px] [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-track]:bg-gray-50 [&::-webkit-scrollbar-thumb]:bg-gray-300 [&::-webkit-scrollbar-thumb]:rounded-full'>
+    <div className='flex flex-col p-3 space-y-4 overflow-y-auto max-h-[900px] hidden-scroll-bar'>
       <div className='w-auto'>
         {items.map((item, featureIndex) => (
           <div key={featureIndex} className='space-y-2'>
@@ -279,11 +283,7 @@ const SettingOptions = ({ data }: ISettingOptions) => {
                 </div>
 
                 <div
-                  className={`text-14-20 text-neutral transition-all duration-200 ease-in-out overflow-y-auto
-                  [&::-webkit-scrollbar]:w-2
-                  [&::-webkit-scrollbar-track]:bg-gray-50
-                  [&::-webkit-scrollbar-thumb]:bg-gray-300
-                  [&::-webkit-scrollbar-thumb]:rounded-full
+                  className={`text-14-20 text-neutral transition-all duration-200 ease-in-out overflow-y-auto hidden-scroll-bar
                   ${
                     collapseStates[`${featureIndex}-${parentIndex}`]
                       ? "max-h-[600px] opacity-100"

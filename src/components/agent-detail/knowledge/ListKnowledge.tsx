@@ -7,15 +7,16 @@ import { useAppDispatch } from "@/redux/hooks";
 import { useEffect, useState } from "react";
 import BasicButton from "@/components/common/BasicButton";
 import { addKnowledgeIntoAgent, getKnowledge } from "@/helpers/api/knowledge";
-import { Tabs, Tab, IconButton, Tooltip } from "@mui/material";
+import { Tabs, Tab, IconButton, Tooltip, Grid2 } from "@mui/material";
 import CustomTextField from "@/components/hook-form/CustomTextField";
 import CreateKnowledge from "./CreateKnowledge";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
-import EditNoteIcon from "@mui/icons-material/EditNote";
 import { requestUpload } from "@/helpers/api/chatbot";
 import BasicDialogActions from "@/components/common/BasicDialogActions";
 import FileUploadIcon from "@mui/icons-material/FileUpload";
 import InsertDriveFileIcon from "@mui/icons-material/InsertDriveFile";
+import clsx from "clsx";
+import { IconUpload } from "@/components/common/IconCommon";
 interface EditKnowledgeModalProps {
   open: boolean;
   setOpen: (open: boolean) => void;
@@ -38,16 +39,8 @@ const EditKnowledgeModal = ({
 
   const fileInputRef = React.useRef<HTMLInputElement>(null);
 
-  const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
-    setTabValue(newValue);
-
-    const typeMap = {
-      0: "ALL",
-      1: "TEXT",
-      2: "TABLE",
-      3: "IMAGE",
-    } as const;
-    setSelectedType(typeMap[newValue as keyof typeof typeMap]);
+  const handleTabChange = (type: string) => {
+    setSelectedType(type);
   };
 
   const filteredKnowledge =
@@ -106,97 +99,112 @@ const EditKnowledgeModal = ({
         onClose={() => setOpen(false)}
         title='Select knowledge'
         showCloseIcon
-        maxWidth='lg'
+        maxWidth='md'
         fullWidth
       >
         <BasicDialogContent>
-          <div className='grid grid-cols-12 gap-4 '>
-            <div className='col-span-3 flex flex-col gap-4 min-w-[200px]'>
-              <CustomTextField placeholder='Search' />
-              <BasicButton
-                onClick={() => {
-                  setSelectedKnowledge(null);
-                  setOpenCreateModal(true);
-                }}
-              >
-                <AddCircleOutlineIcon />
-                &nbsp; Create knowledge
-              </BasicButton>
+          <div className='flex flex-col'>
+            <Grid2 container spacing={2}>
+              <Grid2 size={8.5}>
+                <CustomTextField fullWidth placeholder='Search' />
+              </Grid2>
+              <Grid2 size={3}>
+                <BasicButton
+                  clases='mt-1'
+                  onClick={() => {
+                    setSelectedKnowledge(null);
+                    setOpenCreateModal(true);
+                  }}
+                >
+                  <AddCircleOutlineIcon />
+                  &nbsp; Create knowledge
+                </BasicButton>
+              </Grid2>
+            </Grid2>
+
+            <div className='flex items-center gap-1 border-b mt-3 bg-gray-200 w-[160px] rounded-lg'>
+              {["ALL", "TEXT"].map(type => (
+                <button
+                  key={type}
+                  className={clsx(
+                    "px-4 py-2 text-14-20 font-medium rounded-lg transition-all",
+                    selectedType === type
+                      ? "border border-gray-300 bg-white text-neutral"
+                      : "text-gray-500 hover:text-neutral"
+                  )}
+                  onClick={() => handleTabChange(type)}
+                >
+                  {type === "ALL" ? "All" : "Document"}
+                </button>
+              ))}
             </div>
 
-            {/* Right side - List section */}
-            <div className='col-span-9 min-w-0'>
-              <div className='flex items-center gap-4 border-b'>
-                <Tabs
-                  value={tabValue}
-                  onChange={handleTabChange}
-                  textColor='primary'
-                  indicatorColor='primary'
+            {/* Knowledge list will be rendered here */}
+            <div className='mt-4 min-h-full flex flex-col gap-2'>
+              {filteredKnowledge?.map((item: any) => (
+                <div
+                  key={item?.id}
+                  className='flex items-center w-full p-3 rounded-lg border border-gray-300 cursor-pointer'
                 >
-                  <Tab label='All' value={0} />
-                  <Tab label='Document' value={1} />
-                  {/* <Tab label='Table' value={2} />
-                  <Tab label='Images' value={3} /> */}
-                </Tabs>
-              </div>
-
-              {/* Knowledge list will be rendered here */}
-              <div className='mt-4 min-h-full flex flex-col gap-2'>
-                {filteredKnowledge?.map((item: any) => (
-                  <div
-                    key={item?.id}
-                    className='flex justify-between items-center gap-3 p-3 rounded-lg border border-gray-300 hover:bg-gray-50 cursor-pointer min-w-0'
-                  >
-                    <div className='flex items-center gap-3 overflow-hidden'>
-                      <div className='w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center'>
-                        <i className='text-blue-500'>📄</i>
+                  <div className='flex items-center w-full gap-3'>
+                    <div className='flex flex-col w-full'>
+                      <div className='flex justify-between w-full'>
+                        <div className='flex flex-col gap-1 flex-1 mr-2'>
+                          <span className='text-16-24 text-neutral font-semibold truncate'>
+                            {item.name}
+                          </span>
+                          <span className='text-14-20 text-gray-500 truncate'>
+                            {item.description}
+                          </span>
+                        </div>
+                        <div className='flex gap-1 justify-center items-center'>
+                          <label htmlFor={`file-upload-${item.id}`}>
+                            <Tooltip title='Upload file for knowledge' placement='top'>
+                              <button
+                                className='cursor-pointer pl-1 pt-2'
+                                onClick={() => {
+                                  fileInputRef.current?.click();
+                                  setSelectedKnowledge(item);
+                                }}
+                              >
+                                <IconUpload color='#334155' width={16} height={16} />
+                              </button>
+                            </Tooltip>
+                          </label>
+                          <Tooltip title='Add knowledge to agent' placement='top'>
+                            <button
+                              className='cursor-pointer pl-1'
+                              onClick={() => handleAddKnowledgeToAgent(item?.id)}
+                            >
+                              <AddCircleOutlineIcon sx={{ color: "#C6C6C6" }} />
+                            </button>
+                          </Tooltip>
+                          <input
+                            type='file'
+                            id={`file-upload-${item.id}`}
+                            className='hidden'
+                            ref={fileInputRef}
+                            accept='*/*'
+                            onChange={handleFileUpload}
+                            onClick={() => setSelectedKnowledge(item)}
+                          />
+                        </div>
                       </div>
-                      <div className='flex flex-col overflow-hidden'>
-                        <span className='text-14-20 font-semibold truncate'>{item.name}</span>
-                        <span className='text-14-20 text-neutral truncate'>{item.description}</span>
-                        {item?.files?.map((file: any, index: number) => (
-                          <div key={index} className='text-14-20 text-primary flex gap-1'>
-                            <InsertDriveFileIcon sx={{ color: "#CCCCCC", fontSize: "1.1rem" }} />
-                            {file?.name}
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                    <div className='flex items-center'>
-                      <label htmlFor={`file-upload-${item.id}`}>
-                        <Tooltip title='Upload file for knowledge' placement='top'>
-                          <button
-                            className='cursor-pointer pl-1'
-                            onClick={() => {
-                              fileInputRef.current?.click();
-                              setSelectedKnowledge(item);
-                            }}
-                          >
-                            <FileUploadIcon sx={{ color: "#39B5E0" }} />
-                          </button>
-                        </Tooltip>
-                      </label>
-                      <Tooltip title='Add knowledge to agent' placement='top'>
-                        <button
-                          className='cursor-pointer pl-1'
-                          onClick={() => handleAddKnowledgeToAgent(item?.id)}
+                      {item?.files?.map((file: any, index: number) => (
+                        <div
+                          key={index}
+                          className='text-14-20 bg-gray-100 rounded-lg p-2 text-neutral flex justify-start mt-2 gap-2'
                         >
-                          <AddCircleOutlineIcon sx={{ color: "#39B5E0" }} />
-                        </button>
-                      </Tooltip>
-                      <input
-                        type='file'
-                        id={`file-upload-${item.id}`}
-                        className='hidden'
-                        ref={fileInputRef}
-                        accept='*/*'
-                        onChange={handleFileUpload}
-                        onClick={() => setSelectedKnowledge(item)}
-                      />
+                          <div className='flex gap-1 border rounded-full p-2 bg-white'>
+                            <InsertDriveFileIcon sx={{ color: "#6A6A6A", fontSize: "1.1rem" }} />
+                          </div>
+                          <div className='pt-2'> {file?.name}</div>
+                        </div>
+                      ))}
                     </div>
                   </div>
-                ))}
-              </div>
+                </div>
+              ))}
             </div>
           </div>
         </BasicDialogContent>

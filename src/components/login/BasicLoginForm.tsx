@@ -104,7 +104,7 @@ const FormLoginBasic = () => {
       }}
     >
       <div className='relative w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg bg-white mx-auto rounded-lg shadow-lg p-4 sm:p-6'>
-        <div className='flex flex-col items-center mb-4 sm:mb-6'>
+        <div className='flex flex-col items-center'>
           <div className='flex items-center gap-2 mb-3 sm:mb-4'>
             <Image
               src={LogoZenee}
@@ -116,14 +116,14 @@ const FormLoginBasic = () => {
             <div className='text-24-32 font-bold'>Zenee AI</div>
           </div>
 
-          <div className='flex w-full border-b mb-4 sm:mb-6' role='tablist'>
+          <div className='flex w-full border-2 border-gray-200 rounded-lg shadow-md mb-4 sm:mb-6' role='tablist'>
             <button
               role='tab'
               aria-selected={activeTab === "signin"}
               className={clsx(
                 "flex-1 text-center py-2 text-12-18 sm:text-14-20 md:text-16-24 font-medium",
                 activeTab === "signin"
-                  ? "border-b-2 border-blue-500"
+                  ? "border-2 border-primary rounded-lg shadow-md"
                   : "text-gray-500 hover:text-neutral"
               )}
               onClick={() => setActiveTab("signin")}
@@ -136,7 +136,7 @@ const FormLoginBasic = () => {
               className={clsx(
                 "flex-1 text-center py-2 text-12-18 sm:text-14-20 md:text-16-24 font-medium",
                 activeTab === "signup"
-                  ? "border-b-2 border-blue-500"
+                  ? "border-2 border-primary rounded-lg shadow-md"
                   : "text-gray-500 hover:text-neutral"
               )}
               onClick={() => setActiveTab("signup")}

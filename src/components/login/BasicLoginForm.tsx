@@ -96,31 +96,35 @@ const FormLoginBasic = () => {
 
   return (
     <div
-      className='h-screen w-full flex items-center justify-center bg-white text-neutral'
-      style={{ backgroundImage: `url(${BackgroundImage.src})` }}
+      className='min-h-screen w-full flex items-center justify-center bg-white text-neutral p-4 sm:p-6'
+      style={{
+        backgroundImage: `url(${BackgroundImage.src})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+      }}
     >
-      <div className='relative w-full max-w-lg bg-white mx-auto rounded-lg shadow-lg p-6'>
-        <div className='flex flex-col items-center mb-6'>
-          <div className='flex items-center gap-2 mb-4'>
+      <div className='relative w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg bg-white mx-auto rounded-lg shadow-lg p-4 sm:p-6'>
+        <div className='flex flex-col items-center mb-4 sm:mb-6'>
+          <div className='flex items-center gap-2 mb-3 sm:mb-4'>
             <Image
               src={LogoZenee}
               alt='Zenee AI'
-              width={40}
-              height={40}
-              className='rounded-lg w-10 h-10'
+              width={32}
+              height={32}
+              className='rounded-lg w-10 h-10 sm:w-12 sm:h-12'
             />
             <div className='text-24-32 font-bold'>Zenee AI</div>
           </div>
 
-          <div className='flex w-full border-b mb-6' role='tablist'>
+          <div className='flex w-full border-b mb-4 sm:mb-6' role='tablist'>
             <button
               role='tab'
               aria-selected={activeTab === "signin"}
               className={clsx(
-                "flex-1 text-center py-2 font-medium",
+                "flex-1 text-center py-2 text-12-18 sm:text-14-20 md:text-16-24 font-medium",
                 activeTab === "signin"
                   ? "border-b-2 border-blue-500"
-                  : "text-gray-500 hover:text-gray-700"
+                  : "text-gray-500 hover:text-neutral"
               )}
               onClick={() => setActiveTab("signin")}
             >
@@ -130,10 +134,10 @@ const FormLoginBasic = () => {
               role='tab'
               aria-selected={activeTab === "signup"}
               className={clsx(
-                "flex-1 text-center py-2 font-medium",
+                "flex-1 text-center py-2 text-12-18 sm:text-14-20 md:text-16-24 font-medium",
                 activeTab === "signup"
                   ? "border-b-2 border-blue-500"
-                  : "text-gray-500 hover:text-gray-700"
+                  : "text-gray-500 hover:text-neutral"
               )}
               onClick={() => setActiveTab("signup")}
             >
@@ -145,7 +149,7 @@ const FormLoginBasic = () => {
         <FormProvider methods={form} onSubmit={form.handleSubmit(handleSubmit)}>
           {activeTab === "signin" ? (
             <div>
-              <div className='flex flex-col gap-4'>
+              <div className='flex flex-col gap-3 sm:gap-4'>
                 <RHFTextField
                   label='Username'
                   name='username'
@@ -217,10 +221,10 @@ const FormLoginBasic = () => {
                 />
               </div>
 
-              <div className='flex justify-end mt-2 mb-6'>
+              <div className='flex justify-start mt-2 mb-4 sm:mb-6'>
                 <Link
                   href={``}
-                  className='text-14-18 font-medium text-primary hover:text-primary-700'
+                  className='text-12-18 sm:text-14-20 md:text-16-24 font-medium text-primary hover:text-primary-700'
                 >
                   Forgot password?
                 </Link>
@@ -229,7 +233,7 @@ const FormLoginBasic = () => {
               <button
                 type='submit'
                 className={clsx(
-                  `w-full py-3 px-4 text-16-24 font-medium`,
+                  `w-full py-2 sm:py-3 px-4 text-12-18 sm:text-14-20 md:text-16-24 font-medium`,
                   loading ? "bg-primary-300 cursor-not-allowed" : "bg-primary hover:bg-primary-700",
                   `text-white rounded-md transition-colors`
                 )}
@@ -238,19 +242,21 @@ const FormLoginBasic = () => {
                 {loading ? "Processing..." : "Sign In"}
               </button>
 
-              <div className='flex items-center justify-center my-4'>
+              <div className='flex items-center justify-center my-3 sm:my-4'>
                 <div className='border-t flex-grow'></div>
-                <span className='px-4 text-14-20 font-medium text-gray-500'>OR</span>
+                <span className='px-3 sm:px-4 text-12-18 sm:text-14-20 md:text-16-24 font-medium text-gray-500'>
+                  OR
+                </span>
                 <div className='border-t flex-grow'></div>
               </div>
 
-              <div className='mt-4'>
+              <div className='mt-3 sm:mt-4'>
                 <ConnectGoogle />
               </div>
             </div>
           ) : (
             <div>
-              <div className='flex flex-col gap-4'>
+              <div className='flex flex-col gap-3 sm:gap-4 mb-4'>
                 <RHFTextField
                   label='Email Address'
                   name='email'
@@ -350,19 +356,10 @@ const FormLoginBasic = () => {
                 />
               </div>
 
-              <div className='flex justify-end mt-2 mb-6'>
-                <Link
-                  href={``}
-                  className='text-14-18 font-medium text-primary hover:text-primary-700'
-                >
-                  Forgot password?
-                </Link>
-              </div>
-
               <button
                 type='button'
                 className={clsx(
-                  `w-full py-3 px-4 text-16-24 font-medium`,
+                  `w-full py-2 sm:py-3 px-4 text-12-18 sm:text-14-20 md:text-16-24 font-medium`,
                   loading ? "bg-primary-300 cursor-not-allowed" : "bg-primary hover:bg-primary-700",
                   `text-white rounded-md transition-colors`
                 )}
@@ -370,14 +367,25 @@ const FormLoginBasic = () => {
               >
                 {loading ? "Processing..." : "Create Account"}
               </button>
-
-              <div className='flex items-center justify-center my-4'>
+              <div className='pt-4 text-12-18 sm:text-14-20 md:text-16-24 text-gray-500'>
+                By creating an account, you agree to our
+                <Link href={``} className='text-primary hover:text-primary-700'>
+                  Terms of Service
+                </Link>{" "}
+                and{" "}
+                <Link href={``} className='text-primary hover:text-primary-700'>
+                  Privacy & Cookie Statement.
+                </Link>
+              </div>
+              <div className='flex items-center justify-center my-3 sm:my-4'>
                 <div className='border-t flex-grow'></div>
-                <span className='px-4 text-14-20 font-medium text-gray-500'>OR</span>
-                <div className='border-t flex-grow'></div>
+                <span className='px-3 sm:px-4 text-12-18 sm:text-14-20 md:text-16-24 font-medium text-gray-500'>
+                  OR
+                </span>
+                <div className='border-t flex-grow'> </div>
               </div>
 
-              <div className='mt-4'>
+              <div className='mt-3 sm:mt-4'>
                 <ConnectGoogle />
               </div>
             </div>

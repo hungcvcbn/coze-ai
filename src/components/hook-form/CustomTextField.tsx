@@ -30,11 +30,20 @@ const CustomTextField = forwardRef<HTMLDivElement, CustomTextFieldProps>(
               ? {
                   padding: "3px 8px",
                   height: "24px",
-                  fontSize: "12px",
+                  fontSize: {
+                    xs: "10px", 
+                    sm: "12px", 
+                    md: "14px",
+                  },
                   fontFamily: "'JetBrains Mono', monospace",
                 }
               : {
                   fontFamily: "'JetBrains Mono', monospace",
+                  fontSize: {
+                    xs: "12px",
+                    sm: "14px",
+                    md: "16px",
+                  },
                 },
           }}
           error={!!error}
@@ -45,12 +54,26 @@ const CustomTextField = forwardRef<HTMLDivElement, CustomTextFieldProps>(
                   textOverflow: "ellipsis",
                   whiteSpace: "nowrap",
                   fontFamily: "'JetBrains Mono', monospace",
+                  fontSize: {
+                    xs: "12px",
+                    sm: "14px",
+                    md: "16px",
+                  },
                 }
               : {
                   fontFamily: "'JetBrains Mono', monospace",
+                  fontSize: {
+                    xs: "12px",
+                    sm: "14px",
+                    md: "16px",
+                  },
                 },
             "& .MuiInputBase-input::placeholder": {
-              fontSize: "14px",
+              fontSize: {
+                xs: "12px",
+                sm: "14px",
+                md: "16px",
+              },
               fontFamily: "'JetBrains Mono', monospace",
             },
             "& .Mui-disabled": {
@@ -62,7 +85,7 @@ const CustomTextField = forwardRef<HTMLDivElement, CustomTextFieldProps>(
                 borderColor: dashedBorder ? "rgb(209 213 219)" : "",
                 borderRadius: "10px",
               },
-              " &:focus-within fieldset": {
+              "&:focus-within fieldset": {
                 borderStyle: "solid",
                 borderColor: dashedBorder ? "primary" : "",
                 borderWidth: dashedBorder ? "2px" : "",
@@ -76,10 +99,19 @@ const CustomTextField = forwardRef<HTMLDivElement, CustomTextFieldProps>(
             "& .MuiFormHelperText-root": {
               marginLeft: "0px !important",
               fontFamily: "'JetBrains Mono', monospace",
+              fontSize: {
+                xs: "10px",
+                sm: "12px",
+                md: "14px",
+              },
             },
             ...(dashedBorder && {
               height: "16px",
-              fontSize: "12px",
+              fontSize: {
+                xs: "10px",
+                sm: "12px",
+                md: "14px",
+              },
             }),
           }}
           helperText={getHelperText(error)}

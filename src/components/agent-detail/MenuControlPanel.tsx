@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useParams, usePathname } from "next/navigation";
 import StorefrontIcon from "@mui/icons-material/Storefront";
 import Image from "next/image";
-import LogoImage from "@/assets/icons/logo.png";
+import LogoImage from "@/assets/icons/logo.svg";
 import SmartToyIcon from "@mui/icons-material/SmartToy";
 import { useRouter } from "next/navigation";
 

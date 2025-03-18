@@ -3,7 +3,7 @@ import { getProfile, login } from "@/helpers/api/system";
 import React from "react";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
-import Checkbox from "@mui/material/Checkbox";
+
 import { IconButton, InputAdornment, Tooltip } from "@mui/material";
 import Link from "next/link";
 import { useState } from "react";
@@ -20,11 +20,11 @@ import { useForm } from "react-hook-form";
 import FormProvider from "@/components/hook-form/FormProvider";
 import RHFTextField from "../hook-form/RHFTextField";
 import ConnectGoogle from "../connect-google/ConnectGoogle";
-import LogoZenee from "@/assets/icons/logo.png";
+import LogoZenee from "@/assets/icons/logo.svg";
 import BackgroundImage from "@/assets/images/background.png";
 import { IconKey, IconEmail } from "../common/IconCommon";
 import PersonIcon from "@mui/icons-material/Person";
-import SignUpForm from "../sign-up/SignUp";
+
 type LoginFrom = {
   username: string;
   password: string;
@@ -111,7 +111,7 @@ const FormLoginBasic = () => {
               alt='Zenee AI'
               width={32}
               height={32}
-              className='rounded-lg w-10 h-10 sm:w-12 sm:h-12'
+              className='rounded-lg pt-2 w-10 h-10 sm:w-16 sm:h-16'
             />
             <div className='text-32-40 text-neutral font-bold'>Zenee AI</div>
           </div>

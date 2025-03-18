@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
-import LogoImage from "@/assets/icons/logo.png";
+import LogoImage from "@/assets/icons/logo.svg";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import IconButton from "@mui/material/IconButton";
 import PersonalPrompt from "./PersonalPrompt";
@@ -57,7 +57,7 @@ const ControlSetting = () => {
                 alt='Logo'
                 width={30}
                 height={30}
-                className='rounded-[8px] object-cover w-[50px] h-[50px]'
+                className='rounded-[8px] object-cover w-[50px] h-[50px] mt-1'
               />
             </div>
 

@@ -13,7 +13,7 @@ import { setProfile, setToast } from "@/redux/slices/common";
 import { REFRESH_TOKEN, TOKEN } from "@/helpers/constants";
 import { IcBell, IconMessage } from "../common/IconCommon";
 import Image from "next/image";
-import LogoImage from "@/assets/icons/logo.png";
+import LogoImage from "@/assets/icons/logo.svg";
 
 const LayoutHeader = () => {
   const router = useRouter();

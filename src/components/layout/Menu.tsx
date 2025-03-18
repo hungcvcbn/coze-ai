@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import Image from "next/image";
-import LogoImage from "@/assets/icons/logo.png";
+import LogoImage from "@/assets/icons/logo.svg";
 import { getCookie, deleteCookie } from "cookies-next";
 import { REFRESH_TOKEN, TOKEN } from "@/helpers/constants";
 import MenuIcon from "@mui/icons-material/Menu";
@@ -113,7 +113,7 @@ const Menu = () => {
       >
         <div className='flex flex-col h-full'>
           <div className='flex justify-center items-center gap-2 px-4 w-full p-4 h-[60px]'>
-            <Image src={LogoImage} alt='Logo' width={40} height={40} className='rounded-lg' />
+            <Image src={LogoImage} alt='Logo' width={40} height={40} className='rounded-lg ' />
             <span className='text-24-32 text-neutral font-semibold pt-1'>Zenee AI</span>
           </div>
 

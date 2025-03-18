@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useEffect, useRef } from "react";
 import CustomTextField from "../hook-form/CustomTextField";
-import LogoImage from "@/assets/icons/logo.png";
+import LogoImage from "@/assets/icons/logo.svg";
 import Image from "next/image";
 import AdminAvatar from "@/assets/icons/avatar_admin.png";
 import { Send } from "@mui/icons-material";
@@ -17,7 +17,7 @@ import CleaningServicesIcon from "@mui/icons-material/CleaningServices";
 import { setToast } from "@/redux/slices/common";
 import { useDispatch } from "react-redux";
 import BasicButton from "../common/BasicButton";
-import { useRouter } from "next/navigation";
+
 import ListPlatformPublish from "./platform/ListPlatformPublish";
 import { IconButton, Tooltip, Avatar } from "@mui/material";
 import { resetConversation } from "@/helpers/api/agent";
@@ -232,7 +232,7 @@ const ChatBox = ({ conversation, data }: ChatBoxProps) => {
       );
       const errorMessage = {
         sender: "system",
-          text: "Sorry, an error occurred. Please try again later.",
+        text: "Sorry, an error occurred. Please try again later.",
       } as Message;
       setMessages(prev => [...prev, errorMessage]);
     } finally {
@@ -294,12 +294,10 @@ const ChatBox = ({ conversation, data }: ChatBoxProps) => {
             alt='Bot Avatar'
             width={40}
             height={40}
-            className='rounded-full w-10 h-10 object-cover'
+            className='rounded-full w-10 h-10 object-cover mt-2'
           />
-          <div className='flex flex-col'>
-            <span className='font-sans font-semibold text-neutral text-14-20'>
-              {data?.name || "AI Assistant"}
-            </span>
+          <div className='flex flex-col line-clamp-1 font-sans font-semibold text-neutral text-14-20'>
+            {data?.name || "AI Assistant"}
           </div>
         </div>
         <div className='flex items-center gap-3'>

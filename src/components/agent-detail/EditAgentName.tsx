@@ -14,7 +14,8 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import yup from "@/helpers/utils/yupConfig";
 import { updateAgent } from "@/helpers/api/agent";
 import { useParams } from "next/navigation";
-// import RHFUploadImage from "../hook-form/RHFUploadImage";
+import { IconButton } from "@mui/material";
+import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 interface CreateBotModalProps {
   open: boolean;
   setOpen: (open: boolean) => void;
@@ -58,18 +59,25 @@ const EditCommandModal = ({ open, setOpen, data, fetchData }: CreateBotModalProp
     if (open && data) {
       form.reset({
         name: data?.name,
-        // imageUrl: data?.imageUrl,
       });
     }
   }, [open]);
+
+  const handleCopyId = () => {
+    navigator.clipboard.writeText(data?.id);
+    dispatch(setToast({ message: "Copied to clipboard", type: "success", show: true }));
+  };
 
   return (
     <BasicDialog open={open} onClose={() => setOpen(false)} title='Bot Information' showCloseIcon>
       <FormProvider methods={form} onSubmit={form.handleSubmit(onSubmit)}>
         <BasicDialogContent>
           <div className='flex flex-col gap-2'>
-            <div className='text-14-20 font-medium text-neutral'>
+            <div className='text-14-20 font-medium text-neutral flex items-center gap-2'>
               <span className='font-semibold'>Bot ID:</span> {data?.id}
+              <IconButton onClick={handleCopyId}>
+                <ContentCopyIcon sx={{ color: "#36AFE3", fontSize: "16px" }} />
+              </IconButton>
             </div>
             <RHFTextField name='name' label='Bot Name' placeholder='Enter bot name' isRequired />
           </div>

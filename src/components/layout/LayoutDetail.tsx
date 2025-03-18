@@ -7,7 +7,7 @@ import { useParams, usePathname, useRouter } from "next/navigation";
 import SmartToyIcon from "@mui/icons-material/SmartToy";
 import StorefrontIcon from "@mui/icons-material/Storefront";
 import Image from "next/image";
-import LogoImage from "@/assets/icons/logo.png";
+import LogoImage from "@/assets/icons/logo.svg";
 import Link from "next/link";
 
 interface LayoutProps {

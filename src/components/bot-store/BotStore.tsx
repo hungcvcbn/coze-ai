@@ -7,7 +7,7 @@ import { searchBotStore } from "@/helpers/api/botStore";
 import CustomTextField from "../hook-form/CustomTextField";
 import PaidIcon from "@mui/icons-material/Paid";
 import CommonSkeleton from "../common/Skeleton";
-import LogoZenee from "@/assets/icons/logo.png";
+import LogoZenee from "@/assets/icons/logo.svg";
 import Image from "next/image";
 const BotStore = () => {
   const [data, setData] = useState<any>();

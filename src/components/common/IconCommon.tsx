@@ -227,3 +227,35 @@ export const IconHidePassword: React.FC<Props> = ({
     />
   </svg>
 );
+export const IconDashboard: React.FC<Props> = ({ width = 16, height = 16, color = "#36AFE3" }) => (
+  <svg
+    width={width}
+    height={height}
+    viewBox='0 0 16 16'
+    fill='none'
+    xmlns='http://www.w3.org/2000/svg'
+  >
+    <path
+      fillRule='evenodd'
+      clipRule='evenodd'
+      d='M7.66086 0.132598C7.85239 -0.0441994 8.14761 -0.0441994 8.33914 0.132598L14.8391 6.1326C14.9417 6.22725 15 6.36045 15 6.5V13.5C15 14.8807 13.8807 16 12.5 16H3.5C2.11929 16 1 14.8807 1 13.5V6.5C1 6.36045 1.05832 6.22725 1.16086 6.1326L7.66086 0.132598ZM2 6.71892V13.5C2 14.3284 2.67157 15 3.5 15H6V10.5C6 10.2239 6.22386 10 6.5 10H9.52778C9.80392 10 10.0278 10.2239 10.0278 10.5V15H12.5C13.3284 15 14 14.3284 14 13.5V6.71892L8 1.18045L2 6.71892ZM9.02778 15V11H7V15H9.02778Z'
+      fill={color}
+    />
+  </svg>
+);
+export const IconCopy: React.FC<Props> = ({ width = 16, height = 16, color = "#36AFE3" }) => (
+  <svg
+    xmlns='http://www.w3.org/2000/svg'
+    width='16'
+    height='16'
+    viewBox='0 0 24 24'
+    fill='none'
+    stroke='currentColor'
+    strokeWidth='2'
+    strokeLinecap='round'
+    strokeLinejoin='round'
+  >
+    <rect x='9' y='9' width={width} height={height} rx='2' ry='2'></rect>
+    <path d='M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1'></path>
+  </svg>
+);

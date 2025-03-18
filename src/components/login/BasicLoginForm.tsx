@@ -105,7 +105,7 @@ const FormLoginBasic = () => {
     >
       <div className='relative w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg bg-white mx-auto rounded-lg shadow-lg p-4 sm:p-6'>
         <div className='flex flex-col items-center'>
-          <div className='flex items-center gap-2 mb-3 sm:mb-4'>
+          <div className='flex items-center gap-2 mb-3 sm:mb-6'>
             <Image
               src={LogoZenee}
               alt='Zenee AI'
@@ -113,10 +113,13 @@ const FormLoginBasic = () => {
               height={32}
               className='rounded-lg w-10 h-10 sm:w-12 sm:h-12'
             />
-            <div className='text-24-32 font-bold'>Zenee AI</div>
+            <div className='text-32-40 text-neutral font-bold'>Zenee AI</div>
           </div>
 
-          <div className='flex w-full border-2 border-gray-200 rounded-lg shadow-md mb-4 sm:mb-6' role='tablist'>
+          <div
+            className='flex w-full border-2 border-gray-200 rounded-lg shadow-md mb-4 sm:mb-6'
+            role='tablist'
+          >
             <button
               role='tab'
               aria-selected={activeTab === "signin"}

@@ -75,7 +75,7 @@ const EditPlatformModal = ({ open, setOpen }: Props) => {
                         border: 0,
                       },
                       "& .MuiSwitch-thumb:before": {
-                        content: "'Bật'",
+                        content: "Active",
                         position: "absolute",
                         width: "100%",
                         height: "100%",

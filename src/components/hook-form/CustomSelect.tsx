@@ -131,7 +131,7 @@ const CustomSelect = forwardRef<HTMLDivElement, Props>(
           <TextField
             size='small'
             onChange={onInutChange}
-            placeholder='Tìm kiếm'
+            placeholder='Search'
             fullWidth
             sx={{
               mt: 1,
@@ -187,7 +187,7 @@ const CustomSelect = forwardRef<HTMLDivElement, Props>(
             );
           })}
           {listOption.length < 1 && (
-            <p className='font-inter-400 text-14-20 p-2'>Không tìm thấy kết quả</p>
+            <p className='font-inter-400 text-14-20 p-2'>No results found</p>
           )}
         </Popover>
       </Box>

@@ -35,7 +35,7 @@ const AdvancedGPT = ({ data }: Props) => {
         await updateAgentStatus(selectedBot?.id, params);
         dispatch(
           setToast({
-            message: "Cập nhật trạng thái thành công",
+            message: "Update status successfully",
             type: "success",
             show: true,
           })
@@ -74,8 +74,8 @@ const AdvancedGPT = ({ data }: Props) => {
         open={openConfirm}
         // setOpen={setOpenConfirm}
         onClose={handleUpdateStatus}
-        title='Xác nhận'
-        subTitle='Bạn có chắc chắn muốn cập nhật trạng thái của bot không?'
+        title='Confirm'
+        subTitle='Are you sure you want to update the status of the bot?'
       />
       <div>
         <Popover
@@ -93,13 +93,13 @@ const AdvancedGPT = ({ data }: Props) => {
         >
           <div className='flex flex-col w-[120px] rounded-lg bg-white'>
             <button className='text-14-20 text-neutral font-medium px-4 py-2 border-b border-gray-300 hover:bg-gray-100'>
-              Cài đặt
+              Settings
             </button>
             <button className='text-14-20 text-neutral font-medium px-4 py-2 border-b border-gray-300 hover:bg-gray-100'>
-              Công khai
+              Public
             </button>
             <button className='text-14-20 text-danger font-medium px-4 py-2 hover:bg-gray-100'>
-              Xóa bot
+              Delete Bot
             </button>
           </div>
         </Popover>

@@ -15,7 +15,7 @@ import EditNoteIcon from "@mui/icons-material/EditNote";
 import { requestUpload } from "@/helpers/api/chatbot";
 import BasicDialogActions from "@/components/common/BasicDialogActions";
 import FileUploadIcon from "@mui/icons-material/FileUpload";
-import InsertDriveFileIcon from '@mui/icons-material/InsertDriveFile';
+import InsertDriveFileIcon from "@mui/icons-material/InsertDriveFile";
 interface EditKnowledgeModalProps {
   open: boolean;
   setOpen: (open: boolean) => void;
@@ -164,7 +164,7 @@ const EditKnowledgeModal = ({
                     </div>
                     <div className='flex items-center'>
                       <label htmlFor={`file-upload-${item.id}`}>
-                        <Tooltip title='Tải file cho knowledge' placement='top'>
+                        <Tooltip title='Upload file for knowledge' placement='top'>
                           <button
                             className='cursor-pointer pl-1'
                             onClick={() => {
@@ -176,7 +176,7 @@ const EditKnowledgeModal = ({
                           </button>
                         </Tooltip>
                       </label>
-                      <Tooltip title='Thêm knowledge vào agent' placement='top'>
+                      <Tooltip title='Add knowledge to agent' placement='top'>
                         <button
                           className='cursor-pointer pl-1'
                           onClick={() => handleAddKnowledgeToAgent(item?.id)}
@@ -203,7 +203,7 @@ const EditKnowledgeModal = ({
         <BasicDialogActions>
           <div className='flex justify-end'>
             <BasicButton variant='outlined' onClick={() => setOpen(false)}>
-              Quay lại
+              Close
             </BasicButton>
           </div>
         </BasicDialogActions>

@@ -122,7 +122,7 @@ const ChatBox = ({ conversation, data }: ChatBoxProps) => {
         ...prev,
         {
           sender: "system",
-          text: "Xin lỗi, đã có lỗi xảy ra. Vui lòng thử lại sau.",
+          text: "Sorry, an error occurred. Please try again later.",
         } as Message,
       ]);
     } finally {
@@ -167,7 +167,7 @@ const ChatBox = ({ conversation, data }: ChatBoxProps) => {
         ...prev,
         {
           sender: "system",
-          text: "Xin lỗi, đã có lỗi xảy ra khi xử lý tệp. Vui lòng thử lại sau.",
+          text: "Sorry, an error occurred when processing the file. Please try again later.",
         } as Message,
       ]);
     } finally {
@@ -183,7 +183,7 @@ const ChatBox = ({ conversation, data }: ChatBoxProps) => {
       const res = await resetConversation(params);
 
       if (res.data) {
-        setMessages([{ sender: "system", text: "Xin chào! Tôi có thể giúp gì cho bạn?" }]);
+        setMessages([{ sender: "system", text: "Hello! How can I help you?" }]);
       }
     } catch (error: any) {
       dispatch(
@@ -232,7 +232,7 @@ const ChatBox = ({ conversation, data }: ChatBoxProps) => {
       );
       const errorMessage = {
         sender: "system",
-        text: "Xin lỗi, đã có lỗi xảy ra. Vui lòng thử lại sau.",
+          text: "Sorry, an error occurred. Please try again later.",
       } as Message;
       setMessages(prev => [...prev, errorMessage]);
     } finally {
@@ -403,7 +403,7 @@ const ChatBox = ({ conversation, data }: ChatBoxProps) => {
             size='small'
             value={input}
             onChange={e => setInput(e.target.value)}
-            placeholder='Vui lòng nhập câu hỏi...'
+            placeholder='Please enter your question...'
             onKeyPress={e => {
               if (e.key === "Enter" && !e.shiftKey) {
                 e.preventDefault();

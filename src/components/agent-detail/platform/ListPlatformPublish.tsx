@@ -81,45 +81,39 @@ const ListPlatformPublish = ({ open, setOpen }: Props) => {
   }, [open]);
   return (
     <BasicDialog
-      maxWidth='md'
+      maxWidth='xs'
       open={open}
       onClose={() => setOpen(false)}
-      title='Thông tin Publish'
+      title='Publish Information'
       showCloseIcon
     >
       <BasicDialogContent>
-        <div className='flex flex-col text-neutral'>
-          <div className='flex flex-col mb-4 rounded-lg bg-white p-4 text-neutral'>
-            <div className='text-20-24 font-sans font-medium mb-4'>Nền tảng hỗ trợ</div>
-            <div className='space-y-2'>
-              {data?.availablePlatforms?.map((platform: any) => (
-                <div
-                  key={platform.code}
-                  className='flex w-full items-center  p-4 border rounded-lg'
-                >
-                  <div className='flex items-center justify-center'>
-                    <Checkbox
-                      size='small'
-                      checked={selectedPlatforms.includes(platform.code)}
-                      onChange={() => handleCheckboxChange(platform.code)}
-                    />
-                  </div>
-                  <div className='flex items-center gap-4'>
-                    <span className='text-2xl'>{platform.icon}</span>
-                    <div>
-                      <h3 className='text-14-20 font-sans font-semibold'>{platform.name}</h3>
-                      <p className='text-14-20 font-sans text-gray-600'>{platform.description}</p>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
+        <div className='flex flex-col mx-auto justify-start border border-gray-300 rounded-lg'>
+          <div className='mb-2 text-neutral rounded-t-lg bg-gray-100 font-medium border-b border-gray-300 p-2 w-full'>
+            Supported Platforms
+          </div>
+          <div className='p-2'>
+            {data?.availablePlatforms?.map((platform: any) => (
+              <div key={platform.code} className='flex items-center'>
+                <Checkbox
+                  size='small'
+                  sx={{
+                    "&.Mui-checked": {
+                      color: "#39B5E0",
+                    },
+                  }}
+                  checked={selectedPlatforms.includes(platform.code)}
+                  onChange={() => handleCheckboxChange(platform.code)}
+                />
+                <span className='ml-2'>{platform.name}</span>
+              </div>
+            ))}
           </div>
         </div>
       </BasicDialogContent>
       <BasicDialogActions>
         <BasicButton variant='outlined' type='button' onClick={() => setOpen(false)}>
-          Quay lại
+          Close
         </BasicButton>
         <BasicButton variant='contained' onClick={handlePublish}>
           Publish

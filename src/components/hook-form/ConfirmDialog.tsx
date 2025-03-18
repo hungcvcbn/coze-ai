@@ -11,7 +11,7 @@ interface ConfirmDialogProps {
   textSubmitButton?: string;
   textCancelButton?: string;
   width?: number;
-  isDisabled?: boolean; // Thêm để điều chỉnh trạng thái nút xác nhận
+  isDisabled?: boolean;
 }
 
 const ConfirmDialog: React.FC<ConfirmDialogProps> = ({
@@ -20,8 +20,8 @@ const ConfirmDialog: React.FC<ConfirmDialogProps> = ({
   title,
   subTitle,
   icon,
-  textSubmitButton = "Xác nhận",
-  textCancelButton = "Không",
+  textSubmitButton = "Confirm",
+  textCancelButton = "Cancel",
   width = 600,
   isDisabled = false,
 }) => {

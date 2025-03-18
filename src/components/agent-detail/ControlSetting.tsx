@@ -70,11 +70,11 @@ const ControlSetting = () => {
               </div>
               {data?.status === "ACTIVE" ? (
                 <div className='flex items-center border border-success w-fit rounded-lg px-2 gap-1 bg-success-50'>
-                  <div className='text-12-18 font-semibold text-success'>Đang bật</div>
+                  <div className='text-12-18 font-semibold text-success'>Active</div>
                 </div>
               ) : (
                 <div className='flex items-center border border-danger w-fit rounded-lg px-2 gap-1 bg-danger-50'>
-                  <div className='text-12-18 font-semibold text-danger'>Đã tắt</div>
+                  <div className='text-12-18 font-semibold text-danger'>Off</div>
                 </div>
               )}
             </div>

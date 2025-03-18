@@ -169,14 +169,14 @@ const CreateKnowledge = ({
 
               <RHFTextField
                 name='name'
-                label='Tên knowledge'
-                placeholder='Nhập tên knowledge'
+                label='Knowledge Name'
+                placeholder='Enter knowledge name'
                 isRequired
               />
               <RHFTextField
                 name='description'
-                label='Mô tả'
-                placeholder='Nhập nội dung của knowledge'
+                label='Description'
+                placeholder='Enter knowledge description'
                 multiline
                 rows={4}
                 isRequired
@@ -237,7 +237,7 @@ const CreateKnowledge = ({
               Cancel
             </BasicButton>
             <BasicButton type='submit' variant='contained' color='primary'>
-              Create and Import
+              Create
             </BasicButton>
           </BasicDialogActions>
         </FormProvider>

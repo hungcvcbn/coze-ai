@@ -68,17 +68,17 @@ const CreateBotModal = ({ open, setOpen }: CreateBotModalProps) => {
     <BasicDialog
       open={open}
       onClose={() => setOpen(false)}
-      title='Bắt đầu tạo Bot của bạn'
+      title='Start Creating Your Bot'
       showCloseIcon
     >
       <FormProvider methods={form} onSubmit={form.handleSubmit(onSubmit)}>
         <BasicDialogContent>
           <div className='flex flex-col gap-2'>
-            <RHFTextField name='name' label='Tên bot' placeholder='Nhập tên bot' isRequired />
+            <RHFTextField name='name' label='Bot Name' placeholder='Enter bot name' isRequired />
             <RHFTextField
               name='description'
-              label='Mô tả'
-              placeholder='Nhập mô tả'
+              label='Description'
+              placeholder='Enter description'
               multiline
               rows={4}
             />
@@ -91,10 +91,10 @@ const CreateBotModal = ({ open, setOpen }: CreateBotModalProps) => {
             color='primary'
             onClick={() => setOpen(false)}
           >
-            Đóng
+            Close
           </BasicButton>
           <BasicButton type='submit' variant='contained' color='primary'>
-            Tạo bot
+            Create Bot
           </BasicButton>
         </BasicDialogActions>
       </FormProvider>

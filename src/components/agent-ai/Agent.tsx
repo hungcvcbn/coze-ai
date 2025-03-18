@@ -51,7 +51,7 @@ const ControlPanel = () => {
 
   const tabOptions = [
     { label: "Zenee AI", value: 1 },
-    { label: "GPTs (Nâng cao)", value: 2 },
+    { label: "GPTs (Advanced)", value: 2 },
   ];
   const renderTabContent = () => {
     switch (tab) {
@@ -73,7 +73,7 @@ const ControlPanel = () => {
           <div className='w-full md:w-1/2 lg:w-1/3 '>
             <CustomTextField
               fullWidth
-              placeholder='Tìm kiếm'
+              placeholder='Search'
               sx={{ backgroundColor: "white" }}
               value={term}
               onChange={handleChangeTerm}

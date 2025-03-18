@@ -56,7 +56,7 @@ const Menu = () => {
 
   const menuItems = [
     {
-      title: "Bảng điều khiển",
+      title: "Dashboard",
       path: "/control-panel",
       icon: <DashboardIcon />,
     },
@@ -122,7 +122,7 @@ const Menu = () => {
               className='bg-primary hover:bg-primary-300 w-full text-white px-4 py-2 rounded-lg font-medium text-14-20'
               onClick={() => setOpen(true)}
             >
-              Tạo Bot
+              Create Bot
             </button>
           </div>
 
@@ -191,14 +191,14 @@ const Menu = () => {
                   className='flex items-center gap-2 px-4 py-2 text-neutral hover:bg-gray-100 rounded-lg w-full'
                 >
                   <PersonIcon fontSize='small' />
-                  <span className='text-14-20 font-sans font-medium'>Thông tin cá nhân</span>
+                  <span className='text-14-20 font-sans font-medium'>Personal Information</span>
                 </button>
                 <button
                   onClick={handleLogout}
                   className='flex items-center gap-2 px-4 py-2 text-danger hover:bg-gray-100 rounded-lg w-full'
                 >
                   <LogoutIcon fontSize='small' />
-                  <span className='text-14-20 font-sans font-medium'>Đăng xuất</span>
+                  <span className='text-14-20 font-sans font-medium'>Logout</span>
                 </button>
               </Popover>
             </div>
@@ -206,7 +206,7 @@ const Menu = () => {
             <div className='mt-auto border-t mx-auto border-gray-200 p-2'>
               <Link href={"/login"}>
                 <BasicButton size='md' variant='contained' color='primary'>
-                  <div className='flex items-center gap-2 font-semibold'>Đăng nhập</div>
+                  <div className='flex items-center gap-2 font-semibold'>Login</div>
                 </BasicButton>
               </Link>
             </div>

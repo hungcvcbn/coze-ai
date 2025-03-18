@@ -118,7 +118,7 @@ const CreateBotModal = ({ open, setOpen }: CreateBotModalProps) => {
             color='primary'
             onClick={() => setOpen(false)}
           >
-            Hủy bỏ
+            Close
           </BasicButton>
           <BasicButton type='submit' variant='contained' color='primary'>
             Lưu

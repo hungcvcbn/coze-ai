@@ -64,14 +64,14 @@ const EditCommandModal = ({ open, setOpen, data, fetchData }: CreateBotModalProp
   }, [open]);
 
   return (
-    <BasicDialog open={open} onClose={() => setOpen(false)} title='Thông tin Bot' showCloseIcon>
+    <BasicDialog open={open} onClose={() => setOpen(false)} title='Bot Information' showCloseIcon>
       <FormProvider methods={form} onSubmit={form.handleSubmit(onSubmit)}>
         <BasicDialogContent>
           <div className='flex flex-col gap-2'>
             <div className='text-14-20 font-medium text-neutral'>
               <span className='font-semibold'>Bot ID:</span> {data?.id}
             </div>
-            <RHFTextField name='name' label='Tên bot' placeholder='Nhập tên bot' isRequired />
+            <RHFTextField name='name' label='Bot Name' placeholder='Enter bot name' isRequired />
           </div>
         </BasicDialogContent>
 
@@ -82,10 +82,10 @@ const EditCommandModal = ({ open, setOpen, data, fetchData }: CreateBotModalProp
             color='primary'
             onClick={() => setOpen(false)}
           >
-            Hủy bỏ
+            Close
           </BasicButton>
           <BasicButton type='submit' variant='contained' color='primary'>
-            Cập nhật
+            Update
           </BasicButton>
         </BasicDialogActions>
       </FormProvider>

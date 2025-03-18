@@ -56,7 +56,7 @@ const BotCard: React.FC<BotCardProps> = ({
           <Image src={LogoZenee} alt='Zenee AI' width={20} height={20} className='rounded-lg' />
           <span className='text-14-20 font-sans font-semibold text-primary'>Zenee AI</span>
         </div>
-        <Tooltip title='Trạng thái công khai/ Không công khai'>
+        <Tooltip title='Public/Private'>
           <BasicButton
             className={`px-3 py-1 text-14-20 font-sans ${
               bot?.status === STATUS_BOT.ACTIVE
@@ -69,7 +69,7 @@ const BotCard: React.FC<BotCardProps> = ({
               setOpenConfirm(true);
             }}
           >
-            {bot?.status === STATUS_BOT.ACTIVE ? "Bật" : "Tắt"}
+            {bot?.status === STATUS_BOT.ACTIVE ? "Active" : "Off"}
           </BasicButton>
         </Tooltip>
       </div>

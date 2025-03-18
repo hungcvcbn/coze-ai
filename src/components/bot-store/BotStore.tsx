@@ -42,8 +42,8 @@ const BotStore = () => {
           <Grid container spacing={2}>
             <Grid size={12}>
               <CustomTextField
-                label='Tìm kiếm'
-                placeholder='Nhập tên sản phẩm'
+                label='Search'
+                placeholder='Enter product name'
                 sx={{ backgroundColor: "white" }}
                 value={term}
                 onChange={handleChangeTerm}
@@ -89,7 +89,7 @@ const BotStore = () => {
                       color={bot.price === 0 ? "success" : "error"}
                     />
                     {bot.isFree ? (
-                      <div className='text-14-20 text-success font-bold'>Miễn phí</div>
+                      <div className='text-14-20 text-success font-bold'>Free</div>
                     ) : (
                       <div className='text-14-20 text-danger font-bold'>
                         {bot.price.toLocaleString()} VND

@@ -77,7 +77,7 @@ const ControlCommand = ({ data, fetchAgentDetail }: IControlCommand) => {
         await updateAgentSetup(data.id, dataUpdate);
         dispatch(
           setToast({
-            message: "Cập nhật thành công",
+            message: "Update successfully",
             type: "success",
             show: true,
           })
@@ -207,7 +207,7 @@ const ControlCommand = ({ data, fetchAgentDetail }: IControlCommand) => {
           color='primary'
           onClick={handleCancel}
         >
-          Huỷ
+          Cancel
         </BasicButton>
         <BasicButton
           size='sm'
@@ -216,14 +216,14 @@ const ControlCommand = ({ data, fetchAgentDetail }: IControlCommand) => {
           color='primary'
           onClick={() => setOpenConfirm(true)}
         >
-          Cập nhật
+          Update
         </BasicButton>
       </div>
       <ConfirmDialog
         open={openConfirm}
         onClose={handleUpdatePrompt}
-        title='Xác nhận'
-        subTitle='Bạn có muốn cập nhật thông tin này?'
+        title='Confirm'
+        subTitle='Are you sure you want to update this information?'
       />
       <SampleCommand open={open} setOpen={setOpen} />
     </div>

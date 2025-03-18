@@ -25,14 +25,14 @@ const Profile = () => {
       <div className='flex flex-col gap-6'>
         <div className='space-y-4'>
           <div>
-            <h2 className='text-16-24 font-sans font-bold'>Thông tin cơ bản</h2>
+            <h2 className='text-16-24 font-sans font-bold'>Basic Information</h2>
             <div className='mt-2 space-y-2'>
               <div className='flex justify-between'>
-                <span className='text-gray-600'>Họ:</span>
+                <span className='text-gray-600'>Last Name:</span>
                 <span>{profile.lastName}</span>
               </div>
               <div className='flex justify-between'>
-                <span className='text-gray-600'>Tên:</span>
+                <span className='text-gray-600'>First Name:</span>
                 <span>{profile.firstName}</span>
               </div>
               <div className='flex justify-between'>
@@ -40,7 +40,7 @@ const Profile = () => {
                 <span>{profile.email}</span>
               </div>
               <div className='flex justify-between'>
-                <span className='text-gray-600'>Điện thoại:</span>
+                <span className='text-gray-600'>Phone:</span>
                 <span>{profile.phone}</span>
               </div>
               <div className='flex justify-between'>
@@ -48,11 +48,11 @@ const Profile = () => {
                 <span>{profile.id}</span>
               </div>
               <div className='flex justify-between'>
-                <span className='text-gray-600'>Giới tính:</span>
-                <span>{profile.sex === "FEMALE" ? "Nữ" : "Nam"}</span>
+                <span className='text-gray-600'>Gender:</span>
+                <span>{profile.sex === "FEMALE" ? "Female" : "Male"}</span>
               </div>
               <div className='flex justify-between'>
-                <span className='text-gray-600'>Ngày sinh:</span>
+                <span className='text-gray-600'>Date of birth:</span>
                 <span>{dayjs(profile?.dateOfBirth).format("DD/MM/YYYY")}</span>
               </div>
             </div>

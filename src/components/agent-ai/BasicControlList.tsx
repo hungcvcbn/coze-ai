@@ -107,7 +107,10 @@ const BasicControlList = ({ data, loading, fetchData }: Props) => {
           }}
         >
           <div className='flex flex-col w-[120px] rounded-lg bg-white'>
-            <button className='text-14-20 text-neutral font-medium px-4 py-2 border-b border-gray-300 hover:bg-gray-100'>
+            <button
+              className='text-14-20 text-neutral font-medium px-4 py-2 border-b border-gray-300 hover:bg-gray-100'
+              onClick={() => handleOpenDetail(selectedBot?.id)}
+            >
               Settings
             </button>
             {selectedBot?.status === STATUS_BOT.ACTIVE && (

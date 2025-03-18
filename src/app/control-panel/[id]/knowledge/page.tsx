@@ -2,7 +2,7 @@ import React from "react";
 import LayoutDetail from "@/components/layout/LayoutDetail";
 // import Logo from "@/assets/images/logo.png";
 import Layout from "@/components/layout/Layout";
-
+import withAuth from "@/components/auth/auth";
 const KnowledgePage = () => {
   return (
     <Layout>
@@ -11,4 +11,4 @@ const KnowledgePage = () => {
   );
 };
 
-export default KnowledgePage;
+export default withAuth(KnowledgePage);

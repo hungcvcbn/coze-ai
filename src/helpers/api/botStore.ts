@@ -24,6 +24,7 @@ export const searchBotStore = async () => {
         ][Math.floor(Math.random() * 5)],
         price: price,
         isFree: isFree,
+     
       };
     });
 

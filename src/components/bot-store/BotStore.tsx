@@ -5,20 +5,25 @@ import { setToast } from "@/redux/slices/common";
 import { useAppDispatch } from "@/redux/hooks";
 import { searchBotStore } from "@/helpers/api/botStore";
 import CustomTextField from "../hook-form/CustomTextField";
-import PaidIcon from "@mui/icons-material/Paid";
 import CommonSkeleton from "../common/Skeleton";
-import LogoZenee from "@/assets/icons/logo.svg";
-import Image from "next/image";
+
+import BotCard from "../agent-ai/BotCard";
+import { Popover } from "@mui/material";
+import { STATUS_BOT } from "@/helpers/constants/common";
 const BotStore = () => {
   const [data, setData] = useState<any>();
   const [term, setTerm] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
   const dispatch = useAppDispatch();
 
+  const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
+  const [selectedBot, setSelectedBot] = useState<any>(null);
+  
   const handleChangeTerm = (e: any) => {
     setTerm(e.target.value);
   };
-
+  const open = Boolean(anchorEl);
+  const id = open ? "simple-popover" : undefined;
   const fetchData = async () => {
     try {
       setLoading(true);
@@ -35,6 +40,14 @@ const BotStore = () => {
     fetchData();
   }, []);
 
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+  
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>, bot: any) => {
+    setAnchorEl(event.currentTarget);
+    setSelectedBot(bot);
+  };
   return (
     <div className='flex flex-col text-neutral font-sans'>
       <div className='flex items-center justify-between sticky z-10 p-0 top-0'>
@@ -56,51 +69,50 @@ const BotStore = () => {
         {loading ? (
           <CommonSkeleton itemCount={16} />
         ) : (
-          <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2'>
+          <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4'>
             {data?.map((bot: any, index: any) => (
-              <div
-                key={index}
-                className='border rounded-lg relative h-[180px] w-auto cursor-pointer p-2 bg-[#FFFFFF] border-gray-300 hover:transform hover:translate-x-[-2px] hover:shadow-[0_10px_10px_gray] duration-300'
-              >
-                <div className='flex flex-row gap-3 mb-3'>
-                  <div className='min-w-12 h-12 rounded-lg bg-gray-100 flex items-center justify-center'>
-                    {bot?.avatar || "🤖"}
-                  </div>
-                  <div className='flex flex-col gap-1'>
-                    <h3 className='font-semibold text-neutral text-16-24 mb-1 font-sans'>
-                      {bot?.name}
-                    </h3>
-                    <div className='flex items-center gap-1'>
-                      <Image src={LogoZenee} alt='Zenee AI' width={16} height={16} />
-                      <span className='text-14-20 text-neutral font-sans font-medium'>
-                        {bot?.provider || "Zenee AI"}
-                      </span>
-                    </div>
-                    <p className='text-14-20 text-neutral font-sans font-medium mb-4 line-clamp-2'>
-                      {bot.description}
-                    </p>
-                  </div>
-                </div>
-
-                <div className='flex items-center gap-2 border-t border-gray-300 pt-4 px-4 w-[100pz]'>
-                  <span className='text-14-20 text-neutral font-bold flex items-center gap-1'>
-                    <PaidIcon
-                      sx={{ fontSize: "16px" }}
-                      color={bot.price === 0 ? "success" : "error"}
-                    />
-                    {bot.isFree ? (
-                      <div className='text-14-20 text-success font-bold'>Free</div>
-                    ) : (
-                      <div className='text-14-20 text-danger font-bold'>
-                        {bot.price.toLocaleString()} VND
-                      </div>
-                    )}
-                  </span>
-                </div>
+              <div key={index}>
+                <BotCard
+                  key={index}
+                  bot={bot}
+                  onOpenDetail={() => {}}
+                  onClickMenu={handleClick}
+                  setSelectedBot={setSelectedBot}
+                  setOpenConfirm={() => {}}
+                />
               </div>
             ))}
           </div>
         )}
+      </div>
+      <div>
+        <Popover
+          id={id}
+          open={open}
+          anchorEl={anchorEl}
+          onClose={handleClose}
+          anchorOrigin={{
+            vertical: "bottom",
+            horizontal: "left",
+          }}
+          sx={{
+            borderRadius: "10px",
+          }}
+        >
+          <div className='flex flex-col w-[120px] rounded-lg bg-white'>
+            <button className='text-14-20 text-neutral font-medium px-4 py-2 border-b border-gray-300 hover:bg-gray-100'>
+              Settings
+            </button>
+            {selectedBot?.status === STATUS_BOT.ACTIVE && (
+              <button className='text-14-20 text-neutral font-medium px-4 py-2 border-b border-gray-300 hover:bg-gray-100'>
+                Public
+              </button>
+            )}
+            <button className='text-14-20 text-danger font-medium px-4 py-2 hover:bg-gray-100'>
+              Delete Bot
+            </button>
+          </div>
+        </Popover>
       </div>
     </div>
   );

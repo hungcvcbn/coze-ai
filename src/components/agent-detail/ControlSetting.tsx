@@ -80,7 +80,7 @@ const ControlSetting = () => {
             </div>
           </div>
         </div>
-        <div className='w-full overflow-auto'>
+        <div className='w-full'>
           <PersonalPrompt data={data} fetchAgentDetail={fetchAgentDetail} />
         </div>
       </div>

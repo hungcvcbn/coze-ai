@@ -22,12 +22,15 @@ import RHFTextField from "../hook-form/RHFTextField";
 import ConnectGoogle from "../connect-google/ConnectGoogle";
 import LogoZenee from "@/assets/icons/logo.png";
 import BackgroundImage from "@/assets/images/background.png";
-
+import { IconKey, IconEmail } from "../common/IconCommon";
+import PersonIcon from "@mui/icons-material/Person";
+import SignUpForm from "../sign-up/SignUp";
 type LoginFrom = {
   username: string;
   password: string;
 };
 const FormLoginBasic = () => {
+  const [activeTab, setActiveTab] = useState("signin");
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -53,8 +56,14 @@ const FormLoginBasic = () => {
         dispatch(setProfile(res.data));
         router.push("/control-panel");
       }
-    } catch (error) {
-      console.log(error);
+    } catch (error: any) {
+      dispatch(
+        setToast({
+          type: "error",
+          message: error.message,
+          show: true,
+        })
+      );
     }
   };
   const handleSubmit = async (data: LoginFrom) => {
@@ -87,74 +96,108 @@ const FormLoginBasic = () => {
 
   return (
     <div
-      className='h-screen w-full flex items-center justify-center'
+      className='h-screen w-full flex items-center justify-center bg-white text-neutral'
       style={{ backgroundImage: `url(${BackgroundImage.src})` }}
     >
-      <div className='relative grid grid-rows-7 py-3 sm:max-w-xl sm:mx-auto text-gray-700 w-full'>
-        <div className='relative row-span-7 px-4 py-10 bg-white mx-8 md:mx-0 shadow rounded-3xl sm:p-10'>
-          <div className='max-w-md mx-auto'>
-            <div className='flex flex-col items-center mb-4'>
-              <Image
-                src={LogoZenee}
-                alt='Zenee AI'
-                width={100}
-                height={100}
-                className='rounded-lg'
-              />
-              <div className='text-28-36 font-semibold mt-2'>Zenee AI</div>
-            </div>
+      <div className='relative w-full max-w-lg bg-white mx-auto rounded-lg shadow-lg p-6'>
+        <div className='flex flex-col items-center mb-6'>
+          <div className='flex items-center gap-2 mb-4'>
+            <Image
+              src={LogoZenee}
+              alt='Zenee AI'
+              width={40}
+              height={40}
+              className='rounded-lg w-10 h-10'
+            />
+            <div className='text-24-32 font-bold'>Zenee AI</div>
+          </div>
 
-            <div className='flex flex-col gap-3 mb-6'>
-              <ConnectGoogle />
+          <div className='flex w-full border-b mb-6' role='tablist'>
+            <button
+              role='tab'
+              aria-selected={activeTab === "signin"}
+              className={clsx(
+                "flex-1 text-center py-2 font-medium",
+                activeTab === "signin"
+                  ? "border-b-2 border-blue-500"
+                  : "text-gray-500 hover:text-gray-700"
+              )}
+              onClick={() => setActiveTab("signin")}
+            >
+              Sign In
+            </button>
+            <button
+              role='tab'
+              aria-selected={activeTab === "signup"}
+              className={clsx(
+                "flex-1 text-center py-2 font-medium",
+                activeTab === "signup"
+                  ? "border-b-2 border-blue-500"
+                  : "text-gray-500 hover:text-gray-700"
+              )}
+              onClick={() => setActiveTab("signup")}
+            >
+              Create Account
+            </button>
+          </div>
+        </div>
 
-              {/* <button className='flex items-center justify-center gap-2 w-full py-2 px-4 border border-gray-300 rounded-lg hover:bg-gray-50'>
-                <Image src={GoogleIconImage} alt='Mindmaid.ai' width={25} height={25} />
-
-                <span className='text-16-24 font-medium'>Đăng nhập bằng Google</span>
-              </button> */}
-              {/* <button className='flex items-center justify-center gap-2 w-full py-2 px-4 border border-gray-300 rounded-lg hover:bg-gray-50'>
-                <FacebookIcon
-                  sx={{
-                    color: "#3b5998",
-                    width: "25px",
-                    height: "25px",
-                  }}
-                />
-                <span className='text-16-24 font-medium'>Đăng nhập bằng Facebook</span>
-              </button> */}
-            </div>
-
-            <div className='flex items-center justify-center my-4'>
-              <div className='border-t flex-grow'></div>
-              <span className='px-4 text-16-24 font-medium text-neutral'>Hoặc</span>
-              <div className='border-t flex-grow'></div>
-            </div>
-
-            <FormProvider methods={form} onSubmit={form.handleSubmit(handleSubmit)}>
-              <div className='flex flex-col gap-3'>
+        <FormProvider methods={form} onSubmit={form.handleSubmit(handleSubmit)}>
+          {activeTab === "signin" ? (
+            <div>
+              <div className='flex flex-col gap-4'>
                 <RHFTextField
-                  label='Tên đăng nhập'
+                  label='Username'
                   name='username'
-                  size='small'
-                  isRequired
-                  placeholder='Nhập tên đăng nhập của bạn'
+                  size='medium'
+                  placeholder='Enter username'
                   variant='outlined'
                   fullWidth
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position='start'>
+                        <IconEmail />
+                      </InputAdornment>
+                    ),
+                  }}
+                  sx={{
+                    "& .MuiOutlinedInput-root": {
+                      "& fieldset": {
+                        borderRadius: "10px",
+                        padding: "10px",
+                      },
+                    },
+                    "& .MuiInputBase-input": {
+                      paddingLeft: "10px",
+                    },
+                  }}
                 />
 
                 <RHFTextField
-                  label='Mật khẩu'
+                  label='Password'
                   name='password'
-                  size='small'
-                  isRequired
-                  placeholder='Nhập mật khẩu vào đây'
+                  size='medium'
+                  placeholder='**************'
                   variant='outlined'
                   type={showPassword ? "text" : "password"}
                   fullWidth
-                  InputProps={{
-                    style: {
-                      fontSize: "14px",
+                  sx={{
+                    "& .MuiOutlinedInput-root": {
+                      "& fieldset": {
+                        borderRadius: "10px",
+                        padding: "10px",
+                      },
                     },
+                    "& .MuiInputBase-input": {
+                      paddingLeft: "10px",
+                    },
+                  }}
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position='start'>
+                        <IconKey />
+                      </InputAdornment>
+                    ),
                     endAdornment: (
                       <InputAdornment position='end'>
                         <IconButton
@@ -163,21 +206,9 @@ const FormLoginBasic = () => {
                           edge='end'
                         >
                           {showPassword ? (
-                            <Tooltip title='Ẩn mật khẩu'>
-                              <VisibilityOffIcon
-                                sx={{
-                                  fontSize: "16px",
-                                }}
-                              />
-                            </Tooltip>
+                            <VisibilityOffIcon sx={{ color: "#39B5E0", fontSize: "20px" }} />
                           ) : (
-                            <Tooltip title='Hiện mật khẩu'>
-                              <VisibilityIcon
-                                sx={{
-                                  fontSize: "16px",
-                                }}
-                              />
-                            </Tooltip>
+                            <VisibilityIcon sx={{ color: "#39B5E0", fontSize: "20px" }} />
                           )}
                         </IconButton>
                       </InputAdornment>
@@ -186,54 +217,172 @@ const FormLoginBasic = () => {
                 />
               </div>
 
-              <div className='flex items-center justify-between mt-4 mb-6'>
-                <div className='flex items-center'>
-                  <Checkbox
-                    size='small'
-                    sx={{
-                      color: "#000000",
-                      padding: "0px",
-                      "&.Mui-checked": {
-                        color: "#6A5ACD",
-                      },
-                    }}
-                  />
-                  <div className='text-12-18 px-1 font-medium text-neutral'>
-                    Đồng ý với các điều khoản và điều kiện
-                  </div>
-                </div>
+              <div className='flex justify-end mt-2 mb-6'>
                 <Link
                   href={``}
-                  className='text-12-18 font-medium text-blue-600 hover:text-blue-800'
+                  className='text-14-18 font-medium text-primary hover:text-primary-700'
                 >
-                  Quên mật khẩu?
+                  Forgot password?
                 </Link>
               </div>
 
               <button
                 type='submit'
                 className={clsx(
-                  `w-full py-2.5 px-4 text-16-24 font-semibold`,
-                  loading ? "bg-gray-400 cursor-not-allowed" : "bg-primary hover:opacity-80",
-                  `text-white rounded-lg font-medium transition-colors`
+                  `w-full py-3 px-4 text-16-24 font-medium`,
+                  loading ? "bg-primary-300 cursor-not-allowed" : "bg-primary hover:bg-primary-700",
+                  `text-white rounded-md transition-colors`
                 )}
                 disabled={loading}
               >
-                {loading ? "Đang xử lý..." : "Đăng nhập"}
+                {loading ? "Processing..." : "Sign In"}
               </button>
 
-              <div className='text-center mt-6'>
-                <span className='text-14-20 text-neutral'>Chưa có tài khoản? </span>
+              <div className='flex items-center justify-center my-4'>
+                <div className='border-t flex-grow'></div>
+                <span className='px-4 text-14-20 font-medium text-gray-500'>OR</span>
+                <div className='border-t flex-grow'></div>
+              </div>
+
+              <div className='mt-4'>
+                <ConnectGoogle />
+              </div>
+            </div>
+          ) : (
+            <div>
+              <div className='flex flex-col gap-4'>
+                <RHFTextField
+                  label='Email Address'
+                  name='email'
+                  disabled
+                  size='medium'
+                  placeholder='Enter valid email address'
+                  variant='outlined'
+                  fullWidth
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position='start'>
+                        <IconEmail />
+                      </InputAdornment>
+                    ),
+                  }}
+                  sx={{
+                    "& .MuiOutlinedInput-root": {
+                      "& fieldset": {
+                        borderRadius: "10px",
+                        padding: "10px",
+                      },
+                    },
+                    "& .MuiInputBase-input": {
+                      paddingLeft: "10px",
+                    },
+                  }}
+                />
+                <RHFTextField
+                  label='UserName'
+                  name='username'
+                  size='medium'
+                  disabled
+                  placeholder='Enter valid username'
+                  variant='outlined'
+                  fullWidth
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position='start'>
+                        <PersonIcon sx={{ color: "#39B5E0", fontSize: "20px" }} />
+                      </InputAdornment>
+                    ),
+                  }}
+                  sx={{
+                    "& .MuiOutlinedInput-root": {
+                      "& fieldset": {
+                        borderRadius: "10px",
+                        padding: "10px",
+                      },
+                    },
+                    "& .MuiInputBase-input": {
+                      paddingLeft: "10px",
+                    },
+                  }}
+                />
+                <RHFTextField
+                  label='Password'
+                  name='password'
+                  size='medium'
+                  disabled
+                  placeholder='**************'
+                  variant='outlined'
+                  type={showPassword ? "text" : "password"}
+                  fullWidth
+                  sx={{
+                    "& .MuiOutlinedInput-root": {
+                      "& fieldset": {
+                        borderRadius: "10px",
+                        padding: "10px",
+                      },
+                    },
+                    "& .MuiInputBase-input": {
+                      paddingLeft: "10px",
+                    },
+                  }}
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position='start'>
+                        <IconKey />
+                      </InputAdornment>
+                    ),
+                    endAdornment: (
+                      <InputAdornment position='end'>
+                        <IconButton
+                          aria-label='toggle password visibility'
+                          onClick={() => setShowPassword(!showPassword)}
+                          edge='end'
+                        >
+                          {showPassword ? (
+                            <VisibilityOffIcon sx={{ color: "#39B5E0", fontSize: "20px" }} />
+                          ) : (
+                            <VisibilityIcon sx={{ color: "#39B5E0", fontSize: "20px" }} />
+                          )}
+                        </IconButton>
+                      </InputAdornment>
+                    ),
+                  }}
+                />
+              </div>
+
+              <div className='flex justify-end mt-2 mb-6'>
                 <Link
-                  href={`/sign-up`}
-                  className='text-blue-600 hover:text-blue-800 text-14-20 font-medium hover:font-bold'
+                  href={``}
+                  className='text-14-18 font-medium text-primary hover:text-primary-700'
                 >
-                  Đăng ký ngay!
+                  Forgot password?
                 </Link>
               </div>
-            </FormProvider>
-          </div>
-        </div>
+
+              <button
+                type='button'
+                className={clsx(
+                  `w-full py-3 px-4 text-16-24 font-medium`,
+                  loading ? "bg-primary-300 cursor-not-allowed" : "bg-primary hover:bg-primary-700",
+                  `text-white rounded-md transition-colors`
+                )}
+                disabled
+              >
+                {loading ? "Processing..." : "Create Account"}
+              </button>
+
+              <div className='flex items-center justify-center my-4'>
+                <div className='border-t flex-grow'></div>
+                <span className='px-4 text-14-20 font-medium text-gray-500'>OR</span>
+                <div className='border-t flex-grow'></div>
+              </div>
+
+              <div className='mt-4'>
+                <ConnectGoogle />
+              </div>
+            </div>
+          )}
+        </FormProvider>
       </div>
     </div>
   );

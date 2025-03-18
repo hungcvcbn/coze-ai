@@ -46,23 +46,27 @@ const ControlSetting = () => {
   return (
     <div className='grid grid-cols-12 gap-2 p-4 bg-white rounded-lg w-full '>
       <div className='col-span-12 lg:col-span-4 lg:sticky lg:top-0 h-full bg-white border border-gray-200 rounded-lg px-4 pb-4 w-full'>
+        <button
+          className='cursor-pointer p-2 flex justify-center items-center'
+          onClick={() => router.back()}
+        >
+          <ArrowBackIosIcon sx={{ color: "#334155", fontSize: "12px", hover: "#636262" }} />
+          <div className='text-14-20 font-semibold text-neutral hover:text-[#636262]'>Back</div>
+        </button>
         <div className='flex justify-between h-[80px] border-b border-gray-200 w-full'>
           <div className='flex w-full'>
             <div className='flex justify-center items-center gap-3'>
-              <button className='cursor-pointer p-1' onClick={() => router.back()}>
-                <ArrowBackIosIcon sx={{ color: "#000000", fontSize: "20px" }} />
-              </button>
               <Image
                 src={LogoImage}
                 alt='Logo'
                 width={30}
                 height={30}
-                className='rounded-[8px] object-cover w-[50px] h-[50px] mt-1'
+                className='rounded-[8px] object-cover w-[50px] h-[50px]'
               />
             </div>
 
             <div className='flex flex-col justify-center px-3 pb-2'>
-              <div className='text-14-20 flex items-center gap-2 font-semibold text-primary'>
+              <div className='text-14-20 flex items-center gap-2 font-semibold text-neutral'>
                 {data?.name}
                 <IconButton onClick={() => setOpen(true)}>
                   <EditNoteIcon sx={{ fontSize: "20px", color: "#39B5E0" }} />

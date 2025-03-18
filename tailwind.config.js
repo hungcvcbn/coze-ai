@@ -38,7 +38,7 @@ module.exports = {
         // Neutral color
         neutral: '#334155',
         'neutral-gray-1': '#C6C6C6',
-        'neutral-gray-2': '##E5E7EB',
+        'neutral-gray-2': '#E5E7EB',
 
         // Success color
         success: '#15AA2C',

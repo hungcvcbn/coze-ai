@@ -12,7 +12,7 @@ export interface CommonState {
     message: string
   },
   profile: any,
-  triggerTime: number
+  triggerTime: number | null
 }
 const initialState: CommonState = {
   locale: 'en-US',
@@ -25,7 +25,7 @@ const initialState: CommonState = {
     message: '',
   },
   profile: {},
-  triggerTime: new Date().getTime()
+  triggerTime: null
 }
 
 export const commonSlices = createSlice({

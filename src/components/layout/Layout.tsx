@@ -13,8 +13,6 @@ const Layout = ({ children }: LayoutProps) => {
   const isLoginPage = pathname === "/login" || pathname === "/sign-in" || pathname === "/sign-up";
   const [isMobile, setIsMobile] = useState(false);
 
-  useProfileFetch();
-
   useEffect(() => {
     const handleResize = () => {
       setIsMobile(window.innerWidth < 768);

@@ -295,27 +295,192 @@ export const IconUpload: React.FC<Props> = ({ width = 14, height = 14, color = "
     </g>
   </svg>
 );
-export const IconTrash: React.FC<Props> = ({ width = 24, height = 24, color = '#334155' }) => (
-  <svg xmlns="http://www.w3.org/2000/svg" width={width} height={height} viewBox="0 0 24 24" fill="none">
+export const IconTrash: React.FC<Props> = ({ width = 24, height = 24, color = "#334155" }) => (
+  <svg
+    xmlns='http://www.w3.org/2000/svg'
+    width={width}
+    height={height}
+    viewBox='0 0 24 24'
+    fill='none'
+  >
     <path
-      d="M21 5.97998C17.67 5.64998 14.32 5.47998 10.98 5.47998C9 5.47998 7.02 5.57998 5.04 5.77998L3 5.97998"
+      d='M21 5.97998C17.67 5.64998 14.32 5.47998 10.98 5.47998C9 5.47998 7.02 5.57998 5.04 5.77998L3 5.97998'
       stroke={color}
-      strokeLinecap="round"
-      strokeLinejoin="round"
+      strokeLinecap='round'
+      strokeLinejoin='round'
     />
     <path
-      d="M8.5 4.97L8.72 3.66C8.88 2.71 9 2 10.69 2H13.31C15 2 15.13 2.75 15.28 3.67L15.5 4.97"
+      d='M8.5 4.97L8.72 3.66C8.88 2.71 9 2 10.69 2H13.31C15 2 15.13 2.75 15.28 3.67L15.5 4.97'
       stroke={color}
-      strokeLinecap="round"
-      strokeLinejoin="round"
+      strokeLinecap='round'
+      strokeLinejoin='round'
     />
     <path
-      d="M18.8504 9.13989L18.2004 19.2099C18.0904 20.7799 18.0004 21.9999 15.2104 21.9999H8.79039C6.00039 21.9999 5.91039 20.7799 5.80039 19.2099L5.15039 9.13989"
+      d='M18.8504 9.13989L18.2004 19.2099C18.0904 20.7799 18.0004 21.9999 15.2104 21.9999H8.79039C6.00039 21.9999 5.91039 20.7799 5.80039 19.2099L5.15039 9.13989'
       stroke={color}
-      strokeLinecap="round"
-      strokeLinejoin="round"
+      strokeLinecap='round'
+      strokeLinejoin='round'
     />
-    <path d="M10.3301 16.5H13.6601" stroke={color} strokeLinecap="round" strokeLinejoin="round" />
-    <path d="M9.5 12.5H14.5" stroke={color} strokeLinecap="round" strokeLinejoin="round" />
+    <path d='M10.3301 16.5H13.6601' stroke={color} strokeLinecap='round' strokeLinejoin='round' />
+    <path d='M9.5 12.5H14.5' stroke={color} strokeLinecap='round' strokeLinejoin='round' />
   </svg>
-)
+);
+
+export const IconArrowRight: React.FC<Props> = ({ width = 24, height = 24, color = "#334155" }) => (
+  <svg
+    width={width}
+    height={height}
+    viewBox='0 0 20 20'
+    fill='none'
+    xmlns='http://www.w3.org/2000/svg'
+  >
+    <path
+      d='M7.42505 16.6004L12.8584 11.1671C13.5 10.5254 13.5 9.47539 12.8584 8.83372L7.42505 3.40039'
+      stroke={color}
+      strokeMiterlimit='10'
+      strokeLinecap='round'
+      strokeLinejoin='round'
+    />
+  </svg>
+);
+
+export const IconArrowLeft: React.FC<Props> = ({ width = 24, height = 24, color = "#334155" }) => (
+  <svg
+    width={width}
+    height={height}
+    viewBox='0 0 20 20'
+    fill='none'
+    xmlns='http://www.w3.org/2000/svg'
+  >
+    <path
+      d='M12.5 16.6004L7.06667 11.1671C6.425 10.5254 6.425 9.47539 7.06667 8.83372L12.5 3.40039'
+      stroke={color}
+      strokeMiterlimit='10'
+      strokeLinecap='round'
+      strokeLinejoin='round'
+    />
+  </svg>
+);
+export const IconCalendarOutline: React.FC<Props> = ({
+  width = 24,
+  height = 24,
+  color = "#334155",
+}) => (
+  <svg
+    width={width}
+    height={height}
+    viewBox='0 0 21 20'
+    fill='none'
+    xmlns='http://www.w3.org/2000/svg'
+  >
+    <path
+      d='M7 1.66602V4.16602'
+      stroke={color}
+      strokeMiterlimit='10'
+      strokeLinecap='round'
+      strokeLinejoin='round'
+    />
+    <path
+      d='M13.6667 1.66602V4.16602'
+      stroke={color}
+      strokeMiterlimit='10'
+      strokeLinecap='round'
+      strokeLinejoin='round'
+    />
+    <path
+      d='M3.25 7.57422H17.4167'
+      stroke={color}
+      strokeMiterlimit='10'
+      strokeLinecap='round'
+      strokeLinejoin='round'
+    />
+    <path
+      d='M17.8333 7.08268V14.166C17.8333 16.666 16.5833 18.3327 13.6667 18.3327H7.00001C4.08334 18.3327 2.83334 16.666 2.83334 14.166V7.08268C2.83334 4.58268 4.08334 2.91602 7.00001 2.91602H13.6667C16.5833 2.91602 17.8333 4.58268 17.8333 7.08268Z'
+      stroke={color}
+      strokeMiterlimit='10'
+      strokeLinecap='round'
+      strokeLinejoin='round'
+    />
+    <path
+      d='M13.4123 11.4167H13.4198'
+      stroke={color}
+      strokeLinecap='round'
+      strokeLinejoin='round'
+    />
+    <path
+      d='M13.4123 13.9167H13.4198'
+      stroke={color}
+      strokeLinecap='round'
+      strokeLinejoin='round'
+    />
+    <path
+      d='M10.3296 11.4167H10.3371'
+      stroke={color}
+      strokeLinecap='round'
+      strokeLinejoin='round'
+    />
+    <path
+      d='M10.3296 13.9167H10.3371'
+      stroke={color}
+      strokeLinecap='round'
+      strokeLinejoin='round'
+    />
+    <path
+      d='M7.24528 11.4167H7.25277'
+      stroke={color}
+      strokeLinecap='round'
+      strokeLinejoin='round'
+    />
+    <path
+      d='M7.24528 13.9167H7.25277'
+      stroke={color}
+      strokeLinecap='round'
+      strokeLinejoin='round'
+    />
+  </svg>
+);
+
+export const IconUser: React.FC<Props> = ({ width = 16, height = 16, color = "#334155" }) => (
+  <svg
+    width={width}
+    height={height}
+    viewBox='0 0 16 16'
+    fill='none'
+    xmlns='http://www.w3.org/2000/svg'
+  >
+    <path
+      fillRule='evenodd'
+      clipRule='evenodd'
+      d='M11.0001 6.00024C11.0001 7.6571 9.65691 9.00024 8.00006 9.00024C6.3432 9.00024 5.00006 7.6571 5.00006 6.00024C5.00006 4.34339 6.3432 3.00024 8.00006 3.00024C9.65691 3.00024 11.0001 4.34339 11.0001 6.00024ZM10.0001 6.00024C10.0001 7.10481 9.10463 8.00024 8.00006 8.00024C6.89549 8.00024 6.00006 7.10481 6.00006 6.00024C6.00006 4.89567 6.89549 4.00024 8.00006 4.00024C9.10463 4.00024 10.0001 4.89567 10.0001 6.00024Z'
+      fill={color}
+    />
+    <path
+      fillRule='evenodd'
+      clipRule='evenodd'
+      d='M15.2943 8.00016C15.2943 12.0316 12.0262 15.2996 7.99479 15.2996C3.9634 15.2996 0.695312 12.0316 0.695312 8.00016C0.695312 3.96877 3.9634 0.700684 7.99479 0.700684C12.0262 0.700684 15.2943 3.96877 15.2943 8.00016ZM11.9679 12.889C10.884 13.7709 9.50113 14.2996 7.99479 14.2996C6.49265 14.2996 5.1133 13.7739 4.03074 12.8963L4.24918 11.8041C4.34267 11.3367 4.75308 11.0002 5.22976 11.0002H5.76399C5.84161 11.0002 5.91817 11.0183 5.98759 11.053L6.43481 11.2766C7.42016 11.7693 8.57996 11.7693 9.5653 11.2766L10.0125 11.053C10.0819 11.0183 10.1585 11.0002 10.2361 11.0002H10.7703C11.247 11.0002 11.6574 11.3367 11.7509 11.8041L11.9679 12.889ZM12.82 12.0502L12.7315 11.608C12.5445 10.6732 11.7237 10.0002 10.7703 10.0002H10.2361C10.0033 10.0002 9.77359 10.0545 9.5653 10.1586L9.11809 10.3822C8.41427 10.7341 7.58584 10.7341 6.88202 10.3822L6.43481 10.1586C6.22653 10.0545 5.99686 10.0002 5.76399 10.0002H5.22976C4.2764 10.0002 3.45557 10.6732 3.2686 11.608L3.17814 12.0603C2.25293 10.9639 1.69531 9.54714 1.69531 8.00016C1.69531 4.52106 4.51569 1.70068 7.99479 1.70068C11.4739 1.70068 14.2943 4.52106 14.2943 8.00016C14.2943 9.54239 13.7401 10.9552 12.82 12.0502Z'
+      fill={color}
+    />
+  </svg>
+);
+export const IconLock: React.FC<Props> = ({ width = 16, height = 16, color = "#0F0E11" }) => (
+  <svg
+    width={width}
+    height={height}
+    viewBox='0 0 16 16'
+    fill='none'
+    xmlns='http://www.w3.org/2000/svg'
+  >
+    <g clipPath='url(#clip0_166_19901)'>
+      <path
+        d='M11.5 5.5C12.0523 5.5 12.5 5.05228 12.5 4.5C12.5 3.94772 12.0523 3.5 11.5 3.5C10.9477 3.5 10.5 3.94772 10.5 4.5C10.5 5.05228 10.9477 5.5 11.5 5.5Z'
+        fill={color}
+      />
+      <path
+        fillRule='evenodd'
+        clipRule='evenodd'
+        d='M10.75 0C7.8505 0 5.5 2.35051 5.5 5.25C5.5 5.72117 5.56219 6.17849 5.67903 6.61387L0 12.2929V16H3.5C4.05229 16 4.5 15.5523 4.5 15V14.5H5C5.55228 14.5 6 14.0523 6 13.5V13H6.5C7.05229 13 7.5 12.5523 7.5 12V11.2071L8.64589 10.0612C9.29053 10.3435 10.0025 10.5 10.75 10.5C13.6495 10.5 16 8.14949 16 5.25C16 2.35051 13.6495 0 10.75 0ZM6.5 5.25C6.5 2.90279 8.40279 1 10.75 1C13.0972 1 15 2.90279 15 5.25C15 7.59721 13.0972 9.5 10.75 9.5C10.0362 9.5 9.36494 9.32444 8.77551 9.01458L8.44963 8.84327L6.5 10.7929V12H5V13.5H3.5V15H1V12.7071L6.81601 6.8911L6.71801 6.59778C6.57673 6.17492 6.5 5.72193 6.5 5.25Z'
+        fill={color}
+      />
+    </g>
+  </svg>
+);

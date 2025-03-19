@@ -65,7 +65,7 @@ const ControlPanel = () => {
   };
   return (
     <div className='flex flex-col'>
-      <div className='bg-white sticky top-0 z-10 px-3 pt-3'>
+      <div className='bg-white sticky top-0 z-10 pt-3'>
         <div className='flex flex-col md:flex-row md:items-center justify-between gap-1 '>
           <div className='flex justify-center items-center'>
             <BasicTab tabOptions={tabOptions} value={tab} onChange={handleChange} />
@@ -81,7 +81,7 @@ const ControlPanel = () => {
         </div>
       </div>
 
-      <div className='px-3 pb-3'>{renderTabContent()}</div>
+      <div className='pb-3'>{renderTabContent()}</div>
     </div>
   );
 };

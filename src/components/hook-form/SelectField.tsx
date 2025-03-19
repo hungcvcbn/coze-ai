@@ -76,10 +76,10 @@ const SelectField = forwardRef<HTMLDivElement, SelectFieldProps>(
             value={AllOption.value}
             sx={{
               "&.Mui-selected": {
-                backgroundColor: "#f8f4ee",
-                color: "#c0905d",
+                backgroundColor: "#E6F7FD",
+                color: "#E6F7FD",
                 ":hover": {
-                  backgroundColor: "#f8f4ee",
+                  backgroundColor: "#E6F7FD",
                 },
               },
             }}
@@ -95,10 +95,10 @@ const SelectField = forwardRef<HTMLDivElement, SelectFieldProps>(
                 disabled={option.disabled}
                 sx={{
                   "&.Mui-selected": {
-                    backgroundColor: "#f8f4ee",
-                    color: "#c0905d",
+                    backgroundColor: "#E6F7FD !important",
+
                     ":hover": {
-                      backgroundColor: "#f8f4ee",
+                      backgroundColor: "#E6F7FD !important",
                     },
                   },
                 }}

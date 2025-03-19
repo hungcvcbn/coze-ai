@@ -39,7 +39,7 @@ const Layout = ({ children }: LayoutProps) => {
       <Menu />
       <div className={`flex-1 overflow-auto transition-all ${isMobile ? "ml-16" : "ml-64"}`}>
         <div className='p-2 md:p-4 h-auto'>
-          <main className='bg-white rounded-lg h-full'>{children}</main>
+          <main className='bg-white rounded-lg h-full p-4'>{children}</main>
         </div>
       </div>
     </div>

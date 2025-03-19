@@ -178,7 +178,7 @@ const CustomSelect = forwardRef<HTMLDivElement, Props>(
               >
                 <div
                   className={`flex justify-between items-center w-full gap-[16px] sm:h-7 font-inter-400 text-14-20 ${
-                    item.value == value ? "text-primary  font-inter-500" : "text-black"
+                    item.value == value ? "text-primary  font-medium" : "text-black"
                   }`}
                 >
                   <span>{item.label}</span>

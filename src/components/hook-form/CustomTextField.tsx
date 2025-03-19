@@ -31,8 +31,8 @@ const CustomTextField = forwardRef<HTMLDivElement, CustomTextFieldProps>(
                   padding: "3px 8px",
                   height: "24px",
                   fontSize: {
-                    xs: "10px", 
-                    sm: "12px", 
+                    xs: "10px",
+                    sm: "12px",
                     md: "14px",
                   },
                   fontFamily: "'JetBrains Mono', monospace",
@@ -69,11 +69,17 @@ const CustomTextField = forwardRef<HTMLDivElement, CustomTextFieldProps>(
                   },
                 },
             "& .MuiInputBase-input::placeholder": {
-              fontSize: {
-                xs: "12px",
-                sm: "14px",
-                md: "16px",
-              },
+              fontSize: dashedBorder
+                ? {
+                    xs: "10px",
+                    sm: "12px",
+                    md: "14px",
+                  }
+                : {
+                    xs: "12px",
+                    sm: "14px",
+                    md: "16px",
+                  },
               fontFamily: "'JetBrains Mono', monospace",
             },
             "& .Mui-disabled": {

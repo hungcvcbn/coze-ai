@@ -72,7 +72,6 @@ const AdvancedGPT = ({ data }: Props) => {
       )}
       <ConfirmDialog
         open={openConfirm}
-        // setOpen={setOpenConfirm}
         onClose={handleUpdateStatus}
         title='Confirm'
         subTitle='Are you sure you want to update the status of the bot?'

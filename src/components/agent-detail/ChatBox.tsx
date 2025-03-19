@@ -2,8 +2,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import CustomTextField from "../hook-form/CustomTextField";
 import LogoImage from "@/assets/icons/logo.svg";
-import Image from "next/image";
-import AdminAvatar from "@/assets/icons/avatar_admin.png";
+import AutoAwesomeIcon from "@mui/icons-material/AutoAwesome";
 import { Send } from "@mui/icons-material";
 import AttachFileIcon from "@mui/icons-material/AttachFile";
 import {
@@ -287,20 +286,12 @@ const ChatBox = ({ conversation, data }: ChatBoxProps) => {
   }, [isLoading]);
   return (
     <div className='flex flex-col h-full relative'>
-      <div className='h-auto min-h-[40px] p-2 flex items-center border-b rounded-t-lg border-gray-200 bg-white justify-between'>
-        <div className='flex items-center gap-2'>
-          <Image
-            src={LogoImage}
-            alt='Bot Avatar'
-            width={40}
-            height={40}
-            className='rounded-full w-10 h-10 object-cover mt-2'
-          />
-          <div className='flex flex-col line-clamp-1 font-sans font-semibold text-neutral text-14-20'>
-            {data?.name || "AI Assistant"}
-          </div>
+      <div className='h-auto max-h-[70px] p-2 flex gap-2 items-center border-b rounded-t-lg border-gray-200 bg-white justify-between'>
+        <div className='text-14-20 flex gap-2 items-center font-semibold text-neutral px-2'>
+          <AutoAwesomeIcon sx={{ color: "#39B5E0", fontSize: "1.1rem" }} />
+          Dùng thử
         </div>
-        <div className='flex items-center gap-3'>
+        <div className='flex items-center gap-2'>
           <Tooltip title='Reset conversation' placement='top'>
             <IconButton onClick={handleResetConversation} size='small'>
               <CleaningServicesIcon sx={{ color: "#39B5E0", fontSize: "1.1rem" }} />
@@ -312,7 +303,7 @@ const ChatBox = ({ conversation, data }: ChatBoxProps) => {
         </div>
       </div>
       <div
-        className='flex-1 max-h-[calc(100vh-160px)] bg-slate-50 rounded-lg overflow-y-auto p-2 sm:p-4 [&::-webkit-scrollbar]:w-2
+        className='flex-1 min-h-[300px] max-h-[calc(100vh-160px)] bg-slate-50 rounded-lg overflow-y-auto p-2 sm:p-4 [&::-webkit-scrollbar]:w-2
           [&::-webkit-scrollbar-track]:bg-gray-100
           [&::-webkit-scrollbar-thumb]:bg-gray-300
           [&::-webkit-scrollbar-thumb]:rounded-full'
@@ -401,7 +392,7 @@ const ChatBox = ({ conversation, data }: ChatBoxProps) => {
             size='small'
             value={input}
             onChange={e => setInput(e.target.value)}
-            placeholder='Please enter your question...'
+            placeholder='Enter your question'
             onKeyPress={e => {
               if (e.key === "Enter" && !e.shiftKey) {
                 e.preventDefault();
@@ -422,21 +413,21 @@ const ChatBox = ({ conversation, data }: ChatBoxProps) => {
                 fontSize: "14px",
                 maxHeight: "150px",
                 overflowY: "auto",
-                padding: "8px 12px",
-              },
-              "& .MuiInputBase-input::placeholder": {
-                fontSize: "14px",
+                padding: "6px 10px",
               },
             }}
             InputProps={{
               endAdornment: (
-                <div className='flex items-center gap-2'>
+                <div className='flex items-center gap-1 lg:gap-2'>
                   <AttachFileIcon
                     fontSize='small'
                     sx={{
                       color: isLoading ? "#A8A8A8" : "#39B5E0",
                       cursor: isLoading ? "default" : "pointer",
                       "&:hover": { color: isLoading ? "#A8A8A8" : "#157299" },
+                      "@media (max-width: 600px)": {
+                        fontSize: "14px",
+                      },
                     }}
                     onClick={() => !isLoading && fileInputRef.current?.click()}
                   />
@@ -446,6 +437,9 @@ const ChatBox = ({ conversation, data }: ChatBoxProps) => {
                       color: isLoading ? "#A8A8A8" : "#39B5E0",
                       cursor: isLoading ? "default" : "pointer",
                       "&:hover": { color: isLoading ? "#A8A8A8" : "#157299" },
+                      "@media (max-width: 600px)": {
+                        fontSize: "14px",
+                      },
                     }}
                     onClick={handleChat}
                   />

@@ -61,7 +61,7 @@ const ControlSetting = () => {
   }, []);
 
   return (
-    <div className='grid grid-cols-12 gap-2 p-4 bg-white rounded-lg w-full '>
+    <div className='grid grid-cols-12 gap-2 p-2 bg-white rounded-lg w-full '>
       <div className='col-span-12 lg:col-span-4 lg:sticky lg:top-0 h-full bg-white border border-gray-200 rounded-lg px-4 pb-4 w-full'>
         <button
           className='cursor-pointer pt-2 flex justify-center items-center'
@@ -82,7 +82,7 @@ const ControlSetting = () => {
               />
             </div>
             <div
-              className='flex flex-col justify-center px-3 pb-2 w-full'
+              className='flex flex-col justify-center px-3 pb-2 w-full '
               onClick={() => isMobile && setShowPrompt(!showPrompt)}
             >
               <div className='text-14-20 flex items-center gap-2 font-semibold text-neutral cursor-pointer'>
@@ -125,7 +125,7 @@ const ControlSetting = () => {
       <div className='col-span-12 lg:col-span-5 h-full border border-gray-200 rounded-lg w-full'>
         {isMobile && (
           <div
-            className={`flex justify-between items-center bg-gray-100 px-4 py-2 ${
+            className={`flex justify-between items-center px-4 py-2 ${
               showSetting ? "border-b border-gray-200" : ""
             }`}
             onClick={() => setShowSetting(!showSetting)}

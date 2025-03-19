@@ -73,10 +73,10 @@ const BasicButton = forwardRef<HTMLButtonElement, ButtonProps>(
       switch (color) {
         case "red":
           if (variant === "contained") {
-            return "text-white bg-red-700 hover:bg-red-800";
+            return "text-white bg-danger hover:bg-danger-600";
           }
           if (variant === "outlined") {
-            return `bg-none text-red-700 border border-red hover:bg-red-100`;
+            return `bg-none text-danger border border-danger hover:bg-red-100`;
           }
           if (variant === "text") {
             return `bg-none text-red-700 hover:bg-red-100`;

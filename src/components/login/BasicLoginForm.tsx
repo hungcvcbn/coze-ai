@@ -85,8 +85,6 @@ const FormLoginBasic = () => {
       className='min-h-screen w-full flex items-center justify-center bg-white text-neutral p-4 sm:p-6'
       style={{
         backgroundImage: `url(${BackgroundImage.src})`,
-        backgroundSize: "cover",
-        backgroundPosition: "center",
       }}
     >
       <div className='relative w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg bg-white mx-auto rounded-lg shadow-lg p-4 sm:p-6'>

@@ -1,10 +1,14 @@
-'use client'
+"use client";
+
+import { redirect } from "next/navigation";
+import { useAppSelector } from "@/redux/hooks";
 
 const HomePage = () => {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 text-black">
-      login
-    </div>
-  );
-}
-export default HomePage
+  const { profile } = useAppSelector(state => state.common);
+  if (profile) {
+    return redirect("/control-panel");
+  }
+  return redirect("/login");
+};
+
+export default HomePage;

@@ -1,8 +1,10 @@
 import axios from 'axios'
-import { userLogout, getAccessToken, getRefreshToken, saveAccessToken, saveRefreshToken } from '@/helpers/utils/common'
+import { userLogout, getAccessToken, getRefreshToken, saveAccessToken, saveRefreshToken, saveCookie } from '@/helpers/utils/common'
+
+const API_URL = 'https://dev-gwapi.hasagi.xyz'
 
 const Api = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_URL,
+  baseURL: API_URL,
   responseType: 'json',
 })
 
@@ -29,19 +31,22 @@ Api.defaults.headers.post['Content-Type'] = 'application/json'
 // request api
 Api.interceptors.request.use(
   async function (config: any) {
+
     const token = getAccessToken()
     if (token) {
       config.headers.Authorization = 'Bearer ' + token
     }
-    if (config.url.indexOf('googleapis') !== -1) {
+    if (config.url.indexOf('/login') !== -1) {
       delete config.headers.Authorization
     }
     let headers = {
       ...config.headers,
       'Accept-Language': 'vi',
+      tcode: "hag",
+      'm-platform': 'WEB',
     }
-
     config.headers = headers
+    config.baseURL = API_URL
     return config
   },
   function (error) {
@@ -59,8 +64,7 @@ Api.interceptors.response.use(
       // network error
       return Promise.reject({
         status: 429,
-        message:
-          'Suspicious activity detected. Your account has been temporarily locked. Please contact support@dtravel.com for support.',
+        message: 'Suspicious activity detected. Your account has been temporarily locked.',
       })
     }
     const originalRequest = error.config
@@ -77,7 +81,7 @@ Api.interceptors.response.use(
           if (!isRefreshing) {
             isRefreshing = true
             try {
-              const res = await axios.post(process.env.NEXT_PUBLIC_API_URL + '/account-service/v1/auth/refresh-token', {
+              const res = await axios.post(process.env.NEXT_PUBLIC_API_URL + '/iam/v1/auth/refresh-token', {
                 token: refreshToken,
               })
               const { data } = res.data

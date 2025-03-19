@@ -11,7 +11,6 @@ import EditPlatformModal from "./EditPlatformModal";
 
 const ListPlatformPublish = () => {
   const [data, setData] = useState<any>({});
-  const [openEditPlatformModal, setOpenEditPlatformModal] = useState<boolean>(false);
   const dispatch = useAppDispatch();
   const params = useParams();
   const id = params?.id as string;
@@ -66,18 +65,11 @@ const ListPlatformPublish = () => {
                 Chưa kết nối
               </div>
               <div className='col-span-1 flex justify-end items-center gap-2'>
-                <Tooltip title='Chọn kết nối với nền tảng' placement='top'>
-                  <IconButton className='p-1' onClick={() => setOpenEditPlatformModal(true)}>
-                    <MoreHorizIcon />
-                  </IconButton>
-                </Tooltip>
+                <EditPlatformModal />
               </div>
             </div>
           ))}
         </div>
-        {openEditPlatformModal && (
-          <EditPlatformModal open={openEditPlatformModal} setOpen={setOpenEditPlatformModal} />
-        )}
       </div>
     </div>
   );

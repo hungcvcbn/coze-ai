@@ -40,7 +40,10 @@ const BotCard: React.FC<BotCardProps> = ({
               <Tooltip title={bot?.name}>
                 <div className='font-medium text-16-24 text-neutral line-clamp-2'>{bot?.name}</div>
               </Tooltip>
-              <span className='text-[13px] text-gray-500 line-clamp-4' title={bot.description}>
+              <span
+                className='text-[13px] text-gray-500 line-clamp-2 lg:line-clamp-4'
+                title={bot.description}
+              >
                 {bot.description}
               </span>
             </div>

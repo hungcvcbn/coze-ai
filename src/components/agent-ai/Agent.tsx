@@ -70,11 +70,10 @@ const ControlPanel = () => {
           <div className='flex justify-center items-center'>
             <BasicTab tabOptions={tabOptions} value={tab} onChange={handleChange} />
           </div>
-          <div className='w-full md:w-1/2 lg:w-1/3 '>
+          <div className='w-full md:w-1/2 lg:w-1/3 pb-3'>
             <CustomTextField
               fullWidth
               placeholder='Search'
-              sx={{ backgroundColor: "white" }}
               value={term}
               onChange={handleChangeTerm}
             />

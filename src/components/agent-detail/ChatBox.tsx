@@ -287,7 +287,7 @@ const ChatBox = ({ conversation, data }: ChatBoxProps) => {
   }, [isLoading]);
   return (
     <div className='flex flex-col h-full relative'>
-      <div className='h-auto min-h-[50px] p-3 flex items-center border-b rounded-t-lg border-gray-200 bg-white justify-between'>
+      <div className='h-auto min-h-[40px] p-2 flex items-center border-b rounded-t-lg border-gray-200 bg-white justify-between'>
         <div className='flex items-center gap-2'>
           <Image
             src={LogoImage}
@@ -320,7 +320,7 @@ const ChatBox = ({ conversation, data }: ChatBoxProps) => {
         {messages.map((msg, index) => (
           <div
             key={index}
-            className={`mb-4 flex ${msg.sender === "user" ? "justify-end" : "justify-start"}`}
+            className={`mb-3 flex ${msg.sender === "user" ? "justify-end" : "justify-start"}`}
           >
             {msg.sender === "system" && (
               <div className='flex items-start flex-col max-w-[85%] sm:max-w-[75%]'>

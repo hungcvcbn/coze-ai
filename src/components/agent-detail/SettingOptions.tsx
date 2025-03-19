@@ -15,7 +15,7 @@ import {
   removeKnowledgeFromAgent,
 } from "@/helpers/api/knowledge";
 import AutoSuggestion from "./feature/AutoSuggestion";
-import { IconArrowDown, IconAuto, IconTrash } from "../common/IconCommon";
+import { IconArrowDown, IconAuto, IconInfo, IconTrash } from "../common/IconCommon";
 import { isEmpty } from "@/helpers/utils/common";
 import BackgroundImage from "./feature/BackgroundImage";
 import InsertDriveFileIcon from "@mui/icons-material/InsertDriveFile";
@@ -222,7 +222,7 @@ const SettingOptions = ({ data }: ISettingOptions) => {
       <div className='w-auto'>
         {items.map((item, featureIndex) => (
           <div key={featureIndex} className='space-y-2'>
-            <div className='text-12-18 font-semibold px-2 text-neutral pt-4'>
+            <div className='text-12-18 font-semibold px-2 text-neutral pt-2'>
               {item.featureName}
             </div>
             {item?.options?.map((option, parentIndex) => (
@@ -251,7 +251,7 @@ const SettingOptions = ({ data }: ISettingOptions) => {
                             setOpenEditKnowledgeModal(true);
                           }}
                         >
-                          <AddIcon sx={{ fontSize: 20, color: "#39B5E0" }} />
+                          <AddIcon sx={{ fontSize: 20, color: "#6A6A6A" }} />
                         </IconButton>
                       )}
                       {option.title === "Background Image" && (
@@ -260,12 +260,12 @@ const SettingOptions = ({ data }: ISettingOptions) => {
                             setOpenBackgroundImageModal(true);
                           }}
                         >
-                          <AddIcon sx={{ fontSize: 20, color: "#39B5E0" }} />
+                          <AddIcon sx={{ fontSize: 20, color: "#6A6A6A" }} />
                         </IconButton>
                       )}
                       {option.title === "Opening questions" && (
                         <IconButton onClick={handlePopoverClick}>
-                          <IconAuto width={20} height={20} color='#39B5E0' />
+                          <IconInfo width={16} height={16} color='#6A6A6A' />
                         </IconButton>
                       )}
                     </div>

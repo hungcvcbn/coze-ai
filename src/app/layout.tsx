@@ -21,9 +21,9 @@ const jetbrains = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "AI Agent",
-  description: "AI Agent",
-  icons: `/logo.png?v=${+new Date()}`,
+  title: "Zenee AI",
+  description: "Zenee AI",
+  icons: `/logo.svg?v=${+new Date()}`,
 };
 
 export default async function RootLayout({
@@ -34,8 +34,8 @@ export default async function RootLayout({
   return (
     <html lang='en' className={`${inter.className} ${jetbrains.variable}`}>
       <head>
-        <title>AI Agent</title>
-        <link rel='icon' href={`/logo.png?v=${+new Date()}`} sizes='any' />
+        <title>Zenee AI</title>
+        <link rel='icon' href={`/logo.svg?v=${+new Date()}`} sizes='any' />
       </head>
       <body className='bg-neutral-100'>
         <GoogleOAuthProvider

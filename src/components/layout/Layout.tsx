@@ -1,6 +1,5 @@
 "use client";
-import React from "react";
-import LayoutHeader from "./LayoutHeader";
+import React, { useEffect, useState } from "react";
 import Menu from "./Menu";
 import { usePathname } from "next/navigation";
 import { useProfileFetch } from "@/hooks/useProfileFetch";
@@ -12,8 +11,20 @@ interface LayoutProps {
 const Layout = ({ children }: LayoutProps) => {
   const pathname = usePathname();
   const isLoginPage = pathname === "/login" || pathname === "/sign-in" || pathname === "/sign-up";
+  const [isMobile, setIsMobile] = useState(false);
 
   useProfileFetch();
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    handleResize();
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   if (isLoginPage) {
     return (
@@ -24,10 +35,12 @@ const Layout = ({ children }: LayoutProps) => {
   }
 
   return (
-    <div className='flex flex-col bg-gray-100'>
+    <div className='flex h-screen bg-gray-100'>
       <Menu />
-      <div className='lg:pl-64 flex-1 flex flex-col h-full'>
-        <main className='flex-1 bg-white rounded-lg'>{children}</main>
+      <div className={`flex-1 overflow-auto transition-all ${isMobile ? "ml-16" : "ml-64"}`}>
+        <div className='p-2 md:p-4 h-auto'>
+          <main className='bg-white rounded-lg h-full'>{children}</main>
+        </div>
       </div>
     </div>
   );

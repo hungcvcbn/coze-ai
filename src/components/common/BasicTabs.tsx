@@ -20,20 +20,20 @@ const BasicTabs = ({ value, tabOptions, onChange }: Props) => {
           color: "none",
         },
         "& .MuiTab-root": {
-          border: "1px solid #39B5E0",
+          border: "1px solid #F3F4F6",
           borderRadius: "8px",
           color: "neutral",
           fontSize: "14px",
           textTransform: "none",
           fontWeight: "bold",
-          margin: "16px 4px",
+          margin: "4px",
           minHeight: "36px",
           padding: "6px 16px",
           fontFamily: "'JetBrains Mono', monospace",
         },
         "& .Mui-selected": {
-          backgroundColor: "#39B5E0",
-          color: "#FFFFFF !important",
+          backgroundColor: "#E5E7EB",
+          color: "#334155 !important",
         },
       }}
     >

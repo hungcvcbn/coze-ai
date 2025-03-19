@@ -7,6 +7,7 @@ import { Inter, JetBrains_Mono } from "next/font/google";
 import { ThemeProvider } from "@mui/material/styles";
 import { theme } from "@/helpers/config/theme";
 import { GoogleOAuthProvider } from "@react-oauth/google";
+import CheckAuth from "@/components/auth/CheckAuth";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -46,7 +47,9 @@ export default async function RootLayout({
         >
           <ReduxProvider>
             <ThemeProvider theme={theme}>
-              {children}
+              <CheckAuth>
+                {children}
+              </CheckAuth>
               <BasicToast />
             </ThemeProvider>
           </ReduxProvider>

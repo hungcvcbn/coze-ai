@@ -60,16 +60,19 @@ Api.interceptors.response.use(
     return response.data
   },
   async (error) => {
+    console.log("error", error);
     if (!error.response) {
       // network error
-      return Promise.reject({
-        status: 429,
-        message: 'Suspicious activity detected. Your account has been temporarily locked.',
-      })
+      logout()
+      // return Promise.reject({
+      //   status: 429,
+      //   message: 'Suspicious activity detected. Your account has been temporarily locked.',
+      // })
     }
     const originalRequest = error.config
     const resError = error.response?.data?.error || error.response?.data
     if (resError.statusCode === 401) {
+      logout()
       const refreshToken = getRefreshToken()
       const token = getAccessToken()
       if (token && error.config.url.indexOf('refresh-token') !== -1) {

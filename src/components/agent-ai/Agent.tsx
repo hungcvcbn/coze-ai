@@ -45,6 +45,7 @@ const ControlPanel = () => {
   }, [tab]);
   useEffect(() => {
     if (triggerTime) {
+      console.log("triggerTime", triggerTime);
       fetchData();
     }
   }, [triggerTime]);

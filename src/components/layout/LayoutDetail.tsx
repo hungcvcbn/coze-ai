@@ -1,8 +1,6 @@
 "use client";
 import React from "react";
-import MenuControlPanelDetail from "../agent-detail/MenuControlPanel";
 import LayoutHeader from "./LayoutHeader";
-import { useProfileFetch } from "@/hooks/useProfileFetch";
 import { useParams, usePathname, useRouter } from "next/navigation";
 import SmartToyIcon from "@mui/icons-material/SmartToy";
 import StorefrontIcon from "@mui/icons-material/Storefront";
@@ -15,7 +13,6 @@ interface LayoutProps {
 }
 
 const LayoutDetail = ({ children }: LayoutProps) => {
-  useProfileFetch();
   const params = useParams();
   const pathname = usePathname();
   const router = useRouter();
@@ -56,9 +53,8 @@ const LayoutDetail = ({ children }: LayoutProps) => {
               <Link
                 key={item.path}
                 href={item.path}
-                className={`flex items-center gap-3 p-2 rounded-lg transition-all ${
-                  isActive ? "bg-blue-50 text-blue-600" : "text-gray-700 hover:bg-gray-100"
-                }`}
+                className={`flex items-center gap-3 p-2 rounded-lg transition-all ${isActive ? "bg-blue-50 text-blue-600" : "text-gray-700 hover:bg-gray-100"
+                  }`}
               >
                 <div className='flex items-center justify-center'>{item.icon}</div>
               </Link>

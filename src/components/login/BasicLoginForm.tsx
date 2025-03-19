@@ -49,23 +49,7 @@ const FormLoginBasic = () => {
     resolver: yupResolver(schema),
     defaultValues,
   });
-  const fetchProfile = async () => {
-    try {
-      const res = await getProfile();
-      if (res?.data) {
-        dispatch(setProfile(res.data));
-        router.push("/control-panel");
-      }
-    } catch (error: any) {
-      dispatch(
-        setToast({
-          type: "error",
-          message: error.message,
-          show: true,
-        })
-      );
-    }
-  };
+
   const handleSubmit = async (data: LoginFrom) => {
     try {
       setLoading(true);
@@ -78,7 +62,9 @@ const FormLoginBasic = () => {
       if (res?.data) {
         setCookie(TOKEN, res.data.accessToken);
         setCookie(REFRESH_TOKEN, res.data.refreshToken);
-        fetchProfile();
+        window.location.href = "/control-panel";
+        // fetchProfile();
+        // router.push("/control-panel");
         dispatch(setToast({ type: "success", message: "Đăng nhập thành công", show: true }));
       }
     } catch (error: any) {

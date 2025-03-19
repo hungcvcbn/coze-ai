@@ -19,7 +19,8 @@ const EditPlatformModal = ({ open, setOpen }: Props) => {
   const [data, setData] = useState<any>({});
   const [isConnected, setIsConnected] = useState(false);
   const dispatch = useAppDispatch();
-  const { id } = useParams();
+  const params = useParams();
+  const id = params?.id as string;
 
   const fetchListPlatformPublish = async () => {
     try {

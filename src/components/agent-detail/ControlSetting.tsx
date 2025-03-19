@@ -86,7 +86,7 @@ const ControlSetting = () => {
               onClick={() => isMobile && setShowPrompt(!showPrompt)}
             >
               <div className='text-14-20 flex items-center gap-2 font-semibold text-neutral cursor-pointer'>
-                {data?.name}
+                <div className='line-clamp-1'> {data?.name} </div>
                 <IconButton
                   onClick={e => {
                     e.stopPropagation();

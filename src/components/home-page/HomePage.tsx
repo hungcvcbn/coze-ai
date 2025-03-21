@@ -15,6 +15,7 @@ import LayoutFooter from "@/components/layout/LayoutFooter";
 import HomeLogo1 from "@/assets/icons/logo.svg";
 import HomeLogo2 from "@/assets/icons/logo.svg";
 import HomeLogo3 from "@/assets/icons/logo.svg";
+import Link from "next/link";
 
 const HomePage = () => {
   const router = useRouter();
@@ -206,11 +207,11 @@ const HomePage = () => {
         "Unlock the full potential of AI-driven automation to streamline operations, enhance customer interactions, and drive business growth. With Zenee AI, you can easily build, train, and deploy custom AI agents that seamlessly integrate with your workflows.",
       primaryButton: {
         text: "Get Started",
-        action: handleGetStarted,
+        href: "/control-panel",
       },
       secondaryButton: {
         text: "Explore Bot Store",
-        action: () => router.push("/bot-store"),
+        href: "/bot-store",
       },
       style: {
         titleColor: "text-white",
@@ -230,11 +231,11 @@ const HomePage = () => {
         "Deliver fast, personalized, and efficient customer support by leveraging AI-powered chat and voice assistants. Automate routine inquiries and provide instant, accurate responses—24/7.",
       primaryButton: {
         text: "Create Assistant",
-        action: () => router.push("/create-assistant"),
+        href: "/create-assistant",
       },
       secondaryButton: {
         text: "See Examples",
-        action: () => router.push("/examples"),
+        href: "/examples",
       },
       style: {
         titleColor: "text-neutral-800",
@@ -255,11 +256,11 @@ const HomePage = () => {
         "Stay ahead of the competition by deploying AI agents that work around the clock to engage with customers, manage workflows, and optimize efficiency. Reduce costs while maximizing productivity.",
       primaryButton: {
         text: "Schedule Demo",
-        action: () => router.push("/schedule-demo"),
+        href: "/schedule-demo",
       },
       secondaryButton: {
         text: "",
-        action: () => router.push("/pricing"),
+        href: "/pricing",
       },
       style: {
         titleColor: "text-white",
@@ -362,32 +363,38 @@ const HomePage = () => {
                   transition={{ delay: 0.5, duration: 0.6 }}
                 >
                   <motion.div whileHover='hover' variants={buttonHover}>
-                    <BasicButton
-                      variant='contained'
-                      size='lg'
-                      onClick={heroSlides[currentSlide].primaryButton.action}
+                    <Link
+                      href={heroSlides[currentSlide].primaryButton.href || "#"}
+                      target='_blank'
+                      rel='noopener noreferrer'
                     >
-                      {heroSlides[currentSlide].primaryButton.text}
-                    </BasicButton>
+                      <BasicButton variant='contained' size='lg'>
+                        {heroSlides[currentSlide].primaryButton.text}
+                      </BasicButton>
+                    </Link>
                   </motion.div>
                   <motion.div whileHover='hover' variants={buttonHover}>
-                    <BasicButton
-                      variant={currentSlide === 2 ? "text" : "outlined"}
-                      size='lg'
-                      onClick={heroSlides[currentSlide].secondaryButton.action}
-                    >
-                      <div
-                        className={`flex items-center gap-2 ${
-                          currentSlide === 0
-                            ? "text-[#76cfc8]"
-                            : currentSlide === 1
-                            ? "text-green-200"
-                            : "text-[#76cfc8]"
-                        }`}
+                    {heroSlides[currentSlide].secondaryButton.text && (
+                      <Link
+                        href={heroSlides[currentSlide].secondaryButton.href || "#"}
+                        target='_blank'
+                        rel='noopener noreferrer'
                       >
-                        {heroSlides[currentSlide].secondaryButton.text}
-                      </div>
-                    </BasicButton>
+                        <BasicButton variant={currentSlide === 2 ? "text" : "outlined"} size='lg'>
+                          <div
+                            className={`flex items-center gap-2 ${
+                              currentSlide === 0
+                                ? "text-[#76cfc8]"
+                                : currentSlide === 1
+                                ? "text-green-200"
+                                : "text-[#76cfc8]"
+                            }`}
+                          >
+                            {heroSlides[currentSlide].secondaryButton.text}
+                          </div>
+                        </BasicButton>
+                      </Link>
+                    )}
                   </motion.div>
                 </motion.div>
               </motion.div>

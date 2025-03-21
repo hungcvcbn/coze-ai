@@ -49,7 +49,6 @@ const FormLoginBasic = () => {
     resolver: yupResolver(schema),
     defaultValues,
   });
-
   const handleSubmit = async (data: LoginFrom) => {
     try {
       setLoading(true);
@@ -62,7 +61,7 @@ const FormLoginBasic = () => {
       if (res?.data) {
         setCookie(TOKEN, res.data.accessToken);
         setCookie(REFRESH_TOKEN, res.data.refreshToken);
-        window.location.href = "/control-panel";
+        window.location.href = "/";
         // fetchProfile();
         // router.push("/control-panel");
         dispatch(setToast({ type: "success", message: "Đăng nhập thành công", show: true }));

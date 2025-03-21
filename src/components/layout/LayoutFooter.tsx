@@ -10,7 +10,7 @@ const FooterLayout = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className='relative pt-12 pb-8 bg-gradient-to-br from-gray-50 via-primary-100 to-white border-t border-gray-200'>
+    <footer className='relative pt-12 pb-8 bg-white border-t w-full border-gray-200'>
       <div className='container mx-auto px-4'>
         <div className='flex flex-wrap text-left'>
           <div className='w-full lg:w-5/12 px-4 mb-8 lg:mb-0'>
@@ -170,7 +170,7 @@ const FooterLayout = () => {
           </div>
         </div>
 
-        <div className='border-t border-gray-200 mt-10 pt-8'>
+        <div className='border-t w-full border-gray-200 mt-5 pt-8'>
           <div className='flex flex-wrap items-center justify-between'>
             <div className='w-full md:w-auto mb-4 md:mb-0'>
               <p className='text-14-20 font-medium text-gray-500'>

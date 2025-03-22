@@ -58,7 +58,14 @@ const HomePage = () => {
 
   const fadeIn = {
     hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.7,
+        ease: [0.25, 0.1, 0.25, 1.0],
+      },
+    },
   };
 
   const staggerContainer = {
@@ -66,19 +73,21 @@ const HomePage = () => {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.2,
+        staggerChildren: 0.15,
+        delayChildren: 0.1,
       },
     },
   };
 
   const staggerItem = {
-    hidden: { opacity: 0, y: 20 },
+    hidden: { opacity: 0, y: 20, scale: 0.98 },
     visible: {
       opacity: 1,
       y: 0,
+      scale: 1,
       transition: {
         duration: 0.5,
-        ease: "easeOut",
+        ease: [0.215, 0.61, 0.355, 1],
       },
     },
   };
@@ -87,7 +96,6 @@ const HomePage = () => {
     initial: { scale: 1 },
     hover: {
       scale: 1.05,
-      boxShadow: "0px 10px 20px rgba(0, 0, 0, 0.1)",
       transition: {
         type: "spring",
         stiffness: 400,
@@ -96,37 +104,13 @@ const HomePage = () => {
     },
     focus: {
       scale: 1.03,
-      boxShadow: "0px 0px 0px 3px rgba(41, 170, 225, 0.3)",
       transition: {
         type: "spring",
         stiffness: 400,
         damping: 10,
       },
     },
-    tap: { scale: 0.98 },
-  };
-
-  const cardHover = {
-    initial: { y: 0 },
-    hover: {
-      y: -10,
-      boxShadow: "0px 10px 25px rgba(0, 0, 0, 0.08)",
-      transition: {
-        type: "spring",
-        stiffness: 300,
-        damping: 15,
-      },
-    },
-    focus: {
-      y: -5,
-      boxShadow: "0px 5px 15px rgba(41, 170, 225, 0.2)",
-      outline: "2px solid #29AAE1",
-      transition: {
-        type: "spring",
-        stiffness: 300,
-        damping: 15,
-      },
-    },
+    tap: { scale: 0.97 },
   };
 
   const testimonials = [
@@ -333,10 +317,11 @@ const HomePage = () => {
                   currentSlide === 1 ? "md:pl-8" : currentSlide === 2 ? "md:pr-8" : ""
                 }`}
                 key={`slide-content-${currentSlide}`}
-                initial={{ opacity: 0, x: currentSlide === 1 ? 50 : -50 }}
+                initial={{ opacity: 0, x: currentSlide === 1 ? 30 : -30 }}
                 animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: currentSlide === 1 ? -50 : 50 }}
-                transition={{ duration: 0.8, ease: "easeOut" }}
+                exit={{ opacity: 0, x: currentSlide === 1 ? -30 : 30 }}
+                transition={{ duration: 0.6, ease: [0.215, 0.61, 0.355, 1] }}
+                style={{ willChange: "transform, opacity" }}
               >
                 <h1
                   className={`text-4xl md:text-5xl font-bold ${
@@ -403,9 +388,10 @@ const HomePage = () => {
                 className={`md:w-1/2 flex ${
                   currentSlide === 2 ? "justify-start" : "justify-center"
                 }`}
-                initial={{ opacity: 0, x: currentSlide === 1 ? -50 : 50 }}
+                initial={{ opacity: 0, x: currentSlide === 1 ? -30 : 30 }}
                 animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.8, ease: "easeOut" }}
+                transition={{ duration: 0.6, ease: [0.215, 0.61, 0.355, 1] }}
+                style={{ willChange: "transform, opacity" }}
               >
                 <div
                   className={`relative w-full max-w-md h-[400px] ${
@@ -419,7 +405,7 @@ const HomePage = () => {
                   <motion.div
                     initial={{ scale: 0.9, opacity: 0 }}
                     animate={{ scale: 1, opacity: 1 }}
-                    transition={{ delay: 0.2, duration: 0.8, ease: "easeOut" }}
+                    transition={{ delay: 0.2, duration: 1, ease: [0.34, 1.56, 0.64, 1] }}
                   >
                     <Image
                       src={heroSlides[currentSlide].logo}
@@ -445,7 +431,7 @@ const HomePage = () => {
                         ? { rotate: [5, -5, 0] }
                         : {}),
                     }}
-                    transition={{ delay: 0.1, duration: 1.2, ease: "easeInOut" }}
+                    transition={{ delay: 0.1, duration: 1.5, ease: "easeInOut" }}
                   />
 
                   {currentSlide === 1 && (
@@ -471,7 +457,7 @@ const HomePage = () => {
         </section>
 
         {/* Features Section */}
-        <section className='py-16 bg-gradient-to-r from-primary-50 to-whitepx-4' ref={featureRef}>
+        <section className='py-16 bg-gradient-to-r from-primary-50 to-white px-4' ref={featureRef}>
           <div className='max-w-7xl mx-auto'>
             <motion.h2
               className='text-32-32 font-bold text-center text-neutral mb-12'
@@ -489,11 +475,10 @@ const HomePage = () => {
             >
               <motion.div
                 className='bg-white p-6 rounded-lg shadow-md transform-gpu'
-                variants={{
-                  ...staggerItem,
-                  hover: cardHover.hover,
-                }}
-                whileHover='hover'
+                variants={staggerItem}
+                whileHover={{ y: -8 }}
+                transition={{ type: "spring", stiffness: 300, damping: 15 }}
+                style={{ willChange: "transform" }}
               >
                 <div className='w-12 h-12 bg-primary-50 rounded-full flex items-center justify-center mb-4'>
                   <motion.svg
@@ -524,11 +509,10 @@ const HomePage = () => {
 
               <motion.div
                 className='bg-white p-6 rounded-lg shadow-md transform-gpu'
-                variants={{
-                  ...staggerItem,
-                  hover: cardHover.hover,
-                }}
-                whileHover='hover'
+                variants={staggerItem}
+                whileHover={{ y: -8 }}
+                transition={{ type: "spring", stiffness: 300, damping: 15 }}
+                style={{ willChange: "transform" }}
               >
                 <div className='w-12 h-12 bg-primary-50 rounded-full flex items-center justify-center mb-4'>
                   <motion.svg
@@ -559,11 +543,10 @@ const HomePage = () => {
 
               <motion.div
                 className='bg-white p-6 rounded-lg shadow-md transform-gpu'
-                variants={{
-                  ...staggerItem,
-                  hover: cardHover.hover,
-                }}
-                whileHover='hover'
+                variants={staggerItem}
+                whileHover={{ y: -8 }}
+                transition={{ type: "spring", stiffness: 300, damping: 15 }}
+                style={{ willChange: "transform" }}
               >
                 <div className='w-12 h-12 bg-primary-50 rounded-full flex items-center justify-center mb-4'>
                   <motion.svg
@@ -621,7 +604,7 @@ const HomePage = () => {
                   <motion.div
                     className='w-16 h-16 bg-primary-50 rounded-full flex items-center justify-center mx-auto mb-4'
                     whileHover={{ scale: 1.1, backgroundColor: "#e0f7ff" }}
-                    transition={{ type: "spring", stiffness: 300, damping: 10 }}
+                    transition={{ type: "spring", stiffness: 100, damping: 60 }}
                   >
                     <motion.span
                       className='text-2xl font-bold text-primary'
@@ -649,16 +632,16 @@ const HomePage = () => {
             </motion.div>
 
             <motion.div
-              className='mt-16 h-2 bg-gray-100 rounded-full relative max-w-4xl mx-auto'
+              className='mt-16 h-2 bg-gray-100 rounded-full relative max-w-4xl mx-auto overflow-hidden'
               initial={{ scaleX: 0 }}
               animate={{ scaleX: 1 }}
               transition={{ delay: 1, duration: 1.5, ease: "easeInOut" }}
             >
               <motion.div
-                className='absolute top-0 left-0 h-full w-full bg-gradient-to-r from-primary-200 to-primary rounded-full'
-                initial={{ scaleX: 0 }}
-                animate={{ scaleX: 1 }}
-                transition={{ delay: 1.8, duration: 1.5, ease: "easeOut" }}
+                className='absolute top-0 left-0 h-full w-full bg-gradient-to-r from-primary-200 via-primary to-primary-300 rounded-full'
+                initial={{ x: "-100%" }}
+                animate={{ x: "0%" }}
+                transition={{ delay: 1.8, duration: 2, ease: [0.25, 0.1, 0.25, 1.0] }}
               />
             </motion.div>
           </div>
@@ -733,11 +716,11 @@ const HomePage = () => {
                     navigateTestimonial("prev");
                     handleSliderInteraction();
                   }}
-                  className='p-2 rounded-full bg-primary-50 text-primary'
-                  whileHover={{ scale: 1.1, backgroundColor: "#e0f7ff" }}
+                  className='p-2 rounded-full bg-primary-50 text-primary transform-gpu'
+                  whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.95 }}
-                  whileFocus={{ boxShadow: "0 0 0 3px rgba(41, 170, 225, 0.3)" }}
-                  transition={{ type: "spring", stiffness: 400, damping: 10 }}
+                  transition={{ type: "spring", stiffness: 500, damping: 25 }}
+                  style={{ willChange: "transform" }}
                 >
                   <svg
                     xmlns='http://www.w3.org/2000/svg'
@@ -776,11 +759,11 @@ const HomePage = () => {
                     navigateTestimonial("next");
                     handleSliderInteraction();
                   }}
-                  className='p-2 rounded-full bg-primary-50 text-primary'
-                  whileHover={{ scale: 1.1, backgroundColor: "#e0f7ff" }}
+                  className='p-2 rounded-full bg-primary-50 text-primary transform-gpu'
+                  whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.95 }}
-                  whileFocus={{ boxShadow: "0 0 0 3px rgba(41, 170, 225, 0.3)" }}
-                  transition={{ type: "spring", stiffness: 400, damping: 10 }}
+                  transition={{ type: "spring", stiffness: 500, damping: 25 }}
+                  style={{ willChange: "transform" }}
                 >
                   <svg
                     xmlns='http://www.w3.org/2000/svg'
@@ -804,31 +787,33 @@ const HomePage = () => {
         {/* CTA Section - Enhanced animations */}
         <section className='py-16 bg-primary-50 px-4 relative overflow-hidden' ref={ctaRef}>
           <motion.div
-            className='absolute -right-40 -bottom-40 w-96 h-96 rounded-full bg-primary opacity-10'
+            className='absolute -right-40 -bottom-40 w-96 h-96 rounded-full bg-primary opacity-10 transform-gpu'
             animate={{
-              scale: [1, 1.2, 1],
-              rotate: [0, 15, 0],
+              scale: [1, 1.1, 1],
+              rotate: [0, 10, 0],
             }}
             transition={{
-              duration: 12,
-              ease: "easeInOut",
+              duration: 18,
+              ease: "linear",
               repeat: Infinity,
               repeatType: "reverse",
             }}
+            style={{ willChange: "transform" }}
           />
           <motion.div
-            className='absolute -left-20 -top-20 w-64 h-64 rounded-full bg-blue-300 opacity-10'
+            className='absolute -left-20 -top-20 w-64 h-64 rounded-full bg-blue-300 opacity-10 transform-gpu'
             animate={{
-              scale: [1, 1.1, 1],
-              rotate: [0, -10, 0],
+              scale: [1, 1.05, 1],
+              rotate: [0, -7, 0],
             }}
             transition={{
-              duration: 8,
-              ease: "easeInOut",
+              duration: 15,
+              ease: "linear",
               repeat: Infinity,
               repeatType: "reverse",
               delay: 1,
             }}
+            style={{ willChange: "transform" }}
           />
 
           <motion.div
@@ -904,10 +889,32 @@ const HomePage = () => {
           animation-delay: 4s;
         }
 
+        /* Performance optimizations for animations */
+        .transform-gpu {
+          transform: translateZ(0);
+          will-change: transform;
+        }
+
+        .motion-safe {
+          @media (prefers-reduced-motion: no-preference) {
+            transition-property: transform, opacity;
+            will-change: transform, opacity;
+          }
+        }
+
+        /* Reduced motion preference support */
+        @media (prefers-reduced-motion: reduce) {
+          * {
+            animation-duration: 0.01ms !important;
+            animation-iteration-count: 1 !important;
+            transition-duration: 0.01ms !important;
+            scroll-behavior: auto !important;
+          }
+        }
+
         /* Enhanced smooth animations */
         * {
-          transition-property: background-color, border-color, color, fill, stroke, opacity,
-            box-shadow, transform;
+          transition-property: background-color, border-color, color, fill, stroke;
           transition-duration: 200ms;
           transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
         }

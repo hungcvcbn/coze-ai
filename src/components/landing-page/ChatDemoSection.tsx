@@ -25,7 +25,7 @@ export default function ChatDemoSection() {
     },
   ];
   return (
-    <div className='py-16 bg-gradient-to-l from-primary-50 to-white px-4'>
+    <div className='py-16 bg-gradient-to-l from-primary-50 to-white px-4' id='chat-demo'>
       <div className='container mx-auto px-6'>
         <div className='grid grid-cols-1 lg:grid-cols-2 gap-12 items-center'>
           <motion.div

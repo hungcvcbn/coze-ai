@@ -2,12 +2,11 @@
 
 import { motion } from "framer-motion";
 import React from "react";
-import BasicButton from "../common/BasicButton";
 
 export default function ServicePrice() {
   const pricingPlans = [
     {
-      name: "Starter",
+      name: "Cơ bản",
       price: "499k",
       description: "Lý tưởng cho doanh nghiệp nhỏ và cá nhân",
       features: [
@@ -17,12 +16,16 @@ export default function ServicePrice() {
         "Hỗ trợ email",
         "1GB lưu trữ tài liệu",
         "Thời gian phản hồi: 24h",
+        "Hỗ trợ cơ bản qua chat",
+        "Quản lý hội thoại cơ bản",
+        "Truy cập giao diện quản lý",
       ],
+
       buttonText: "Bắt đầu miễn phí",
       popular: false,
     },
     {
-      name: "Business",
+      name: "Premium",
       price: "1.499k",
       description: "Giải pháp hiệu quả cho các doanh nghiệp vừa và nhỏ",
       features: [
@@ -38,7 +41,7 @@ export default function ServicePrice() {
       popular: true,
     },
     {
-      name: "Enterprise",
+      name: "Platinum",
       price: "Liên hệ",
       description: "Dành cho doanh nghiệp lớn với nhu cầu tùy biến cao",
       features: [
@@ -115,13 +118,9 @@ export default function ServicePrice() {
                     </li>
                   ))}
                 </ul>
-                <BasicButton
-                  variant={plan.popular ? "contained" : "outlined"}
-                  color='primary'
-                  className='py-3'
-                >
+                <button className='py-3 bg-primary-400 text-white rounded-full px-6 '>
                   {plan.buttonText}
-                </BasicButton>
+                </button>
               </div>
             </motion.div>
           ))}

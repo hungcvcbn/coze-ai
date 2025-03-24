@@ -13,35 +13,15 @@ import AboutUs from "./AboutUs";
 import FooterSection from "./FooterSection";
 import ServicePrice from "./ServicePrice";
 const LandingPage = () => {
-  const controls = useAnimation();
-  const [isMobile, setIsMobile] = useState(false);
-  const [isClient, setIsClient] = useState(false);
-
-  useEffect(() => {
-    setIsClient(true);
-
-    controls.start({
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.8, delay: 0.2 },
-    });
-
-    const handleResize = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
-
-    handleResize();
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, [controls]);
-
   return (
     <div className='min-h-screen bg-white text-neutral overflow-hidden'>
       {/* Navigation Bar */}
       <nav className='fixed top-0 left-0 right-0 z-50 bg-gradient-to-r from-primary-50 via-primary-100 to-blue-50 backdrop-blur-md py-4 px-6 flex justify-between items-center'>
         <Link href='/' className='flex items-center gap-2'>
-          <Image src={LogoImage} alt='Zenee AI Logo' width={40} height={40} />
-          <span className='font-bold text-xl text-neutral'>Zenee AI</span>
+          <div className='flex items-center gap-2'>
+            <Image src={LogoImage} alt='Zenee AI Logo' width={40} height={40} />
+            <span className='font-bold text-24-32 text-neutral'>Zenee AI</span>
+          </div>
         </Link>
 
         <div className='hidden md:flex items-center gap-8'>
@@ -50,6 +30,15 @@ const LandingPage = () => {
           </Link>
           <Link href='#use-cases' className='text-neutral hover:text-primary transition-colors'>
             Ứng dụng
+          </Link>
+          <Link href='#chat-demo' className='text-neutral hover:text-primary transition-colors'>
+            Chat box
+          </Link>
+          <Link
+            href='#platform-integration'
+            className='text-neutral hover:text-primary transition-colors'
+          >
+            Nền tảng
           </Link>
           <Link href='#pricing' className='text-neutral hover:text-primary transition-colors'>
             Bảng giá

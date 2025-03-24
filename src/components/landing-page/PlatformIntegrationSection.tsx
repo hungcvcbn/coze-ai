@@ -152,7 +152,7 @@ export default function PlatformIntegrationSection() {
     },
   ];
   return (
-    <div className='py-16 px-4 relative  bg-gradient-to-l from-slate-50 to-primary-50'>
+    <div className='py-16 px-4 relative  bg-gradient-to-l from-slate-50 to-primary-50' id='platform-integration'>
       <div className='container mx-auto px-6'>
         <motion.div
           className='text-center mb-16'

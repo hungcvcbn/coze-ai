@@ -1,9 +1,8 @@
 "use client";
 
-
-import HomePage from "@/components/home-page/HomePage";
+import LandingPage from "@/components/landing-page/LandingPage";
 const Home = () => {
-  return <HomePage />;
+  return <LandingPage />;
 };
 
 export default Home;

@@ -8,6 +8,7 @@ import { ThemeProvider } from "@mui/material/styles";
 import { theme } from "@/helpers/config/theme";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import CheckAuth from "@/components/auth/CheckAuth";
+import "./landing.css";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -47,9 +48,7 @@ export default async function RootLayout({
         >
           <ReduxProvider>
             <ThemeProvider theme={theme}>
-              <CheckAuth>
-                {children}
-              </CheckAuth>
+              <CheckAuth>{children}</CheckAuth>
               <BasicToast />
             </ThemeProvider>
           </ReduxProvider>

@@ -51,7 +51,6 @@ const ChatBox = ({ conversation, data }: ChatBoxProps) => {
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
-  console.log("profile", profile);
 
   const getSuggestions = async () => {
     try {
@@ -178,11 +177,13 @@ const ChatBox = ({ conversation, data }: ChatBoxProps) => {
     try {
       let params = {
         botId: data?.id,
+        conversationId: conversation ? conversation[0] : undefined,
       };
       const res = await resetConversation(params);
 
       if (res.data) {
-        setMessages([{ sender: "system", text: "Hello! How can I help you?" }]);
+        setMessages([]);
+        getSuggestions();
       }
     } catch (error: any) {
       dispatch(
@@ -271,7 +272,7 @@ const ChatBox = ({ conversation, data }: ChatBoxProps) => {
     }
   }, [conversation, data?.id]);
   useEffect(() => {
-    if (triggerTime && data?.id) {
+    if ((messages.length === 0 || triggerTime) && data?.id) {
       getSuggestions();
     }
   }, [triggerTime, data?.id]);
@@ -308,69 +309,94 @@ const ChatBox = ({ conversation, data }: ChatBoxProps) => {
           [&::-webkit-scrollbar-thumb]:bg-gray-300
           [&::-webkit-scrollbar-thumb]:rounded-full'
       >
-        {messages.map((msg, index) => (
-          <div
-            key={index}
-            className={`mb-3 flex ${msg.sender === "user" ? "justify-end" : "justify-start"}`}
-          >
-            {msg.sender === "system" && (
-              <div className='flex items-start flex-col max-w-[85%] sm:max-w-[75%]'>
-                <div className='flex items-start gap-2'>
-                  <Avatar src={LogoImage?.src} alt='Bot Avatar' />
+        {messages.length > 0 ? (
+          messages.map((msg, index) => (
+            <div
+              key={index}
+              className={`mb-3 flex ${msg.sender === "user" ? "justify-end" : "justify-start"}`}
+            >
+              {msg.sender === "system" && (
+                <div className='flex items-start flex-col max-w-[85%] sm:max-w-[75%]'>
+                  <div className='flex items-start gap-2'>
+                    <Avatar src={LogoImage?.src} alt='Bot Avatar' />
 
-                  <div className='px-4 py-2 bg-white text-14-20 rounded-lg shadow-lg'>
-                    <pre className='whitespace-pre-wrap font-sans font-normal text-neutral'>
-                      {msg.text}
-                    </pre>
+                    <div className='px-4 py-2 bg-white text-14-20 rounded-lg shadow-lg'>
+                      <pre className='whitespace-pre-wrap font-sans font-normal text-neutral'>
+                        {msg.text}
+                      </pre>
+                    </div>
                   </div>
-                </div>
-                {msg.suggestions && (
-                  <div className='ml-12 mt-2 flex gap-2 flex-wrap'>
-                    {msg.suggestions.map((suggestion, idx) => (
-                      <button
-                        key={idx}
-                        className='text-start px-4 py-2 bg-white shadow-md hover:bg-gray-300 rounded-lg text-12-18 text-neutral font-sans font-normal transition duration-200'
-                        onClick={() => handleSuggestionClick(suggestion)}
-                      >
-                        {suggestion}
-                      </button>
-                    ))}
-                  </div>
-                )}
-              </div>
-            )}
-            {msg.sender === "user" && (
-              <div className='flex font-sans justify-end items-start max-w-[320px] gap-2'>
-                <div className='px-4 py-2 bg-blue-100 text-14-20 text-neutral font-sans font-normal rounded-lg shadow-lg break-words overflow-hidden'>
-                  <pre className='whitespace-pre-wrap font-sans font-normal text-neutral m-0'>
-                    {msg.text}
-                  </pre>
-                  {msg.attachment && (
-                    <div className='mt-2'>
-                      {msg.attachment.type === "image" ? (
-                        <img
-                          src={msg.attachment.url}
-                          alt={msg.attachment.name}
-                          className='max-w-[200px] rounded-lg'
-                        />
-                      ) : (
-                        <a
-                          href={msg.attachment.url}
-                          download={msg.attachment.name}
-                          className='flex items-center gap-2 text-blue-600 hover:underline'
+                  {msg.suggestions && (
+                    <div className='ml-12 mt-2 flex gap-2 flex-wrap'>
+                      {msg.suggestions.map((suggestion, idx) => (
+                        <button
+                          key={idx}
+                          className='text-start px-4 py-2 bg-white shadow-md hover:bg-gray-300 rounded-lg text-12-18 text-neutral font-sans font-normal transition duration-200'
+                          onClick={() => handleSuggestionClick(suggestion)}
                         >
-                          <AttachFileIcon sx={{ fontSize: "20px", color: "#39B5E0" }} />
-                          {msg.attachment.name}
-                        </a>
-                      )}
+                          {suggestion}
+                        </button>
+                      ))}
                     </div>
                   )}
                 </div>
-                <Avatar src={profile?.avatar} alt='User Avatar' />
+              )}
+              {msg.sender === "user" && (
+                <div className='flex font-sans justify-end items-start max-w-[320px] gap-2'>
+                  <div className='px-4 py-2 bg-blue-100 text-14-20 text-neutral font-sans font-normal rounded-lg shadow-lg break-words overflow-hidden'>
+                    <pre className='whitespace-pre-wrap font-sans font-normal text-neutral m-0'>
+                      {msg.text}
+                    </pre>
+                    {msg.attachment && (
+                      <div className='mt-2'>
+                        {msg.attachment.type === "image" ? (
+                          <img
+                            src={msg.attachment.url}
+                            alt={msg.attachment.name}
+                            className='max-w-[200px] rounded-lg'
+                          />
+                        ) : (
+                          <a
+                            href={msg.attachment.url}
+                            download={msg.attachment.name}
+                            className='flex items-center gap-2 text-blue-600 hover:underline'
+                          >
+                            <AttachFileIcon sx={{ fontSize: "20px", color: "#39B5E0" }} />
+                            {msg.attachment.name}
+                          </a>
+                        )}
+                      </div>
+                    )}
+                  </div>
+                  <Avatar src={profile?.avatar} alt='User Avatar' />
+                </div>
+              )}
+            </div>
+          ))
+        ) : (
+          <div className='flex items-start flex-col max-w-[85%] sm:max-w-[75%]'>
+            <div className='flex items-start gap-2'>
+              <Avatar src={LogoImage?.src} alt='Bot Avatar' />
+              <div className='px-4 py-2 bg-white text-14-20 rounded-lg shadow-lg'>
+                <pre className='whitespace-pre-wrap font-sans font-normal text-neutral'>
+                  {data?.openingText || "Xin chào! Tôi có thể giúp gì cho bạn?"}
+                </pre>
               </div>
-            )}
+            </div>
+            <div className='ml-12 mt-2 flex gap-2 flex-wrap'>
+              {data?.suggestedQuestions &&
+                data.suggestedQuestions.map((suggestion: string, idx: number) => (
+                  <button
+                    key={idx}
+                    className='text-start px-4 py-2 bg-white shadow-md hover:bg-gray-300 rounded-lg text-12-18 text-neutral font-sans font-normal transition duration-200'
+                    onClick={() => handleSuggestionClick(suggestion)}
+                  >
+                    {suggestion}
+                  </button>
+                ))}
+            </div>
           </div>
-        ))}
+        )}
         {isTyping && (
           <div className='flex items-center gap-2 text-neutral font-sans font-normal text-12-18'>
             <Avatar src={LogoImage?.src} alt='Typing Avatar' />

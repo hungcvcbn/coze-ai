@@ -216,7 +216,7 @@ const SliderAnimation = () => {
                     href={heroSlides[currentSlide].secondaryButton.href || "#"}
                     rel='noopener noreferrer'
                   >
-                    <BasicButton variant={currentSlide === 2 ? "text" : "outlined"} size='lg'>
+                    <BasicButton variant={"outlined"} size='lg'>
                       <div
                         className={`flex items-center gap-2 ${
                           currentSlide === 0
@@ -293,7 +293,7 @@ const SliderAnimation = () => {
               )}
               {currentSlide === 2 && (
                 <motion.div
-                  className='absolute -left-10 -top-10 w-24 h-24 rounded-full bg-emerald-200 z-[-2]'
+                  className='absolute -left-10 -top-10 w-24 h-24 rounded-full bg-emerald-100 z-[-2]'
                   initial={{ scale: 0, opacity: 0 }}
                   animate={{ scale: 1, opacity: 0.7 }}
                   transition={{ delay: 0.4, duration: 0.8 }}

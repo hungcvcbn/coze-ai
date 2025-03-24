@@ -74,13 +74,13 @@ export default function ServicePrice() {
           </p>
         </motion.div>
 
-        <div className='grid grid-cols-1 md:grid-cols-3 gap-8'>
+        <div className='grid grid-cols-1 md:grid-cols-3 gap-4'>
           {pricingPlans.map((plan, index) => (
             <motion.div
               key={index}
               className={`rounded-xl shadow-lg overflow-hidden border ${
                 plan.popular ? "border-primary" : "border-gray-200"
-              }`}
+              } ${plan.popular ? "bg-primary-50" : "bg-white"} relative`}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -88,12 +88,34 @@ export default function ServicePrice() {
               whileHover={{ y: -10 }}
             >
               {plan.popular && (
-                <div className='bg-primary text-white text-center py-2 font-medium'>
-                  Phổ biến nhất
-                </div>
+                <>
+                  <div className='absolute top-2 left-2'>
+                    <svg
+                      xmlns='http://www.w3.org/2000/svg'
+                      className='h-6 w-6 text-yellow-300'
+                      viewBox='0 0 24 24'
+                      fill='currentColor'
+                    >
+                      <path d='M12 1L9 9H2L7 14.5L5 22L12 17.5L19 22L17 14.5L22 9H15L12 1Z' />
+                    </svg>
+                  </div>
+                  <div className='bg-primary text-white text-center py-2 font-medium flex items-center justify-center gap-2'>
+                    Phổ biến nhất
+                  </div>
+                  <div className='absolute top-2 right-2'>
+                    <svg
+                      xmlns='http://www.w3.org/2000/svg'
+                      className='h-6 w-6 text-yellow-300'
+                      viewBox='0 0 24 24'
+                      fill='currentColor'
+                    >
+                      <path d='M12 1L9 9H2L7 14.5L5 22L12 17.5L19 22L17 14.5L22 9H15L12 1Z' />
+                    </svg>
+                  </div>
+                </>
               )}
-              <div className='p-6'>
-                <h3 className='text-2xl font-bold mb-4'>{plan.name}</h3>
+              <div className='p-4'>
+                <h3 className='text-20-28 text-primary font-bold mb-4'>{plan.name}</h3>
                 <div className='mb-6'>
                   <span className='text-4xl font-bold'>{plan.price}</span>
                   {plan.price !== "Liên hệ" && <span className='text-gray-600'>/tháng</span>}

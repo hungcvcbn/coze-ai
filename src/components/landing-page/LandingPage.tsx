@@ -13,10 +13,40 @@ import AboutUs from "./AboutUs";
 import FooterSection from "./FooterSection";
 import ServicePrice from "./ServicePrice";
 const LandingPage = () => {
+  const [scrollPosition, setScrollPosition] = useState(0);
+  const navBackgrounds = [
+    "bg-gradient-to-r from-slate-50 via-primary-50 to-blue-50",
+    "bg-gradient-to-r from-blue-50 via-slate-50 to-indigo-50",
+    "bg-gradient-to-r from-indigo-50 via-cyan-50 to-slate-50",
+    "bg-gradient-to-r from-slate-50 via-zinc-50 to-gray-50",
+  ];
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const position = window.scrollY;
+      setScrollPosition(position);
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
+  // Calculate which background to use based on scroll position
+  const sectionHeight = 800; // Approximate height of each section
+  const navBgIndex = Math.min(
+    Math.floor(scrollPosition / sectionHeight),
+    navBackgrounds.length - 1
+  );
+
   return (
     <div className='min-h-screen bg-white text-neutral overflow-hidden'>
       {/* Navigation Bar */}
-      <nav className='fixed top-0 left-0 right-0 z-50 bg-gradient-to-r from-primary-50 via-primary-100 to-blue-50 backdrop-blur-md py-4 px-6 flex justify-between items-center'>
+      <nav
+        className={`fixed top-0 left-0 right-0 z-50 ${navBackgrounds[navBgIndex]} backdrop-blur-md py-4 px-6 flex justify-between items-center transition-colors duration-700`}
+      >
         <Link href='/' className='flex items-center gap-2'>
           <div className='flex items-center gap-2'>
             <Image src={LogoImage} alt='Zenee AI Logo' width={40} height={40} />

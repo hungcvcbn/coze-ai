@@ -49,27 +49,39 @@ const LandingPage = () => {
         <Link href='/' className='flex items-center gap-2'>
           <div className='flex items-center gap-2'>
             <Image src={LogoImage} alt='Zenee AI Logo' width={40} height={40} />
-            <span className='font-bold text-24-32 text-primary'>Zenee AI</span>
+            <span className='font-bold text-24-32 text-primary-400'>Zenee AI</span>
           </div>
         </Link>
 
         <div className='hidden md:flex items-center gap-8'>
-          <Link href='#features' className='text-primary hover:text-primary-700 transition-colors'>
+          <Link
+            href='#features'
+            className='text-primary-400 hover:text-primary-700 transition-colors'
+          >
             Tính năng
           </Link>
-          <Link href='#use-cases' className='text-primary hover:text-primary-700 transition-colors'>
+          <Link
+            href='#use-cases'
+            className='text-primary-400 hover:text-primary-700 transition-colors'
+          >
             Ứng dụng
           </Link>
-          <Link href='#chat-demo' className='text-primary hover:text-primary-700 transition-colors'>
+          <Link
+            href='#chat-demo'
+            className='text-primary-400 hover:text-primary-700 transition-colors'
+          >
             Chat box
           </Link>
           <Link
             href='#platform-integration'
-            className='text-primary hover:text-primary-700 transition-colors'
+            className='text-primary-400 hover:text-primary-700 transition-colors'
           >
             Nền tảng
           </Link>
-          <Link href='#pricing' className='text-primary hover:text-primary-700 transition-colors'>
+          <Link
+            href='#pricing'
+            className='text-primary-400 hover:text-primary-700 transition-colors'
+          >
             Bảng giá
           </Link>
           <Link href='/login'>

@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { motion, useAnimation } from "framer-motion";
+import { motion } from "framer-motion";
 import LogoImage from "@/assets/icons/logo.svg";
 import BasicButton from "@/components/common/BasicButton";
 import SliderAnimation from "./SliderAnimation";
@@ -15,7 +15,7 @@ import ServicePrice from "./ServicePrice";
 const LandingPage = () => {
   const [scrollPosition, setScrollPosition] = useState(0);
   const navBackgrounds = [
-    "bg-gradient-to-r from-slate-50 via-primary-50 to-blue-50",
+    "bg-gradient-to-r from-black-50 via-black-200 to-black-50",
     "bg-gradient-to-r from-blue-50 via-slate-50 to-indigo-50",
     "bg-gradient-to-r from-indigo-50 via-cyan-50 to-slate-50",
     "bg-gradient-to-r from-slate-50 via-zinc-50 to-gray-50",
@@ -34,8 +34,7 @@ const LandingPage = () => {
     };
   }, []);
 
-  // Calculate which background to use based on scroll position
-  const sectionHeight = 800; // Approximate height of each section
+  const sectionHeight = 800;
   const navBgIndex = Math.min(
     Math.floor(scrollPosition / sectionHeight),
     navBackgrounds.length - 1
@@ -45,32 +44,32 @@ const LandingPage = () => {
     <div className='min-h-screen bg-white text-neutral overflow-hidden'>
       {/* Navigation Bar */}
       <nav
-        className={`fixed top-0 left-0 right-0 z-50 ${navBackgrounds[navBgIndex]} backdrop-blur-md py-4 px-6 flex justify-between items-center transition-colors duration-700`}
+        className={`fixed top-0 left-0 right-0 z-50 ${navBackgrounds[navBgIndex]} shadow-2xl pb-4 backdrop-blur-md py-4 px-6 flex justify-between items-center transition-colors duration-700`}
       >
         <Link href='/' className='flex items-center gap-2'>
           <div className='flex items-center gap-2'>
             <Image src={LogoImage} alt='Zenee AI Logo' width={40} height={40} />
-            <span className='font-bold text-24-32 text-neutral'>Zenee AI</span>
+            <span className='font-bold text-24-32 text-primary'>Zenee AI</span>
           </div>
         </Link>
 
         <div className='hidden md:flex items-center gap-8'>
-          <Link href='#features' className='text-neutral hover:text-primary transition-colors'>
+          <Link href='#features' className='text-primary hover:text-primary-700 transition-colors'>
             Tính năng
           </Link>
-          <Link href='#use-cases' className='text-neutral hover:text-primary transition-colors'>
+          <Link href='#use-cases' className='text-primary hover:text-primary-700 transition-colors'>
             Ứng dụng
           </Link>
-          <Link href='#chat-demo' className='text-neutral hover:text-primary transition-colors'>
+          <Link href='#chat-demo' className='text-primary hover:text-primary-700 transition-colors'>
             Chat box
           </Link>
           <Link
             href='#platform-integration'
-            className='text-neutral hover:text-primary transition-colors'
+            className='text-primary hover:text-primary-700 transition-colors'
           >
             Nền tảng
           </Link>
-          <Link href='#pricing' className='text-neutral hover:text-primary transition-colors'>
+          <Link href='#pricing' className='text-primary hover:text-primary-700 transition-colors'>
             Bảng giá
           </Link>
           <Link href='/login'>

@@ -94,7 +94,7 @@ const ChatBox = ({ conversation, data }: ChatBoxProps) => {
 
     try {
       const params = {
-        agentId: data?.id,
+        botId: data?.id,
         question,
         conversationId: conversation ? conversation[0] : undefined,
         stream: true,
@@ -211,7 +211,7 @@ const ChatBox = ({ conversation, data }: ChatBoxProps) => {
     setIsTyping(true);
     try {
       let params = {
-        agentId: data?.id,
+        botId: data?.id,
         question: suggestion,
         conversationId: conversation ? conversation[0] : undefined,
         stream: true,

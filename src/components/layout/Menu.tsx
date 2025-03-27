@@ -5,8 +5,6 @@ import Image from "next/image";
 import LogoImage from "@/assets/icons/logo.svg";
 import { getCookie, deleteCookie } from "cookies-next";
 import { REFRESH_TOKEN, TOKEN } from "@/helpers/constants";
-import MenuIcon from "@mui/icons-material/Menu";
-import CloseIcon from "@mui/icons-material/Close";
 import CreateBotModal from "../create-bot/CreateBotModal";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import StorefrontIcon from "@mui/icons-material/Storefront";
@@ -101,7 +99,7 @@ const Menu = () => {
       >
         <div className='flex flex-col h-full'>
           <div
-            className={`flex justify-center items-center px-2 w-full p-4 h-[60px] ${isCollapsed ? "justify-center" : "justify-start gap-2"
+            className={`flex items-center px-2 w-full p-4 h-[72px] ${isCollapsed ? "justify-center" : "justify-center gap-2"
               }`}
           >
             <Image

@@ -1,8 +1,6 @@
 "use client";
 import React, { useState, useEffect, useRef } from "react";
-import CustomTextField from "../hook-form/CustomTextField";
 import LogoImage from "@/assets/icons/logo.svg";
-import AutoAwesomeIcon from "@mui/icons-material/AutoAwesome";
 import { Send } from "@mui/icons-material";
 import AttachFileIcon from "@mui/icons-material/AttachFile";
 import {
@@ -18,7 +16,7 @@ import { useDispatch } from "react-redux";
 import BasicButton from "../common/BasicButton";
 
 import ListPlatformPublish from "./platform/ListPlatformPublish";
-import { IconButton, Tooltip, Avatar } from "@mui/material";
+import { IconButton, TextField } from "@mui/material";
 import { resetConversation } from "@/helpers/api/agent";
 import { useAppSelector } from "@/redux/hooks";
 import { isEmpty } from "@/helpers/utils/common";
@@ -37,17 +35,16 @@ interface ChatBoxProps {
   data: any;
 }
 const ChatBox = ({ conversation, data }: ChatBoxProps) => {
-  const [open, setOpen] = useState<boolean>(false);
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [isTyping, setIsTyping] = useState(false);
-
+  const [open, setOpen] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const inputRef = useRef<HTMLInputElement>(null);
+  const inputRef = useRef<HTMLTextAreaElement>(null);
   const dispatch = useDispatch();
-  const { triggerTime, profile } = useAppSelector(state => state.common);
+  const { triggerTime } = useAppSelector(state => state.common);
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
@@ -60,8 +57,7 @@ const ChatBox = ({ conversation, data }: ChatBoxProps) => {
         setMessages([
           {
             sender: "system",
-            text:
-              res.data.openingConversation.openingText || "Xin chào! Tôi có thể giúp gì cho bạn?",
+            text: res.data.openingConversation.openingText,
             suggestions: Array.isArray(res.data.openingConversation.openingQuestions)
               ? res.data.openingConversation.openingQuestions
               : [],
@@ -272,7 +268,7 @@ const ChatBox = ({ conversation, data }: ChatBoxProps) => {
     }
   }, [conversation, data?.id]);
   useEffect(() => {
-    if ((messages.length === 0 || triggerTime) && data?.id) {
+    if (triggerTime && data?.id) {
       getSuggestions();
     }
   }, [triggerTime, data?.id]);
@@ -286,193 +282,129 @@ const ChatBox = ({ conversation, data }: ChatBoxProps) => {
     }
   }, [isLoading]);
   return (
-    <div className='flex flex-col h-full relative'>
-      <div className='h-auto max-h-[70px] p-2 flex gap-2 items-center border-b rounded-t-lg border-gray-200 bg-white justify-between'>
-        <div className='text-14-20 flex gap-2 items-center font-semibold text-neutral px-2'>
-          <AutoAwesomeIcon sx={{ color: "#39B5E0", fontSize: "1.1rem" }} />
-          Dùng thử
+    <div className='flex flex-col bg-white'>
+      {/* Header */}
+      <div className='h-14 flex items-center justify-between px-4 border-b'>
+        <div className='flex items-center gap-2'>
+          <img src={LogoImage?.src} alt='Chat Logo' className='w-8 h-8 rounded' />
+          <span className='font-medium'>Chat demo</span>
         </div>
         <div className='flex items-center gap-2'>
-          <Tooltip title='Reset conversation' placement='top'>
-            <IconButton onClick={handleResetConversation} size='small'>
-              <CleaningServicesIcon sx={{ color: "#39B5E0", fontSize: "1.1rem" }} />
-            </IconButton>
-          </Tooltip>
-          <BasicButton size='sm' onClick={() => setOpen(true)} variant='outlined'>
+          <BasicButton onClick={() => setOpen(true)} variant='outlined'>
             Publish
           </BasicButton>
+          <IconButton size='small' onClick={handleResetConversation}>
+            <CleaningServicesIcon sx={{ fontSize: "1.2rem" }} />
+          </IconButton>
         </div>
       </div>
-      <div
-        className='flex-1 min-h-[300px] max-h-[calc(100vh-160px)] bg-slate-50 rounded-lg overflow-y-auto p-2 sm:p-4 [&::-webkit-scrollbar]:w-2
-          [&::-webkit-scrollbar-track]:bg-gray-100
-          [&::-webkit-scrollbar-thumb]:bg-gray-300
-          [&::-webkit-scrollbar-thumb]:rounded-full'
-      >
-        {messages.length > 0 ? (
-          messages.map((msg, index) => (
-            <div
-              key={index}
-              className={`mb-3 flex ${msg.sender === "user" ? "justify-end" : "justify-start"}`}
-            >
-              {msg.sender === "system" && (
-                <div className='flex items-start flex-col max-w-[85%] sm:max-w-[75%]'>
-                  <div className='flex items-start gap-2'>
-                    <Avatar src={LogoImage?.src} alt='Bot Avatar' />
 
-                    <div className='px-4 py-2 bg-white text-14-20 rounded-lg shadow-lg'>
-                      <pre className='whitespace-pre-wrap font-sans font-normal text-neutral'>
-                        {msg.text}
-                      </pre>
-                    </div>
-                  </div>
-                  {msg.suggestions && (
-                    <div className='ml-12 mt-2 flex gap-2 flex-wrap'>
-                      {msg.suggestions.map((suggestion, idx) => (
-                        <button
-                          key={idx}
-                          className='text-start px-4 py-2 bg-white shadow-md hover:bg-gray-300 rounded-lg text-12-18 text-neutral font-sans font-normal transition duration-200'
-                          onClick={() => handleSuggestionClick(suggestion)}
-                        >
-                          {suggestion}
-                        </button>
-                      ))}
-                    </div>
-                  )}
+      {/* Chat Messages */}
+      <div className='flex-1 md:min-h-[calc(100vh-16rem)] min-h-[400px] max-h-[400px] md:max-h-[calc(100vh-16rem)] overflow-y-auto hidden-scroll-bar px-4 py-2 bg-white'>
+        {messages.map((msg, index) => (
+          <div key={index}>
+            {msg.text && (
+              <div
+                className={`flex mb-2 ${msg.sender === "user" ? "justify-end" : "justify-start"}`}
+              >
+                <div
+                  className={`inline-block text-14-20 font-normal max-w-[70%] rounded-2xl px-4 py-2 ${
+                    msg.sender === "user"
+                      ? "bg-gray-200 text-neutral"
+                      : "bg-white border text-neutral"
+                  }`}
+                >
+                  {msg.text}
                 </div>
-              )}
-              {msg.sender === "user" && (
-                <div className='flex font-sans justify-end items-start max-w-[320px] gap-2'>
-                  <div className='px-4 py-2 bg-blue-100 text-14-20 text-neutral font-sans font-normal rounded-lg shadow-lg break-words overflow-hidden'>
-                    <pre className='whitespace-pre-wrap font-sans font-normal text-neutral m-0'>
-                      {msg.text}
-                    </pre>
-                    {msg.attachment && (
-                      <div className='mt-2'>
-                        {msg.attachment.type === "image" ? (
-                          <img
-                            src={msg.attachment.url}
-                            alt={msg.attachment.name}
-                            className='max-w-[200px] rounded-lg'
-                          />
-                        ) : (
-                          <a
-                            href={msg.attachment.url}
-                            download={msg.attachment.name}
-                            className='flex items-center gap-2 text-blue-600 hover:underline'
-                          >
-                            <AttachFileIcon sx={{ fontSize: "20px", color: "#39B5E0" }} />
-                            {msg.attachment.name}
-                          </a>
-                        )}
-                      </div>
-                    )}
-                  </div>
-                  <Avatar src={profile?.avatar} alt='User Avatar' />
-                </div>
-              )}
-            </div>
-          ))
-        ) : (
-          <div className='flex items-start flex-col max-w-[85%] sm:max-w-[75%]'>
-            <div className='flex items-start gap-2'>
-              <Avatar src={LogoImage?.src} alt='Bot Avatar' />
-              <div className='px-4 py-2 bg-white text-14-20 rounded-lg shadow-lg'>
-                <pre className='whitespace-pre-wrap font-sans font-normal text-neutral'>
-                  {data?.openingText || "Xin chào! Tôi có thể giúp gì cho bạn?"}
-                </pre>
               </div>
-            </div>
-            <div className='ml-12 mt-2 flex gap-2 flex-wrap'>
-              {data?.suggestedQuestions &&
-                data.suggestedQuestions.map((suggestion: string, idx: number) => (
+            )}
+            {/* Thêm phần hiển thị suggestions */}
+            {msg.suggestions && msg.suggestions.length > 0 && (
+              <div className='flex flex-col gap-2 mb-4'>
+                {msg.suggestions.map((suggestion, idx) => (
                   <button
                     key={idx}
-                    className='text-start px-4 py-2 bg-white shadow-md hover:bg-gray-300 rounded-lg text-12-18 text-neutral font-sans font-normal transition duration-200'
                     onClick={() => handleSuggestionClick(suggestion)}
+                    disabled={isLoading}
+                    className='px-3 py-1.5 text-14-20 text-start font-normal bg-white border border-gray-200 w-fit hover:bg-gray-200 rounded-xl text-gray-700 transition-colors'
                   >
                     {suggestion}
                   </button>
                 ))}
-            </div>
+              </div>
+            )}
           </div>
-        )}
+        ))}
+
         {isTyping && (
-          <div className='flex items-center gap-2 text-neutral font-sans font-normal text-12-18'>
-            <Avatar src={LogoImage?.src} alt='Typing Avatar' />
-            <div className='flex gap-1'>
-              <span className='w-1 h-1 rounded-full bg-gray-600 animate-bounce [animation-delay:-0.3s]'></span>
-              <span className='w-1 h-1 rounded-full bg-gray-600 animate-bounce [animation-delay:-0.15s]'></span>
-              <span className='w-1 h-1 rounded-full bg-gray-600 animate-bounce'></span>
+          <div className='flex mb-2 justify-start'>
+            <div className='inline-block bg-white border rounded-2xl px-4 py-2'>
+              <div className='flex gap-1 items-center h-6'>
+                <span className='w-1 h-1 rounded-full bg-gray-500 animate-bounce [animation-delay:-0.3s]'></span>
+                <span className='w-1 h-1 rounded-full bg-gray-500 animate-bounce [animation-delay:-0.15s]'></span>
+                <span className='w-1 h-1 rounded-full bg-gray-500 animate-bounce'></span>
+              </div>
             </div>
           </div>
         )}
         <div ref={messagesEndRef} />
       </div>
-      <div className='flex items-center rounded-b-lg gap-2 pt-2 border-t border-gray-200 p-2 bg-white sticky bottom-0 left-0 right-0'>
-        <div className='flex-1'>
-          <CustomTextField
-            fullWidth
-            multiline
-            maxRows={7}
-            size='small'
+
+      {/* Input Area */}
+      <div className='border-t p-3'>
+        <div className='flex items-center gap-2 relative rounded-2xl border bg-white'>
+          <textarea
+            ref={inputRef}
             value={input}
             onChange={e => setInput(e.target.value)}
             placeholder='Enter your question'
-            onKeyPress={e => {
+            disabled={isLoading}
+            onKeyDown={e => {
               if (e.key === "Enter" && !e.shiftKey) {
                 e.preventDefault();
                 handleChat();
               }
             }}
-            disabled={isLoading}
-            inputRef={inputRef}
-            sx={{
-              "& .MuiInputBase-root": {
-                borderRadius: "20px",
-                minHeight: "40px",
-                display: "flex",
-                alignItems: "center",
-                padding: "4px 8px",
-              },
-              "& .MuiInputBase-input": {
-                fontSize: "14px",
-                maxHeight: "150px",
-                overflowY: "auto",
-                padding: "6px 10px",
-              },
-            }}
-            InputProps={{
-              endAdornment: (
-                <div className='flex items-center gap-1 lg:gap-2'>
-                  <AttachFileIcon
-                    fontSize='small'
-                    sx={{
-                      color: isLoading ? "#A8A8A8" : "#39B5E0",
-                      cursor: isLoading ? "default" : "pointer",
-                      "&:hover": { color: isLoading ? "#A8A8A8" : "#157299" },
-                      "@media (max-width: 600px)": {
-                        fontSize: "14px",
-                      },
-                    }}
-                    onClick={() => !isLoading && fileInputRef.current?.click()}
-                  />
-                  <Send
-                    fontSize='small'
-                    sx={{
-                      color: isLoading ? "#A8A8A8" : "#39B5E0",
-                      cursor: isLoading ? "default" : "pointer",
-                      "&:hover": { color: isLoading ? "#A8A8A8" : "#157299" },
-                      "@media (max-width: 600px)": {
-                        fontSize: "14px",
-                      },
-                    }}
-                    onClick={handleChat}
-                  />
-                </div>
-              ),
+            rows={input.split('\n').length || 1}
+            className='w-full resize-none justify-center hidden-scroll-bar border-tl rounded-2xl items-center outline-none text-14-20 text-neutral py-3 px-2 max-h-[200px] min-h-[40px]'
+            style={{
+              overflow: "auto",
             }}
           />
+          <div className='flex items-center'>
+            <button
+              className='p-1 hover:bg-gray-100 rounded-full transition-colors'
+              onClick={() => !isLoading && fileInputRef.current?.click()}
+              disabled={isLoading}
+            >
+              <AttachFileIcon
+                fontSize='small'
+                sx={{
+                  color: isLoading ? "#A8A8A8" : "#39B5E0",
+                  cursor: isLoading ? "default" : "pointer",
+                  "@media (max-width: 600px)": {
+                    fontSize: "14px",
+                  },
+                }}
+              />
+            </button>
+            <button
+              className='p-1 hover:bg-gray-100 rounded-full transition-colors'
+              onClick={handleChat}
+              disabled={isLoading}
+            >
+              <Send
+                fontSize='small'
+                sx={{
+                  color: isLoading ? "#A8A8A8" : "#39B5E0",
+                  cursor: isLoading ? "default" : "pointer",
+                  "@media (max-width: 600px)": {
+                    fontSize: "14px",
+                  },
+                }}
+              />
+            </button>
+          </div>
         </div>
         <input
           ref={fileInputRef}
@@ -483,6 +415,7 @@ const ChatBox = ({ conversation, data }: ChatBoxProps) => {
           disabled={isLoading}
         />
       </div>
+
       <ListPlatformPublish open={open} setOpen={setOpen} />
     </div>
   );

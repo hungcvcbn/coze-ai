@@ -114,7 +114,7 @@ const ControlSetting = () => {
           </div>
         </div>
         <div
-          className={`w-full transition-all duration-300 overflow-hidden ${
+          className={`w-full transition-all duration-300 overflow-hidden h-fit ${
             !isMobile || showPrompt ? "max-h-[1000px]" : "max-h-0"
           }`}
         >
@@ -122,7 +122,7 @@ const ControlSetting = () => {
         </div>
       </div>
 
-      <div className='col-span-12 lg:col-span-5 h-full border border-gray-200 rounded-lg w-full'>
+      <div className='col-span-12 lg:col-span-4 h-full border border-gray-200 rounded-lg w-full'>
         {isMobile && (
           <div
             className={`flex justify-between items-center px-4 py-2 ${
@@ -137,7 +137,7 @@ const ControlSetting = () => {
           </div>
         )}
         <div
-          className={`w-full transition-all duration-300 overflow-hidden ${
+          className={`w-full transition-all duration-300 overflow-hidden h-fit ${
             !isMobile || showSetting ? "max-h-[1000px]" : "max-h-0"
           }`}
         >
@@ -145,7 +145,7 @@ const ControlSetting = () => {
         </div>
       </div>
 
-      <div className='col-span-12 lg:col-span-3 lg:sticky lg:top-0 h-auto border border-gray-200 rounded-lg'>
+      <div className='col-span-12 lg:col-span-4 lg:sticky lg:top-0 h-fit border border-gray-200 rounded-lg'>
         <ChatBox conversation={conversation} data={data} />
       </div>
 

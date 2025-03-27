@@ -101,9 +101,8 @@ const Menu = () => {
       >
         <div className='flex flex-col h-full'>
           <div
-            className={`flex justify-center items-center px-2 w-full p-4 h-[60px] ${
-              isCollapsed ? "justify-center" : "justify-start gap-2"
-            }`}
+            className={`flex justify-center items-center px-2 w-full p-4 h-[60px] ${isCollapsed ? "justify-center" : "justify-start gap-2"
+              }`}
           >
             <Image
               src={LogoImage}
@@ -147,18 +146,15 @@ const Menu = () => {
                 <Link
                   key={item.path}
                   href={item.path}
-                  className={`flex items-center ${
-                    isCollapsed ? "justify-center" : "justify-start gap-3"
-                  } px-3 py-2 rounded-lg transition-colors ${
-                    isActive ? "bg-primary-50 text-primary" : "hover:bg-gray-100"
-                  }`}
+                  className={`flex items-center ${isCollapsed ? "justify-center" : "justify-start gap-3"
+                    } px-3 py-2 rounded-lg transition-colors ${isActive ? "bg-primary-50 text-primary" : "hover:bg-gray-100"
+                    }`}
                 >
                   <span className={isActive ? "text-primary" : "text-gray-400"}>{item.icon}</span>
                   {!isCollapsed && (
                     <span
-                      className={`font-medium font-sans text-16-24 ${
-                        isActive ? "text-primary" : ""
-                      }`}
+                      className={`font-medium font-sans text-16-24 ${isActive ? "text-primary" : ""
+                        }`}
                     >
                       {item.title}
                     </span>
@@ -169,11 +165,10 @@ const Menu = () => {
           </div>
 
           {!isEmpty(profile) ? (
-            <div className='mt-auto border-t border-gray-200 p-2'>
+            <div className='mt-auto border-t border-gray-200 p-2 w-full'>
               <div
-                className={`flex items-center ${
-                  isCollapsed ? "justify-center" : "gap-3"
-                } cursor-pointer hover:bg-gray-100 p-2 rounded-lg`}
+                className={`flex items-center ${isCollapsed ? "justify-center" : "gap-3"
+                  } cursor-pointer hover:bg-gray-100 p-2 rounded-lg`}
                 onClick={handleProfileClick}
               >
                 <div className='w-8 h-8 bg-gray-700 rounded-full overflow-hidden flex-shrink-0'>
@@ -187,8 +182,8 @@ const Menu = () => {
                 </div>
                 {!isCollapsed && (
                   <div className='overflow-hidden'>
-                    <p className='text-14-20 font-medium truncate'>{profile?.username}</p>
-                    <p className='text-12-16 text-gray-500 truncate'>{profile?.email}</p>
+                    <p className='text-14-20 font-medium truncate' title={profile?.username}>{profile?.username}</p>
+                    <p className='text-12-16 text-gray-500 truncate' title={profile?.email}>{profile?.email}</p>
                   </div>
                 )}
               </div>

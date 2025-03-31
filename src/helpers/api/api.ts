@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { userLogout, getAccessToken, getRefreshToken, saveAccessToken, saveRefreshToken, saveCookie } from '@/helpers/utils/common'
 
-const API_URL = 'https://dev-gwapi.hasagi.xyz'
+const API_URL = process.env.NEXT_PUBLIC_API_URL || 'https://dev-gwapi.hasagi.xyz'
 
 const Api = axios.create({
   baseURL: API_URL,

@@ -41,7 +41,7 @@ const BasicButton = forwardRef<HTMLButtonElement, ButtonProps>(
       switch (size) {
         case "sm":
           // height: 32px
-          return `h-[32px] ${variant !== "text" && "px-[14px]"} text-14-18 font-semibold ${
+          return `h-[32px] ${variant !== "text" && "px-[10px]"} text-12-18 font-semibold ${
             isRadius100 ? "rounded-[100px]" : "rounded-[8px]"
           }`;
         case "md":

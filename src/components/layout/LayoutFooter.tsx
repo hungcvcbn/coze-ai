@@ -1,70 +1,167 @@
 "use client";
 
 import React from "react";
+import GitHubIcon from "@mui/icons-material/GitHub";
+import TwitterIcon from "@mui/icons-material/Twitter";
+import LinkedInIcon from "@mui/icons-material/LinkedIn";
+import ChatIcon from "@mui/icons-material/Chat"; // MUI doesn't have Discord icon, using Chat as alternative
 
 const FooterLayout = () => {
+  const currentYear = new Date().getFullYear();
+
   return (
-    <footer className='relative pt-8 pb-6 bg-gradient-to-r from-[#f3f3f3] to-[#d1d1cc]'>
+    <footer className='relative pt-12 pb-8 bg-white border-t w-full border-gray-200'>
       <div className='container mx-auto px-4'>
         <div className='flex flex-wrap text-left'>
-          <div className='w-full lg:w-6/12 px-4 mb-8 lg:mb-0'>
-            <h4 className='text-3xl font-semibold text-blueGray-700'>Let's keep in touch!</h4>
-            <h5 className='text-[16px] mt-0 mb-2 text-blueGray-600'>
-              Find me on any of these platforms, I respond 1-2 business days.
+          <div className='w-full lg:w-5/12 px-4 mb-8 lg:mb-0'>
+            <div className='text-32-40 font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary-700 to-primary-700'>
+              Zenix
+            </div>
+            <h5 className='text-14-20 mt-3 mb-4 text-gray-600'>
+              Training the next generation of AI agents to empower your workflow.
             </h5>
+            <div className='mt-6 flex space-x-2'>
+              <a
+                href='#'
+                className='w-10 h-10 flex items-center justify-center rounded-full bg-white shadow-sm hover:shadow-md transition-all duration-200'
+              >
+                <TwitterIcon className='text-primary-700' fontSize='small' />
+              </a>
+              <a
+                href='#'
+                className='w-10 h-10 flex items-center justify-center rounded-full bg-white shadow-sm hover:shadow-md transition-all duration-200'
+              >
+                <GitHubIcon className='text-primary-700' fontSize='small' />
+              </a>
+              <a
+                href='#'
+                className='w-10 h-10 flex items-center justify-center rounded-full bg-white shadow-sm hover:shadow-md transition-all duration-200'
+              >
+                <LinkedInIcon className='text-primary-700' fontSize='small' />
+              </a>
+              <a
+                href='#'
+                className='w-10 h-10 flex items-center justify-center rounded-full bg-white shadow-sm hover:shadow-md transition-all duration-200'
+              >
+                <ChatIcon className='text-primary-700' fontSize='small' />
+              </a>
+            </div>
           </div>
-          <div className='w-full lg:w-6/12 px-4'>
-            <div className='flex flex-wrap items-top mb-6'>
-              <div className='w-full sm:w-6/12 lg:w-4/12 px-4 mb-8 sm:mb-0'>
-                <span className='block uppercase text-blueGray-500 text-sm font-semibold mb-2'>
-                  Useful Links
+          <div className='w-full lg:w-7/12 px-4'>
+            <div className='flex flex-wrap'>
+              <div className='w-full sm:w-4/12 mb-8 sm:mb-0'>
+                <span className='block text-gray-700 text-14-20 font-bold mb-4 uppercase tracking-wider'>
+                  Products
                 </span>
-                <ul className='list-unstyled'>
+                <ul className='space-y-2'>
                   <li>
-                    <a className='text-blueGray-600 hover:text-blueGray-800 font-semibold block pb-2 text-sm'>
-                      About Us
+                    <a
+                      href='#'
+                      className='text-gray-600 hover:text-primary-700 font-medium text-14-20 transition-colors'
+                    >
+                      AI Assistant
                     </a>
                   </li>
                   <li>
-                    <a className='text-blueGray-600 hover:text-blueGray-800 font-semibold block pb-2 text-sm'>
-                      Blog
+                    <a
+                      href='#'
+                      className='text-gray-600 hover:text-primary-700 font-medium text-14-20 transition-colors'
+                    >
+                      Agent Training
                     </a>
                   </li>
                   <li>
-                    <a className='text-blueGray-600 hover:text-blueGray-800 font-semibold block pb-2 text-sm'>
-                      Github
+                    <a
+                      href='#'
+                      className='text-gray-600 hover:text-primary-700 font-medium text-14-20 transition-colors'
+                    >
+                      Custom Models
                     </a>
                   </li>
                   <li>
-                    <a className='text-blueGray-600 hover:text-blueGray-800 font-semibold block pb-2 text-sm'>
-                      Free Products
+                    <a
+                      href='#'
+                      className='text-gray-600 hover:text-primary-700 font-medium text-14-20 transition-colors'
+                    >
+                      API Access
                     </a>
                   </li>
                 </ul>
               </div>
-              <div className='w-full sm:w-6/12 lg:w-4/12 px-4'>
-                <span className='block uppercase text-blueGray-500 text-sm font-semibold mb-2'>
-                  Other Resources
+              <div className='w-full sm:w-4/12 mb-8 sm:mb-0'>
+                <span className='block text-gray-700 text-14-20 font-bold mb-4 uppercase tracking-wider'>
+                  Resources
                 </span>
-                <ul className='list-unstyled'>
+                <ul className='space-y-2'>
                   <li>
-                    <a className='text-blueGray-600 hover:text-blueGray-800 font-semibold block pb-2 text-sm'>
-                      MIT License
+                    <a
+                      href='#'
+                      className='text-gray-600 hover:text-primary-700 font-medium text-14-20 transition-colors'
+                    >
+                      Documentation
                     </a>
                   </li>
                   <li>
-                    <a className='text-blueGray-600 hover:text-blueGray-800 font-semibold block pb-2 text-sm'>
-                      Terms & Conditions
+                    <a
+                      href='#'
+                      className='text-gray-600 hover:text-primary-700 font-medium text-14-20 transition-colors'
+                    >
+                      API Reference
                     </a>
                   </li>
                   <li>
-                    <a className='text-blueGray-600 hover:text-blueGray-800 font-semibold block pb-2 text-sm'>
-                      Privacy Policy
+                    <a
+                      href='#'
+                      className='text-gray-600 hover:text-primary-700 font-medium text-14-20 transition-colors'
+                    >
+                      Community
                     </a>
                   </li>
                   <li>
-                    <a className='text-blueGray-600 hover:text-blueGray-800 font-semibold block pb-2 text-sm'>
-                      Contact Us
+                    <a
+                      href='#'
+                      className='text-gray-600 hover:text-primary-700 font-medium text-14-20 transition-colors'
+                    >
+                      Tutorials
+                    </a>
+                  </li>
+                </ul>
+              </div>
+              <div className='w-full sm:w-4/12'>
+                <span className='block text-gray-700 text-14-20 font-bold mb-4 uppercase tracking-wider'>
+                  Company
+                </span>
+                <ul className='space-y-2'>
+                  <li>
+                    <a
+                      href='#'
+                      className='text-gray-600 hover:text-primary-700 font-medium text-14-20 transition-colors'
+                    >
+                      About Us
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href='#'
+                      className='text-gray-600 hover:text-primary-700 font-medium text-14-20 transition-colors'
+                    >
+                      Careers
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href='#'
+                      className='text-gray-600 hover:text-primary-700 font-medium text-14-20 transition-colors'
+                    >
+                      Blog
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href='#'
+                      className='text-gray-600 hover:text-primary-700 font-medium text-14-20 transition-colors'
+                    >
+                      Contact
                     </a>
                   </li>
                 </ul>
@@ -72,15 +169,24 @@ const FooterLayout = () => {
             </div>
           </div>
         </div>
-        <hr className='my-6 border-blueGray-300' />
-        <div className='flex flex-wrap items-center md:justify-between justify-center'>
-          <div className='w-full md:w-4/12 px-4 mx-auto text-center'>
-            <div className='text-sm text-blueGray-500 font-semibold py-1'>
-              Copyright © <span id='get-current-year'>2021</span>
-              <a className='text-blueGray-500 hover:text-gray-800' target='_blank'>
-                Notus JS by
+
+        <div className='border-t w-full border-gray-200 mt-5 pt-8'>
+          <div className='flex flex-wrap items-center justify-between'>
+            <div className='w-full md:w-auto mb-4 md:mb-0'>
+              <p className='text-14-20 font-medium text-gray-500'>
+                &copy; {currentYear} Zenix. All rights reserved.
+              </p>
+            </div>
+            <div className='w-full md:w-auto flex flex-wrap space-x-6'>
+              <a href='#' className='text-14-20 font-medium text-gray-500 hover:text-primary-700'>
+                Privacy Policy
               </a>
-              <a className='text-blueGray-500 hover:text-blueGray-800'>Creative Tim</a>.
+              <a href='#' className='text-14-20 font-medium text-gray-500 hover:text-primary-700'>
+                Terms of Service
+              </a>
+              <a href='#' className='text-14-20 font-medium text-gray-500 hover:text-primary-700'>
+                Cookie Policy
+              </a>
             </div>
           </div>
         </div>

@@ -197,7 +197,7 @@ const ControlCommand = ({ data, fetchAgentDetail }: IControlCommand) => {
           [&::-webkit-scrollbar-thumb]:rounded-full focus:outline-none'
         value={personaPrompt}
         onChange={handleTextareaChange}
-        rows={32}
+        rows={30}
       />
       <div className='flex justify-end gap-2 pt-1'>
         <BasicButton

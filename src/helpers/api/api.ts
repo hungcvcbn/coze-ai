@@ -42,7 +42,7 @@ Api.interceptors.request.use(
     let headers = {
       ...config.headers,
       'Accept-Language': 'vi',
-      tcode: "hag",
+      tcode: process.env.NEXT_PUBLIC_TCODE,
       'm-platform': 'WEB',
     }
     config.headers = headers

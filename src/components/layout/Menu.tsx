@@ -7,7 +7,7 @@ import { getCookie, deleteCookie } from "cookies-next";
 import { REFRESH_TOKEN, TOKEN } from "@/helpers/constants";
 import CreateBotModal from "../create-bot/CreateBotModal";
 import DashboardIcon from "@mui/icons-material/Dashboard";
-import StorefrontIcon from "@mui/icons-material/Storefront";
+// import StorefrontIcon from "@mui/icons-material/Storefront";
 import UserImage from "@/assets/icons/avatar_admin.png";
 import Popover from "@mui/material/Popover";
 import LogoutIcon from "@mui/icons-material/Logout";
@@ -56,11 +56,11 @@ const Menu = () => {
       path: "/control-panel",
       icon: <DashboardIcon />,
     },
-    {
-      title: "Bot Store",
-      path: "/bot-store",
-      icon: <StorefrontIcon />,
-    },
+    // {
+    //   title: "Bot Store",
+    //   path: "/bot-store",
+    //   icon: <StorefrontIcon />,
+    // },
   ];
 
   const handleProfileClick = (event: React.MouseEvent<HTMLDivElement>) => {
@@ -221,7 +221,7 @@ const Menu = () => {
               </Popover>
             </div>
           ) : (
-            <div className='mt-auto border-t mx-auto border-gray-200 p-2'>
+            <div className='mt-auto border-t w-full mx-auto border-gray-200 p-2'>
               {isCollapsed ? (
                 <div className='flex justify-center'>
                   <Link href={"/login"}>

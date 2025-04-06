@@ -9,13 +9,15 @@ RUN npm install --legacy-peer-deps
 
 COPY . .
 
-RUN npm run build
+ENV BRANCH=dev
+
+RUN npm run build:${BRANCH}
 
 FROM node:23-alpine AS runner
 
 WORKDIR /app
 
-ENV NODE_ENV=development
+# ENV NODE_ENV=development
 
 COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/.next ./.next
@@ -23,7 +25,7 @@ COPY --from=builder /app/public ./public
 COPY --from=builder /app/package.json ./package.json
 COPY --from=builder /app/next.config.* ./
 
-COPY --from=builder /app/.env.${NODE_ENV} ./.env
+# COPY --from=builder /app/.env.${NODE_ENV} ./.env
 
 EXPOSE 3000
 

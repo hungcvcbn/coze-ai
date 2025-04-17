@@ -47,10 +47,12 @@ export default async function RootLayout({
           }
         >
           <ReduxProvider>
-            <ThemeProvider theme={theme}>
-              <CheckAuth>{children}</CheckAuth>
-              <BasicToast />
-            </ThemeProvider>
+            <CheckAuth>
+              <ThemeProvider theme={theme}>
+                {children}
+                <BasicToast />
+              </ThemeProvider>
+            </CheckAuth>
           </ReduxProvider>
         </GoogleOAuthProvider>
       </body>

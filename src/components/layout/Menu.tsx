@@ -17,12 +17,13 @@ import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { isEmpty } from "@/helpers/utils/common";
 import BasicButton from "../common/BasicButton";
 import PersonIcon from "@mui/icons-material/Person";
-
+import useCurrentProfile from "@/hooks/useCurrentProfiile";
 const Menu = () => {
   const [open, setOpen] = useState(false);
   const [isCollapsed, setIsCollapsed] = useState(false);
   const dispatch = useAppDispatch();
-  const { profile } = useAppSelector(state => state.common);
+  const { currentProfile } = useCurrentProfile();
+
   const menuRef = useRef<HTMLDivElement>(null);
   const token = getCookie(TOKEN);
   const pathname = usePathname();
@@ -162,7 +163,7 @@ const Menu = () => {
             })}
           </div>
 
-          {!isEmpty(profile) ? (
+          {!isEmpty(currentProfile) ? (
             <div className='mt-auto border-t border-gray-200 p-2 w-full'>
               <div
                 className={`flex items-center ${isCollapsed ? "justify-center" : "gap-3"
@@ -171,7 +172,7 @@ const Menu = () => {
               >
                 <div className='w-8 h-8 bg-gray-700 rounded-full overflow-hidden flex-shrink-0'>
                   <img
-                    src={profile?.avatar || UserImage}
+                    src={currentProfile?.avatar || UserImage}
                     alt='User'
                     width={32}
                     height={32}
@@ -180,8 +181,8 @@ const Menu = () => {
                 </div>
                 {!isCollapsed && (
                   <div className='overflow-hidden'>
-                    <p className='text-14-20 font-medium truncate' title={profile?.username}>{profile?.username}</p>
-                    <p className='text-12-16 text-gray-500 truncate' title={profile?.email}>{profile?.email}</p>
+                    <p className='text-14-20 font-medium truncate' title={currentProfile?.username}>{currentProfile?.username}</p>
+                    <p className='text-12-16 text-gray-500 truncate' title={currentProfile?.email}>{currentProfile?.email}</p>
                   </div>
                 )}
               </div>

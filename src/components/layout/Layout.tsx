@@ -2,7 +2,6 @@
 import React, { useEffect, useState } from "react";
 import Menu from "./Menu";
 import { usePathname } from "next/navigation";
-import { useProfileFetch } from "@/hooks/useProfileFetch";
 
 interface LayoutProps {
   children: React.ReactNode;

@@ -1,15 +1,13 @@
 "use client";
-import { getProfile, login } from "@/helpers/api/system";
+import { login } from "@/helpers/api/system";
 import React from "react";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
-
-import { IconButton, InputAdornment, Tooltip } from "@mui/material";
+import { IconButton, InputAdornment } from "@mui/material";
 import Link from "next/link";
 import { useState } from "react";
 import { useAppDispatch } from "@/redux/hooks";
-import { setProfile, setToast } from "@/redux/slices/common";
-import { useRouter } from "next/navigation";
+import {  setToast } from "@/redux/slices/common";
 import { setCookie } from "cookies-next";
 import Image from "next/image";
 import clsx from "clsx";
@@ -35,7 +33,6 @@ const FormLoginBasic = () => {
   const [loading, setLoading] = useState(false);
 
   const dispatch = useAppDispatch();
-  const router = useRouter();
   const defaultValues: LoginFrom = {
     username: "",
     password: "",

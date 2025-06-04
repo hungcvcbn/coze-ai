@@ -10,12 +10,14 @@ import BasicDialogContent from "@/components/common/BasicDialogContent";
 import BasicDialogActions from "@/components/common/BasicDialogActions";
 import BasicButton from "@/components/common/BasicButton";
 import CustomTextField from "@/components/hook-form/CustomTextField";
-import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
-
-const EditPlatformModal = () => {
+interface EditPlatformModalProps {
+  open: boolean;
+  setOpen: (open: boolean) => void;
+}
+const EditPlatformModal = ({ open, setOpen }: EditPlatformModalProps) => {
   const [data, setData] = useState<any>({});
-  const [open, setOpen] = useState<boolean>(false);
-  const [isConnected, setIsConnected] = useState(false);
+
+  // const [isConnected, setIsConnected] = useState(false);
   const dispatch = useAppDispatch();
   const params = useParams();
   const id = params?.id as string;
@@ -42,11 +44,6 @@ const EditPlatformModal = () => {
   }, [open]);
   return (
     <>
-      <Tooltip title='Chọn kết nối với nền tảng' placement='top'>
-        <IconButton className='p-1' onClick={() => setOpen(true)}>
-          <MoreHorizIcon />
-        </IconButton>
-      </Tooltip>
       <BasicDialog
         maxWidth='md'
         open={open}
@@ -57,72 +54,6 @@ const EditPlatformModal = () => {
         <BasicDialogContent>
           <div className='flex flex-col text-neutral'>
             <div className='flex flex-col gap-4 mb-4 rounded-lg bg-white p-4'>
-              <div className='text-14-20 font-bold flex items-center gap-2'>
-                Trạng thái kết nối
-                <Switch
-                  checked={isConnected}
-                  onChange={e => setIsConnected(e.target.checked)}
-                  color='primary'
-                  sx={{
-                    width: 50,
-                    height: 26,
-                    padding: 0,
-                    "& .MuiSwitch-switchBase": {
-                      padding: 0,
-                      margin: "2px",
-                      transitionDuration: "300ms",
-                      "&.Mui-checked": {
-                        transform: "translateX(25px)",
-                        color: "#fff",
-                        "& + .MuiSwitch-track": {
-                          backgroundColor: "#2ECA45",
-                          opacity: 1,
-                          border: 0,
-                        },
-                        "& .MuiSwitch-thumb:before": {
-                          content: "Active",
-                          position: "absolute",
-                          width: "100%",
-                          height: "100%",
-                          left: 0,
-                          top: 0,
-                          display: "flex",
-                          alignItems: "center",
-                          justifyContent: "center",
-                          fontSize: "10px",
-                          fontWeight: "bold",
-                          color: "#2ECA45",
-                        },
-                      },
-                    },
-                    "& .MuiSwitch-thumb": {
-                      boxSizing: "border-box",
-                      width: 22,
-                      height: 22,
-                      "&:before": {
-                        content: "'Tắt'",
-                        position: "absolute",
-                        width: "100%",
-                        height: "100%",
-                        left: 0,
-                        top: 0,
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        fontSize: "10px",
-                        fontWeight: "bold",
-                        color: "#000000",
-                      },
-                    },
-                    "& .MuiSwitch-track": {
-                      borderRadius: 26 / 2,
-                      backgroundColor: "#E9E9EA",
-                      opacity: 1,
-                      transition: "background-color 500ms",
-                    },
-                  }}
-                />
-              </div>
               <CustomTextField
                 label='Mã Sctript được để vào trong thẻ Head của Webiste'
                 multiline

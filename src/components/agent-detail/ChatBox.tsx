@@ -14,9 +14,8 @@ import CleaningServicesIcon from "@mui/icons-material/CleaningServices";
 import { setToast } from "@/redux/slices/common";
 import { useDispatch } from "react-redux";
 import BasicButton from "../common/BasicButton";
-
-import ListPlatformPublish from "./platform/ListPlatformPublish";
-import { IconButton, TextField } from "@mui/material";
+import ConfigPlatform from "./platform/ConfigPlatform";
+import { IconButton } from "@mui/material";
 import { resetConversation } from "@/helpers/api/agent";
 import { useAppSelector } from "@/redux/hooks";
 import { isEmpty } from "@/helpers/utils/common";
@@ -365,7 +364,7 @@ const ChatBox = ({ conversation, data }: ChatBoxProps) => {
                 handleChat();
               }
             }}
-            rows={input.split('\n').length || 1}
+            rows={input.split("\n").length || 1}
             className='w-full resize-none justify-center hidden-scroll-bar border-tl rounded-2xl items-center outline-none text-14-20 text-neutral py-3 px-2 max-h-[200px] min-h-[40px]'
             style={{
               overflow: "auto",
@@ -416,7 +415,7 @@ const ChatBox = ({ conversation, data }: ChatBoxProps) => {
         />
       </div>
 
-      <ListPlatformPublish open={open} setOpen={setOpen} />
+      <ConfigPlatform open={open} setOpen={setOpen} />
     </div>
   );
 };

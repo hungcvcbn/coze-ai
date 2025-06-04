@@ -1,12 +1,13 @@
 import React from "react";
 import Layout from "@/components/layout/Layout";
-import ListPlatformConfig from "@/components/agent-detail/platform/ListPlatformConfig";
-const SettingsListPage = () => {
+import ListPlatformPublish from "@/components/agent-detail/platform/ListPlatformPublish";
+
+const ListPlatformPublishPage = () => {
   return (
     <Layout>
-      <ListPlatformConfig />
+      <ListPlatformPublish />
     </Layout>
   );
-};
+};  
 
-export default SettingsListPage;
+export default ListPlatformPublishPage;

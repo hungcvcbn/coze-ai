@@ -93,3 +93,11 @@ export const updateAgentSetup = async (id: string, data: any) => {
     data,
   })
 }
+
+export const updateLivechatIntegration = async (data: any) => {
+  return await Api({
+    url: `/cbot/v1/livechat-integrations/whatsapp`,
+    method: "post",
+    data,
+  });
+};

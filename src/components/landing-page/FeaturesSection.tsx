@@ -80,14 +80,14 @@ const FeaturesSection = () => {
               className={`feature-card bg-white/80 backdrop-blur-md border border-gray-200 shadow-lg p-6 rounded-2xl flex flex-col items-center text-center hover:shadow-2xl hover:border-blue-500 ${
                 isFeaturesIntersecting
                   ? index % 2 === 0
-                    ? "animate-fade-in-left-repeat"
+                    ? "animate-fade-in-left"
                     : index % 2 === 1
-                    ? "animate-fade-in-right-repeat"
-                    : "animate-slide-in-up-repeat"
-                  : "opacity-0 translate-y-[100%]"
+                    ? "animate-fade-in-right"
+                    : "animate-slide-in-up"
+                  : "opacity-0 translate-x-10"
               }`}
               style={{
-                animationDelay: `${index * 0.1}s`,
+                transitionDelay: `${index * 0.1}s`,
               }}
             >
               <div className="text-24-28 mb-4">{feature.icon}</div>

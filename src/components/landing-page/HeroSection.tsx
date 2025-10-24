@@ -26,7 +26,7 @@ const HeroSection = () => {
   return (
     <div
       ref={ref}
-      className={`h-screen min-h-[1200px] w-full transition-all duration-1000 ease-out ${
+      className={`h-screen min-h-[800px] sm:min-h-[1200px] w-full transition-all duration-1000 ease-out ${
         isIntersecting ? "opacity-100" : "opacity-0"
       }`}
       style={{
@@ -36,28 +36,29 @@ const HeroSection = () => {
         backgroundRepeat: "no-repeat",
       }}
     >
-      <div className="relative z-10 grid grid-cols-2 ml-[100px] pt-[200px] h-full">
-        <div className="flex flex-col items-start justify-start w-[787px]">
+      <div className="relative z-10 grid grid-cols-2 ml-5 xl:ml-[100px] pt-[120px] xl:pt-[200px] h-full">
+        <div className="flex flex-col gap-4 items-start justify-start min-w-[350px] w-full xl:w-[900px]">
           <div
-            className={`hero-text text-[60px] font-bold text-white transition-all duration-1000 ease-out ${
+            className={`hero-text text-24-32 sm:pb-8 xl:text-[60px] font-bold text-white transition-all duration-1000 ease-out ${
               isIntersecting
                 ? "opacity-100 translate-y-0"
                 : "opacity-0 translate-y-8"
             }`}
           >
-            Design inspirations,
-            <p className="text-2xl font-bold text-[#8746EB]">meet Figma</p>
+            Smarter conversations,
+          </div>
+          <div className="text-24-32 xl:text-[60px] sm:pb-8 font-bold text-[#8746EB]">
+            with Zenee AI
           </div>
           <p
-            className={`hero-text text-20-28 transition-all duration-1000 ease-out ${
+            className={`hero-text text-16-24 xl:text-20-28 transition-all duration-1000 ease-out ${
               isIntersecting
                 ? "opacity-100 translate-y-0"
                 : "opacity-0 translate-y-8"
             }`}
           >
-            Web to Figma is the most delightful way to save, organise, and
-            import inspirations into Figma as pixel-perfect components.
-            Screenshots, you're out!
+            The smartest way to think, create, and get things done — all with
+            your AI companion, ZeneeAI. Tasks, meetings, and ideas — handled.
           </p>
           <div
             className={`flex items-center justify-start pt-10 text-white transition-all duration-1000 ease-out ${
@@ -65,9 +66,9 @@ const HeroSection = () => {
                 ? "opacity-100 translate-y-0"
                 : "opacity-0 translate-y-8"
             }`}
-            style={{ transitionDelay: "0.6s" }}
+            style={{ transitionDelay: "0.4s" }}
           >
-            <ul className="hero-text list-disc list-inside text-20-28 space-y-2">
+            <ul className="hero-text list-disc list-inside text-16-24 xl:text-20-28 space-y-2">
               <li>2000+ components</li>
               <li>Unlimited collections</li>
               <li>Pixel-perfect capture</li>
@@ -92,7 +93,7 @@ const HeroSection = () => {
                 "0 -4px 40px 0px rgba(135, 70, 235, 0.4), 4px 0 40px 0px rgba(135, 70, 235, 0.4), 0px 0 40px 0px rgba(135, 70, 235, 0.4)",
               borderTopLeftRadius: "18px",
               borderBottomLeftRadius: "18px",
-              transitionDelay: "0.8s",
+              transitionDelay: "0.4s",
             }}
           />
           <Image
@@ -106,7 +107,7 @@ const HeroSection = () => {
                 : "opacity-0 translate-x-10"
             }`}
             style={{
-              transitionDelay: "1s",
+              transitionDelay: "0.4s",
               boxShadow:
                 "0 -4px 40px 0px rgba(135, 70, 235, 0.4), 4px 0 40px 0px rgba(135, 70, 235, 0.4), 0px 0 40px 0px rgba(135, 70, 235, 0.4)",
               WebkitBorderTopLeftRadius: "18px",

@@ -42,76 +42,78 @@ const LandingPage = () => {
   );
 
   return (
-    <div className='min-h-screen bg-white text-neutral overflow-hidden'>
+    <div className="min-h-screen bg-white text-neutral overflow-hidden">
       {/* Navigation Bar */}
       <nav
         className={`fixed top-0 left-0 right-0 z-50 ${navBackgrounds[navBgIndex]} shadow-2xl pb-4 backdrop-blur-md py-4 px-6 flex justify-between items-center transition-colors duration-700`}
       >
-        <Link href='/' className='flex items-center gap-2'>
-          <div className='flex items-center gap-2'>
-            <Image src={LogoImage} alt='Zenee AI Logo' width={40} height={40} />
-            <span className='font-bold text-24-32 text-primary-400'>Zenee AI</span>
+        <Link href="/" className="flex items-center gap-2">
+          <div className="flex items-center gap-2">
+            <Image src={LogoImage} alt="Zenee AI Logo" width={40} height={40} />
+            <span className="font-bold text-24-32 text-primary-400">
+              Zenee AI
+            </span>
           </div>
         </Link>
 
-        <div className='hidden md:flex items-center gap-8'>
+        <div className="hidden md:flex items-center gap-8">
           <Link
-            href='#features'
-            className='text-primary-400 hover:text-primary-700 transition-colors'
+            href="#features"
+            className="text-primary-400 hover:text-primary-700 transition-colors"
           >
-            Tính năng
+            Features
           </Link>
           <Link
-            href='#use-cases'
-            className='text-primary-400 hover:text-primary-700 transition-colors'
+            href="#use-cases"
+            className="text-primary-400 hover:text-primary-700 transition-colors"
           >
-            Ứng dụng
+            Use cases
           </Link>
           <Link
-            href='#chat-demo'
-            className='text-primary-400 hover:text-primary-700 transition-colors'
+            href="#chat-demo"
+            className="text-primary-400 hover:text-primary-700 transition-colors"
           >
-            Chat box
+            Chat demo
           </Link>
           <Link
-            href='#platform-integration'
-            className='text-primary-400 hover:text-primary-700 transition-colors'
+            href="#platform-integration"
+            className="text-primary-400 hover:text-primary-700 transition-colors"
           >
-            Nền tảng
+            Platform
           </Link>
           <Link
-            href='#pricing'
-            className='text-primary-400 hover:text-primary-700 transition-colors'
+            href="#pricing"
+            className="text-primary-400 hover:text-primary-700 transition-colors"
           >
-            Bảng giá
+            Service price
           </Link>
-          <Link href='/login'>
-            <BasicButton variant='contained' color='primary'>
-              Đăng nhập
+          <Link href="/login">
+            <BasicButton variant="contained" color="primary">
+              Login
             </BasicButton>
           </Link>
         </div>
 
-        <button className='md:hidden'>
+        <button className="md:hidden">
           <svg
-            width='24'
-            height='24'
-            viewBox='0 0 24 24'
-            fill='none'
-            xmlns='http://www.w3.org/2000/svg'
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
           >
             <path
-              d='M3 12H21M3 6H21M3 18H21'
-              stroke='currentColor'
-              strokeWidth='2'
-              strokeLinecap='round'
+              d="M3 12H21M3 6H21M3 18H21"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
             />
           </svg>
         </button>
       </nav>
 
       {/* Hero Section */}
-      <HeroSection /> 
+      <HeroSection />
       {/* <SliderAnimation /> */}
 
       {/* Features Section */}
@@ -130,25 +132,25 @@ const LandingPage = () => {
       <ServicePrice />
 
       {/* CTA Section */}
-      <div className='py-20 bg-gradient-to-r from-primary-50 via-primary-100 to-white text-neutral'>
-        <div className='container mx-auto px-6 text-center'>
+      <div className="py-20 bg-gradient-to-r from-primary-50 via-primary-100 to-white text-neutral">
+        <div className="container mx-auto px-6 text-center">
           <motion.h2
-            className='text-32-32 font-bold text-neutral mb-6'
+            className="text-32-32 font-bold text-neutral mb-6"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            Sẵn sàng nâng cao trải nghiệm khách hàng với AI?
+            Ready to enhance customer experience with AI?
           </motion.h2>
           <motion.p
-            className='text-xl mb-10 max-w-2xl mx-auto'
+            className="text-xl mb-10 max-w-2xl mx-auto"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            Đăng ký dùng thử miễn phí 14 ngày và khám phá sức mạnh của Zenee AI
+            Register for a free 14-day trial and explore the power of Zenee AI
           </motion.p>
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -157,10 +159,10 @@ const LandingPage = () => {
             transition={{ duration: 0.6, delay: 0.4 }}
           >
             <BasicButton
-              variant='contained'
-              className='bg-white text-primary hover:bg-gray-100 px-8 py-3 text-lg font-medium rounded-xl'
+              variant="contained"
+              className="bg-white text-primary hover:bg-gray-100 px-8 py-3 text-lg font-medium rounded-xl"
             >
-              Bắt đầu ngay
+              Start now
             </BasicButton>
           </motion.div>
         </div>
@@ -233,7 +235,8 @@ const LandingPage = () => {
 
         /* Enhanced smooth animations */
         * {
-          transition-property: background-color, border-color, color, fill, stroke;
+          transition-property: background-color, border-color, color, fill,
+            stroke;
           transition-duration: 200ms;
           transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
         }

@@ -16,39 +16,39 @@ const FeaturesSection = () => {
   });
   const features = [
     {
-      title: "AI Chatbot Thông minh",
+      title: "AI Chatbot Intelligent",
       description:
-        "Xây dựng chatbot hiểu và trả lời câu hỏi phức tạp một cách chính xác, cải thiện trải nghiệm khách hàng.",
+        "Build a chatbot that understands and answers complex questions accurately, improving customer experience.",
       icon: "🤖",
     },
     {
-      title: "Tích hợp đa nền tảng",
+      title: "Multi-platform integration",
       description:
-        "Hỗ trợ Website, Facebook, Telegram, Zalo và nhiều kênh khác, giúp tiếp cận khách hàng dễ dàng.",
+        "Support Website, Facebook, Telegram, Zalo and many other channels, making it easy to reach customers.",
       icon: "🌐",
     },
     {
-      title: "Phân tích dữ liệu",
+      title: "Data analysis",
       description:
-        "Theo dõi hành vi người dùng và đưa ra báo cáo chi tiết để tối ưu hóa hiệu suất AI.",
+        "Track user behavior and provide detailed reports to optimize AI performance.",
       icon: "📊",
     },
     {
       title: "Tùy biến AI",
       description:
-        "Đào tạo AI theo yêu cầu doanh nghiệp, giúp AI hiểu ngữ cảnh và phản hồi chính xác hơn.",
+        "Train AI according to business requirements, helping AI understand context and respond more accurately.",
       icon: "⚙️",
     },
     {
-      title: "Đào tạo AI từ dữ liệu",
+      title: "Train AI from data",
       description:
-        "Huấn luyện chatbot bằng tài liệu nội bộ, FAQ, và dữ liệu doanh nghiệp để đảm bảo độ chính xác cao.",
+        "Train chatbot with internal documents, FAQs, and business data to ensure high accuracy.",
       icon: "📚",
     },
     {
-      title: "Tự động hóa quy trình",
+      title: "Automate processes",
       description:
-        "Giải phóng nhân sự khỏi các công việc lặp đi lặp lại, giúp tối ưu hóa vận hành doanh nghiệp.",
+        "Free up staff from repetitive tasks, optimizing business operations.",
       icon: "🔄",
     },
   ];
@@ -62,11 +62,11 @@ const FeaturesSection = () => {
       <div className="container mx-auto px-6">
         <div className="text-center mb-12 mt-8">
           <div className="text-32-32 text-neutral font-bold animate-slide-in-up">
-            Tính Năng Nổi Bật
+            Features Highlight
           </div>
           <div className="text-lg text-gray-600 max-w-2xl mx-auto mt-4 animate-slide-in-up">
-            Zenee AI cung cấp giải pháp AI toàn diện giúp doanh nghiệp tự động
-            hóa, tối ưu hiệu suất và nâng cao trải nghiệm khách hàng.
+            Zenee AI provides a comprehensive AI solution to help businesses
+            automate, optimize performance, and improve customer experience.
           </div>
         </div>
 

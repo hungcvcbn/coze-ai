@@ -12,7 +12,7 @@ export default function PlatformIntegrationSection() {
     {
       name: "Website",
       description:
-        "Tích hợp Zenee AI vào website của bạn với chỉ vài dòng code",
+        "Integrate Zenee AI into your website with just a few lines of code",
       icon: (
         <svg
           width="40"
@@ -31,24 +31,24 @@ export default function PlatformIntegrationSection() {
     {
       name: "Facebook",
       description:
-        "Kết nối Zenee AI với Fanpage để tự động hóa trò chuyện với khách hàng",
+        "Connect Zenee AI with Fanpage to automate chat with customers",
       icon: <Image src={FacebookIcon} alt="Facebook" width={50} height={50} />,
     },
     {
       name: "Telegram",
-      description: "Bot Telegram thông minh hỗ trợ khách hàng 24/7",
+      description: "Smart Telegram bot supports customers 24/7",
       icon: <Image src={TelegramIcon} alt="Telegram" width={50} height={50} />,
     },
     {
       name: "Zalo",
       description:
-        "Tích hợp Zenee AI vào OA Zalo để tương tác với người dùng Việt Nam",
+        "Integrate Zenee AI into Zalo OA to interact with Vietnamese users",
       icon: <Image src={ZaloIcon} alt="Zalo" width={50} height={50} />,
     },
     {
       name: "Mobile Apps",
       description:
-        "SDK cho iOS và Android giúp tích hợp AI vào ứng dụng di động",
+        "SDK for iOS and Android helps integrate AI into mobile applications",
       icon: (
         <svg
           width="40"
@@ -66,13 +66,13 @@ export default function PlatformIntegrationSection() {
     },
     {
       name: "WhatsApp",
-      description: "Tự động hóa giao tiếp qua WhatsApp với khách hàng quốc tế",
+      description: "Automate communication through WhatsApp with international customers",
       icon: <Image src={WhatsAppIcon} alt="WhatsApp" width={50} height={50} />,
     },
     {
       name: "API",
       description:
-        "API linh hoạt cho phép tích hợp Zenee AI vào bất kỳ hệ thống nào",
+        "Flexible API allows integrating Zenee AI into any system",
       icon: (
         <svg
           width="40"
@@ -90,7 +90,7 @@ export default function PlatformIntegrationSection() {
     },
     {
       name: "Email",
-      description: "Tự động phản hồi email và phân loại nội dung với AI",
+      description: "Automatically respond to emails and classify content with AI",
       icon: (
         <svg
           width="40"
@@ -121,10 +121,10 @@ export default function PlatformIntegrationSection() {
           transition={{ duration: 0.6 }}
         >
           <h2 className="text-32-32 font-bold text-neutral mb-4">
-            Tích hợp đa nền tảng
+            Multi-platform integration
           </h2>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Triển khai Zenee AI trên mọi nền tảng mà khách hàng của bạn sử dụng
+            Deploy Zenee AI on every platform your customers use
           </p>
         </motion.div>
 
@@ -153,7 +153,7 @@ export default function PlatformIntegrationSection() {
                 {platform.description}
               </p>
               <button className="mt-4 text-primary-600 text-sm font-medium hover:text-primary-700 flex items-center">
-                Tìm hiểu thêm
+                Learn more
                 <svg
                   width="16"
                   height="16"

@@ -10,6 +10,7 @@ import { GoogleOAuthProvider } from "@react-oauth/google";
 import CheckAuth from "@/components/auth/CheckAuth";
 import "./landing.css";
 
+
 const inter = Inter({
   subsets: ["latin"],
   display: "swap",
@@ -34,12 +35,12 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang='en' className={`${inter.className} ${jetbrains.variable}`}>
+    <html lang="en" className={`${inter.className} ${jetbrains.variable}`}>
       <head>
         <title>Zenee AI</title>
-        <link rel='icon' href={`/logo.svg?v=${+new Date()}`} sizes='any' />
+        <link rel="icon" href={`/logo.svg?v=${+new Date()}`} sizes="any" />
       </head>
-      <body className='bg-neutral-100'>
+      <body className="bg-neutral-100">
         <GoogleOAuthProvider
           clientId={
             process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID ||

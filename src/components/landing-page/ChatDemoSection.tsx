@@ -5,24 +5,24 @@ import { motion } from "framer-motion";
 export default function ChatDemoSection() {
   const chatFeatures = [
     {
-      title: "Hiểu ngôn ngữ tự nhiên",
+      title: "Understand natural language",
       description:
-        "Chatbot có khả năng hiểu và xử lý ngôn ngữ tự nhiên của người dùng, mang lại trải nghiệm giao tiếp tự nhiên hơn.",
+        "Chatbot has the ability to understand and process the natural language of users, providing a more natural communication experience.",
     },
     {
-      title: "Học hỏi liên tục",
+      title: "Continuous learning",
       description:
-        "Chatbot liên tục học hỏi từ các tương tác trước đó để cải thiện khả năng trả lời và đề xuất.",
+        "Chatbot continuously learns from previous interactions to improve response and suggestion capabilities.",
     },
     {
-      title: "Tùy chỉnh thương hiệu",
+      title: "Custom brand",
       description:
-        "Tùy chỉnh giao diện chatbot theo phong cách thương hiệu của doanh nghiệp.",
+        "Customize the chatbot interface according to the brand style of the business.",
     },
     {
-      title: "Hỗ trợ đa ngôn ngữ",
+      title: "Support multiple languages",
       description:
-        "Chatbot hỗ trợ nhiều ngôn ngữ khác nhau, giúp doanh nghiệp tiếp cận khách hàng toàn cầu.",
+        "Chatbot supports multiple languages, helping businesses reach global customers.",
     },
   ];
   return (
@@ -39,12 +39,12 @@ export default function ChatDemoSection() {
             transition={{ duration: 0.8 }}
           >
             <h2 className="text-32-32 font-bold text-neutral mb-6">
-              Trải nghiệm Chatbot AI Thông minh
+              Smart Chatbot AI Experience
             </h2>
             <p className="text-lg text-gray-600 mb-8">
-              Zenee AI cung cấp giải pháp chatbot mạnh mẽ với khả năng hiểu ngôn
-              ngữ tự nhiên, tích hợp đa nền tảng và tùy chỉnh theo nhu cầu của
-              doanh nghiệp.
+              Zenee AI provides a powerful chatbot solution with the ability to
+              understand natural language, integrate multiple platforms, and
+              customize according to business needs.
             </p>
             <ul className="space-y-4">
               {chatFeatures.map((feature, index) => (
@@ -99,8 +99,7 @@ export default function ChatDemoSection() {
                 </div>
                 <div className="bg-white p-3 rounded-lg shadow max-w-xs">
                   <p className="text-gray-800">
-                    Xin chào! Tôi là Zenee AI, tôi có thể giúp gì cho bạn hôm
-                    nay?
+                    Hello! I am Zenee AI, how can I help you today?
                   </p>
                 </div>
               </div>
@@ -110,7 +109,7 @@ export default function ChatDemoSection() {
                 </div>
                 <div className="bg-primary-50 p-3 rounded-lg shadow max-w-xs">
                   <p className="text-gray-800">
-                    Tôi muốn biết thêm về các tính năng của Zenee AI
+                    I want to know more about the features of Zenee AI
                   </p>
                 </div>
                 <div className="min-w-8 min-h-8 max-w-8 max-h-8 rounded-full bg-gray-300 flex items-center justify-center text-white font-bold">
@@ -123,9 +122,10 @@ export default function ChatDemoSection() {
                 </div>
                 <div className="bg-white p-3 rounded-lg shadow max-w-sm">
                   <p className="text-gray-800">
-                    Zenee AI cung cấp nhiều tính năng như tạo chatbot thông
-                    minh, tích hợp đa nền tảng và tùy chỉnh theo nhu cầu. Bạn
-                    quan tâm đến tính năng nào cụ thể?
+                    Zenee AI provides many features like creating intelligent
+                    chatbots, integrating multiple platforms, and customizing
+                    according to needs. Which feature are you interested in
+                    specifically?
                   </p>
                 </div>
               </div>
@@ -133,7 +133,7 @@ export default function ChatDemoSection() {
             <div className="p-4 border-t flex items-center gap-2">
               <input
                 type="text"
-                placeholder="Nhập câu hỏi của bạn..."
+                placeholder="Enter your question..."
                 readOnly
                 className="flex-1 rounded-full focus-none px-4 py-2 border border-gray-300 focus:outline-none focus:border-primary"
               />

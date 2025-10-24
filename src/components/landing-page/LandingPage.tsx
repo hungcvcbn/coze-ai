@@ -12,6 +12,7 @@ import PlatformIntegrationSection from "./PlatformIntegrationSection";
 import AboutUs from "./AboutUs";
 import FooterSection from "./FooterSection";
 import ServicePrice from "./ServicePrice";
+import HeroSection from "./HeroSection";
 const LandingPage = () => {
   const [scrollPosition, setScrollPosition] = useState(0);
   const navBackgrounds = [
@@ -110,7 +111,8 @@ const LandingPage = () => {
       </nav>
 
       {/* Hero Section */}
-      <SliderAnimation />
+      <HeroSection /> 
+      {/* <SliderAnimation /> */}
 
       {/* Features Section */}
       <FeaturesSection />

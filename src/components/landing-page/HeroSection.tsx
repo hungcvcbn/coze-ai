@@ -47,7 +47,7 @@ const HeroSection = () => {
           >
             Smarter conversations,
           </div>
-          <div className="text-24-32 xl:text-[60px] sm:pb-8 font-bold text-[#8746EB]">
+          <div className="hero-text text-24-32 xl:text-[60px] sm:pb-8 font-bold text-[#8746EB]">
             with Zenee AI
           </div>
           <p
